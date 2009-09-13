@@ -232,7 +232,7 @@ int       ChargeLocuteurs (char *NomFichier, locuteur **Liste) {
 	int  points;
 	int  pc; 	/* heures du premier contact */
 	int  dc; 	/* 	heures du dernier contact */
-	long seen;	/* dernière activité vue */
+	long seen;	/* derniÃ¨re activitÃ© vue */
 	locuteur *Loc;
 
 	if ((fp = fopen (NomFichier, "r")) == NULL) {
