@@ -3,7 +3,7 @@
 
 int main(int argc,char** argv)
 {
-    char inbuff[5] = { 233,232,224,231,0 } ; /* iso=8859-1: ιθΰη */
+    char inbuff[5] = { 233,232,224,231,0 } ; /* iso=8859-1: Γ©Γ¨Γ Γ§ */
     char *pinbuff=(char *)&inbuff;
     char outbuff[17]= {0}; /* multibyte...probably better to store in a w_char */
     char *poutbuff=(char *)&outbuff;

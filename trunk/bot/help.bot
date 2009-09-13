@@ -277,7 +277,7 @@ a user/shit/rellevel of (100/0/0) is required
 %end
 %Subject Relwrite
 
-\bRELWRITE\b écrit la liste des relations que le bot a eues sur le
+\bRELWRITE\b Ã©crit la liste des relations que le bot a eues sur le
 disque. Pour cette operation, un niveau user/shit/rel de (100/0/0) est
 requis.
 

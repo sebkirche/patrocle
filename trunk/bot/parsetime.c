@@ -115,9 +115,9 @@ struct {
     { "weeks", WEEKS,1 },	/* (pluralized) */
     { "semaines", WEEKS, 1 },		/* (pluralized) */
     { "year", YEARS,0 },	/* year ... */
-    { "année", YEARS,0 },	/* year ... */
+    { "annÃ©e", YEARS,0 },	/* year ... */
     { "years", YEARS,1 },	/* (pluralized) */
-    { "années", YEARS,1 },	/* (pluralized) */
+    { "annÃ©es", YEARS,1 },	/* (pluralized) */
     { "jan", JAN, 0 },
     { "feb", FEB, 0 },
     { "mar", MAR, 0 },
@@ -167,17 +167,17 @@ struct {
     { "november", NOV,0 },
     { "december", DEC,0 },
     { "janvier", JAN,0 },
-    { "février", FEB,0 },
+    { "fÃ©vrier", FEB,0 },
     { "mars", MAR,0 },
     { "avril", APR,0 },
     { "mai", MAY,0 },
     { "juin", JUN,0 },
     { "juillet", JUL,0 },
-    { "août", AUG,0 },
+    { "aoÃ»t", AUG,0 },
     { "septembre", SEP,0 },
     { "octobre", OCT,0 },
     { "novembre", NOV,0 },
-    { "décembre", DEC,0 },
+    { "dÃ©cembre", DEC,0 },
 } ;
 
 /* File scope variables */
