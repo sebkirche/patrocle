@@ -198,7 +198,7 @@ void DetruitListe (locuteur **Liste) {
 	locuteur *ADetruire;
 
 	if (Liste)
-		while (*Liste) {
+		while (*Liste){
 			ADetruire = *Liste;
 			*Liste = (*Liste)->suivant;
 			if (ADetruire->nuh) {
@@ -206,7 +206,7 @@ void DetruitListe (locuteur **Liste) {
 			}
 			free (ADetruire);
 		}
-
+	free(Liste);
 } /* void DetruitListe () */
 
 

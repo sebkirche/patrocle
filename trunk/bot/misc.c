@@ -44,12 +44,12 @@ char	*months[] =
 	"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 };
 
-int 	ischannel(char *channel)
+int 	ischannel(const char *channel)
 {
     	return(*channel == '#' || *channel == '&');
 }
 
-int	isnick(char *nick)
+int	isnick(const char *nick)
 {
 	int	i;
 

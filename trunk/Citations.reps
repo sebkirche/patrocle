@@ -1,4 +1,4 @@
-1290
+1310
 BAC_A_SABLE	%s, tu me donnes ma pelle et mon seau?	H_I!~parmenti@meurthe.loria.fr	#*
 BAC_A_SABLE	J'peux pas, %s, tu m'as piqué mon seau!	H_I!~parmenti@meurthe.loria.fr	#*
 BLAGUE_CARAMBAR	-Chéri, dis-moi ce que tu préfères, une femme jolie ou une femme intelligente? -Ni l'un ni l'autre, chérie, tu sais bien que je n'aime que toi.	H_I!~parmenti@meurthe.loria.fr	#*
@@ -1289,3 +1289,23 @@ CITE_STERE	ca fait louche de se marrer devant son code	H_I!~parmenti@desilles.lo
 cite_HI	Detendez-vous, vous etes sur IRC (voix mielleuse) ;)	_Shadow!~dazy@layon.ensg.u-nancy.fr	#*
 CITE_SHADOW	je te beurke :p	H_I!~parmenti@desilles.loria.fr	#*
 PERL	perl saybien	seki!i=seki@falbala.seki.fr	#seki8
+CITE_AUZAIN	grigrigri	seki!i=seki@falbala.seki.fr	patrocle
+CITE_AUZAIN	grigrigri	seki!i=seki@falbala.seki.fr	#emacsfr
+CITE_AUZAIN	rondutju	seki!i=seki@falbala.seki.fr	#emacsfr
+CITE_KH	bref	seki!i=seki@falbala.seki.fr	#emacsfr
+RUBY	Perl c'est bien, Ruby c'est mieux !	seki!i=seki@falbala.seki.fr	#emacsfr
+vi	arriere, suppot de Joy!	kh!n=karim@joondalup.davromaniak.eu	#emacsfr
+PYTHON	Bah, les Pythoneux ne sont pas sur ce chan	ecocode!n=ecocode@rps1857.ovh.net	#emacsfr
+PERL	perl saybien	seki!i=seki@falbala.seki.fr	#emacsfr
+PYTHON	Bah, les Pythoneux ne sont pas sur ce chan	ecocode!n=ecocode@rps1857.ovh.net	#emacsfr
+PERL	faudrait vraiment que je m'y mette, au perl	seki!i=seki@falbala.seki.fr	#emacsfr
+EMACSFR	http://emacsfr.tuxfamily.org	ecocode!n=ecocode@rps1857.ovh.net	#emacsfr
+MENTEUR	mentir SAYMAL	ecocode!n=ecocode@rps1857.ovh.net	#emacsfr
+MENTEUR	mentir SAYMAL	seki!i=seki@falbala.seki.fr	#emacsfr
+PARDON	Honte sur toi et ta descendance	ecocode!n=ecocode@rps1857.ovh.net	#emacsfr
+LEGRANDPARDON	top là ! super film !	ecocode!n=ecocode@rps1857.ovh.net	#emacsfr
+THEOLIANE	toucher pas à ma princesse!	ecocode!n=ecocode@rps1857.ovh.net	#emacsfr
+PYTHONEUX	grrr.... grrr.... ou elles sont les sales bêtes ?	ecocode!n=ecocode@rps1857.ovh.net	#emacsfr
+DIEU	Il n'y a qu'un seul Dieu. ecocode est son nom. Il est le seul et l'unique, il est notre Seigneur.	ecocode!n=ecocode@ip-62-235-192-148.dsl.scarlet.be	Patrocle
+#emacsfr	DIEU 	ecocode!n=ecocode@ip-62-235-192-148.dsl.scarlet.be	Patrocle
+DIEU	Il n'y a qu'un seul Dieu. ecocode est son nom. Il est le seul et l'unique, il est notre Seigneur.	ecocode!n=ecocode@ip-62-235-192-148.dsl.scarlet.be	#emacsfr

@@ -31,6 +31,7 @@ int ChargeReponses (char *nom_fichier);
 int AjouteReponse (char *from, char *channel, char *Reponse, char *NomStimulus);
 int SupprimeRep (int numero);
 int SupprimeStim (int numero);
+void LibereStimuli ();
 void LibereReponses ();
 
 #endif

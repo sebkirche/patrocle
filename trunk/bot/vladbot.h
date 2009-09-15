@@ -16,15 +16,15 @@ struct	liststruct
 	char		*opperfile;
 	char		*protfile;
 	char		*shitfile;
-        char            *relfile;
+	char		*relfile;
 /*         char            *botfile; */
-        char            *locuteurfile;
+	char		*locuteurfile;
 	USERLVL_list	**opperlist;
 	USERLVL_list	**protlist;
 	USERLVL_list	**shitlist;
-        USERLVL_list    **rellist;
+	USERLVL_list    **rellist;
 /*         BOT_list        **botlist; */
-        locuteur        **ListeLocuteurs;
+	locuteur        **ListeLocuteurs;
 };
 
 typedef	struct liststruct	listinfo;
@@ -93,6 +93,7 @@ void	delete_listset(char *s);
 void    readlevelfiles ();
 int	forkbot(char *nick, char *login, char *name);
 int	killbot(char *reason);
+void	cleanup_listsets();
 void	quit_all_bots(char *from, char *reason);
 void	start_all_bots();
 int	connect_to_server();

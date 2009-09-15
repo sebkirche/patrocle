@@ -10,7 +10,10 @@
 #
 #CFLAGS = -g -Wall # for debugging with gdb/dbx
 #CFLAGS = -O2 -s # -Wall  #for compiling with GNU/Linux
-CFLAGS = -m64 -O2 -s # -Wall #for compiling with my iMac ia64 
+
+#for compiling with my iMac ia64 
+CFLAGS = -arch x86_64 -g -Wall -I/usr/include #-I/opt/local/include
+LDFLAGS = -arch x86_64 -L/usr/lib #-L/opt/local/lib 
 
 CC = gcc
 RM = rm -f
@@ -38,7 +41,7 @@ DEFINES =
 #INCLUDES = -I/usr/ucbinclude -L/usr/ucblib
 #LIBS = -lucb -lsocket -lnsl
 # seki: nouvelle ligne pour linux 2.6
-LIBS = -lc -liconv
+LIBS = -lc -liconv -llua
 
 INSTALL_DIR = ..
 INSTALL_NAME = patrocle
@@ -50,23 +53,23 @@ INSTALL_NAME = patrocle
 OBJECTS = main.o vladbot.o cfgfile.o parse.o vlad-ons.o file.o misc.o send.o \
           ctcp.o server.o channel.o chanuser.o botlist.o userlist.o phrase.o \
           locuteur.o dcc.o ftext.o log.o note.o debug.o session.o ftp_dcc.o \
-          fnmatch.o parsing.o parsetime.o
+          fnmatch.o parsing.o parsetime.o luainterface.o
 SOURCES = main.c vladbot.c cfgfile.c parse.c vlad-ons.c file.c misc.c send.c \
 	  ctcp.c server.c channel.c chanuser.c botlist.c userlist.c phrase.c \
           locuteur.c dcc.c ftext.c log.c note.c debug.c session.c ftp_dcc.c \
-          fnmatch.c parsing.c parsetime.c
+          fnmatch.c parsing.c parsetime.c luainterface.c
 
-all: bot help 
+all: bot help Makefile
 
 .c.o: ; ${CC} ${CFLAGS} ${DEFINES} -c $<
 hr_ftext.o: ; ${CC} ${CFLAGS} ${DEFINES} ${INCLUDES} -DSTAND_ALONE -c -o hr_ftext.o ftext.c
 
 # Enlever le "purify" de la ligne suivante s'il y en a un
-bot: ${OBJECTS}
-	${CC} ${CFLAGS} ${DEFINES} ${INCLUDES} -o ${INSTALL_NAME} ${OBJECTS} ${LIBS}
+bot: ${OBJECTS} Makefile
+	${CC} ${LDFLAGS} ${DEFINES} ${INCLUDES} -o ${INSTALL_NAME} ${OBJECTS} ${LIBS}
 
 help:   helpread.o hr_ftext.o 
-	${CC} ${CFLAGS} ${DEFINES} -DSTAND_ALONE -o helpread helpread.o hr_ftext.o
+	${CC} ${LDFLAGS} ${DEFINES} -DSTAND_ALONE -o helpread helpread.o hr_ftext.o
 
 
 
@@ -85,46 +88,46 @@ clean:
 # Dependencies
 
 cfgfile.o : cfgfile.c cfgfile.h vladbot.h session.h config.h userlist.h channel.h \
-  chanuser.h dcc.h debug.h misc.h parsing.h botlist.h
+  chanuser.h dcc.h debug.h misc.h parsing.h botlist.h Makefile
 channel.o : channel.c channel.h chanuser.h config.h fnmatch.h misc.h send.h \
-  userlist.h vladbot.h session.h dcc.h 
-chanuser.o : chanuser.c chanuser.h config.h misc.h 
+  userlist.h vladbot.h session.h dcc.h  Makefile
+chanuser.o : chanuser.c chanuser.h config.h misc.h  Makefile
 ctcp.o : ctcp.c config.h ctcp.h debug.h misc.h send.h vladbot.h session.h userlist.h \
-  channel.h chanuser.h dcc.h 
+  channel.h chanuser.h dcc.h  Makefile
 dcc.o : dcc.c config.h dcc.h debug.h log.h misc.h send.h server.h session.h \
-  vladbot.h userlist.h channel.h chanuser.h 
+  vladbot.h userlist.h channel.h chanuser.h  Makefile
 debug.o : debug.c vladbot.h session.h config.h userlist.h channel.h chanuser.h \
-  dcc.h debug.h 
-file.o : file.c file.h userlist.h config.h 
-fnmatch.o : fnmatch.c fnmatch.h 
+  dcc.h debug.h  Makefile
+file.o : file.c file.h userlist.h config.h  Makefile
+fnmatch.o : fnmatch.c fnmatch.h  Makefile
 ftext.o : ftext.c vladbot.h session.h config.h userlist.h channel.h chanuser.h \
-  dcc.h misc.h 
+  dcc.h misc.h  Makefile
 ftp_dcc.o : ftp_dcc.c config.h debug.h fnmatch.h ftp_dcc.h log.h misc.h session.h \
-  vladbot.h userlist.h channel.h chanuser.h dcc.h 
-helpread.o : helpread.c ftext.h config.h 
+  vladbot.h userlist.h channel.h chanuser.h dcc.h  Makefile
+helpread.o : helpread.c ftext.h config.h  Makefile
 log.o : log.c dcc.h config.h vladbot.h session.h userlist.h channel.h chanuser.h \
-  log.h 
+  log.h  Makefile
 main.o : main.c channel.h chanuser.h config.h debug.h log.h note.h parse.h session.h \
-  userlist.h vladbot.h dcc.h 
-misc.o : misc.c config.h misc.h 
+  userlist.h vladbot.h dcc.h  Makefile
+misc.o : misc.c config.h misc.h  Makefile
 note.o : note.c config.h fnmatch.h note.h misc.h parsing.h session.h vladbot.h \
-  userlist.h channel.h chanuser.h dcc.h 
+  userlist.h channel.h chanuser.h dcc.h  Makefile
 parse.o : parse.c channel.h chanuser.h config.h ctcp.h debug.h log.h misc.h \
-  parse.h send.h vladbot.h session.h userlist.h dcc.h vlad-ons.h 
-parsing.o : parsing.c parsing.h misc.h config.h 
-send.o : send.c dcc.h config.h send.h debug.h 
+  parse.h send.h vladbot.h session.h userlist.h dcc.h vlad-ons.h  Makefile
+parsing.o : parsing.c parsing.h misc.h config.h  Makefile
+send.o : send.c dcc.h config.h send.h debug.h  Makefile
 server.o : server.c config.h debug.h vladbot.h session.h userlist.h channel.h \
-  chanuser.h dcc.h 
+  chanuser.h dcc.h  Makefile
 session.o : session.c config.h misc.h send.h session.h vladbot.h userlist.h \
-  channel.h chanuser.h dcc.h vlad-ons.h 
-userlist.o : userlist.c config.h fnmatch.h misc.h send.h userlist.h 
-userlist.o : locuteur.c config.h fnmatch.h misc.h send.h locuteur.h file.h
-botlist.o : botlist.c config.h fnmatch.h misc.h send.h botlist.h
+  channel.h chanuser.h dcc.h vlad-ons.h  Makefile
+userlist.o : userlist.c config.h fnmatch.h misc.h send.h userlist.h  Makefile
+userlist.o : locuteur.c config.h fnmatch.h misc.h send.h locuteur.h file.h Makefile
+botlist.o : botlist.c config.h fnmatch.h misc.h send.h botlist.h Makefile
 vlad-ons.o : vlad-ons.c channel.h chanuser.h config.h dcc.h debug.h ftext.h \
-  ftp_dcc.h misc.h note.h parsing.h send.h session.h userlist.h vladbot.h vlad-ons.h locuteur.h phrase.h botlist.h
+  ftp_dcc.h misc.h note.h parsing.h send.h session.h userlist.h vladbot.h vlad-ons.h locuteur.h phrase.h botlist.h Makefile
 vladbot.o : vladbot.c channel.h chanuser.h config.h dcc.h debug.h file.h userlist.h \
-  misc.h parse.h send.h server.h vladbot.h session.h botlist.h
+  misc.h parse.h send.h server.h vladbot.h session.h botlist.h Makefile
 locuteur.o : locuteur.c locuteur.h config.h fnmatch.h misc.h send.h file.h \
-             vladbot.h
-
-phrase.o : phrase.c phrase.h config.h
+             vladbot.h Makefile
+phrase.o : phrase.c phrase.h config.h Makefile
+luainterface.o : luainterface.c log.h cfgfile.h debug.h misc.h parsing.h vlad-ons.h send.h vladbot.h phrase.h

@@ -29,14 +29,17 @@ void    set_stimfile (botinfo *bot, char *s);
 void    set_repfile (botinfo *bot, char *s);
 void    set_botfile (botinfo *bot, char *s);
 void	add_server(botinfo *bot, char *s);
-void	add_to_channellist(botinfo *bot, char *s);
+void	add_to_channellist(botinfo *bot);
 void	set_listset(botinfo *bot, char *s);
-void	set_idletimeout(char *s);
-void	set_waittimeout(char *s);
-void	set_maxuploadsize(char *s);
-void	set_notefile(char *s);
-void	set_maintainer(char *s);
-void	set_globaldebug(char *s);
+
+void	get_idletimeout();
+void	get_waittimeout();
+void	get_maxuploadsize();
+void	get_notefile();
+void	get_maintainer();
+void	get_globaldebug();
+
 void	readcfg();
+void	cleanupcfg();
 
 #endif

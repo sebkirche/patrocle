@@ -35,6 +35,7 @@
 #include <strings.h>
 #include <string.h>
 #include <stdarg.h>
+#include <iconv.h>
 
 #include "channel.h"
 #include "config.h"
@@ -47,8 +48,13 @@
 #include "server.h"
 #include "userlist.h"
 #include "botlist.h"
+#include "luainterface.h"
 #include "vladbot.h"
 
+//FIXME : weird, but fixes a link problem with my OSX
+#define iconv_open iconv_open
+#define iconv iconv
+#define iconv_close iconv_close
 
 extern	void	signoff(char *from, char *reason);
 extern	int	userlevel(char *);
@@ -77,7 +83,6 @@ int	number_of_bots = 0;
 
 char *utf8 = "utf-8";
 char *latin0 = "iso-8859-1";
-
 
 
 int	find_channel(botinfo *bot, char *channel)
@@ -241,8 +246,7 @@ listinfo *add_listset(char *s)
 	for(i=0; i<MAXBOTS; i++)
 		if(!listset[i])
 		{
-			if((listset[i] = 
-                                (listinfo*)malloc(sizeof(listinfo))) == NULL)
+			if((listset[i] = (listinfo*)malloc(sizeof(listinfo))) == NULL)
 				return NULL;
 			mstrcpy(&listset[i]->listname, s);
 			listset[i]->opperlist = init_levellist();
@@ -273,29 +277,34 @@ listinfo	*listset_created(char *s)
 	return NULL;
 }
 
+void	free_listset(listinfo *elem)
+{
+	if(elem){
+		free(elem->listname);
+		free(elem->opperfile);	
+		free(elem->shitfile);	
+		free(elem->protfile);
+		free(elem->relfile);
+		/*free(elem->botfile); */
+		free(elem->locuteurfile);
+		delete_levellist(elem->opperlist);
+		delete_levellist(elem->protlist);
+		delete_levellist(elem->shitlist);
+		delete_levellist(elem->rellist);
+		/*delete_botlist (elem->botlist); */
+		DetruitListe (elem->ListeLocuteurs);
+		free(elem);
+		elem = NULL;
+	}
+}
+
 void	delete_listset(char *s)
 {
 	int	i;
 
 	for(i=0; i<MAXBOTS; i++)
 		if(listset[i] && STRCASEEQUAL(listset[i]->listname, s))
-		{
-			free(listset[i]->listname);
-			free(listset[i]->opperfile);	
-			free(listset[i]->shitfile);	
-			free(listset[i]->protfile);
-			free(listset[i]->relfile);
-/* 			free(listset[i]->botfile); */
-			free(listset[i]->locuteurfile);
-			delete_levellist(listset[i]->opperlist);
-			delete_levellist(listset[i]->protlist);
-			delete_levellist(listset[i]->shitlist);
-			delete_levellist(listset[i]->rellist);
-/* 			delete_botlist (listset[i]->botlist); */
-			DetruitListe (listset[i]->ListeLocuteurs);
-			free(listset[i]);
-			listset[i] = NULL;
-		}
+			free_listset(listset[i]);
 }
 
 void	readlevelfiles()
@@ -417,22 +426,28 @@ int	killbot(char *reason)
 	return 0;	
 }
 
+void	cleanup_listsets()
+{
+	int i;
+
+	for(i=0; i<MAXBOTS; i++)
+	{
+		if(listset[i]){
+			free_listset(listset[i]);
+		}
+		listset[i]=NULL;
+	}
+}
 void	quit_all_bots(char *from, char *reason)
 {
 	int	i;
 
 	for(i=0; i<MAXBOTS; i++)
-		if(botlist[i])
-		{
+		if(botlist[i]){
 			currentbot = botlist[i];
 			signoff(from, reason);
 		}
-	for(i=0; i<MAXBOTS; i++)
-	{
-		if(listset[i])
-			free(listset[i]);
-		listset[i]=NULL;
-	}
+	cleanup_listsets();
 }
 
 void	start_all_bots()

@@ -22,12 +22,18 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
+#include <iconv.h>
 
 #include "channel.h"
 #include "dcc.h"
 #include "send.h"
 #include "debug.h"
 #include "config.h"
+
+//FIXME : weird, but fixes a link problem with my OSX
+#define iconv_open iconv_open
+#define iconv iconv
+#define iconv_close iconv_close
 
 extern	int	send_to_server(char *format, ...);
 extern	int 	send_chat(char *to, char *text);
