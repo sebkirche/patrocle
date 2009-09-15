@@ -1,20 +1,29 @@
 #############################################
 ## rel.list
-## Created: Sun Sep 13 13:10:16 2009
+## Created: Tue Sep 15 01:57:07 2009
 ## (c) 1993 VladDrac (irvdwijk@cs.vu.nl)
 #############################################
-                  seki-!*n=Seki@*.seki.fr 6
-                sekibis!*n=user@*.seki.fr 6
-       ngirard!*n=ngirard@*.pck.nerim.net 6
-    thbkrshw!*n=thbkrshw@*.fbx.proxad.net 6
-  pgas!*n=user@pdpc/supporter/active/pgas 21
-         auzain!*n=user@*.adsl.proxad.net 15
-              seki_zzzz!*n=seki@*.seki.fr 8
-                 seki__!*n=seki@*.seki.fr 6
-           kaaah!n=karim@*.davromaniak.eu 10
-              kh!n=karim@*.davromaniak.eu 27
-       ecocode!n=ecocode@*.dsl.scarlet.be 25
-                    seki!*=seki@*.seki.fr 83
+ theoliane!*n=helen@*.w90-22.abo.wanadoo.fr 6
+ Chokoloff!*n=Gauthier@*.130.192-77.rev.gaoland.net 6
+              xma!*n=xma@*.fbx.proxad.net 6
+            zeDek!*n=xma@*.fbx.proxad.net 3
+                     kh!*n=karim@88.191.* -4
+             ecocode!*n=ecocode@*.ovh.net 16
            fsbot!*n=user@*.pepperfish.net 3
-             ecocode!*n=ecocode@*.ovh.net 27
+                    seki!*=seki@*.seki.fr 84
+       ecocode!n=ecocode@*.dsl.scarlet.be 25
+              kh!n=karim@*.davromaniak.eu 27
+           kaaah!n=karim@*.davromaniak.eu 10
+                 seki__!*n=seki@*.seki.fr 6
+              seki_zzzz!*n=seki@*.seki.fr 8
+         auzain!*n=user@*.adsl.proxad.net 12
+  pgas!*n=user@pdpc/supporter/active/pgas 26
+    thbkrshw!*n=thbkrshw@*.fbx.proxad.net 6
+       ngirard!*n=ngirard@*.pck.nerim.net 6
+                sekibis!*n=user@*.seki.fr 6
+                  seki-!*n=Seki@*.seki.fr 6
+ theoliane!*n=helen@*.w90-51.abo.wanadoo.fr 1
+ theoliane!*n=helen@*.w92-132.abo.wanadoo.fr 4
+                   seki!*n=user@*.seki.fr 9
+             adrien!*n=brilhaua@*.imag.fr 3
 # End of rel.list

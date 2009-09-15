@@ -16,8 +16,8 @@
 #define STRCASEEQUAL(s1, s2)	(strcasecmp((s1), (s2)) == 0)
 #define STREQUAL(s1, s2)	(strcmp((s1), (s2)) == 0)
 
-int 	ischannel(char *channel );
-int	isnick(char *nick);
+int 	ischannel(const char *channel );
+int		isnick(const char *nick);
 char	*getnick(char *nick_userhost);
 char    *GetNick (char *nick_userhost);
 char	*time2str(long time);

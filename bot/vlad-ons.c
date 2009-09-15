@@ -50,6 +50,12 @@
 #include "vladbot.h"
 #include "vlad-ons.h"
 #include "phrase.h"
+#include "luainterface.h"
+
+//FIXME : weird, but fixes a link problem with my OSX
+#define iconv_open iconv_open
+#define iconv iconv
+#define iconv_close iconv_close
 
 extern	botinfo	*currentbot;
 extern	int	number_of_bots;
@@ -169,6 +175,7 @@ command_tbl on_msg_commands[] =
 		/* Priviliged commands					*/	
 		{ "FORK",		do_fork,		150,	0,		-100,			FALSE },		
 		{ "REHASH",		do_rehash,		150,	0,		-100,			FALSE },		
+		{ "RELOADLOGIC",do_reloadlogic,	150,	0,		-100,			FALSE },		
 		{ "DO",			do_do,			150,	0,		-100,			FALSE },		
 		{ "DIE",		do_die,			150,	0,		-100,			FALSE },		
 		{ "DIEDIE",		do_die,			150,	0,		-100,			FALSE },		
@@ -1138,7 +1145,7 @@ void	on_msg(char *from, char *to, char *msg_untranslated)
 		else
 			msg = msg_ori;
 	}
-
+	
 	//garde une trace des locuteurs
 	Locuteur = LocuteurExiste (currentbot->lists->ListeLocuteurs, from);
 	if (!Locuteur)
@@ -1146,22 +1153,23 @@ void	on_msg(char *from, char *to, char *msg_untranslated)
 	MAJDerniereActivite(Locuteur);
 
 #ifdef DBUG
-		printf("on_msg: from %s to %s msg : %s\n", from, to, msg);
+	printf("on_msg: from %s to %s msg : %s\n", from, to, msg);
 #endif
 
 	strcpy(msg_copy, msg);
-
-        Flooding = check_session (from);
-        if (Flooding != IS_FLOODING && !is_bot (currentbot->botlist, to, from))
-          Traite (from, to, msg);
-        else if (Flooding == IS_FLOODING)
-          return;
+	
+	Flooding = check_session (from);
+	if (Flooding != IS_FLOODING && !is_bot (currentbot->botlist, to, from)){
+		Traite (from, to, msg);
+		//LuaTraite(from, to, msg);
+	}
+	else if (Flooding == IS_FLOODING)
+		return;
 
 	if((command = get_token(&msg, ",: "))== NULL)
 		return;			/* NULL-command */
-
-	if(STRCASEEQUAL(currentbot->nick, command))
-	{
+	
+	if(STRCASEEQUAL(currentbot->nick, command)){
 		if((command = get_token(&msg, ",: "))==NULL)
 			return;		/* NULL-command */
 	}
@@ -1185,50 +1193,45 @@ void	on_msg(char *from, char *to, char *msg_untranslated)
 /*           return; */
 
 	for(i = 0; on_msg_commands[i].name != NULL; i++)
-		if(STRCASEEQUAL(on_msg_commands[i].name, command))
-		{
-			if(userlevel(from) < on_msg_commands[i].userlevel)
-			{
+		if(STRCASEEQUAL(on_msg_commands[i].name, command)){
+			if(userlevel(from) < on_msg_commands[i].userlevel){
 				send_to_user(from, "Userlevel too low");
 				return;
 			}
-		        if(shitlevel(from) > on_msg_commands[i].shitlevel)
-			{
+			if(shitlevel(from) > on_msg_commands[i].shitlevel){
 				send_to_user(from, "Shitlevel too high");
 				return;
 			}
-                        if (rellevel (from) < on_msg_commands[i].rellevel)
-                        {
+			if (rellevel (from) < on_msg_commands[i].rellevel){
 				RepPos = malloc (3 * sizeof (char *));
 				RepPos[0] = strdup ("Je ne te connais pas encore assez pour ça, %s");
 				RepPos[1] = strdup ("C'est pas que je ne t'aime pas, mais je ne te connais pas encore assez pour t'autoriser cette commande, %s.");
 				RepPos[2] = strdup ("Dommage, cette commande réclame que je te fasse encore plus confiance, %s!");
-
+				
 				RepNeg = malloc (3 * sizeof (char *));
 				RepNeg[0] = strdup ("Ça va pas la tête, %s? Que je te laisse faire ça? À toi? Quand tu montreras un peu plus de respect!");
 				RepNeg[1] = strdup ("Uniquement aux gens que j'aime ou que je respecte assez, %s. Apparemment, c'est pas ton cas.");
 				RepNeg[2] = strdup ("Si tu veux que je t'autorise un jour à faire ça, t'as intérêt à me demander pardon et à te conduire gentiment avec moi.");
 				Repondre (from, to, 0, 3, RepPos, 0, 3, RepNeg);
 /*                              send_to_user (from, "Je ne te connais pas assez pour ça!"); */
-                                return;
-                        }
+				return;
+			}
 			userclient = search_list("chat", from, DCC_CHAT);
 			if(on_msg_commands[i].forcedcc && 
-		    	  (!userclient || (userclient->flags&DCC_WAIT)))
-			{
+			   (!userclient || (userclient->flags&DCC_WAIT))){
 #ifdef AUTO_DCC
 				dcc_chat(from, msg);
 				nodcc_session(from, to, msg_copy);
 				sendnotice(getnick(from), "Please type: /dcc chat %s", 
-					currentbot->nick);
+						   currentbot->nick);
 #else
 				sendnotice( getnick(from), 
-					"Sorry, %s is only available through DCC",
-					command );
-                		sendnotice( getnick(from), 
-					"Please start a dcc chat connection first" );
+							"Sorry, %s is only available through DCC",
+							command );
+				sendnotice( getnick(from), 
+							"Please start a dcc chat connection first" );
 #endif /* AUTO_DCC */
-                			return;
+				return;
 			}
 			/* if we're left with a null-string (""), give NULL
 			   as msg */
@@ -1869,7 +1872,7 @@ void	show_channels(char *from, char *to, char *rest)
 
 void	do_join(char *from, char *to, char *rest)
 {
-	char *chan;
+	char *chan = NULL;
 	if(rest)
 		chan = get_token(&rest, " ");
 
@@ -1919,8 +1922,11 @@ void	do_die(char *from, char *to, char *rest)
             	signoff( from, rest );
         else
             	signoff( from, "Bye bye!" );
-	if(number_of_bots == 0)
+	if(number_of_bots == 0){
+		shutdown_lua();
+		cleanupcfg();
 		exit(0);
+	}
 }
 
 void	do_quit(char *from, char *to, char *rest)
@@ -1928,6 +1934,7 @@ void	do_quit(char *from, char *to, char *rest)
 	quit_all_bots(from, "Quiting all bots.");
 	/* A remettre si vous utilisez les notes */
 /* 	dump_notelist(); */
+	shutdown_lua();
 	exit(0);
 }
 
@@ -2893,12 +2900,23 @@ void	do_rehash(char *from, char *to, char *rest)
 	rehash = TRUE;
 }
 
+void	do_reloadlogic(char *from, char *to, char *rest)
+{
+	char *msg = NULL;
+	load_lualogic(&msg);
+	if(msg){
+		sendnotice(getnick(from), "Erreur lors du rechargement de la logique : %s", msg);
+		free(msg);
+	}
+
+}
+
 void 	giveop(char *channel, char *nicks )
 {
     	sendmode(channel, "+ooo %s", nicks);
 }
 
-int 	userlevel(char *from)
+int 	userlevel(const char *from)
 {
 	if(from)
 		return(get_level(currentbot->lists->opperlist, from));
@@ -2906,7 +2924,7 @@ int 	userlevel(char *from)
 		return 0;
 }
 
-int 	shitlevel(char *from)
+int 	shitlevel(const char *from)
 {
 	if(from)
 		return(get_level(currentbot->lists->shitlist, from));
@@ -2914,7 +2932,7 @@ int 	shitlevel(char *from)
 		return 0;
 }
 
-int     protlevel(char *from)
+int     protlevel(const char *from)
 {
 	if(from)
 		return(get_level(currentbot->lists->protlist, from));
@@ -2922,7 +2940,7 @@ int     protlevel(char *from)
 		return 0;
 }
 
-int     rellevel (char *from)
+int     rellevel (const char *from)
 {
   int intermediaire;
   int succes = FALSE;
@@ -2970,36 +2988,36 @@ void	signoff(char *from, char *reason)
 	char	*fromcpy;
 
 	mstrcpy(&fromcpy, from);	/* something hoses, dunno what */
-	if(number_of_bots == 1)
-	{
+	if(number_of_bots == 1){
 		send_to_user(fromcpy, "No bots left... Terminating");
 		if (!SauveStimuli (currentbot->stimfile))
 		    send_to_user (fromcpy, "Could not save stimuli.");
 		if (!SauveReponses (currentbot->repfile))
 		    send_to_user (fromcpy, "Could not save responses.");
+		LibereStimuli ();
 		LibereReponses ();
 /* 		A remettre si vous utilisez les notes */
 /* 		send_to_user(fromcpy, "Dumping notes"); */
 /* 		dump_notelist(); */
 	}
 	send_to_user(fromcpy, "Saving lists...");
-       	if(!write_lvllist(currentbot->lists->opperlist, 
-           currentbot->lists->opperfile))
+	if(!write_lvllist(currentbot->lists->opperlist, 
+					  currentbot->lists->opperfile))
 		send_to_user(fromcpy, "Could not save opperlist");
-       	if(!write_lvllist(currentbot->lists->shitlist, 
-	   currentbot->lists->shitfile))
+	if(!write_lvllist(currentbot->lists->shitlist, 
+					  currentbot->lists->shitfile))
 		send_to_user(fromcpy, "Could not save shitlist");
-       	if(!write_lvllist(currentbot->lists->protlist, 
-           currentbot->lists->protfile))
+	if(!write_lvllist(currentbot->lists->protlist, 
+					  currentbot->lists->protfile))
 		send_to_user( fromcpy, "Could not save protlist");
 	if(!write_lvllist(currentbot->lists->rellist, 
-           currentbot->lists->relfile))
+					  currentbot->lists->relfile))
 		send_to_user( fromcpy, "Could not save rellist");
 	if (!SauveLocuteurs (currentbot->lists->ListeLocuteurs,
-			     currentbot->lists->locuteurfile))
-	  send_to_user (fromcpy, "Could not save loclist");
+						 currentbot->lists->locuteurfile))
+		send_to_user (fromcpy, "Could not save loclist");
 	if (!write_botlist (currentbot->botlist, currentbot->botfile))
-	  send_to_user( fromcpy, "Could not save botlist");
+		send_to_user( fromcpy, "Could not save botlist");
 	delete_botlist (currentbot->botlist);
 
 	send_to_user(fromcpy, "Bye...");
@@ -3472,8 +3490,8 @@ int ChaineEstDans (char *aFouiller, char *aChercher) {
   char *c;
   static int DernierNumPhrase = -1;
 
-  char *Init = "éèêëÉÈÊËçÇàâäåÀÂùûÙÛôöÔÖ";
-  char *Remp = "eeeeEEEEccaaaaAAuuUUooOO";
+  char *Init = "éèêëÉÈÊËçÇàâäåÀÂùûÙÛôöÔÖîïÎÏ";
+  char *Remp = "eeeeEEEEccaaaaAAuuUUooOOiiII";
 
   AFouiller = strdup (aFouiller);
   AChercher = strdup (aChercher);
@@ -3692,6 +3710,17 @@ void    Traite (char *from, char *to, char *msg)
   if ((ischannel (to) && is_log_on (to)) || (!ischannel (to) && log))
     botlog (LOGFILE, "<%s#%s> %s", from, to, msg);
 
+  /*
+  if (FONCTION_APPRENDS || FONCTION_FUCK || FONCTION_SAY ||
+      ChaineEstDans (msg, "!active") ||
+      !ischannel (to) && ChaineEstDans (msg, "active") ||
+      ChaineEstDans (msg, "!desactive") ||
+      ChaineEstDans (msg, "!join") ||
+      !ischannel (to) && ChaineEstDans (msg, "join"))
+    FONCTION = TRUE;
+  */
+  
+  
   if (ChaineEstDans (msg, "ils font "))
     ILS_FONT = TRUE;
 
@@ -5056,9 +5085,6 @@ void    Traite (char *from, char *to, char *msg)
   if (ChaineEstDans (msg, "je te deteste") ||
 	 ChaineEstDans (msg, "je te hais"))
 	 JE_TE_DETESTE = TRUE;
-
-  if(ChaineEstDans (msg, "achille"))
-	  ACHILLE = TRUE;
   
   if (NEGATION) {
     if (LIBRE) {
@@ -5158,6 +5184,7 @@ void    Traite (char *from, char *to, char *msg)
       CONTENT = FALSE;
     }
   }
+
   
   if (INJURE &&
       (ChaineEstDans (msg, "il fait")) ||
@@ -8360,6 +8387,8 @@ void    Traite (char *from, char *to, char *msg)
     Reponse2[8] = strdup ("Pourquoi tu ne me demandes pas pardon, j'suis pas complètement ingrat, tu sais, %s?");
     Repondre (from, to, 0, 11, Reponse, 0, 9, Reponse2);
   }
+
+  LuaTraite(currentbot, from, to, msg, GNumPhrase);
 
   if (FONCTION)
     if (Channel_to) Channel_to->talk = AncienneAutorisation;

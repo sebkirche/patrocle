@@ -130,6 +130,7 @@ void	delete_levellist(USERLVL_list **l_list )
 		remove_from_levellist(l_list, dummy->userhost);
 		dummy = next;
 	}
+	free(l_list);
 }
 
 int	get_level( l_list, userhost )

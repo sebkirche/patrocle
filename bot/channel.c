@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <strings.h>
 #include <string.h>
+#include <iconv.h>
 
 #include "channel.h"
 #include "chanuser.h"
@@ -33,10 +34,15 @@
 #include "vladbot.h"
 #include "vlad-ons.h"
 
+//FIXME : weird, but fixes a link problem with my OSX
+#define iconv_open iconv_open
+#define iconv iconv
+#define iconv_close iconv_close
+
 extern	botinfo	*currentbot;
-extern	int	userlevel(char *from);
-extern	int	protlevel(char *from);
-extern	int	shitlevel(char *from);
+extern	int	userlevel(const char *from);
+extern	int	protlevel(const char *from);
+extern	int	shitlevel(const char *from);
 extern char *utf8;
 extern char *latin0;
 
@@ -79,6 +85,7 @@ int	delete_channel( CHAN_list *Channel )
 			free(Channel->key);
 			free(Channel->topic);
 			free(Channel->mod);
+			free(Channel->encoding);
 			if(Channel->encoder != (iconv_t)-1)
 				iconv_close(Channel->encoder);
 			if(Channel->decoder != (iconv_t)-1)

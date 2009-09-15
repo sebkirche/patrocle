@@ -329,24 +329,41 @@ int SupprimeStim (int numero)
   return FALSE;
 }
 
+void LibereStimuli ()
+{
+	int i;
+
+	for (i = 0; i < TailleStim; i++)
+		if (TableDesStimuli[i]){
+			free(TableDesStimuli[i]->NomStimulus);
+			free(TableDesStimuli[i]->Stimulus);
+			free(TableDesStimuli[i]->Auteur);
+			
+			free(TableDesStimuli[i]);
+		}
+	if (TailleStim && TableDesStimuli){
+		free(TableDesStimuli);
+		TableDesStimuli = NULL;
+	}
+}
 
 void LibereReponses () 
 {
-  rep_tbl *Courant, *Suivant;
-  int i;
-
-  for (i = 0; i < TailleRep; i++) 
-	  if (TableDesReponses[i]) {
-		  free (TableDesReponses[i]->Reponse);
-		  free (TableDesReponses[i]->NomStimulus);
-		  free (TableDesReponses[i]->Auteur);
-		  free (TableDesReponses[i]->Canal);
-		  
-		  free (TableDesReponses[i]);
-	  }
-
-  if (TailleRep && TableDesReponses){
-	  free (TableDesReponses);
-	  TableDesReponses = NULL;
-  }
+	rep_tbl *Courant, *Suivant;
+	int i;
+	
+	for (i = 0; i < TailleRep; i++) 
+		if (TableDesReponses[i]) {
+			free (TableDesReponses[i]->Reponse);
+			free (TableDesReponses[i]->NomStimulus);
+			free (TableDesReponses[i]->Auteur);
+			free (TableDesReponses[i]->Canal);
+			
+			free (TableDesReponses[i]);
+		}
+	
+	if (TailleRep && TableDesReponses){
+		free (TableDesReponses);
+		TableDesReponses = NULL;
+	}
 }

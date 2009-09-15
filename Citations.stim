@@ -1,4 +1,4 @@
-699
+714
 AIMER		tu m'aimes	1	emyne!~macrelle@messein.loria.fr
 BAC_A_SABLE		bac a sable	1	H_I!~parmenti@meurthe.loria.fr
 BLAGUE_CARAMBAR		blague Carambar	1	H_I!~parmenti@meurthe.loria.fr
@@ -697,4 +697,19 @@ MIAGISTE		C'est qui le Miagiste?	1	McKid!no@AFA00U03.U-3MRS.FR
 MIAGISTE		miagiste	1	McKid!no@AFA00U03.U-3MRS.FR
 MIAGISTE		miagiste	1	McKid!no@AFA00U03.U-3MRS.FR
 MIAGE		miage	1	McKid!no@AFA00U03.U-3MRS.FR
-PERL		perl	1	seki!i=seki@falbala.seki.fr
+PERL		perl	0	seki!i=seki@falbala.seki.fr
+CITE_AUZAIN		cite auzain	1	seki!i=seki@falbala.seki.fr
+CITE_KH		cite kh	1	seki!i=seki@falbala.seki.fr
+STIMULUS		un texte	0	seki!i=seki@falbala.seki.fr
+RUBY		ruby	0	seki!i=seki@falbala.seki.fr
+RUBY		ruby	0	seki!i=seki@falbala.seki.fr
+PERL		perlmonk	0	seki!i=seki@falbala.seki.fr
+PYTHON		script python	1	seki!i=seki@falbala.seki.fr
+EMACSFR		web emacsfr	1	ecocode!n=ecocode@rps1857.ovh.net
+MENTEUR		menteur	1	ecocode!n=ecocode@rps1857.ovh.net
+PARDON		pardon	0	ecocode!n=ecocode@rps1857.ovh.net
+LEGRANDPARDON		le grand pardon	1	ecocode!n=ecocode@rps1857.ovh.net
+THEOLIANE		theoliane	0	ecocode!n=ecocode@rps1857.ovh.net
+PYTHONEUX		pythoneux	1	ecocode!n=ecocode@rps1857.ovh.net
+DIEU		Dieu	1	ecocode!n=ecocode@ip-62-235-192-148.dsl.scarlet.be
+DIEU		Seigneur	1	ecocode!n=ecocode@ip-62-235-192-148.dsl.scarlet.be
