@@ -32,6 +32,7 @@
 //#include <fnmatch.h>
 #include "botlist.h"
 #include "channel.h"
+#include "cfgfile.h"
 #include "config.h"
 #include "dcc.h"
 #include "debug.h"
@@ -62,7 +63,7 @@ extern	int	number_of_bots;
 extern	int	rehash;
 extern	long	uptime;
 extern	char	*botmaintainer;
-extern  short   log;
+extern  short   logging;
 extern  char    CommandChar;
 int GNumPhrase = 0;
 
@@ -320,11 +321,11 @@ void    Ecrire (char *from, char *to, char *phrase) {
     {
 		if (strncmp (phrase, "/me ", 4) == 0) {
 			sendaction (getnick (from), phrase+4, GetNick (from), GetNick (from), GetNick (from), GetNick (from));
-			if (log)
+			if (logging)
 				botlog (LOGFILE, "*%s#%s* %s", currentbot->botname, getnick(from), Ecrite+4);
 		} else if (strncmp (phrase, "/nil", 4) != 0) {
 			send_to_user (from, phrase, GetNick (from), GetNick (from), GetNick (from), GetNick (from), GetNick (from));
-			if (log)
+			if (logging)
 				botlog (LOGFILE, "<%s#%s> %s", currentbot->botname, from, Ecrite);
 		}
     }
@@ -1704,49 +1705,50 @@ void    do_replist (char *from, char *to, char *rest)
 
 void    do_stimlist (char *from, char *to, char *rest)
 {
-  int i;
-  if (TailleStim <= 0)
-    send_to_user (from, "Il n'y a aucun stimulus.");
-  else {
-    if (rest) {
-      SKIPSPC (rest);
+	int i;
 
-      if (rest[0]) {
+	if (TailleStim <= 0)
+		send_to_user (from, "Il n'y a aucun stimulus.");
+	else {
+		if (rest) {
+			SKIPSPC (rest);
 
-	for (i=0; i < TailleStim; i++) {
-	  if (!fnmatch (rest, TableDesStimuli[i]->NomStimulus, FNM_CASEFOLD)) {
-	    send_to_user (from, "Stimulus numéro %d:", i+1);
-	    send_to_user (from, "\"%s\"\t%s",
-			  TableDesStimuli[i]->Stimulus,
-			  TableDesStimuli[i]->NomStimulus);
-	    send_to_user (from, "%s\t%s", TableDesStimuli[i]->Auteur,
-			  (TableDesStimuli[i]->Actif?"actif":"inactif"));
-	  }
-	} 
+			if (rest[0]) {
 
-      } else {
-	for (i=0; i < TailleStim; i++) {
-	  send_to_user (from, "Stimulus numéro %d:", i+1);
-	  send_to_user (from, "\"%s\"\t%s",
-			TableDesStimuli[i]->Stimulus, GetNick (from));
-			TableDesStimuli[i]->NomStimulus,
-	  send_to_user (from, "%s\t%s", TableDesStimuli[i]->Auteur,
-			TableDesStimuli[i]->Actif?"actif":"inactif");
+				for (i=0; i < TailleStim; i++) {
+					if (!fnmatch (rest, TableDesStimuli[i]->NomStimulus, FNM_CASEFOLD)) {
+						send_to_user (from, "Stimulus numéro %	d:", i+1);
+						send_to_user (from, "\"%s\"\t%s",
+									  TableDesStimuli[i]->Stimulus,
+									  TableDesStimuli[i]->NomStimulus);
+						send_to_user (from, "%s\t%s", TableDesStimuli[i]->Auteur,
+									  (TableDesStimuli[i]->Actif?"actif":"inactif"));
+					}
+				} 
+				
+			} else {
+				for (i=0; i < TailleStim; i++) {
+					send_to_user (from, "Stimulus numéro %d:", i+1);
+					send_to_user (from, "\"%s\"\t%s",
+								  TableDesStimuli[i]->Stimulus, GetNick (from));
+					//TableDesStimuli[i]->NomStimulus,
+					send_to_user (from, "%s\t%s", TableDesStimuli[i]->Auteur,
+								  TableDesStimuli[i]->Actif?"actif":"inactif");
+				}
+			}
+			
+		}
+		else {
+			for (i=0; i<TailleStim; i++) {
+				send_to_user (from, "Stimulus numéro %d:", i+1);
+				send_to_user (from, "\"%s\"\t%s",
+							  TableDesStimuli[i]->Stimulus, GetNick (from));
+				//TableDesStimuli[i]->NomStimulus,
+				send_to_user (from, "%s\t%s", TableDesStimuli[i]->Auteur,
+							  TableDesStimuli[i]->Actif?"actif":"inactif");
+			}
+		}
 	}
-      }
-
-    }
-    else {
-      for (i=0; i<TailleStim; i++) {
-	send_to_user (from, "Stimulus numéro %d:", i+1);
-	send_to_user (from, "\"%s\"\t%s",
-		      TableDesStimuli[i]->Stimulus, GetNick (from));
-		      TableDesStimuli[i]->NomStimulus,
-	send_to_user (from, "%s\t%s", TableDesStimuli[i]->Auteur,
-		      TableDesStimuli[i]->Actif?"actif":"inactif");
-      }
-    }
-  }
 }
 
 void    do_repdel (char *from, char *to, char *rest) {
@@ -1976,13 +1978,13 @@ void    do_logoff (char *from, char *to, char *rest)
 
 void    do_msglogon (char *from, char *to, char *rest) 
 {
-  log = TRUE;
+  logging = TRUE;
   send_to_user (from, "Msg log on");
 }
 
 void    do_msglogoff (char *from, char *to, char *rest) 
 {
-  log = FALSE;
+  logging = FALSE;
   send_to_user (from, "Msg log off");
 }
 
@@ -3085,8 +3087,7 @@ void	do_apprends(char *from, char *to, char *rest) {
 	    Canal = to;
 	  
 	  sprintf (repinter, Reponse, getnick (from), getnick (from), getnick (from), getnick (from), getnick (from));
-	  sprintf(chaine, "Nom: %s, Réponse: \"%s\"",
-		  NomStimulus, repinter, getnick (from));
+	  sprintf(chaine, "Nom: %s, Réponse: \"%s\"", NomStimulus, repinter /*, getnick (from)*/);
 	  send_to_user (from, chaine);
 	  send_to_user (from, "Canal: %s", Canal);
 	}
@@ -3179,7 +3180,7 @@ void    do_desactive (char *from, char *to, char *rest)
     
 		for (i = 0; i < TailleStim; i++) {
 			if (strcmp(TableDesStimuli[i]->NomStimulus, rest)== 0 ||
-				strcmp (TableDesStimuli[i]->Auteur, rest) == 0)
+				strcmp (TableDesStimuli[i]->Auteur, rest) == 0){
 				if (rellevel (from)+SYMPA_LVL >= rellevel (TableDesStimuli[i]->Auteur)) {
 					send_to_user (from, "Stimulus numéro %d désactivé.", i);
 					TableDesStimuli[i]->Actif = FALSE;
@@ -3190,13 +3191,14 @@ void    do_desactive (char *from, char *to, char *rest)
 								  "Niveau de relation insuffisant, il faudrait %d, qui est le niveau de %s.",
 								  rellevel (TableDesStimuli[i]->Auteur),
 								  getnick(TableDesStimuli[i]->Auteur));
+			}
 		}
 	} else
 		send_to_user (from, "Je veux bien, moi, mais désactiver quel stimulus?");
-  
+	
 	if (!desactivation)
 		send_to_user (from, "Je n'ai désactivé aucun stimulus.");
-  }
+}
 
 void    do_active (char *from, char *to, char *rest) 
 {
@@ -3208,7 +3210,7 @@ void    do_active (char *from, char *to, char *rest)
 	   
 	   for (i = 0; i < TailleStim; i++) {
 		   if (strcmp(TableDesStimuli[i]->NomStimulus,rest)==0 ||
-			   strcmp (TableDesStimuli[i]->Auteur, rest) == 0)
+			   strcmp (TableDesStimuli[i]->Auteur, rest) == 0){
 			   if (rellevel (from) >= rellevel (TableDesStimuli[i]->Auteur)) {
 				   send_to_user (from, "Stimulus numéro %d réactivé.", i);
 				   TableDesStimuli[i]->Actif = TRUE;
@@ -3216,6 +3218,7 @@ void    do_active (char *from, char *to, char *rest)
 				   send_to_user (from,
 								 "Niveau de relation insuffisant, il faudrait %d.",
 								 rellevel (TableDesStimuli[i]->Auteur));
+		   }
 	   }
     } else
 		send_to_user (from, "Je veux bien, moi, mais activer quel stimulus?");
@@ -3684,7 +3687,7 @@ void    Traite (char *from, char *to, char *msg)
 /*   CHAN_list *Channel_to = (ischannel (to)?search_chan (to):currentbot->Current_chan); */
   CHAN_list *Channel_to = (ischannel (to)?search_chan (to):0);
 
-  if ((ischannel (to) && is_log_on (to)) || (!ischannel (to) && log))
+  if ((ischannel (to) && is_log_on (to)) || (!ischannel (to) && logging))
     botlog (LOGFILE, "<%s#%s> %s", from, to, msg);
 
 
@@ -6393,7 +6396,7 @@ void    Traite (char *from, char *to, char *msg)
 	{
 	  char Ecrite[MAXLEN];
 	  sprintf (Ecrite, (Reponse[GNumPhrase%6]?Reponse[GNumPhrase%6]:""), GetNick (from));
-	  if (log)
+	  if (logging)
 	    botlog (LOGFILE, "<%s kicke %s de %s> %s", currentbot->botname, getnick (from), (ischannel(to)?to:currentchannel ()), Ecrite);
       
 	  sendkick ((ischannel(to)?to:currentchannel ()), getnick (from), Ecrite);
@@ -6423,7 +6426,7 @@ void    Traite (char *from, char *to, char *msg)
 	{
 	  char Ecrite[MAXLEN];
 	  sprintf (Ecrite, (Reponse[GNumPhrase%6]?Reponse[GNumPhrase%6]:""), GetNick (from));
-	  if (log)
+	  if (logging)
 	    botlog (LOGFILE, "<%s kicke %s de %s> %s", currentbot->botname, getnick (from), (ischannel(to)?to:currentchannel ()), Ecrite);
       
 	  sendkick ((ischannel(to)?to:currentchannel ()), getnick (from), Ecrite);

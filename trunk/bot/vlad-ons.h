@@ -120,6 +120,8 @@ void    do_replist (char *from, char *to, char *rest);
 void    do_stimdel (char *from, char *to, char *rest);
 void    do_repdel (char *from, char *to, char *rest);
 void    do_seen (char *from, char *to, char *rest);
+char    *UserStr (char *nuh);
+char    *NickUserStr (char *nuh);
 int		ChaineEstDans (char *aFouiller, char *aChercher);
 void    Repondre (char *from, char *to, int AjoutHumeurPos, int NbRepPos, char **RepPos, int AjoutHumeurNeg, int NbRepNeg, char **RepNeg);
 #endif /* VLAD_ONS_H */

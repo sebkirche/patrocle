@@ -44,7 +44,7 @@ extern	int	userlevel(const char *from);
 extern	int	protlevel(const char *from);
 extern	int	shitlevel(const char *from);
 extern char *utf8;
-extern char *latin0;
+extern char *latin1;
 
 static	char	channel_buf[MAXLEN];
 
@@ -145,14 +145,15 @@ int	join_channel(char *name, char *topic, char *mode, char *encoding, int dojoin
 		mstrcpy(&Channel->mod, mode?mode:"");
 		mstrcpy(&Channel->encoding, encoding?encoding:"");
 		Channel->encoder = Channel->decoder = (iconv_t)-1;
-		if(strcasestr(encoding, "utf-8")){
+		printf("join channel %s in encoding %s\n", name, encoding);
+		if(STRCASEEQUAL(encoding, "utf-8")){
 			Channel->utf8 = TRUE;
-		}else if((strlen(encoding) == 0) || (strcasestr(encoding, "latin-0")) || (strcasestr(encoding, "8859-15"))){
-			Channel->encoder = iconv_open(utf8, latin0);
-			Channel->decoder = iconv_open(latin0, utf8);
+		}else if((STRCASEEQUAL(encoding, "latin-1")) || (STRCASEEQUAL(encoding, "iso-8859-1"))){
+			Channel->encoder = iconv_open(latin1, utf8);
+			Channel->decoder = iconv_open(utf8, latin1);
 		}else{
-			Channel->encoder = iconv_open(utf8, encoding);
-			Channel->decoder = iconv_open(encoding, utf8);			
+			Channel->encoder = iconv_open(encoding, utf8);
+			Channel->decoder = iconv_open(utf8, encoding);			
 		}
 
 		Channel->talk = TRUE;
@@ -298,7 +299,7 @@ void	show_channellist(char *user)
 			strcat( modestr, "l " );
 			strcat( modestr, Channel->limit?Channel->limit:"???" );
 		}
-		send_to_user( user, "   -  %10s, mode: +%-5s %-9s%-12s%-8s", 
+		send_to_user( user, "   -  %10s, mode: +%-5s %-9s %-12s%-8s", 
 					  Channel->name, modestr,
 					  (Channel->talk?", talking":""),
 					  (Channel->encoding?Channel->encoding:""),

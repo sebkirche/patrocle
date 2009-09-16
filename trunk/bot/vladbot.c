@@ -67,9 +67,9 @@ static	botinfo		*botlist[MAXBOTS];
 static	listinfo	*listset[MAXBOTS];
 botinfo 	*currentbot;
 #ifdef LOG
-short   log = TRUE;
+short   logging = TRUE;
 #else
-short   log = FALSE;
+short   logging = FALSE;
 #endif /* LOG */
 char    CommandChar = PREFIX_CHAR;
 
@@ -82,7 +82,7 @@ char	*notefile = NOTEFILE;
 int	number_of_bots = 0;
 
 char *utf8 = "utf-8";
-char *latin0 = "iso-8859-15";
+char *latin1 = "iso-8859-1";
 
 
 int	find_channel(botinfo *bot, char *channel)
@@ -226,8 +226,8 @@ botinfo	*add_bot(char *s)
 			botlist[i]->lastreset = time(NULL);
 			botlist[i]->lastping = time(NULL);
 			botlist[i]->server_ok = TRUE;
-			botlist[i]->def_encoder = iconv_open(latin0, utf8); //to, from
-			botlist[i]->def_decoder = iconv_open(utf8, latin0); //to, from
+			botlist[i]->def_encoder = iconv_open(utf8, latin1); //to, from
+			botlist[i]->def_decoder = iconv_open(latin1, utf8); //to, from
 			botlist[i]->botlist = init_botlist ();
 			number_of_bots++;
 			return botlist[i];
@@ -526,6 +526,9 @@ int	send_to_server(char *format, ...)
 	char	buf[WAYTOBIG];
 
 	va_start(msg, format);
+	printf("send_to_server : ");
+	printf(format, msg);
+	printf("\n");
 	vsprintf(buf, format, msg);
 	va_end(msg);
 	return(send_to_socket(currentbot->server_sock, "%s", buf));
@@ -642,7 +645,7 @@ void	parse_server_input( fd_set *read_fds )
 		if(botlist[i] && botlist[i]->server_sock != -1)
 		{
 			currentbot = botlist[i];
-			if( FD_ISSET( currentbot->server_sock, read_fds ) ) 
+			if( FD_ISSET( currentbot->server_sock, read_fds ) ){
 				if( readln( line ) > 0 )
 					parseline( line );
 				else
@@ -653,6 +656,7 @@ void	parse_server_input( fd_set *read_fds )
 					close(currentbot->server_sock);
 					currentbot->server_sock = -1;
 				}
+			}
 		}
 	}
 }

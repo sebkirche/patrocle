@@ -147,7 +147,7 @@ Triggers = {
 	{{"repond", "reponse"},
 	 "REPONDRE"},
 
-	{{{"ami", "^gamin"}, "copain", "camarade", "pote", "poto"},
+	{{{"ami", "^gamin", "^amiga", "^whoami"}, "copain", "camarade", "pote", "poto"},
 	 "AMI"},
 
 	{{{"heure", "^heureu", "^tout-a-l'heure", "^tout a l'heure"},
@@ -584,7 +584,10 @@ function ProcessReponsesSimples(from, to)
 	  for kf,vf in pairs(flags) do
 		 if Flags[vf] then
 			repondre(from, to, vr[3], vr[2], vr[5], vr[4])
-			break
+			if Flags.STP then
+			   repondre(from, to, 2, nil, 3, nil)
+		    end 
+	  		break
 		 end
 	  end
    end
@@ -709,7 +712,33 @@ function TraiteMessage(from, to, message, nbphrases)
    print("liste des flags")
    for k,v in pairs(Flags) do if v then print(k) end end
 
+   isChannel = is_channel(to)
+
+   if (isChannel and is_log_on(to)) or (not is_channel(to) and LogLevel > 0) then
+      botlog("bot.log", "<%s#%s> %s", from, to, message .. "<----- from lua")
+   end
+
+   if Flags.FONCTION then
+	  if isChannel then
+		 AncienneAutorisation = can_talk(to)
+		 set_talk(to, false)
+	  else
+		 AncienneAutorisation = true
+	  end
+   end
+   
+
    ProcessReponsesSimples(from, to)
+   
+
+   
+--[[
+   if Flags.ILYA and Flags.QUELQUUN and Flags.QUESTION then
+	  repondre(from, to, 
+			   1, {"Mais oui %s: tu es là.", "Il y a au moins toi et moi, %s.", "Ouhou, %s, je suis là.", "Oui.", "Bien sûr %s, je suis là.", "Je suis là, %s, comme toujours.", "%s: Évidemment qu'il y a quelqu'un!", "/me est là."}, 
+			   0, {"Qu'est-ce que ça peut te faire, %s, qu'il y ait quelqu'un ou non? De toute facon on ne souhaite pas ta présence (sauf si tu te conduis gentiment).", "Je ne sais pas si on peut considérer que comme tu es là, il y a quelqu'un, %s?", "Ça dépend, %s: te considères-tu comme une personne à part entière?"})
+   end
+]]
 
    if Flags.ILYA and Flags.QUELQUUN and Flags.QUESTION then
 	  repondre(from, to, 
