@@ -1168,9 +1168,9 @@ void	processcfg()
     lua_getglobal(L, "Bots");
     if(lua_istable(L, -1)){
 		lua_pushnil(L);
-		while(lua_next(L, -2) != 0){//la table est à l'index t
+		while(lua_next(L, -2) != 0){//la table est Ã  l'index t
 			parse_bot();
-			lua_pop(L, 1); //enlève value, garde key pour l'itération suivante
+			lua_pop(L, 1); //enlÃ¨ve value, garde key pour l'itÃ©ration suivante
 		}
     }
     else

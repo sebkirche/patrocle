@@ -82,7 +82,7 @@ char	*notefile = NOTEFILE;
 int	number_of_bots = 0;
 
 char *utf8 = "utf-8";
-char *latin0 = "iso-8859-1";
+char *latin0 = "iso-8859-15";
 
 
 int	find_channel(botinfo *bot, char *channel)
@@ -226,8 +226,8 @@ botinfo	*add_bot(char *s)
 			botlist[i]->lastreset = time(NULL);
 			botlist[i]->lastping = time(NULL);
 			botlist[i]->server_ok = TRUE;
-			botlist[i]->def_encoder = iconv_open(utf8, latin0);
-			botlist[i]->def_decoder = iconv_open(latin0, utf8);
+			botlist[i]->def_encoder = iconv_open(latin0, utf8); //to, from
+			botlist[i]->def_decoder = iconv_open(utf8, latin0); //to, from
 			botlist[i]->botlist = init_botlist ();
 			number_of_bots++;
 			return botlist[i];

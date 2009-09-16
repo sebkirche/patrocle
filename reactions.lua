@@ -1,8 +1,9 @@
---traitement des messages
+--traitement des messages  -*- coding: utf-8 -*-
+
 
 require("misc")
 
---dÈclencheurs
+--d√©clencheurs
 Flags = {}
 
 Triggers = {
@@ -48,7 +49,7 @@ Triggers = {
 	{{"bonne annee", "happy new year"},
 	 "BONNE_ANNEE"},
 
-	{{"connard", "couillon", "ducon", "con ", {"con,", "^facon", "^rcon", "^scon", "^conf", "^falcon"}, "gros con", "sale con", "tit con", " des cons", "salaud", {"salop", "^salopette"},"mechant", "injuste", "degueulasse", "malpropre", --[[{"sale", "^salem", "^ssale"]] "tu pues", " puent", "pourceau", "tu sens movais", "tu sens mauvais", "sentent mauvais", "amibe", "amorphe", "leche-cul", "leche cul", "casse-couille", {"pourri", "^pourriez"}, {"tache", "^moustache", "^pistache"},"raclure", "indecent", "vulgaire", "triple buse", "chacal", "primate", "rascal", "minable", "corniaud", "trisomique", "imbecile", "baka" --[[ imbecile en japonais ]],"corniaud", "blaireau", "cafard", "idiot", "stupid", "nigaud", "neuneu", " bete", "faible d'esprit", "attarde mental", "cretin", "debile", "niais", "nul ", {" nul", "^match"},"abruti", "ahuri", "gogol", "naze", "pignouf", "mauvais", "mongole", "andouille", "cornichon", "banane", "quetsche", "cake", "enfoire", "encule", "enqule" --[[ Y'en a qui sont nuls en orthographe! ]],{"fuck","^!fuck"}, "va te faire", "te faire foutre", "lopete", {"lopette", "^salopette"},"tapette", {"pd", "^pdt", "^repdel"},"tantouse", "impuissant", "putain", "putin" --[[ faute d'ortho ]],"bitch", "tu suces", "tete de noeud", "fumier", "trou du c", "trou duc", "trouduc", "chiant", {"fais chier", "^te fais chier"},	{"fait chier", "^se fait chier"},"vas chier", " de daube", "charogne", "lourd", {"merd", "^demerd"},"espece d", "ta gueule", "ta geule" --[[ Faute d'orthographe courante ]], "face de ", "menteur", "malhonnete", "escroc", "charlatan", "canaille", "chiendent", {"patate", "patater"}, {"outre", "^foutre"},"bouffon", --[["pelo") ?!? ]]"pov gars", "moche", "affreu", "laid", "vilain", "morveux", "alcolo", "alcoolo", "alcoolique", "alcolique", "navrant", "lamentable", "faineant", "faignant", "flemmard", "bouzeu", "bouseu", "sagouin", "sagoin"},
+	{{"connard", "couillon", "ducon", "con ", {"con,", "^facon", "^rcon", "^scon", "^conf", "^falcon"}, "gros con", "sale con", "tit con", " des cons", "salaud", {"salop", "^salopette"}, "mechant", "injuste", "degueulasse", "malpropre", --[[{"sale", "^salem", "^ssale"]] "tu pues", " puent", "pourceau", "tu sens movais", "tu sens mauvais", "sentent mauvais", "amibe", "amorphe", "leche-cul", "leche cul", "casse-couille", {"pourri", "^pourriez"}, {"tache", "^moustache", "^pistache"},"raclure", "indecent", "vulgaire", "triple buse", "chacal", "primate", "rascal", "minable", "corniaud", "trisomique", "imbecile", "baka" --[[ imbecile en japonais ]],"corniaud", "blaireau", "cafard", "idiot", "stupid", "nigaud", "neuneu", " bete", "faible d'esprit", "attarde mental", "cretin", "debile", "niais", "nul ", {" nul", "^match"},"abruti", "ahuri", "gogol", "naze", "pignouf", "mauvais", "mongole", "andouille", "cornichon", "banane", "quetsche", "cake", "enfoire", "encule", "enqule" --[[ Y'en a qui sont nuls en orthographe! ]],{"fuck","^!fuck"}, "va te faire", "te faire foutre", "lopete", {"lopette", "^salopette"},"tapette", {"pd", "^pdt", "^repdel"},"tantouse", "impuissant", "putain", "putin" --[[ faute d'ortho ]],"bitch", "tu suces", "tete de noeud", "fumier", "trou du c", "trou duc", "trouduc", "chiant", {"fais chier", "^te fais chier"},	{"fait chier", "^se fait chier"},"vas chier", " de daube", "charogne", "lourd", {"merd", "^demerd"},"espece d", "ta gueule", "ta geule" --[[ Faute d'orthographe courante ]], "face de ", "menteur", "malhonnete", "escroc", "charlatan", "canaille", "chiendent", {"patate", "patater"}, {"outre", "^foutre"},"bouffon", --[["pelo") ?!? ]]"pov gars", "moche", "affreu", "laid", "vilain", "morveux", "alcolo", "alcoolo", "alcoolique", "alcolique", "navrant", "lamentable", "faineant", "faignant", "flemmard", "bouzeu", "bouseu", "sagouin", "sagoin"},
 	"INJURE"},
 
 	 {{"intelligent", {"demerde", " bien"}, "courageux", {"cool", "^alcool"}, "sympa", "marrant", "rigolo", "joyeux", {" poli", "^polisson"}, " fort ", " forts ", {"puissant", "^impuissant"}, "efficace", "rapid", "champion", "super", "extra", "genial", "geniaux", "genie", "une bete", "etalon", "le meilleur", "excellent", --[[{"juste", "^injuste"},]]"interessant", "impressionnant", "epatant", {"beau", "^beauc", "^beaut"}, "elegant", "galant", "magnifi", "splendide", "joli", "classe", "merveille", "chouette", " chou", "gentil", "mignon", "adorable", "adore", "bravo", "un bon", "tres bon", "bon bot", "bien vu", "serviable", "felicit", "un ange", "un dieu"},
@@ -93,7 +94,7 @@ Triggers = {
    {{ "quelqu'un", "quelqu un", "kelk'un", "kelkun", "kkun", "kk1", "kelkin", "qquun", "qq'un", "qqun", "qqn", "qq1", "qlqn", " des gens", "someone", "somebody", "somebady", "any", "jemand", "alguen" --[[ En espagnol ]]},
 	"QUELQUUN"},
 
-	{{"calme", "mort", {" quiet", "^inquiet"}, "un ange passe", "tranquille", "reposant"},
+	{{"calme", "mort", {" quiet", "^inquiet"}, --[["un ange passe",]] "tranquille", "reposant"},
 	 "CALME"},
 
 	{{"ta gueule", "ta geule" --[[ faute courante ]], "shut up", {"chut", "^chute", "^chuti"}, "silence", "tais-toi", "tais toi", "te taire", "ferme la", "la ferme", "boucle la", "ca suffit", "en veilleuse"},
@@ -109,7 +110,7 @@ Triggers = {
 	 "REPAS"},
 
 	{{"je pars ", "vais aller", "je vais", "je v ", "je file"},
-	 "JEMENVAIS"},
+	 "JEMENVAIS"}, --[[ TODO mixer REPAS et JEMENVAIS comme c'√©tait dans le code C -> VAIS_MANGER ]]
 
 	{{"enerve"},
 	 "ENERVEMENT"},
@@ -177,7 +178,7 @@ Triggers = {
 	{{"tu as ", "t'as ", "t as ", "vous avez"},
 	 "TU_AS"},
 
-	{{"un bot", "un robot", "un automate", "un programme", "androide", "androÔde", "une machine"},
+	{{"un bot", "un robot", "un automate", "un programme", "androide", "andro√Øde", "une machine"},
 	 "UN_BOT"},
 
 	{{"un mec", "un gars", "garcon", "homme"},
@@ -389,7 +390,7 @@ Triggers = {
 	 "FRONT_NATIONAL"},
 
 	{{{"merde", "^demerde"}, {"shit", "^!shit", "^shitt"}, "couill", "connard", "ducon", "zob", {"bite", "^abite"}, "salaud", {"salop", "^salopette"}, "degueu", "blair", "pignouf", "enfoire", "encule", {"pd", "^pdt"}, " pd ", {"fuck","^!fuck"}, "fuk", "branler", "putain", "pt1", "putin", "bordel", {"chier", "^ichier"}, "chiant", "gueule", "dick", "suck", "sux", "tu suce", "bitch", "bougnoul", " de daube", "leche-cul", "leche cul", {"culs", "^calcul"}, "mon cul", "trou du c", "trou duc", "trouduc", "asshole", "foutre", {"niqu", "^pique"}, "pisse", "bougnoul", "niakoue", "bico"},
-	 "GROS_MOT"},
+	 "GROS_MOT"}, --[[ TODO voir avec INJURE si √ßa ne se recooupe pas ]]
 
 	{{{"pour", "^pourceau", "^pourri"}},
 	 "POUR"},
@@ -418,7 +419,7 @@ Triggers = {
 	{{"qui est", "Qui c'est", "C'est qui", "c qui", "c ki", "c'ki"},
 	 "QUI_EST"},
 
-	{{"ton maitre", "ton maÓtre", "ton seigneur", "ton chef"},
+	{{"ton maitre", "ton ma√Ætre", "ton seigneur", "ton chef"},
 	 "TON_MAITRE"},
 
 	{{"raison"},
@@ -490,7 +491,7 @@ Triggers = {
 	{{"!join", {"join", function (from,to,msg) return not(is_channel(to)) end}},
 	 "FUNCTION_JOIN"},
 
---[[
+--[[ TODO
   if (FONCTION_APPRENDS || FONCTION_FUCK || FONCTION_SAY ||
       ChaineEstDans (msg, "!active") ||
       !ischannel (to) && ChaineEstDans (msg, "active") ||
@@ -522,19 +523,19 @@ function ProcessFlags(from, to, msg)
    -- check for the predefined flags 
    --local Triggers = Triggers
    Flags = {}
-   print(#Triggers .. " dÈclencheurs")
+   print(#Triggers .. " d√©clencheurs")
    for kt,vt in pairs(Triggers) do
-	  --vt est un dÈclencheur vt[1] = table des mots, vt[2] = nom
+	  --vt est un d√©clencheur vt[1] = table des mots, vt[2] = nom
 	  local liste = vt[1]
 	  for kp,vp in pairs(liste) do
-		 --vp est une pattern pour un dÈclencheur
+		 --vp est une pattern pour un d√©clencheur
 		 if type(vp) ==  "string" then --pattern simple
 			if chaine_est_dans(msg, vp) then 
 			   Flags[vt[2]] = true
 			   break
 			end
 		 elseif type(vp) == "table" then --pour les cas "x mais pas y ni z"
-			--print("table de "..#vp.." elÈments trouvÈe pour tester le declencheur " .. vt[2])
+			--print("table de "..#vp.." el√©ments trouv√©e pour tester le declencheur " .. vt[2])
 			res = true
 			for key,val in pairs(vp) do
 			   if type(val) == "string" then
@@ -572,13 +573,13 @@ end
 
 function ProcessReponsesSimples(from, to)
    for kr,vr in pairs(Reactions) do
-	  --vr est une rÈaction
+	  --vr est une r√©action
 	  
 	  --vr[1] est la liste des flags
-	  --vr[2] est la liste des rÈponses positives
+	  --vr[2] est la liste des r√©ponses positives
 	  --vr[3] est l'humeur positive
-	  --vr[4] est la liste des rÈponses nÈgatives
-	  --vr[5] est l'humeur nÈgative
+	  --vr[4] est la liste des r√©ponses n√©gatives
+	  --vr[5] est l'humeur n√©gative
 	  local flags = vr[1]
 	  for kf,vf in pairs(flags) do
 		 if Flags[vf] then
@@ -712,14 +713,14 @@ function TraiteMessage(from, to, message, nbphrases)
 
    if Flags.ILYA and Flags.QUELQUUN and Flags.QUESTION then
 	  repondre(from, to, 
-			   1, {"Mais oui %s: tu es l‡.", "Il y a au moins toi et moi, %s.", "Ouhou, %s, je suis l‡.", "Oui.", "Bien s˚r %s, je suis l‡.", "Je suis l‡, %s, comme toujours.", "%s: …videmment qu'il y a quelqu'un!", "/me est l‡."}, 
-			   0, {"Qu'est-ce que Áa peut te faire, %s, qu'il y ait quelqu'un ou non? De toute facon on ne souhaite pas ta prÈsence (sauf si tu te conduis gentiment).", "Je ne sais pas si on peut considÈrer que comme tu es l‡, il y a quelqu'un, %s?", "«a dÈpend, %s: te considËres-tu comme une personne ‡ part entiËre?"})
+			   1, {"Mais oui %s: tu es l√†.", "Il y a au moins toi et moi, %s.", "Ouhou, %s, je suis l√†.", "Oui.", "Bien s√ªr %s, je suis l√†.", "Je suis l√†, %s, comme toujours.", "%s: √âvidemment qu'il y a quelqu'un!", "/me est l√†."}, 
+			   0, {"Qu'est-ce que √ßa peut te faire, %s, qu'il y ait quelqu'un ou non? De toute facon on ne souhaite pas ta pr√©sence (sauf si tu te conduis gentiment).", "Je ne sais pas si on peut consid√©rer que comme tu es l√†, il y a quelqu'un, %s?", "√áa d√©pend, %s: te consid√®res-tu comme une personne √† part enti√®re?"})
    end
   
     if Flags.C_EST and Flags.CALME then
 	   repondre(from, to, 
-				1, {"C'est le calme avant la tempÍte?", "Le silence t'angoisse, %s?", "«a ne va peut-Ítre pas durer.", "Profitons-en. Si Áa se trouve, Áa va pas durer.", "C'est pas de ma faute, %s!", "«a repose, non?", "%s: C'est le moment pour faire son yoga!"},
-				0, {"%s: Et j'espËre que Áa va continuer.", "Comme tu es l‡, %s, je pense que Áa ne va pas durer!", "Oui, %s, c'Ètait calme avant que tu n'arrives!", "%s: J'ai peur que Áa ne dure pas!"})
+				1, {"C'est le calme avant la temp√™te?", "Le silence t'angoisse, %s?", "√áa ne va peut-√™tre pas durer.", "Profitons-en. Si √ßa se trouve, √ßa va pas durer.", "C'est pas de ma faute, %s!", "√áa repose, non?", "%s: C'est le moment pour faire son yoga!"},
+				0, {"%s: Et j'esp√®re que √ßa va continuer.", "Comme tu es l√†, %s, je pense que √ßa ne va pas durer!", "Oui, %s, c'√©tait calme avant que tu n'arrives!", "%s: J'ai peur que √ßa ne dure pas!"})
 	end
 
 
@@ -731,9 +732,11 @@ function TraiteMessage(from, to, message, nbphrases)
 		  repondre(from, to, 0, {"je fonctionne avec " .. _VERSION}, 0, {})
 	   end
 	end
+	--[[
 	if string.find(from, "!n=karim@") then
 	   repondre(from, to, 0, {"mon copain kh", "tu me rappelles quelqu'un, kh"}, 0, {})
 	end
+    ]]
 	
 	--repondre(from, to, 0, {"fin d'analyse"}, 0, {})
 
