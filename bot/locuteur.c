@@ -92,6 +92,7 @@ locuteur *AjouteLocuteur (locuteur **Liste, char *userhost) {
 void AjoutePoints (locuteur *Locuteur, int Points) {
 	if (Locuteur)
 		Locuteur->bonus_malus += Points;
+	//printf("AjoutePoints %d à %s\n", Points, Locuteur->nuh);
 } /* void AjoutePoints () */
 
 void AnnulePoints (locuteur *Locuteur) {

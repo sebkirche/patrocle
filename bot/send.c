@@ -58,8 +58,7 @@ int	sendprivmsg(char *sendto, char *format, ...)
 	va_end(msg);
 	//et factoriser ce bloc aussi
 	Channel_to = search_chan(sendto);
-	if(Channel_to && Channel_to->encoder != (iconv_t)-1){
-		printf("sendprivmsg : chan %s, encoder = %d %s\n", Channel_to->name, Channel_to->encoder, buf);
+	if(Channel_to && (Channel_to->encoder != (iconv_t)-1)){
 		memset(utfized, 0, sizeof(utfized));
 		lin = strlen(buf);
 		lout = sizeof(utfized);
@@ -83,8 +82,7 @@ int sendaction (char *sendto, char *format, ...)
 	vsprintf(buf, format, msg);
 	va_end(msg);
 	Channel_to = search_chan(sendto);
-	if(Channel_to && Channel_to->encoder != (iconv_t)-1){
-		printf("sendaction : chan %s, encoder = %d\n", Channel_to->name, Channel_to->encoder);
+	if(Channel_to && (Channel_to->encoder != (iconv_t)-1)){
 		memset(utfized, 0, sizeof(utfized));
 		lin = strlen(buf);
 		lout = sizeof(utfized);
@@ -109,8 +107,7 @@ int	sendnotice(char *sendto, char *format, ...)
 	vsprintf(buf, format, msg);
 	va_end(msg);
 	Channel_to = search_chan(sendto);
-	if(Channel_to && Channel_to->encoder != (iconv_t)-1){
-		printf("sendnotice : chan %s, encoder = %d\n", Channel_to->name, Channel_to->encoder);
+	if(Channel_to && (Channel_to->encoder != (iconv_t)-1)){
 		memset(utfized, 0, sizeof(utfized));
 		lin = strlen(buf);
 		lout = sizeof(utfized);

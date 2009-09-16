@@ -9,15 +9,15 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <assert.h>
-#ifndef __APPLE__
-	#include <lua5.1/lua.h>
-	#include <lua5.1/lualib.h>
-	#include <lua5.1/lauxlib.h>
-#else
+//#ifndef __APPLE__
+//	#include <lua5.1/lua.h>
+//	#include <lua5.1/lualib.h>
+//	#include <lua5.1/lauxlib.h>
+//#else
 	#include <lua.h>
 	#include <lualib.h>
 	#include <lauxlib.h>
-#endif
+//#endif
 
 #include "log.h"
 #include "cfgfile.h"
@@ -29,6 +29,8 @@
 #include "vladbot.h"
 #include "phrase.h"
 
+extern short logging;
+extern	botinfo	*currentbot;
 lua_State *L = NULL;
 
 int c2l_ischannel(lua_State *L)
@@ -36,6 +38,27 @@ int c2l_ischannel(lua_State *L)
 	const char *name = luaL_checkstring(L, 1);
 	lua_pushboolean(L, ischannel(name));
 	return 1;
+}
+
+int c2l_cantalk(lua_State *L)
+{
+	const char *name = luaL_checkstring(L, 1);
+	CHAN_list *Channel_to  = (ischannel(name) ? search_chan(name) : 0);
+	lua_pushboolean(L, (Channel_to ? Channel_to->talk : TRUE));
+	return 1;
+}
+
+int c2l_settalk(lua_State *L)
+{
+	const char *name = luaL_checkstring(L, 1);
+	int talk;
+	if lua_isboolean(L, 2){
+		talk = lua_toboolean(L, 2);
+		CHAN_list *Channel_to  = (ischannel(name) ? search_chan(name) : 0);
+		if (Channel_to)
+			Channel_to->talk = talk;
+	}
+	return 0;
 }
 
 int c2l_islogon(lua_State *L)
@@ -53,6 +76,15 @@ int c2l_nickuserstr(lua_State *L)
 	lua_pushstring(L, NUS);
 	if(NUS)
 		free(NUS);
+	return 1;
+}
+
+int c2l_locutorexists(lua_State *L)
+{
+	locuteur *Locuteur;
+	const char *name = luaL_checkstring(L, 1);
+	Locuteur = LocuteurExiste(currentbot->lists->ListeLocuteurs, name);
+	lua_pushboolean(L, Locuteur);
 	return 1;
 }
 
@@ -111,28 +143,28 @@ int c2l_sendnotice(lua_State *L)
 int c2l_repondre(lua_State *L)
 {
 	int i;
-	char **Rpos, **Rneg;
+	char **Rpos = 0, **Rneg = 0;
 	const char *from = luaL_checkstring(L, 1);
 	const char *to = luaL_checkstring(L, 2);
 	int humpos = luaL_checknumber(L, 3);
 	int nbpos = lua_objlen(L, 4);//luaL_checknumber(L, 4);
 	int humneg = luaL_checknumber(L, 5);
 	int nbneg = lua_objlen(L, 6);//luaL_checknumber(L, 7);
-	if(!lua_istable(L, 4))
-		return 0;
-	if(!lua_istable(L, 6))
-		return 0;
-	Rpos = malloc(nbpos * sizeof(char *));
-	for(i=0; i<nbpos; i++){
-		lua_rawgeti(L, 4, i+1);
-		Rpos[i] = strdup(lua_tostring(L, -1));
-		lua_pop(L, 1);
+	if(lua_istable(L, 4)){
+		Rpos = malloc(nbpos * sizeof(char *));
+		for(i=0; i<nbpos; i++){
+			lua_rawgeti(L, 4, i+1);
+			Rpos[i] = strdup(lua_tostring(L, -1));
+			lua_pop(L, 1);
+		}
 	}
-	Rneg = malloc(nbneg * sizeof(char *));
-	for(i=0; i<nbneg; i++){
-		lua_rawgeti(L, 6, i+1);
-		Rneg[i] = strdup(lua_tostring(L, -1));
-		lua_pop(L, 1);
+	if(lua_istable(L, 6)){
+		Rneg = malloc(nbneg * sizeof(char *));
+		for(i=0; i<nbneg; i++){
+			lua_rawgeti(L, 6, i+1);
+			Rneg[i] = strdup(lua_tostring(L, -1));
+			lua_pop(L, 1);
+		}
 	}
 	Repondre(from, to, humpos, nbpos, Rpos, humneg, nbneg, Rneg);
 	return 0;
@@ -187,8 +219,11 @@ void register_cstuff()
 
 	//interface functions
 	lua_register(L, "is_channel", c2l_ischannel);
+	lua_register(L, "can_talk", c2l_cantalk);
+	lua_register(L, "set_talk", c2l_cantalk);
 	lua_register(L, "is_log_on", c2l_islogon);
 	lua_register(L, "nick_user_str", c2l_nickuserstr);
+	lua_register(L, "locuteur_existe", c2l_locutorexists);
 	lua_register(L, "userlever", c2l_userlevel);
 	lua_register(L, "shitlevel", c2l_shitlevel);
 	lua_register(L, "protlevel", c2l_protlevel);
@@ -238,7 +273,11 @@ void    LuaTraite (botinfo	*currentbot, char *from, char *to, char *msg, int num
 	lua_pushstring(L, "BotNick");
 	lua_pushstring(L, currentbot->nick);
 	lua_settable(L, LUA_GLOBALSINDEX);
-
+	
+	lua_pushstring(L, "Logging");
+	lua_pushboolean(L, logging);
+	lua_settable(L, LUA_GLOBALSINDEX);
+	
 	lua_getglobal(L, "TraiteMessage");
 	lua_pushstring(L, from);
 	lua_pushstring(L, to);

@@ -515,6 +515,9 @@ void	add_to_channellist(botinfo *bot)
 		strncpy(encoding, lua_tostring(L, -1), sizeof(encoding)-1);
 		lua_pop(L, 1);
 	}
+	//if no encoding, default to utf-8
+	if (strlen(encoding) == 0)
+		strncpy(encoding, "utf-8", sizeof(encoding)-1);
 	
 	if(find_channel(bot, channelname))
 		cfg_debug(ERROR, "Channel \"%s\" already in list!", channelname);

@@ -26,7 +26,7 @@ Bots = {
       channels = {
 		--{name = "#emacsfr", mode = "", topic = "", encoding = "UTF-8"},
 		 {name = "#seki", mode = "",topic = "",	encoding = "iso-8859-1"},
-		 {name = "#seki8", mode = "",topic = "#seki8, le canal d'essai de Patrocle en utf-8",	encoding = "UTF-8"}
+		 {name = "#seki8", mode = "",topic = "#seki8, le canal d'essai de Patrocle en utf-8",	encoding = ""}
       },
       servers = {"irc.freenode.org"},
       stims = "Citations.stim",
@@ -36,5 +36,26 @@ Bots = {
       --download = "/dev/null",
       --upload = "/dev/null",
       fileset = FileList
+   },
+--[[
+   {
+	  id = "patrocle_nerim",				--internal id
+	  nick = "patrocle",			--bot nickname
+      name = "/msg Patrocle help",	--bot name for other people
+      login = "patrocle",			--login name for the server
+      channels = {
+		--{name = "#emacsfr", mode = "", topic = "", encoding = "UTF-8"},
+		 {name = "#seki", mode = "",topic = "",	encoding = "iso-8859-1"},
+		 {name = "#seki8", mode = "",topic = "#seki8, le canal d'essai de Patrocle en utf-8", encoding = ""}
+      },
+      servers = {"ircnet.nerim.fr"},
+      stims = "Citations.stim",
+      reps = "Citations.reps",
+      botlist = "bot.list",
+      index =  "INDEX",
+      --download = "/dev/null",
+      --upload = "/dev/null",
+      fileset = FileList
    }
+]]   
 }
