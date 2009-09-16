@@ -145,10 +145,14 @@ int	join_channel(char *name, char *topic, char *mode, char *encoding, int dojoin
 		mstrcpy(&Channel->mod, mode?mode:"");
 		mstrcpy(&Channel->encoding, encoding?encoding:"");
 		Channel->encoder = Channel->decoder = (iconv_t)-1;
-		if(strstr(encoding, "UTF-8")){
+		if(strcasestr(encoding, "utf-8")){
 			Channel->utf8 = TRUE;
+		}else if((strlen(encoding) == 0) || (strcasestr(encoding, "latin-0")) || (strcasestr(encoding, "8859-15"))){
 			Channel->encoder = iconv_open(utf8, latin0);
 			Channel->decoder = iconv_open(latin0, utf8);
+		}else{
+			Channel->encoder = iconv_open(utf8, encoding);
+			Channel->decoder = iconv_open(encoding, utf8);			
 		}
 
 		Channel->talk = TRUE;

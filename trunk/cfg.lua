@@ -1,6 +1,7 @@
+-- -*- coding: utf-8 -*-
 
 debug = 2
-maintainer = "seki@seki.fr"
+maintainer = "sebastien.kirche@free.fr"
 maintainer_name = "seki"
 --notefile = path_to_notefile
 --idletimeout = 42
@@ -24,7 +25,7 @@ Bots = {
       login = "patrocle",			--login name for the server
       channels = {
 		--{name = "#emacsfr", mode = "", topic = "", encoding = "UTF-8"},
-		 --{name = "#seki", mode = "",topic = "",	encoding = ""},
+		 {name = "#seki", mode = "",topic = "",	encoding = "iso-8859-1"},
 		 {name = "#seki8", mode = "",topic = "#seki8, le canal d'essai de Patrocle en utf-8",	encoding = "UTF-8"}
       },
       servers = {"irc.freenode.org"},

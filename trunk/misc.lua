@@ -1,3 +1,4 @@
+-- -*- coding: utf-8 -*-
 
 -- Fonction de recherche dans une table
 FIND_NOCASE = 0
