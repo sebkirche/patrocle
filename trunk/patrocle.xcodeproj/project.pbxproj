@@ -83,7 +83,7 @@
 		BE3EC738105D123D00B6853F /* Citations.stim */ = {isa = PBXFileReference; fileEncoding = 2147484175; lastKnownFileType = text; path = Citations.stim; sourceTree = "<group>"; };
 		BE3EC739105D123D00B6853F /* Citations.stim.ori */ = {isa = PBXFileReference; fileEncoding = 2147484175; lastKnownFileType = text; path = Citations.stim.ori; sourceTree = "<group>"; };
 		BE3EC73A105D123D00B6853F /* err.log */ = {isa = PBXFileReference; fileEncoding = 2147484175; lastKnownFileType = text; path = err.log; sourceTree = "<group>"; };
-		BE3EC73C105D123D00B6853F /* iconvtest.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iconvtest.c; sourceTree = "<group>"; };
+		BE3EC73C105D123D00B6853F /* iconvtest.c */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.c; path = iconvtest.c; sourceTree = "<group>"; };
 		BE3EC73D105D123D00B6853F /* infile.cfg */ = {isa = PBXFileReference; fileEncoding = 2147484175; lastKnownFileType = text; path = infile.cfg; sourceTree = "<group>"; };
 		BE3EC73E105D123D00B6853F /* infile.cfg.ori */ = {isa = PBXFileReference; fileEncoding = 2147484175; lastKnownFileType = text; path = infile.cfg.ori; sourceTree = "<group>"; };
 		BE3EC73F105D123D00B6853F /* locuteurs.list */ = {isa = PBXFileReference; fileEncoding = 2147484175; lastKnownFileType = text; path = locuteurs.list; sourceTree = "<group>"; };
@@ -104,10 +104,10 @@
 		BE3EC750105D123D00B6853F /* user.list */ = {isa = PBXFileReference; fileEncoding = 2147484175; lastKnownFileType = text; path = user.list; sourceTree = "<group>"; };
 		BEAA0B34105D65F4005665D4 /* luainterface.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = luainterface.c; sourceTree = "<group>"; };
 		BEAA0B35105D65F4005665D4 /* luainterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luainterface.h; sourceTree = "<group>"; };
-		BEAA0B41105D71E1005665D4 /* cfg.lua */ = {isa = PBXFileReference; fileEncoding = 2147484175; lastKnownFileType = text; path = cfg.lua; sourceTree = "<group>"; };
+		BEAA0B41105D71E1005665D4 /* cfg.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cfg.lua; sourceTree = "<group>"; };
 		BEAA0B42105D71E1005665D4 /* gen_valgrind_excepts.sh */ = {isa = PBXFileReference; fileEncoding = 2147484175; lastKnownFileType = text.script.sh; path = gen_valgrind_excepts.sh; sourceTree = "<group>"; };
-		BEAA0B43105D71E1005665D4 /* misc.lua */ = {isa = PBXFileReference; fileEncoding = 2147484175; lastKnownFileType = text; path = misc.lua; sourceTree = "<group>"; };
-		BEAA0B44105D71E1005665D4 /* reactions.lua */ = {isa = PBXFileReference; fileEncoding = 2147484175; lastKnownFileType = text; path = reactions.lua; sourceTree = "<group>"; };
+		BEAA0B43105D71E1005665D4 /* misc.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = misc.lua; sourceTree = "<group>"; };
+		BEAA0B44105D71E1005665D4 /* reactions.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = reactions.lua; sourceTree = "<group>"; };
 		BEAA0B45105D71E1005665D4 /* run_valgrind.sh */ = {isa = PBXFileReference; fileEncoding = 2147484175; lastKnownFileType = text.script.sh; path = run_valgrind.sh; sourceTree = "<group>"; };
 		BEAA0B76105D724F005665D4 /* valgrind.supp */ = {isa = PBXFileReference; fileEncoding = 2147484175; lastKnownFileType = text; path = valgrind.supp; sourceTree = "<group>"; };
 		BEDF3EBC105F10EF006D12C8 /* start_bot.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = start_bot.sh; sourceTree = "<group>"; };
