@@ -30,58 +30,48 @@
 #include "userlist.h"
 
 
-USERLVL_list    *exist_userhost ( l_list, userhost )
-USERLVL_list	**l_list;
-char		*userhost;
-
+USERLVL_list    *exist_userhost ( USERLVL_list **l_list, char *userhost )
 {
-  USERLVL_list	*User;
+	USERLVL_list	*User;
 
-  for( User = *l_list; User; User = User->next )
-    if( !fnmatch ( User->userhost, userhost, FNM_CASEFOLD ) )
-      return(User);
+	for( User = *l_list; User; User = User->next )
+		if( !fnmatch ( User->userhost, userhost, FNM_CASEFOLD ) )
+			return(User);
 
-  return(NULL);
+	return(NULL);
 }
 
-USERLVL_list	*find_userhost( l_list, userhost )
-USERLVL_list	**l_list;
-char		*userhost;
-
+USERLVL_list	*find_userhost( USERLVL_list **l_list, char *userhost )
 {
 	USERLVL_list	*User;
 
 	for( User = *l_list; User; User = User->next )
 		if( STRCASEEQUAL( userhost, User->userhost ) )
 			return(User);
+
 	return(NULL);
 }
 
 USERLVL_list	**init_levellist( )
-
 {
 	USERLVL_list	**l_list;
 
 	l_list=(USERLVL_list **)malloc(sizeof(*l_list));
 	*l_list=NULL;
+	
 	return(l_list);
 }
 
-void	add_to_levellist( l_list, userhost, level )
-USERLVL_list	**l_list;
-char		*userhost;
-int		level;
-/*
- * adds a user to the list... 
- * should we check here for double entries?
- * Check for level (adding higher level etc)
- */
-
+void	add_to_levellist( USERLVL_list **l_list, char *userhost, int level )
 {
+	/*
+	 * adds a user to the list... 
+	 * should we check here for double entries?
+	 * Check for level (adding higher level etc)
+	 */
 	USERLVL_list	*New_user;
 
-	if( (New_user = find_userhost(l_list, userhost)) != NULL )
-	{
+	if( (New_user = find_userhost(l_list, userhost)) != NULL ){
 		New_user->access   = level;
 		return;
 	}		
@@ -93,14 +83,12 @@ int		level;
 	*l_list = New_user;
 }
 
-int	remove_from_levellist( l_list, userhost )
-USERLVL_list	**l_list;
-char		*userhost;
-/*
- * removes the first occurance of userhost from l_list 
- */
-
+int	remove_from_levellist( USERLVL_list **l_list, char *userhost )
 {
+	/*
+	 * removes the first occurance of userhost from l_list 
+	 */
+
 	USERLVL_list	**old;
 	USERLVL_list	*dummy;
 
@@ -108,8 +96,7 @@ char		*userhost;
 		return(FALSE);
 
 	for( old = l_list; *old; old = &(*old)->next )
-		if( *old == dummy )
-		{
+		if( *old == dummy ){
 			*old = dummy->next;
 			free(dummy->userhost);
 			free(dummy );
@@ -124,8 +111,7 @@ void	delete_levellist(USERLVL_list **l_list )
 	USERLVL_list	*next;
 
 	dummy = *l_list;
-	while(dummy)
-	{
+	while(dummy){
 		next = dummy->next;
 		remove_from_levellist(l_list, dummy->userhost);
 		dummy = next;
@@ -133,10 +119,7 @@ void	delete_levellist(USERLVL_list **l_list )
 	free(l_list);
 }
 
-int	get_level( l_list, userhost )
-USERLVL_list	**l_list;
-char		*userhost;
-
+int	get_level( USERLVL_list **l_list, const char *userhost )
 {
 	USERLVL_list	*dummy;
 	int		access = 0;
@@ -144,16 +127,12 @@ char		*userhost;
 	for( dummy = *l_list; dummy; dummy = dummy->next )
 		if( !fnmatch( dummy->userhost, userhost, FNM_CASEFOLD ) )
 			access = (dummy->access > access) ? 
-				 dummy->access : access;
-
+				dummy->access : access;
+	
 	return(access);
 }
 
-int	get_level_neg ( l_list, userhost , success )
-USERLVL_list	**l_list;
-char		*userhost;
-int             *success;
-
+int	get_level_neg ( USERLVL_list **l_list, const char *userhost , int *success )
 {
 	USERLVL_list	*dummy;
 	int		access = -500;
@@ -161,75 +140,61 @@ int             *success;
 	*success = FALSE;
 
 	for( dummy = *l_list; dummy; dummy = dummy->next )
-	  if( !fnmatch( dummy->userhost, userhost, FNM_CASEFOLD ) ) {
-	    access = (dummy->access > access) ? 
-	      dummy->access : access;
-	    *success = TRUE;
-	  }
+		if( !fnmatch( dummy->userhost, userhost, FNM_CASEFOLD ) ) {
+			access = (dummy->access > access) ? 
+				dummy->access : access;
+			*success = TRUE;
+		}
 
 	return(access);
 }
 
-void    add_to_level (l_list, userhost, humeur )
-USERLVL_list	**l_list;
-char		*userhost;
-int             humeur;
-
+void    add_to_level (USERLVL_list **l_list, char *userhost, int humeur )
 {
-        USERLVL_list	*dummy;
+	USERLVL_list	*dummy;
 	int		rel = 0;
 
 	for( dummy = *l_list; dummy; dummy = dummy->next )
-	  if( !fnmatch( dummy->userhost, userhost, FNM_CASEFOLD ) )
-	    dummy->access += humeur;
+		if( !fnmatch( dummy->userhost, userhost, FNM_CASEFOLD ) )
+			dummy->access += humeur;
 
 }
 
-void	show_lvllist( l_list, from, userhost )
-USERLVL_list	**l_list;
-char		*from;
-char		*userhost;
-
+void	show_lvllist( USERLVL_list **l_list, char *from, char *userhost )
 {
 	USERLVL_list	*dummy;
 
 	for( dummy = *l_list; dummy; dummy = dummy->next )
 		if(!fnmatch(dummy->userhost, userhost, FNM_CASEFOLD) || !*userhost)
 			send_to_user( from, " %40s | %-4d", 
-			dummy->userhost, dummy->access );
+						  dummy->userhost, dummy->access );
 }
 
-void    cancel_level ( l_list, level )
-USERLVL_list	**l_list;
-int             level;
+void    cancel_level ( USERLVL_list **l_list, int level )
 {
   USERLVL_list *dummy;
   USERLVL_list *next;
 
   dummy = *l_list;
-  while(dummy)
-    {
+  while(dummy){
       next = dummy->next;
       if (dummy->access == level)
-	remove_from_levellist(l_list, dummy->userhost);
+		  remove_from_levellist(l_list, dummy->userhost);
       dummy = next;
-    }
+  }
 
 }
 
-int	write_lvllist( l_list, filename )
-USERLVL_list	**l_list;
-char		*filename;
-
+int	write_lvllist( USERLVL_list **l_list, char *filename )
 {
 	USERLVL_list	*dummy;
-        time_t 	T;
-	FILE	*list_file;
+	time_t			T;
+	FILE			*list_file;
 
 	if( ( list_file = fopen( filename, "w" ) ) == NULL )
 		return( FALSE );
  
-        T = time( ( time_t *) NULL);
+	T = time( ( time_t *) NULL);
 
 	fprintf( list_file, "#############################################\n" );
 	fprintf( list_file, "## %s\n", filename );
@@ -239,11 +204,10 @@ char		*filename;
 
 	for( dummy = *l_list; dummy; dummy = dummy->next )
 	    fprintf( list_file,
-		     " %40s %d\n", dummy->userhost, dummy->access );
+				 " %40s %d\n", dummy->userhost, dummy->access );
 	fprintf( list_file, "# End of %s\n", filename );
 	fclose( list_file );
 	return( TRUE );
-
 }
 
 
