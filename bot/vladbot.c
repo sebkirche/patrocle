@@ -1,30 +1,32 @@
 /*
- * VladBot - servicebot for IRC
- * Copyright (C) 1993-94 VladDrac (irvdwijk@cs.vu.nl)
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- *
- * This module deals with the creation, handling, deleting etc. of more
- * than one bot. This module if NOT the main module and does not contain
- * the main loop (see main.c) 
- *
- * WARNING: These functions should only be called from on_msg with great
- *          caution as wrong use can really mess things up (like changing
- *	    currentbot etc.) Most of these functions should only be called
- *	    from cfgfile.c and main.c (the "Creating" and "Maintaining"
- *	    modules)
+ VladBot  - servicebot for IRC.
+ Copyright (C) 1993, 1994 VladDrac (irvdwijk@cs.vu.nl)
+ Copyright (C) 1996, 1997, 1998 François Parmentier (H_I)
+ Copyright (C) 2009 Sébastien Kirche 
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ 
+  This module deals with the creation, handling, deleting etc. of more
+  than one bot. This module if NOT the main module and does not contain
+  the main loop (see main.c) 
+ 
+  WARNING: These functions should only be called from on_msg with great
+           caution as wrong use can really mess things up (like changing
+ 	    currentbot etc.) Most of these functions should only be called
+ 	    from cfgfile.c and main.c (the "Creating" and "Maintaining"
+ 	    modules)
  */
 
 #include <stdio.h>
@@ -59,7 +61,7 @@
 extern	void	signoff(char *from, char *reason);
 extern	int	userlevel(char *);
 extern	int	shitlevel(char *);
-extern  short   log;
+extern  short   logging;
 
 long	uptime;
 char	*botmaintainer = NULL;
@@ -89,7 +91,6 @@ int	find_channel(botinfo *bot, char *channel)
 /*
  * returns 1 if channel in bot, else 0
  */
-
 {
 	currentbot = bot;
 	if(search_chan(channel))
@@ -101,7 +102,6 @@ int	add_channel_to_bot(botinfo *bot, char *channel, char *topic, char *mode, cha
 /*
  * adds channel to bot, returns 0 if list full
  */
-
 {
 	currentbot = bot;
 	return(join_channel(channel, topic, mode, encoding, FALSE));
@@ -111,7 +111,6 @@ int	find_server(botinfo *bot, char *server, int port)
 /*
  * returns 1 if server/port in bot, else 0
  */
-
 {
 	int	i;
 	
@@ -126,7 +125,6 @@ int	add_server_to_bot(botinfo *bot, char *server, int port)
 /*
  * adds server to bot, returns 0 if list full
  */
-
 {
 	if(bot->num_of_servers == MAXSERVER)
 		return 0;
@@ -152,16 +150,14 @@ int	delete_server_from_bot(botinfo *bot, char *server, int port)
 	if(!found || bot->num_of_servers == 0)
 		return 0;
 
-	if(bot->current_server == i)
-	{
+	if(bot->current_server == i){
 		close(bot->server_sock);
 		bot->server_sock = -1;		/* reconnect */
 		if(i == bot->num_of_servers - 1)
 			bot->current_server--;
 	}
 	
-	for(j=i; j < bot->num_of_servers-1; j++)
-	{
+	for(j=i; j < bot->num_of_servers-1; j++){
 		free(bot->serverlist[j].name);
 		mstrcpy(&bot->serverlist[j].name, bot->serverlist[j+1].name);
 	}
@@ -173,8 +169,7 @@ int	bot_init()
 {
 	int 	i;
 
-	for(i=0; i<MAXBOTS; i++)
-	{
+	for(i=0; i<MAXBOTS; i++){
 		botlist[i]=NULL;
 		listset[i]=NULL;
 	}
@@ -197,8 +192,7 @@ botinfo	*add_bot(char *s)
 	int	i;
 
 	for(i=0; i<MAXBOTS; i++)
-		if(!botlist[i])
-		{
+		if(!botlist[i]){
 			if((botlist[i] = 
 				(botinfo *)malloc(sizeof(botinfo))) == NULL)
 				return NULL;
@@ -244,8 +238,7 @@ listinfo *add_listset(char *s)
 	int	i;
 
 	for(i=0; i<MAXBOTS; i++)
-		if(!listset[i])
-		{
+		if(!listset[i]){
 			if((listset[i] = (listinfo*)malloc(sizeof(listinfo))) == NULL)
 				return NULL;
 			mstrcpy(&listset[i]->listname, s);
@@ -267,7 +260,6 @@ listinfo *add_listset(char *s)
 }
 
 listinfo	*listset_created(char *s)
-
 {
 	int	i;
 
@@ -315,8 +307,7 @@ void	readlevelfiles()
 	int	i;
 
 	for(i=0; i<MAXBOTS; i++)
-		if(listset[i])
-		{
+		if(listset[i]){
 			readuserdatabase(listset[i]->opperfile, 
 							 listset[i]->opperlist);
 			readuserdatabase(listset[i]->protfile, 
@@ -350,8 +341,7 @@ int	forkbot(char *nick, char *login, char *name)
 	smallnick[5] = '\0';
 	sprintf(botname, "%s%d", smallnick, (int)(rand() % 10000));
 
-	if((newbot = add_bot(botname)))
-	{
+	if((newbot = add_bot(botname))){
 		strncpy(newbot->nick, nick, NICKLEN);
 		strncpy(newbot->realnick, nick, NICKLEN);
 		strncpy(newbot->login, login?login:currentbot->login, NICKLEN);
@@ -390,14 +380,13 @@ int	killbot(char *reason)
 	/* quit should be send by calling function */
 	close_all_dcc();
 	delete_all_channels();
-	if(currentbot->server_sock != -1)
-	{
+	if(currentbot->server_sock != -1){
 		sendquit(reason);
 		close(currentbot->server_sock);
 		if (currentbot->serverlist[currentbot->current_server].realname)
-		  free (currentbot->serverlist[currentbot->current_server].realname);
+			free (currentbot->serverlist[currentbot->current_server].realname);
 		if (currentbot->serverlist[currentbot->current_server].name)
-		  free (currentbot->serverlist[currentbot->current_server].name);
+			free (currentbot->serverlist[currentbot->current_server].name);
 	}
 	free(currentbot->botname);
 	free(currentbot->name);
@@ -417,8 +406,7 @@ int	killbot(char *reason)
 	/* find a bot.. doesn't matter which one.. just to be sure */
 	number_of_bots--;
 	for(i=0; i<MAXBOTS; i++)
-		if(botlist[i])
-		{
+		if(botlist[i]){
 			currentbot=botlist[i];
 			return 1;
 		}
@@ -430,8 +418,7 @@ void	cleanup_listsets()
 {
 	int i;
 
-	for(i=0; i<MAXBOTS; i++)
-	{
+	for(i=0; i<MAXBOTS; i++){
 		if(listset[i]){
 			free_listset(listset[i]);
 		}
@@ -457,10 +444,8 @@ void	start_all_bots()
 {
 	int	i;
 
-	for(i=0; i<MAXBOTS; i++)
-	{
-		if(botlist[i])
-		{
+	for(i=0; i<MAXBOTS; i++){
+		if(botlist[i]){
 			currentbot = botlist[i];
 			/* don't use while(!..) anymore,
 			   if one bot hangs, they all hang! */
@@ -476,13 +461,12 @@ int	connect_to_server()
 {
 #ifdef DBUG
 	debug(NOTICE, "connect_to_server(): Connecting to port %d of server %s",
-	       currentbot->serverlist[currentbot->current_server].port, 
-	       currentbot->serverlist[currentbot->current_server].name);
+		  currentbot->serverlist[currentbot->current_server].port, 
+		  currentbot->serverlist[currentbot->current_server].name);
 #endif
 	if((currentbot->server_sock = connect_by_number(
-            currentbot->serverlist[currentbot->current_server].port, 
-            currentbot->serverlist[currentbot->current_server].name)) < 0) 
-	{
+													currentbot->serverlist[currentbot->current_server].port, 
+													currentbot->serverlist[currentbot->current_server].name)) < 0){
 		close(currentbot->server_sock);
 		currentbot->server_sock = -1;
 		return 0;
@@ -543,16 +527,15 @@ int	change_server(int serverno)
 	sprintf(reason, "Changing servers. Connecting to %s",
 	        currentbot->serverlist[serverno].name);
 	sendquit(reason);
-	if(currentbot->server_sock != -1)
-	{
+	if(currentbot->server_sock != -1){
 		close(currentbot->server_sock);
 		currentbot->server_sock = -1;
 	}
 	currentbot->current_server = serverno;
-        connect_to_server();
-        /* assume server is ok */
-        currentbot->lastping = time(NULL);
-        currentbot->server_ok = TRUE;
+	connect_to_server();
+	/* assume server is ok */
+	currentbot->lastping = time(NULL);
+	currentbot->server_ok = TRUE;
 	return TRUE;
 }
 
@@ -572,26 +555,23 @@ void	try_reconnect()
     	 */
 	for(i=0; i<MAXBOTS; i++)
 		if(botlist[i] && 
-		  ((botlist[i]->server_sock == -1) || 
-		  (((time(NULL) - botlist[i]->lastping) > PINGINTERVAL) &&
-		      	not(botlist[i]->server_ok))))
-		{
+		   ((botlist[i]->server_sock == -1) || 
+			(((time(NULL) - botlist[i]->lastping) > PINGINTERVAL) &&
+			 not(botlist[i]->server_ok)))){
 			currentbot = botlist[i];
 #ifdef DBUG
 			debug(ERROR, "try_reconnect(): Server %s not\
  responding, closing connection",
-				currentbot->serverlist[currentbot->
-                                current_server].name);
+				  currentbot->serverlist[currentbot->
+										 current_server].name);
 #endif
 			/* Make sure we'll connect to another server */
 			sprintf(reason, "Changing servers. Connecting to %s",
-				currentbot->serverlist[
-				currentbot->current_server].name);
+					currentbot->serverlist[currentbot->current_server].name);
 			sendquit(reason);
 			if(currentbot->server_sock != -1)
 				close(currentbot->server_sock);
-			if(currentbot->current_server < 
-			   currentbot->num_of_servers-1)
+			if(currentbot->current_server < currentbot->num_of_servers-1)
 				currentbot->current_server++;
 			else
 				currentbot->current_server = 0;
@@ -612,8 +592,7 @@ void	reset_botstate()
 
 	for(i=0; i<MAXBOTS; i++)
 		if(botlist[i])
-			if(time(NULL)-botlist[i]->lastreset > RESETINTERVAL)
-			{
+			if(time(NULL)-botlist[i]->lastreset > RESETINTERVAL){
 #ifdef DBUG
 				debug(NOTICE, "Resetting botstate");
 #endif
@@ -622,11 +601,10 @@ void	reset_botstate()
 				reset_channels(SOFTRESET);
 				cleanup_sessions();
 				if(!STRCASEEQUAL(currentbot->nick,
-					       currentbot->realnick))
-				{
+								 currentbot->realnick)){
 					strcpy(currentbot->nick,
-				       	       currentbot->realnick);
-					       sendnick(currentbot->nick);
+						   currentbot->realnick);
+					sendnick(currentbot->nick);
 				}
 			}
 }
@@ -640,16 +618,13 @@ void	parse_server_input( fd_set *read_fds )
 	char	line[MAXLEN];
 	int	i;
 
-	for(i=0; i<MAXBOTS; i++)
-	{
-		if(botlist[i] && botlist[i]->server_sock != -1)
-		{
+	for(i=0; i<MAXBOTS; i++){
+		if(botlist[i] && botlist[i]->server_sock != -1){
 			currentbot = botlist[i];
 			if( FD_ISSET( currentbot->server_sock, read_fds ) ){
 				if( readln( line ) > 0 )
 					parseline( line );
-				else
-				{
+				else{
 #ifdef DBUG
 					debug(ERROR, "parse_server_input(): Server read FAILED!");
 #endif
@@ -665,10 +640,8 @@ void	set_dcc_fds( fd_set *read_fds, fd_set *write_fds )
 {
 	int 	i;
 
-	for(i=0; i<MAXBOTS; i++)
-	{
-		if(botlist[i])
-		{
+	for(i=0; i<MAXBOTS; i++){
+		if(botlist[i]){
 			currentbot = botlist[i];
 			dccset_fds(read_fds, write_fds);
 		}
@@ -682,10 +655,8 @@ void	parse_dcc_input( fd_set *read_fds )
 {
 	int	i;
 
-	for(i=0; i<MAXBOTS; i++)
-	{
-		if(botlist[i])
-		{
+	for(i=0; i<MAXBOTS; i++){
+		if(botlist[i]){
 			currentbot = botlist[i];
 			parse_dcc(read_fds);
 		}
@@ -699,29 +670,23 @@ void	send_pings()
 {
         int     i;
 
-        for(i=0; i<MAXBOTS; i++)
-        {
-                if(botlist[i])
-                {
-                        currentbot = botlist[i];
-			if(time(NULL) - currentbot->lastping/*send*/ > 
-                           PINGSENDINTERVAL)
-			{
+        for(i=0; i<MAXBOTS; i++){
+			if(botlist[i]){
+				currentbot = botlist[i];
+				if(time(NULL) - currentbot->lastping/*send*/ > 
+				   PINGSENDINTERVAL){
 #ifdef DBUG
-				debug(NOTICE, 
-                                    "send_pings(): Sending ping to server %s[%s]",
-	         	            currentbot->serverlist[
-                                         currentbot->current_server].realname,
-	         	            currentbot->serverlist[
-                                         currentbot->current_server].name);
+					debug(NOTICE, 
+						  "send_pings(): Sending ping to server %s[%s]",
+						  currentbot->serverlist[currentbot->current_server].realname,
+	         	            currentbot->serverlist[currentbot->current_server].name);
 #endif
-				sendping(currentbot->serverlist[
-					 currentbot->current_server].realname);
-				currentbot->server_ok = FALSE;
-				currentbot->lastping = time(NULL);
+					sendping(currentbot->serverlist[currentbot->current_server].realname);
+					currentbot->server_ok = FALSE;
+					currentbot->lastping = time(NULL);
+				}
 			}
 		}
-	}
 }
 
 void	pong_received(char *nick, char *server)
@@ -733,8 +698,8 @@ void	pong_received(char *nick, char *server)
 	currentbot->server_ok = TRUE;
 #ifdef DBUG
 	debug(NOTICE, "pong_received(): server %s[%s] ok",
-	currentbot->serverlist[currentbot->current_server].realname,
-	currentbot->serverlist[currentbot->current_server].name);
+		  currentbot->serverlist[currentbot->current_server].realname,
+		  currentbot->serverlist[currentbot->current_server].name);
 #endif
 }
 
@@ -746,8 +711,7 @@ struct
 	void	(*function)(char*, char*);
 	int	userlevel;
 	int	forcedcc;
-} global_cmds[] =
-{	
+} global_cmds[] = {	
 	{ "LIST",	global_list,	0,	TRUE	},
 	{ "INFO",	global_list,	0,	TRUE	},
 	{ "DIE",	global_die,	150,	FALSE	},
@@ -761,46 +725,41 @@ void	parse_global(char *from, char *to, char *rest)
 	char	*command;
 	DCC_list	*dccclient;
 	
-	if(!(command = get_token(&rest, " ")))
-	{
+	if(!(command = get_token(&rest, " "))){
 		send_to_user(from, "Global expects a subcommand!");
 		return;
 	}
 
 	for(i=0; global_cmds[i].name; i++)
-		if(STRCASEEQUAL(global_cmds[i].name, command))
-		{
-			if(userlevel(from) < global_cmds[i].userlevel)
-			{
+		if(STRCASEEQUAL(global_cmds[i].name, command)){
+			if(userlevel(from) < global_cmds[i].userlevel){
 				send_to_user(from, "Userlevel too low");
 				return;
 			}
-			if(shitlevel(from) > 0)
-			{
+			if(shitlevel(from) > 0){
 				send_to_user(from, "Shitlevel too high");
 				return;
 			}
 			dccclient = search_list("chat", from, DCC_CHAT);
   		        if(global_cmds[i].forcedcc && 
-                          (!dccclient || (dccclient->flags&DCC_WAIT))) 
-			{
+                          (!dccclient || (dccclient->flags&DCC_WAIT))){
 #ifdef AUTO_DCC
-				dcc_chat(from, rest);
-				sendnotice(getnick(from), "Please type: /dcc chat %s",
-				   currentbot->nick);
-				sendnotice(getnick(from), 
-				   "After that, please retype: /msg %s GLOBAL %s %s", 
-				   currentbot->nick, command, 
-				   rest?rest:"");
+					dcc_chat(from, rest);
+					sendnotice(getnick(from), "Please type: /dcc chat %s",
+							   currentbot->nick);
+					sendnotice(getnick(from), 
+							   "After that, please retype: /msg %s GLOBAL %s %s", 
+							   currentbot->nick, command, 
+							   rest?rest:"");
 #else
-				sendnotice(getnick(from), 
-				   "Sorry, GLOBAL %s is only available through DCC",
-				   command);
-				sendnotice(getnick(from, 
-                                   "Please start a dcc chat connection first");
+					sendnotice(getnick(from), 
+							   "Sorry, GLOBAL %s is only available through DCC",
+							   command);
+					sendnotice(getnick(from), 
+							   "Please start a dcc chat connection first");
 #endif
-				return;
-			}
+					return;
+				}
 				global_cmds[i].function(from, *rest?rest:NULL);
 				return;
 		}
@@ -816,8 +775,7 @@ void	global_not_imp(char *from, char *rest)
 void	global_debug(char *from, char *rest)
 {
 #ifdef DBUG
-	if(!rest)
-	{
+	if(!rest){
 		send_to_user(from, "Pls specify a level between 0 and 2");
 		return;
 	}
@@ -838,10 +796,8 @@ void	global_die(char *from, char *rest)
 	botinfo	*bot;
 
 	if(userlevel(from) >= 150)
-		if(rest)
-		{
-			if((bot = bot_created(rest)))
-			{
+		if(rest){
+			if((bot = bot_created(rest))){
 				currentbot = bot;
 				signoff(from, "Global kill");
 				if(number_of_bots == 0)
@@ -850,8 +806,7 @@ void	global_die(char *from, char *rest)
 			else
 				send_to_user(from, "No such bot");
 		}
-		else				
-		{
+		else{
 			quit_all_bots(from, "Global die");
 			exit(0);
 		}
@@ -866,17 +821,15 @@ void	global_list(char *from, char *rest)
 	botinfo		*bot;
 
 	SKIPSPC(rest);
-	if(rest && (bot = bot_created(rest)))
-	{
+	if(rest && (bot = bot_created(rest))){
 		send_to_user(from, "\002Botname\002 %s \002nick\002 %s \002realnick\002 %s",
-			     bot->botname, bot->nick, bot->realnick);
+					 bot->botname, bot->nick, bot->realnick);
 		send_to_user(from, "\002Parent:\002 %s", bot->parent);
 		send_to_user(from, "%d servers in list:", bot->num_of_servers);
-		for(i=0; i<bot->num_of_servers; i++)
-		{
+		for(i=0; i<bot->num_of_servers; i++){
 			send_to_user(from, "\002server\002 %s[%s] \002port\002 %d%s",
-			bot->serverlist[i].realname, bot->serverlist[i].name,
-			bot->serverlist[i].port, i==bot->current_server?", current":"");
+						 bot->serverlist[i].realname, bot->serverlist[i].name,
+						 bot->serverlist[i].port, i==bot->current_server?", current":"");
 		}
 		/* show_channellist(from); won't work. It'll show the channellist
 		   of currentbot. And setting currentbot to botlist[i] won't work
@@ -891,7 +844,7 @@ void	global_list(char *from, char *rest)
 		send_to_user(from, "\002uploaddir:\002   %s", bot->uploaddir);
 		send_to_user(from, "\002downloaddir:\002 %s", bot->downloaddir);
 		send_to_user(from, "\002indexfile:\002   %s", bot->indexfile);
-		send_to_user(from, "\002log:\002         %s", (log?"on":"off"));
+		send_to_user(from, "\002log:\002         %s", (logging?"on":"off"));
 		return;
 	}
 	/* else */
@@ -899,17 +852,21 @@ void	global_list(char *from, char *rest)
 	send_to_user(from, "Total running: %d", number_of_bots);
 	send_to_user(from, "Total free:    %d", MAXBOTS-number_of_bots);
 	send_to_user(from, "Started:       %-20.20s",
-		     time2str(uptime));
+				 time2str(uptime));
 	send_to_user(from, "Uptime:        %-30s", 
-		     idle2str(time(NULL)-uptime));
-	send_to_user(from, "Log:           %s", (log?"on":"off"));
+				 idle2str(time(NULL)-uptime));
+	send_to_user(from, "Log:           %s", (logging?"on":"off"));
 	send_to_user(from, " ");
 	send_to_user(from, "Num botname              nickname  current server");
 	for(i=0; i<MAXBOTS; i++)
 		if(botlist[i])
 			send_to_user(from, "%2d: %-20s %-9s %s", i, 
-		        botlist[i]->botname, botlist[i]->nick,
-		        botlist[i]->serverlist[botlist[i]->current_server].realname);
+						 botlist[i]->botname, botlist[i]->nick,
+						 botlist[i]->serverlist[botlist[i]->current_server].realname);
 		else
 			send_to_user(from, "%2d: Free", i);
 }
+						   
+// Local variables:
+// coding: utf-8
+// end:

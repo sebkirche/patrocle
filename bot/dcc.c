@@ -1,22 +1,23 @@
 /*
- * dcc.c - an effort to implement dcc (at least chat) in VladBot
- * (c) 1993 VladDrac (irvdwijk@cs.vu.nl)
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- *
- * Thanx to Richie_B for patching this for Ultrix.
+ dcc.c - an effort to implement dcc (at least chat) in VladBot
+ Copyright (C) 1993 VladDrac (irvdwijk@cs.vu.nl)
+ Copyright (C) 1996, 1997 François Parmentier
+ Copyright (C) 2009 Sébastien Kirche 
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+ Thanx to Richie_B for patching this for Ultrix.	
  */
 
 //#include <sys/time.h>
@@ -58,8 +59,7 @@ struct
 {
 	char	*name;
 	void	(*function)();
-} dcc_commands[] =
-{
+} dcc_commands[] ={
 	{ "CHAT",	dcc_chat },
 	{ "SEND",	dcc_sendfile },
 	{ NULL,		null(void (*)) }
@@ -80,8 +80,9 @@ void	dccset_fds(fd_set *rds, fd_set *wds)
 {
 	DCC_list	*Client;
 
-	for(Client = currentbot->Client_list; Client != NULL; 
-            Client = Client->next)
+	for(Client = currentbot->Client_list; 
+		Client != NULL; 
+		Client = Client->next)
 		if(Client->read != -1)
 			FD_SET(Client->read, rds);
 }
@@ -90,43 +91,38 @@ DCC_list	*search_list(char *name, char *user, unsigned int type)
 {
 	DCC_list	*Client;
 
-	for(Client = currentbot->Client_list; Client; Client = Client->next)
-	{
+	for(Client = currentbot->Client_list; Client; Client = Client->next){
 		if(((Client->flags&DCC_TYPES) == type) &&
-		(STRCASEEQUAL( name, Client->description)) &&
-		(STRCASEEQUAL( user, Client->user)))
+		   (STRCASEEQUAL( name, Client->description)) &&
+		   (STRCASEEQUAL( user, Client->user)))
 			return Client;
 	}
 	return NULL;
 }
 
 int	do_dcc(DCC_list *Client)
-
 {
-	struct	sockaddr_in	localaddr;
-	struct	in_addr		party,
-				MyHostAddr;
+	struct	sockaddr_in	 localaddr;
+	struct	in_addr		 party, MyHostAddr;
 	struct	hostent		*hp;
-	char			localhost[64];
-	int			size;
-	unsigned long		my_ip;
-	unsigned long		TempLong;
-	char			*Descr;
-	char			*Type;
-	char			filebuf[MAXLEN];
+	char				 localhost[64];
+	int					 size;
+	unsigned long		 my_ip;
+	unsigned long		 TempLong;
+	char				*Descr;
+	char				*Type;
+	char				 filebuf[MAXLEN];
 
 #ifdef DBUG
 	debug(NOTICE, "Entered do_dcc( .. )");
 #endif
 	Type = dcc_types[Client->flags&DCC_TYPES];
 
-	if(Client->flags & DCC_OFFER)
-	{
+	if(Client->flags & DCC_OFFER){
 		sscanf(Client->ip_addr, "%lu", &TempLong);
 		party.s_addr = htonl(TempLong);
 		if((Client->write = connect_by_number(Client->port,
-		    inet_ntoa( party))) < 0)
-		{
+											  inet_ntoa( party))) < 0){
 			delete_client(Client);
 			return FALSE;
 		}
@@ -134,64 +130,57 @@ int	do_dcc(DCC_list *Client)
 		Client->flags &= ~DCC_OFFER;
 		Client->flags |= DCC_ACTIVE;
 		if(((Client->flags & DCC_TYPES) == DCC_FILEREAD) &&  
-                (Descr = strrchr( Client->description, '/')))
-                        Descr++;
-                else                                 
-                        Descr = Client->description;  
-                if((Client->flags & DCC_TYPES) == DCC_FILEREAD)     
-                {                                               
+		   (Descr = strrchr( Client->description, '/')))
+			Descr++;
+		else                                 
+			Descr = Client->description;  
+		if((Client->flags & DCC_TYPES) == DCC_FILEREAD){                                               
 			sprintf(filebuf, "%s/%s", currentbot->uploaddir,
-				Descr);
-                        if((Client->file = open( filebuf, O_WRONLY |
-                        O_TRUNC | O_CREAT, 0644 ))==-1)
-			{
+					Descr);
+			if((Client->file = open( filebuf, O_WRONLY |
+									 O_TRUNC | O_CREAT, 0644 ))==-1){
 				botlog(DCCLOGFILE, 
-				"DCC upload: Unable to open %s", Descr);
+					   "DCC upload: Unable to open %s", Descr);
 				delete_client(Client);
 				return FAIL;
 			}                  
 			botlog(DCCLOGFILE, "DCC upload %s from %s", Descr,
 			       Client->user);
-                }
+		}
 		Client->starttime = time(NULL);
 		Client->lasttime = time(NULL);
 		Client->bytes_read = Client->bytes_sent = 0;
 		return 1;
 	}
-	else
-	{
+	else{
 		Client->flags |= DCC_WAIT;
-		if((Client->read = connect_by_number(0, "")) < 0)
-		{	
+		if((Client->read = connect_by_number(0, "")) < 0){	
 			delete_client(Client);
 			return FAIL;
 		}
 		size = sizeof(struct sockaddr_in);
-		getsockname(Client->read, (struct sockaddr *)&localaddr, 
-			    &size );
+		getsockname(Client->read, (struct sockaddr *)&localaddr, &size );
 		gethostname(localhost, 64);
 		if((hp=gethostbyname(localhost)))
-			bcopy(hp->h_addr, (char*) &MyHostAddr, 
-			      sizeof(MyHostAddr));		
+			bcopy(hp->h_addr, (char*) &MyHostAddr, sizeof(MyHostAddr));		
 		my_ip = (unsigned long)ntohl(MyHostAddr.s_addr);
-		if(Client->flags & DCC_TWOCLIENTS)
-		{
+		if(Client->flags & DCC_TWOCLIENTS){
 			if((Client->flags & DCC_FILEOFFER) &&
-    		          (Descr = strrchr(Client->description, '/')))
+			   (Descr = strrchr(Client->description, '/')))
 				Descr++;
 			else
 				Descr = Client->description;
 			if(Client->filesize)
 				send_ctcp(getnick( Client->user),
-					  "DCC %s %s %lu %u %d", Type, Descr,
-					  (unsigned long) my_ip,
-					  (unsigned)ntohs(localaddr.sin_port),
-					  Client->filesize);
+						  "DCC %s %s %lu %u %d", Type, Descr,
+						  (unsigned long) my_ip,
+						  (unsigned)ntohs(localaddr.sin_port),
+						  Client->filesize);
 			else
 				send_ctcp(getnick( Client->user),
-					  "DCC %s %s %lu %u", Type, Descr,
-					  (unsigned long) my_ip,
-					  (unsigned)ntohs(localaddr.sin_port));
+						  "DCC %s %s %lu %u", Type, Descr,
+						  (unsigned long) my_ip,
+						  (unsigned)ntohs(localaddr.sin_port));
 		}
 		Client->starttime = time(NULL);
 		Client->lasttime = time(NULL);
@@ -202,79 +191,72 @@ int	do_dcc(DCC_list *Client)
 
 void	reply_dcc(char *from, char *to, char *rest)
 {
-        char    *type;
-        char    *description;
-        char    *inetaddr;
-        char    *port;
-        char    *size;
+	char    *type;
+	char    *description;
+	char    *inetaddr;
+	char    *port;
+	char    *size;
 
 	if(ischannel(to))
-                return;
+		return;
 
-        if(!(type = get_token(&rest, " ")) ||
-           !(description = get_token(&rest, " ")) ||
-           !(inetaddr = get_token(&rest, " ")) ||
-           !(port = get_token(&rest, " ")))
-                return;
-        size = get_token(&rest, " ");
-        register_dcc_offer(from, type, description, inetaddr, port, size);
+	if(!(type = get_token(&rest, " ")) ||
+	   !(description = get_token(&rest, " ")) ||
+	   !(inetaddr = get_token(&rest, " ")) ||
+	   !(port = get_token(&rest, " ")))
+		return;
+	size = get_token(&rest, " ");
+	register_dcc_offer(from, type, description, inetaddr, port, size);
 }
 
 
 void	show_dcclist(char *from)
-
 {
 	DCC_list        *Client;
 	unsigned	flags;
 
-	if(currentbot->Client_list == NULL)
-	{
+	if(currentbot->Client_list == NULL){
 		send_to_user(from, "No connections made");
 		return;
 	}
 
-        for(Client = currentbot->Client_list; Client != NULL; 
-	    Client = Client->next )
-	{
+	for(Client = currentbot->Client_list; Client != NULL; Client = Client->next ){
 		flags = Client->flags;
 		send_to_user( from, "Type: %-8.8s User: %s",
-		      dcc_types[flags&DCC_TYPES], Client->user );
+					  dcc_types[flags&DCC_TYPES], Client->user );
 		send_to_user( from, "Status: %11s. Descr: %s", 
-		      flags&DCC_DELETE ? "Closed": flags&DCC_ACTIVE ? "Active" :
-		      flags&DCC_WAIT ? "Waiting" : flags&DCC_OFFER ? "Offered" :
-		      "Unknown", Client->description );
+					  flags&DCC_DELETE ? "Closed": flags&DCC_ACTIVE ? "Active" :
+					  flags&DCC_WAIT ? "Waiting" : flags&DCC_OFFER ? "Offered" :
+					  "Unknown", Client->description );
 		send_to_user( from, "Starttime = %-20.20s, Bytes sent: %d", 
-		      time2str(Client->starttime), Client->bytes_sent );
+					  time2str(Client->starttime), Client->bytes_sent );
 		send_to_user( from, "Lasttime  = %-20.20s, Bytes read: %d", 
-		      time2str(Client->lasttime), Client->bytes_read );
+					  time2str(Client->lasttime), Client->bytes_read );
 		send_to_user( from, "Idle: %s", 
-		      idle2str(time(NULL)-Client->lasttime));
+					  idle2str(time(NULL)-Client->lasttime));
 	}
 }
 
 void	add_client(DCC_list *Client)
-
 {
 	Client->next = currentbot->Client_list;
 	currentbot->Client_list = Client;
 }
 
 int	delete_client(DCC_list *Client)
- 
 {
 	DCC_list	**lame;
 
 	for(lame = &(currentbot->Client_list); *lame; lame = &((*lame)->next))
-		if(*lame == Client)
-		{
-		/* Can we use send_to_user here? It might be a send/get... */
+		if(*lame == Client){
+			/* Can we use send_to_user here? It might be a send/get... */
 			sendnotice(getnick(Client->user), 
-				   "Closing DCC %s[%s]-connection",
-				   dcc_types[Client->flags&DCC_TYPES],
-				   strrchr(Client->description, '/') ?
-				   strrchr(Client->description, '/')+1:
-				   Client->description);
-	        	close(Client->read);
+					   "Closing DCC %s[%s]-connection",
+					   dcc_types[Client->flags&DCC_TYPES],
+					   strrchr(Client->description, '/') ?
+					   strrchr(Client->description, '/')+1:
+					   Client->description);
+			close(Client->read);
 			close(Client->write);
 			if(Client->file != -1) 
 				close(Client->file);
@@ -295,13 +277,12 @@ void	close_all_dcc()
 
 void	register_dcc_offer(char *from, char *type, char *description, 
                            char *inetaddr, char *port, char *size)
-
 {
 	DCC_list	*Client;
 
 #ifdef DBUG
-        debug(NOTICE, "Entered register_dcc_offer( %s, %s, %s, %s, %s, %s );",
-                from, type, description, inetaddr, port, size );
+	debug(NOTICE, "Entered register_dcc_offer( %s, %s, %s, %s, %s, %s );",
+		  from, type, description, inetaddr, port, size );
 #endif
 	if((Client = (DCC_list *)malloc(sizeof(*Client))) == NULL)
 		return;
@@ -320,8 +301,7 @@ void	register_dcc_offer(char *from, char *type, char *description,
 		Client->flags |= DCC_FILEREAD;
 	else 
 		return;
-	if(!search_list(description, from, Client->flags))
-	{
+	if(!search_list(description, from, Client->flags)){
 		add_client(Client);
 		do_dcc(Client);
 	}
@@ -333,18 +313,16 @@ void	register_dcc_offer(char *from, char *type, char *description,
 }
 
 void	process_incoming_chat(DCC_list *Client)
-
 {
 	char		buf[BIG_BUFFER];
 	struct  sockaddr_in     remaddr;
 	int		size;
 	int		bytesread;	
 	
-	if(Client->flags&DCC_WAIT) 
-	{
+	if(Client->flags&DCC_WAIT) {
 		size = sizeof(struct sockaddr_in);
 		Client->write = accept(Client->read, 
-				(struct sockaddr *) &remaddr, &size);
+							   (struct sockaddr *) &remaddr, &size);
 		close(Client->read);
 		Client->read = Client->write;
 		Client->flags &= ~DCC_WAIT;
@@ -354,24 +332,22 @@ void	process_incoming_chat(DCC_list *Client)
 		hasdcc_session(Client->user);
 		return;	  /* if there's data, we'll read it later */
 	}
-	switch((bytesread = read_from_socket(Client->read, buf)))
-	{
-	case -1:
-	case 0:		/* select said there is data! */
-		if( Client->flags&DCC_ACTIVE )
-		{
-			Client->flags |= DCC_DELETE;
-			return;		
-		}
-	default:
-		KILLNEWLINE(buf);
-		Client->lasttime = time(NULL);
-		Client->bytes_read += bytesread;
+	switch((bytesread = read_from_socket(Client->read, buf))){
+		case -1:
+		case 0:		/* select said there is data! */
+			if( Client->flags&DCC_ACTIVE ){
+				Client->flags |= DCC_DELETE;
+				return;		
+			}
+		default:
+			KILLNEWLINE(buf);
+			Client->lasttime = time(NULL);
+			Client->bytes_read += bytesread;
 #ifdef DBUG
-		debug(NOTICE, "=%s= %s", Client->user, buf);
+			debug(NOTICE, "=%s= %s", Client->user, buf);
 #endif
-		on_msg(Client->user, currentbot->nick, buf);	
-		return;
+			on_msg(Client->user, currentbot->nick, buf);	
+			return;
 	}
 }	
 
@@ -381,32 +357,29 @@ void    process_incoming_file(DCC_list *Client)
 	char		tmp[BIG_BUFFER];
 	int		bytesread;
 	int		bytestemp;
-
-        switch((bytesread = read(Client->read, tmp, BIG_BUFFER)))
-        {
+	
+	switch((bytesread = read(Client->read, tmp, BIG_BUFFER))){
         case -1:
         case 0:
-                if(Client->flags&DCC_ACTIVE)
-                {
-                        Client->flags |= DCC_DELETE;
-                        return;
-                }
-		break;
+			if(Client->flags&DCC_ACTIVE){
+				Client->flags |= DCC_DELETE;
+				return;
+			}
+			break;
         default:
-		write(Client->file, tmp, bytesread);
-		Client->bytes_read += bytesread;
-		/* To prevent ppl from sending huge files */
-		if(Client->bytes_read>(1000*maxuploadsize))
-			Client->flags |= DCC_DELETE;
-		bytestemp = htonl(Client->bytes_read);
-		write(Client->write, (char *)&bytestemp, sizeof(int));
-		Client->lasttime = time(NULL);
-                return;
-        }
+			write(Client->file, tmp, bytesread);
+			Client->bytes_read += bytesread;
+			/* To prevent ppl from sending huge files */
+			if(Client->bytes_read>(1000*maxuploadsize))
+				Client->flags |= DCC_DELETE;
+			bytestemp = htonl(Client->bytes_read);
+			write(Client->write, (char *)&bytestemp, sizeof(int));
+			Client->lasttime = time(NULL);
+			return;
+	}
 }
 
 void	process_outgoing_file(DCC_list *Client)
-
 {
 	struct	sockaddr_in	remaddr;
 	char	tmp[BIG_BUFFER+1];
@@ -414,11 +387,10 @@ void	process_outgoing_file(DCC_list *Client)
 	int	bytesread;
 	int	size;
 
-	if(Client->flags & DCC_WAIT)
-	{
+	if(Client->flags & DCC_WAIT){
 		size = sizeof(struct sockaddr_in);
 		Client->write = accept(Client->read,
-				(struct sockaddr *) &remaddr, &size);
+							   (struct sockaddr *) &remaddr, &size);
 		close(Client->read);
 		Client->read = Client->write;
 		Client->flags &= ~DCC_WAIT;
@@ -426,29 +398,26 @@ void	process_outgoing_file(DCC_list *Client)
 		Client->bytes_sent = 0L;
 		Client->starttime = time(NULL);
 		Client->lasttime = time(NULL);
-		if((Client->file = open(Client->description, O_RDONLY ))==-1)
-		{
+		if((Client->file = open(Client->description, O_RDONLY ))==-1){
 			botlog(DCCLOGFILE, 
-			"Unable to open %s!", Client->description);
+				   "Unable to open %s!", Client->description);
 			Client->flags |= DCC_DELETE;
 			return;
 		}
-	        botlog(DCCLOGFILE, "DCC sending %s to %s", Client->description,
+		botlog(DCCLOGFILE, "DCC sending %s to %s", Client->description,
 		       Client->user);
 
 	}
 	else
 		if(read(Client->read, (char *)&bytesrecvd, 
-		sizeof(int)) < sizeof(int))
-		{
+				sizeof(int)) < sizeof(int)){
 			Client->flags |= DCC_DELETE;
 			return;
 		}
 		else
 			if(ntohl(bytesrecvd) != Client->bytes_sent)
 				return;
-	if((bytesread = read(Client->file, tmp, BIG_BUFFER)))
-	{
+	if((bytesread = read(Client->file, tmp, BIG_BUFFER))){
 		write(Client->write, tmp, bytesread);
 		Client->bytes_sent += bytesread;
 		Client->lasttime = time(NULL);
@@ -462,14 +431,12 @@ void	parse_dcc(fd_set *read_fds)
  * Look at every client for in/output and check idletime 
  */
 {
-        DCC_list        **Client;
+	DCC_list        **Client;
 
 	Client = &(currentbot->Client_list);
-	while(*Client)
-	{
+	while(*Client){
 		if(((*Client)->read != -1) && FD_ISSET((*Client)->read,
-		    read_fds))
-		{
+											   read_fds)){
 			/*
 			 * Next line is VERY important. the same fd
 			 * may get parsed twice (when a client is
@@ -478,26 +445,24 @@ void	parse_dcc(fd_set *read_fds)
 			 * it will get only parsed once a time
 			 */
 			FD_CLR((*Client)->read, read_fds);
-			switch( (*Client)->flags&DCC_TYPES )
-			{
-			case DCC_CHAT:
-				process_incoming_chat( *Client );
-				break;
-			case DCC_FILEOFFER:
-				process_outgoing_file( *Client );
-				break;
-			case DCC_FILEREAD:
-				process_incoming_file( *Client );
-				break;
-			default:
-				break;
+			switch( (*Client)->flags&DCC_TYPES ){
+				case DCC_CHAT:
+					process_incoming_chat( *Client );
+					break;
+				case DCC_FILEOFFER:
+					process_outgoing_file( *Client );
+					break;
+				case DCC_FILEREAD:
+					process_incoming_file( *Client );
+					break;
+				default:
+					break;
 			}
 		}
 		if( ((*Client)->flags & DCC_DELETE) ||
 		    ((time(NULL)-(*Client)->lasttime) >= idletimeout) ||
  		    (((*Client)->flags & DCC_WAIT) && 
-		    ((time(NULL)-(*Client)->lasttime) >= waittimeout))) 
-		{
+		    ((time(NULL)-(*Client)->lasttime) >= waittimeout))){
 			int	is_offer;
 			char	user[MAXLEN];
 
@@ -515,7 +480,6 @@ void	parse_dcc(fd_set *read_fds)
 } 
 
 void	process_dcc(char *from, char *rest)
-
 {
 	char	*command;
 	int	i;
@@ -524,15 +488,13 @@ void	process_dcc(char *from, char *rest)
 		return;
 
 	for(i = 0; dcc_commands[i].name != NULL; i++)
-		if(STRCASEEQUAL(dcc_commands[i].name, command))
-		{
+		if(STRCASEEQUAL(dcc_commands[i].name, command)){
 			dcc_commands[i].function(from, rest);
 			return;
 		}
 }
 
 void	dcc_chat(char *from, char *rest)
-
 {
 	DCC_list	*Client;
 
@@ -550,8 +512,7 @@ void	dcc_chat(char *from, char *rest)
 	Client->lasttime = time(NULL);
 	Client->bytes_read = Client->bytes_sent = 0;
 	Client->filesize = 0;
-	if(!search_list( "chat", from, DCC_CHAT))
-	{
+	if(!search_list( "chat", from, DCC_CHAT)){
 		add_client(Client);
 		do_dcc(Client);
 	}
@@ -559,8 +520,7 @@ void	dcc_chat(char *from, char *rest)
 		free(Client);
 }
 
-int	send_chat(char *to, char *text)
-
+int	send_chat(const char *to, const char *text)
 {
 	int		bytessend;
 	DCC_list        *has_dcc;
@@ -568,25 +528,23 @@ int	send_chat(char *to, char *text)
 	if(!(has_dcc = search_list("chat", to, DCC_CHAT)))
 		return(FALSE);
  
-	if((has_dcc->flags&DCC_ACTIVE))
-	{
+	if((has_dcc->flags&DCC_ACTIVE)){
 		switch(bytessend = send_to_socket(has_dcc->write, "%s",
-		     text))
-		{
-		case -1:
+										  text)){
+			case -1:
 #ifdef DBUG
-			debug(ERROR, "DCC write failed!");
+				debug(ERROR, "DCC write failed!");
 #endif
-			delete_client(has_dcc);
-			return(FALSE);
-		case 0:
+				delete_client(has_dcc);
+				return(FALSE);
+			case 0:
 #ifdef DBUG
-			debug(NOTICE, "DCC write = 0");
+				debug(NOTICE, "DCC write = 0");
 #endif
-			break;
-		default:
-			has_dcc->bytes_sent += bytessend;
-			has_dcc->lasttime = time(NULL);
+				break;
+			default:
+				has_dcc->bytes_sent += bytessend;
+				has_dcc->lasttime = time(NULL);
 		}
 		return TRUE;
 	}
@@ -602,30 +560,34 @@ void	dcc_sendfile(char *from, char *rest)
 
 	if(rest == NULL)
 		return;
-
+	
 	if(stat(rest, &stat_buf))
 		return;			/* FAILURE! */
 
 	if((Client = (DCC_list *)malloc(sizeof(DCC_list))) == NULL)
-                return;
+		return;
 
-        strcpy(Client->user, from);
+	strcpy(Client->user, from);
 	strcpy(Client->description, rest);
 	strcpy(Client->ip_addr, "N/A");
 	Client->read = Client->write = Client->file = -1;
-        Client->flags = 0;
+	Client->flags = 0;
 	Client->flags |= DCC_WAIT;
-        Client->flags |= DCC_FILEOFFER;
-        Client->flags |= DCC_TWOCLIENTS;
+	Client->flags |= DCC_FILEOFFER;
+	Client->flags |= DCC_TWOCLIENTS;
 	Client->filesize = stat_buf.st_size;
-        Client->starttime = time(NULL);
+	Client->starttime = time(NULL);
 	Client->lasttime = time(NULL);
 	Client->bytes_read = Client->bytes_sent = 0;
-        if(!search_list(Client->description, from, DCC_FILEOFFER))
-	{
+	if(!search_list(Client->description, from, DCC_FILEOFFER)){
 		add_client(Client);
-                do_dcc(Client);
-        }
+		do_dcc(Client);
+	}
 	else
 		free( Client );
 }
+
+// Local variables:
+// coding: utf-8
+// end:
+

@@ -751,3 +751,7 @@ time_t parsetime(char *wanted)
 
     return runtimer;
 } /* parsetime */
+
+// Local variables:
+// coding: utf-8
+// end:

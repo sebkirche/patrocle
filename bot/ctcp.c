@@ -1,20 +1,21 @@
 /*
- * ctcp.c - deals with most of the ctcp stuff (except for DCC).
- * (c) 1993-94 VladDrac (irvdwijk@cs.vu.nl)
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ ctcp.c - deals with most of the ctcp stuff (except for DCC).
+ Copyright (C) 1993 VladDrac (irvdwijk@cs.vu.nl)
+ Copyright (C) 1996, 1997 François Parmentier
+ Copyright (C) 2009 Sébastien Kirche 
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <strings.h>
@@ -34,12 +35,11 @@ struct
 {
 	char	*name;
 	void	(*function)(char *from, char *to, char *rest);
-} ctcp_commands[] =
-{
+} ctcp_commands[] = {
 	{ "FINGER",	ctcp_finger 	},
 	{ "VERSION",	ctcp_version 	},
 	{ "CLIENTINFO",	ctcp_clientinfo },
-        { "ACTION",	ctcp_ignore 	},
+	{ "ACTION",	ctcp_ignore 	},
 	{ "ZIRCON",	ctcp_ignore 	},
 	{ "PING",	ctcp_ping 	},
 	{ "SOURCE",	ctcp_source 	},
@@ -49,33 +49,31 @@ struct
 
 void 	on_ctcp(char *from, char *to, char *ctcp_msg)
 {
-    	char 	*ctcp_command;
-    	int     i;
+	char 	*ctcp_command;
+	int     i;
 
 	if(check_session(from) == IS_FLOODING)
 		return;
 	
-    	if((ctcp_command = get_token(&ctcp_msg, " ")) == NULL)
-            	return;
+	if((ctcp_command = get_token(&ctcp_msg, " ")) == NULL)
+		return;
         
 	for(i = 0; ctcp_commands[i].name != NULL; i++)
-        	if(STRCASEEQUAL(ctcp_commands[i].name, ctcp_command))
-        	{
-                    	ctcp_commands[i].function( from, to, ctcp_msg);
-                    	return;
-    		}
+		if(STRCASEEQUAL(ctcp_commands[i].name, ctcp_command)){
+			ctcp_commands[i].function( from, to, ctcp_msg);
+			return;
+		}
 	ctcp_unknown(from, to, ctcp_command);
 }
 
 void	ctcp_finger( char *from, char *to, char *rest )
-
 {	
 	char	*nick;
 
 	nick = getnick( from );
 
-        send_ctcp_reply( nick, "FINGER No fingerinfo available" );
-        return; 
+	send_ctcp_reply( nick, "FINGER No fingerinfo available" );
+	return; 
 }
 
 void	ctcp_version( char *from, char *to, char *rest )
@@ -84,9 +82,9 @@ void	ctcp_version( char *from, char *to, char *rest )
 
 	nick = getnick(from);
 
-        send_ctcp_reply( nick, "VERSION I'm %s version %s.", 
-			 currentbot->nick, VERSION );
-        return;
+	send_ctcp_reply( nick, "VERSION I'm %s version %s.", 
+					 currentbot->nick, VERSION );
+	return;
 }
 
 void	ctcp_clientinfo( char *from, char *to, char *rest )
@@ -95,8 +93,8 @@ void	ctcp_clientinfo( char *from, char *to, char *rest )
 
 	nick = getnick( from );
 
-        send_ctcp_reply( nick, "CLIENTINFO I understand these CTCP-commands:" );
-        send_ctcp_reply( nick, "CLIENTINFO VERSION, FINGER, ACTION, CLIENTINFO PING SOURCE DCC" );
+	send_ctcp_reply( nick, "CLIENTINFO I understand these CTCP-commands:" );
+	send_ctcp_reply( nick, "CLIENTINFO VERSION, FINGER, ACTION, CLIENTINFO PING SOURCE DCC" );
 /*         send_ctcp_reply( nick, "CLIENTINFO (btw, I'm %s, not a client :)", */
 /*                          currentbot->nick ); */
         return;
@@ -113,8 +111,8 @@ void	ctcp_ping( char *from, char *to, char *rest )
 
 	nick = getnick( from );
 
-        send_ctcp_reply( nick, "PING" );
-        return;
+	send_ctcp_reply( nick, "PING" );
+	return;
 }
 
 void	ctcp_source( char *from, char *to, char *rest )
@@ -123,16 +121,16 @@ void	ctcp_source( char *from, char *to, char *rest )
 
 	nick = getnick( from );
 
-        send_ctcp_reply( nick, "SOURCE The latest version of %s can be obtained from",
-			 currentbot->nick );
-	send_ctcp_reply( nick, "SOURCE http://www.loria.fr/~parmenti/irc/achille.html" );
+	send_ctcp_reply( nick, "SOURCE The latest version of %s can be obtained from",
+					 currentbot->nick );
+	send_ctcp_reply( nick, "SOURCE http://code.google.com/p/patrocle/" );
 /* 	send_ctcp_reply( nick, "SOURCE %s is based on VladBot, written by VladDrac (irvdwijk@cs.vu.nl)", currentbot->nick ); */
-        return; 
+	return; 
 }
 
 void	ctcp_ignore( char *from, char *to, char *rest )
 {
-        return;
+	return;
 }
 
 void	ctcp_unknown( char *from, char *to, char *rest )
@@ -140,5 +138,9 @@ void	ctcp_unknown( char *from, char *to, char *rest )
 	char	*nick;
 
 	nick = getnick( from );
-    	send_ctcp_reply( nick, "ERROR Unknown ctcp-command %s", rest );
+	send_ctcp_reply( nick, "ERROR Unknown ctcp-command %s", rest );
 } 
+
+// Local variables:
+// coding: utf-8
+// end:

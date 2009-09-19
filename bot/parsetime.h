@@ -7,3 +7,7 @@
 time_t parsetime(char *wanted);
 
 #endif
+
+// Local variables:
+// coding: utf-8
+// end:

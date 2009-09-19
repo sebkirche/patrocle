@@ -1,22 +1,21 @@
 /*
- * send.c send stuff to the server, but not the basic stuff,
- *        more specified, like sendprivmsg, sendmode etc...
- * (c) 1993 VladDrac (irvbdwijk@cs.vu.nl)
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- *
+ send.c send stuff to the server, but not the basic stuff,
+		more specified, like sendprivmsg, sendmode etc...
+ Copyright (C) 1993, 1994 VladDrac (irvdwijk@cs.vu.nl)
+ Copyright (C) 2009 Sébastien Kirche 
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <stdio.h>
@@ -36,10 +35,10 @@
 #define iconv_close iconv_close
 
 extern	int	send_to_server(char *format, ...);
-extern	int 	send_chat(char *to, char *text);
-extern	char	*getnick(char *nick_userhost);
+extern	int 	send_chat(const char *to, const char *text);
+extern	char	*getnick(const char *nick_userhost);
 
-int	sendprivmsg(char *sendto, char *format, ...)
+int	sendprivmsg(const char *sendto, const char *format, ...)
 /*
  * Basically the same as send_to_server, just a little more easy to use
  */
@@ -69,7 +68,7 @@ int	sendprivmsg(char *sendto, char *format, ...)
 		return(send_to_server("PRIVMSG %s :%s", sendto, buf));
 }
 
-int sendaction (char *sendto, char *format, ...) 
+int sendaction (const char *sendto, const char *format, ...) 
 {
 	char 	buf[WAYTOBIG];
 	va_list	msg;
@@ -94,7 +93,7 @@ int sendaction (char *sendto, char *format, ...)
 }
 
 
-int	sendnotice(char *sendto, char *format, ...)
+int	sendnotice(const char *sendto, const char *format, ...)
 {
 	char 	buf[WAYTOBIG];
 	va_list	msg;
@@ -118,67 +117,67 @@ int	sendnotice(char *sendto, char *format, ...)
     	return(send_to_server( "NOTICE %s :%s", sendto, buf));
 }
 
-int 	sendregister(char *nick, char *login, char *ircname)
+int sendregister(const char *nick, const char *login, const char *ircname)
 {
-    	if(!send_to_server("USER %s null null :%s", login, ircname))
-        	return FAIL;
-    	return(sendnick(nick)); 
+	if(!send_to_server("USER %s null null :%s", login, ircname))
+       	return FAIL;
+    return(sendnick(nick)); 
 }    
 
-int	sendtopic(char *channel, char *topic)
+int	sendtopic(const char *channel, const char *topic)
 {
 	return(send_to_server("TOPIC %s :%s", channel, topic));
 }
 
-int 	sendping(char *to)
+int sendping(const char *to)
 {
 	return(send_to_server("PING %s", to));
 }
 
-int 	sendpong(char *to)
+int sendpong(const char *to)
 {
 	return(send_to_server("PONG %s", to));
 }
 
-int 	sendnick(char *nick)
+int sendnick(const char *nick)
 {
 	return(send_to_server("NICK %s", nick));
 }
 
-int 	sendjoin(char *channel)
+int sendjoin(const char *channel)
 {
 	return(send_to_server("JOIN %s", channel));
 }
 
-int 	sendpart(char *channel)
+int sendpart(const char *channel)
 {
 	return( send_to_server( "PART %s", channel ) );
 }
 
-int 	sendquit(char *reason)
+int sendquit(const char *reason)
 {
 	return( send_to_server( "QUIT :%s", reason ) );
 }
 
-int	sendmode(char *to, char *format, ...)
+int	sendmode(const char *to, const char *format, ...)
 {
-    	char 	buf[MAXLEN];
+    char 	buf[MAXLEN];
 	va_list	msg;
 
 	va_start(msg, format);
 	vsprintf(buf, format, msg);
 	va_end(msg);
-    	return( send_to_server( "MODE %s %s", to, buf ) );
+	return( send_to_server( "MODE %s %s", to, buf ) );
 }
 
-int 	sendkick( char *channel, char *nick, char *reason )
+int sendkick(const char *channel, const char *nick, const char *reason )
 {
-    	return( send_to_server( "KICK %s %s :%s", channel, nick, reason ) );
+	return( send_to_server( "KICK %s %s :%s", channel, nick, reason ) );
 }
 
-int	send_ctcp_reply(char *to, char *format, ...)
+int	send_ctcp_reply(const char *to, const char *format, ...)
 {
-    	char 	buf[MAXLEN];
+	char 	buf[MAXLEN];
 	va_list	msg;
 
 	va_start(msg, format);
@@ -187,9 +186,9 @@ int	send_ctcp_reply(char *to, char *format, ...)
     	return( send_to_server("NOTICE %s :\001%s\001", to, buf));
 }
 
-int	send_ctcp(char *to, char *format, ...)
+int	send_ctcp(const char *to, const char *format, ...)
 {
-    	char 	buf[MAXLEN];
+	char 	buf[MAXLEN];
 	va_list	msg;
 
 	va_start(msg, format);
@@ -198,33 +197,36 @@ int	send_ctcp(char *to, char *format, ...)
 	return(send_to_server( "PRIVMSG %s :\001%s\001", to, buf));
 }
 
-int 	sendison(char *nick)
+int sendison(const char *nick)
 {
 	return(send_to_server("ISON %s", nick));
 }
 
-int 	senduserhost(char *nick)
-
+int senduserhost(const char *nick)
 {
 	return(send_to_server("USERHOST %s", nick));
 }
 
-int	send_to_user(char *to, char *format, ...)
+int	send_to_user(const char *to, const char *format, ...)
 {
-    	char 	buf[WAYTOBIG];
+	char 	buf[WAYTOBIG];
 	va_list	msg;
 
 	va_start(msg, format);
 	vsprintf(buf, format, msg);
 	va_end(msg);
-	if(to)
+	if(to){
 		if(!send_chat(to, buf))
 			return sendnotice(getnick(to), "%s", buf);
 		else
 			return TRUE;
+	}
 #ifdef DBUG
 	else
 		debug(NOTICE, "%s", buf);
 #endif
 	return TRUE;
 }
+// Local variables:
+// coding: utf-8
+// end:

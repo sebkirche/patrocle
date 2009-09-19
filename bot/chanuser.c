@@ -1,20 +1,20 @@
 /*
- * chanuser.c - register users on a channel
- * (c) 1993 VladDrac (irvdwijk@cs.vu.nl)
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ chanuser.c - register users on a channel
+ Copyright (C) 1993 VladDrac (irvdwijk@cs.vu.nl)
+ Copyright (C) 2009 Sébastien Kirche 
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <stddef.h>
@@ -63,7 +63,6 @@ int	delete_user( USER_list **u_list, char *nick )
 /*
  * removes a user from u_list 
  */
-
 {
 	USER_list	**old;
 	USER_list	*Dummy;
@@ -72,8 +71,7 @@ int	delete_user( USER_list **u_list, char *nick )
 		return(FALSE);
 
 	for( old = u_list; *old; old = &(*old)->next )
-		if( *old == Dummy )
-		{
+		if( *old == Dummy ){
 			*old = Dummy->next;
 			free( Dummy );
 			return(TRUE);
@@ -86,8 +84,7 @@ int	change_user_nick( USER_list **u_list,
 {
 	USER_list	*Dummy;
 
-	if( (Dummy = search_user( u_list, oldnick )) != NULL )
-	{
+	if( (Dummy = search_user( u_list, oldnick )) != NULL ){
 		strcpy( Dummy->nick, newnick );
 		return(TRUE);
 	}
@@ -102,12 +99,11 @@ void	clear_all_users( USER_list **u_list )
 	USER_list	**old;
 	USER_list       *next;
 
-	for( old = u_list; *old; *old = next)
-	{
-	  free ((*old)->user);
-	  free ((*old)->host);
-	  next = (*old)->next;
-	  free( *old );
+	for( old = u_list; *old; *old = next){
+		free ((*old)->user);
+		free ((*old)->host);
+		next = (*old)->next;
+		free( *old );
 	}
 }
 
@@ -138,7 +134,7 @@ unsigned	int	get_usermode( USER_list *User )
 char	*get_username( USER_list *User )
 {
 	sprintf(buffer, "%s!%s@%s", User->nick, 
-		User->user, User->host );
+			User->user, User->host );
 	return(buffer);
 }
 
@@ -169,3 +165,7 @@ void	del_mode( USER_list **u_list,
 		return;
 	Dummy->mode &= ~mode;
 }
+
+// Local variables:
+// coding: utf-8
+// end:

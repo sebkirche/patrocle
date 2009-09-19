@@ -1,31 +1,32 @@
 /*
- * session.c - manages sessions between IRC users and the bot
- * Copyright (C) 1993-94 VladDrac (irvdwijk@cs.vu.nl)
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- *
- * A session is created:
- * - When a user starts a DCC chat connection
- * - When a user sends a legal command (public or private)
- * - When a user sends an illegal private message (for floodcontrol)
- *
- * A session is deleted when the user has been idle for a defined
- * amount of time.
- *
- * Sessions can be used for "remembering" the cwd (with filetransfer),
- * last used command, floodingcontrol etc.
+ session.c - manages sessions between IRC users and the bot
+ Copyright (C) 1993, 1994 VladDrac (irvdwijk@cs.vu.nl)
+ Copyright (C) 2009 Sébastien Kirche 
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+  A session is created:
+  - When a user starts a DCC chat connection
+  - When a user sends a legal command (public or private)
+  - When a user sends an illegal private message (for floodcontrol)
+ 
+  A session is deleted when the user has been idle for a defined
+  amount of time.
+ 
+  Sessions can be used for "remembering" the cwd (with filetransfer),
+  last used command, floodingcontrol etc.
+ 
  */
 
 #include <stdarg.h>
@@ -70,7 +71,7 @@ SESSION_list	*create_session(char *user)
 	SESSION_list	*new_session;
 
 	if((new_session = (SESSION_list *) 
-	                   malloc(sizeof(SESSION_list))) == NULL)
+		malloc(sizeof(SESSION_list))) == NULL)
 		return NULL;
 	mstrcpy(&new_session->user, user);
 	mstrcpy(&new_session->cwd, "/");
@@ -98,14 +99,12 @@ int	delete_session(char *user)
 	
 	for(session = &currentbot->session_list; *session; 
 	    session = &(**session).next)
-		if(STRCASEEQUAL((**session).user, user))
-		{
+		if(STRCASEEQUAL((**session).user, user)){
 			old = *session;
 			free(old->user);
 			free(old->cwd);
 			if(old->maxfile != 0)
-				for(i=0; i<old->maxfile; i++)
-				{
+				for(i=0; i<old->maxfile; i++){
 					free(old->file_list[i].name);
 					free(old->file_list[i].path);
 				}
@@ -128,24 +127,22 @@ void	cleanup_sessions()
 {
 	SESSION_list	*session, *next;
 	int             Destruction = 0;
-
+	
 	for(session = currentbot->session_list; session; 
-	    session = (Destruction?next:session->next))
-	{
-	  next = NULL;
-	  Destruction = 0;
-	  if((time(NULL) - session->last_received) > SESSION_TIMEOUT) {
-	    Destruction = 1;
-	    next = session->next;
-	    delete_session(session->user);
-	  }
-	  else if(((time(NULL) - session->flood_start) > FLOOD_TALKAGAIN)
-		  && session->flooding)
-	    {
-	      session->flooding = FALSE;
-	      session->flood_cnt = 0;
-	      send_to_user(session->user, "You may speak again");
-	      botlog (LOGFILE, "<%s#%s> You may speak again", currentbot->botname, session->user);
+	    session = (Destruction?next:session->next)){
+		next = NULL;
+		Destruction = 0;
+		if((time(NULL) - session->last_received) > SESSION_TIMEOUT) {
+			Destruction = 1;
+			next = session->next;
+			delete_session(session->user);
+		}
+		else if(((time(NULL) - session->flood_start) > FLOOD_TALKAGAIN)
+		  && session->flooding){
+			session->flooding = FALSE;
+			session->flood_cnt = 0;
+			send_to_user(session->user, "You may speak again");
+			botlog (LOGFILE, "<%s#%s> You may speak again", currentbot->botname, session->user);
 	    }
 	}
 }
@@ -177,22 +174,19 @@ int	check_flood(char *user)
  * - User is know to me and is not flooding -> look if flooding now
  */
 {
-	if((currentsession = find_session(user)) == NULL)
-	{	
+	if((currentsession = find_session(user)) == NULL){	
 		currentsession = create_session(user);
 		return FALSE;
 	}
-	else if(currentsession->flooding)
-	{
+	else if(currentsession->flooding){
 		currentsession->last_received = time(NULL);
 		return TRUE;
 	}	
-	else
-	{
+	else{
 		currentsession->last_received = time(NULL);
 		currentsession->flood_cnt++;
-		if(time(NULL) - currentsession->flood_start <= FLOOD_INTERVAL)
-		{	/* user is flooding */
+		if(time(NULL) - currentsession->flood_start <= FLOOD_INTERVAL){
+			/* user is flooding */
 			if(currentsession->flood_cnt < FLOOD_RATE)
 				return FALSE;
 			send_to_user(user, "I'm gonna ignore you for a while, LAMER!");
@@ -200,8 +194,8 @@ int	check_flood(char *user)
 			currentsession->flooding = TRUE;
 			return TRUE;
 		}
-		else
-		{	/* reset values */
+		else{
+			/* reset values */
 			currentsession->flood_start = time(NULL);
 			currentsession->flood_cnt = 1;
 			currentsession->flooding = FALSE;
@@ -256,19 +250,17 @@ void	change_dir(char *user, char *new_dir)
 
 void	dcc_sendnext(char *user)
 {
-        if((currentsession = find_session(user)) == NULL)
+	if((currentsession = find_session(user)) == NULL)
 		return;
 
 	currentsession->last_received = time(NULL);
 	if(currentsession->maxfile == 0)
 		return;
 
-	if(currentsession->currentfile == currentsession->maxfile)
-	{
+	if(currentsession->currentfile == currentsession->maxfile){
 		int	i;
 
-		for(i=0; i<currentsession->maxfile; i++)
-		{
+		for(i=0; i<currentsession->maxfile; i++){
 			free(currentsession->file_list[i].name);
 			free(currentsession->file_list[i].path);
 		}
@@ -278,11 +270,11 @@ void	dcc_sendnext(char *user)
 	}
 
 	while((currentsession->currentfile < currentsession->maxfile) &&
-	       !send_file_from_list(user, 
-	       currentsession->file_list[currentsession->currentfile].path, 
-	       currentsession->file_list[currentsession->currentfile].name))
+		  !send_file_from_list(user, 
+							   currentsession->file_list[currentsession->currentfile].path, 
+							   currentsession->file_list[currentsession->currentfile].name))
 		currentsession->currentfile++;
-
+	
 	currentsession->currentfile++;
 	
 }
@@ -300,18 +292,17 @@ int	dcc_sendlist(char *user, char *path, char *file_list[], int n)
 	int	files_to_copy;
 
 	if((currentsession = find_session(user)) == NULL)
-	                currentsession = create_session(user);
+		currentsession = create_session(user);
 
 	currentsession->last_received = time(NULL);
 	files_to_copy = (currentsession->maxfile+n>LISTSIZE)?
-	                (LISTSIZE-currentsession->maxfile):
-			n;
+		(LISTSIZE-currentsession->maxfile):
+		n;
 	sendreply("%d File%s added to filequeue", files_to_copy,
-		  files_to_copy==1?"":"s");
+			  files_to_copy==1?"":"s");
 
 	/* copy the filelist */
-	for(i=0, j=currentsession->maxfile; i<files_to_copy; i++, j++)
-	{
+	for(i=0, j=currentsession->maxfile; i<files_to_copy; i++, j++){
 		mstrcpy(&(currentsession->file_list[j].path), path);
 		mstrcpy(&(currentsession->file_list[j].name), file_list[i]);
 	}
@@ -326,11 +317,11 @@ void	do_showqueue()
 	int	i;
 
 	sendreply("Maxfile = %d, currentfile = %d", currentsession->maxfile,
-		   currentsession->currentfile);
+			  currentsession->currentfile);
 	sendreply("Filequeue:");
 	for(i=0; i<currentsession->maxfile; i++)
 		sendreply("path: %s, file %s", currentsession->file_list[i].path,
-					       currentsession->file_list[i].name);
+				  currentsession->file_list[i].name);
 }
 
 /*
@@ -346,3 +337,6 @@ void	sendreply(char *s, ...)
 	send_to_user(currentsession->user, buf);
 	va_end(msg);
 }
+// Local variables:
+// coding: utf-8
+// end:

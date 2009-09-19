@@ -36,3 +36,589 @@
 [patrocle] Tue Sep 15 01:59:53 2009: <seki!n=seki@falbala.seki.fr##seki8> �
 [patrocle] Tue Sep 15 02:00:13 2009: <seki!n=seki@falbala.seki.fr##seki8> !reloadlogic
 [patrocle] Tue Sep 15 02:00:21 2009: <seki!n=seki@falbala.seki.fr##seki8> !help
+[patrocle] Tue Sep 15 02:11:56 2009: <seki!n=seki@falbala.seki.fr##seki8> !quit
+[patrocle] Tue Sep 15 02:14:44 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Tue Sep 15 02:16:39 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Tue Sep 15 02:16:39 2009: <patrocle##emacsfr>	 Bonjour, c'est moi, patrocle.
+[patrocle] Tue Sep 15 02:16:55 2009: <patrocle##emacsfr>	 Areuh seki.
+[patrocle] Tue Sep 15 02:17:10 2009: <seki!n=seki@falbala.seki.fr##emacsfr> bonjour patrocle 
+[patrocle] Tue Sep 15 02:17:10 2009: <patrocle##emacsfr>	 Bien le bonjour, seki.
+[patrocle] Tue Sep 15 02:17:25 2009: <seki!n=seki@falbala.seki.fr##emacsfr> je suis bien content de te revoir ici patrocle :)
+[patrocle] Tue Sep 15 02:17:25 2009: <patrocle##emacsfr>	 Moi aussi, seki.
+[patrocle] Tue Sep 15 02:17:25 2009: <patrocle##emacsfr>	 Merci, seki.
+[patrocle] Tue Sep 15 02:17:25 2009: <patrocle##emacsfr>	 seki: :)
+[patrocle] Tue Sep 15 02:18:49 2009: <seki!n=seki@falbala.seki.fr##seki8> qui est ton maitre patrocle ?
+[patrocle] Tue Sep 15 02:18:49 2009: <patrocle##seki8>	 C'est seki@seki.fr, le tout-puissant.
+[patrocle] Tue Sep 15 02:19:10 2009: <seki!n=seki@falbala.seki.fr##seki8> tu as vu ecocode patrocle ?
+[patrocle] Tue Sep 15 02:19:10 2009: <patrocle##seki8>	 Je ne connais pas de ecocode, seki
+[patrocle] Tue Sep 15 03:32:21 2009: <seki!n=seki@falbala.seki.fr##seki8> quelle heure patrocle ?
+[patrocle] Tue Sep 15 03:32:21 2009: *	s#patrocle* #seki8
+[patrocle] Tue Sep 15 03:32:31 2009: <seki!n=seki@falbala.seki.fr##seki8> tu connais achille, patrocle ?
+[patrocle] Tue Sep 15 03:44:56 2009: <seki!n=seki@falbala.seki.fr##seki8> montre reponses
+[patrocle] Tue Sep 15 03:45:28 2009: <seki!n=seki@falbala.seki.fr##seki8> patrocle: montre reponses
+[patrocle] Tue Sep 15 03:49:22 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Tue Sep 15 03:49:22 2009: <patrocle##emacsfr>	 Bonjour, c'est moi, patrocle.
+[patrocle] Tue Sep 15 03:53:09 2009: <seki!n=seki@falbala.seki.fr##seki8> luaversion ?
+[patrocle] Tue Sep 15 03:53:09 2009: <patrocle##seki8>	 je fonctionne avec Lua 5.1
+[patrocle] Tue Sep 15 08:16:45 2009: <seki!n=seki@falbala.seki.fr##seki8> !channels
+[patrocle] Tue Sep 15 09:44:19 2009: <sekki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##emacsfr> bonjour :o)
+[patrocle] Tue Sep 15 09:44:44 2009: <sekki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw#patrocle> help
+[patrocle] Tue Sep 15 09:47:31 2009: <sekki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw#patrocle> bonjour
+[patrocle] Tue Sep 15 09:47:31 2009: <patrocle#sekki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw> Bien le bonjour, sekki.
+[patrocle] Tue Sep 15 09:47:48 2009: <sekki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw#patrocle> je suis qui ?
+[patrocle] Tue Sep 15 09:47:48 2009: <patrocle#sekki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw> Tu es sekki, tout simplement ;)
+[patrocle] Tue Sep 15 09:48:07 2009: <sekki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw#patrocle> tu as vu kh ?
+[patrocle] Tue Sep 15 09:48:18 2009: <sekki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw#patrocle> tu as vu karim ?
+[patrocle] Tue Sep 15 09:48:41 2009: <sekki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw#patrocle> whoami
+[patrocle] Tue Sep 15 09:56:37 2009: <gko!n=gko@211.22.47.2##emacsfr> c'est qui?
+[patrocle] Tue Sep 15 10:07:31 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##emacsfr> c'est moi voyons :)
+[patrocle] Tue Sep 15 10:08:15 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##emacsfr> oui, enfin l� ce n'est pas flagrant, en passant par le webchat
+[patrocle] Tue Sep 15 10:08:29 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##emacsfr> je suis qui patrocle ?
+[patrocle] Tue Sep 15 10:08:29 2009: <patrocle##emacsfr>	 Tes niveaux, seki: utilisateur: 0, shit: 0, protection: 0, relation: 5.
+[patrocle] Tue Sep 15 10:20:32 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##emacsfr> patrocle, tu as vu vpm ?
+[patrocle] Tue Sep 15 10:20:32 2009: <patrocle##emacsfr>	 Je ne connais pas de vpm, seki
+[patrocle] Tue Sep 15 11:20:32 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##seki8> bonjour patrocle 
+[patrocle] Tue Sep 15 11:20:32 2009: *	s#patrocle* #seki8
+[patrocle] Tue Sep 15 11:21:09 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##seki8> ecocode ?
+[patrocle] Tue Sep 15 11:21:16 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##seki8> theoliane ?
+[patrocle] Tue Sep 15 11:21:24 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##seki8> parle patrocle 
+[patrocle] Tue Sep 15 11:21:24 2009: <patrocle##seki8>	 Tu désires que j'accapare la parole, seki?
+[patrocle] Tue Sep 15 11:21:33 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##seki8> theoliane ?
+[patrocle] Tue Sep 15 11:21:38 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##seki8> perl ?
+[patrocle] Tue Sep 15 11:21:46 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##seki8> luaversion ?
+[patrocle] Tue Sep 15 11:22:15 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##seki8> tu connais lua, patrocle ?
+[patrocle] Tue Sep 15 11:22:27 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##seki8> quelle heure patrocle ?
+[patrocle] Tue Sep 15 11:22:27 2009: *	s#patrocle* #seki8
+[patrocle] Tue Sep 15 11:36:30 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##seki8> j'ai faim
+[patrocle] Tue Sep 15 11:36:35 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##seki8> miam
+[patrocle] Tue Sep 15 11:36:38 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##seki8> crunch
+[patrocle] Tue Sep 15 11:36:42 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##seki8> buarp
+[patrocle] Tue Sep 15 11:36:48 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##seki8> prout
+[patrocle] Tue Sep 15 11:36:54 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##seki8> fuck
+[patrocle] Tue Sep 15 11:37:03 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##seki8> patrocle: fuck seki_zzzz 
+[patrocle] Tue Sep 15 11:37:03 2009: <patrocle##seki8>	 rrrooonnnnn... zzzzzzzzzzzz...
+[patrocle] Tue Sep 15 11:37:03 2009: <patrocle##seki8>	 Attention, seki, je vais kicker! J'exige des excuses.
+[patrocle] Tue Sep 15 11:37:03 2009: <patrocle##seki8>	 C'est pas que je ne t'aime pas, mais je ne te connais pas encore assez pour t'autoriser cette commande, seki.
+[patrocle] Tue Sep 15 11:37:20 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##seki8> bisou patrocle 
+[patrocle] Tue Sep 15 11:38:02 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##seki8> patrocle: je t'aime
+[patrocle] Tue Sep 15 11:38:02 2009: <patrocle##seki8>	 seki: Je suis flatté.
+[patrocle] Tue Sep 15 12:29:40 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##emacsfr> patrocle: tu as vu ecocode ?
+[patrocle] Tue Sep 15 12:29:40 2009: <patrocle##emacsfr>	 ecocode ? Ça ne me dit rien seki
+[patrocle] Tue Sep 15 12:33:00 2009: <karim!n=karim@neyret.fr##emacsfr> bref
+[patrocle] Tue Sep 15 12:33:00 2009: <patrocle##emacsfr>	 mon copain kh
+[patrocle] Tue Sep 15 12:33:20 2009: <karim!n=karim@neyret.fr##emacsfr> seki: qu'est-ce qu'il fait ici ce truc ?
+[patrocle] Tue Sep 15 12:33:20 2009: <patrocle##emacsfr>	 tu me rappelles quelqu'un, kh
+[patrocle] Tue Sep 15 12:33:35 2009: <karim!n=karim@neyret.fr##emacsfr> je croyais qu'il �tait remis� � la ferraille
+[patrocle] Tue Sep 15 12:33:35 2009: <patrocle##emacsfr>	 mon copain kh
+[patrocle] Tue Sep 15 12:39:25 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##emacsfr> rhaaaaaa j'ai oubli� d'enlever un truc dans le lua
+[patrocle] Tue Sep 15 12:40:06 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##emacsfr> nan il n'est pas remis� je viens de le publier sur google code en version lua (mais la logique lua n'est pas compl�tement termin�e)
+[patrocle] Tue Sep 15 12:40:55 2009: <seki!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##emacsfr> en tout cas il te reconnait
+[patrocle] Tue Sep 15 12:43:59 2009: <seki`!n=user@falbala.seki.fr#patrocle> whoami
+[patrocle] Tue Sep 15 12:44:46 2009: <seki!n=user@falbala.seki.fr#patrocle> whoami
+[patrocle] Tue Sep 15 12:45:09 2009: <seki!n=user@falbala.seki.fr#patrocle> leave #emacsfr
+[patrocle] Tue Sep 15 12:49:08 2009: <seki!n=user@falbala.seki.fr kicke patrocle de #emacsfr> :Kicked by seki
+[patrocle] Tue Sep 15 12:49:48 2009: <patrocle##emacsfr>	 Bonjour, c'est moi, patrocle.
+[patrocle] Tue Sep 15 12:50:02 2009: <seki_web!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##emacsfr> grmbl
+[patrocle] Tue Sep 15 12:50:52 2009: <seki_web!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##emacsfr> patrocle: tais toi
+[patrocle] Tue Sep 15 12:50:52 2009: <patrocle##emacsfr>	 seki_web: Suis-je gênant? :(
+[patrocle] Tue Sep 15 12:56:21 2009: <seki_web!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##emacsfr> salut vpm 
+[patrocle] Tue Sep 15 13:12:02 2009: <seki_web!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw#patrocle> tu as vu vpm ?
+[patrocle] Tue Sep 15 13:35:47 2009: <seki_web!i=50ffa07d@gateway/web/freenode/x-rsahzqfejctqwjgw##emacsfr> salut Asgeir 
+[patrocle] Tue Sep 15 13:52:16 2009: <karim!n=karim@neyret.fr##emacsfr> bref
+[patrocle] Tue Sep 15 13:52:16 2009: <patrocle##emacsfr>	 tu me rappelles quelqu'un, kh
+[patrocle] Tue Sep 15 14:08:13 2009: <seki!n=user@falbala.seki.fr##emacsfr> comment on kick / ban ?
+[patrocle] Tue Sep 15 14:08:20 2009: <seki!n=user@falbala.seki.fr##emacsfr> rhazut
+[patrocle] Tue Sep 15 14:08:36 2009: <seki!n=user@falbala.seki.fr kicke patrocle de #emacsfr> :Kicked by seki
+[patrocle] Tue Sep 15 14:09:16 2009: <patrocle##emacsfr>	 Heureux de vous voir.
+[patrocle] Tue Sep 15 14:11:13 2009: <seki!n=user@falbala.seki.fr##emacsfr> !channels
+[patrocle] Tue Sep 15 14:18:55 2009: <seki!n=user@falbala.seki.fr##emacsfr> quelle heure patrocle ?
+[patrocle] Tue Sep 15 14:19:16 2009: <seki!n=user@falbala.seki.fr##seki8> quelle heure patrocle ?
+[patrocle] Tue Sep 15 14:19:16 2009: <patrocle##seki8>	 J'ai 14 heures 19 minutes à ma montre.
+[patrocle] Tue Sep 15 14:19:53 2009: <seki!n=user@falbala.seki.fr##emacsfr> ay�, chanserv le fait taire
+[patrocle] Tue Sep 15 17:49:51 2009: <vpm!n=vpm@reverse-94.fdn.fr##emacsfr> Bonjour, c'est moi, patrocle.
+[patrocle] Tue Sep 15 17:49:54 2009: <vpm!n=vpm@reverse-94.fdn.fr##emacsfr> -D
+[patrocle] Tue Sep 15 17:51:12 2009: <vpm!n=vpm@reverse-94.fdn.fr##emacsfr> Areuh seki.
+[patrocle] Tue Sep 15 22:24:13 2009: <seki!n=user@falbala.seki.fr##emacsfr> il est quelle heure patrocle ?
+[patrocle] Tue Sep 15 22:24:20 2009: <vpm!n=vpm@reverse-94.fdn.fr##emacsfr> Areuh seki. (ahah)
+[patrocle] Tue Sep 15 22:24:37 2009: <seki!n=user@falbala.seki.fr##emacsfr> ah j'oubliais
+[patrocle] Tue Sep 15 22:24:42 2009: <seki!n=user@falbala.seki.fr##emacsfr> tu peux parler patrocle 
+[patrocle] Tue Sep 15 22:24:42 2009: <patrocle##emacsfr>	 seki: Je ne suis plus gênant? :)
+[patrocle] Tue Sep 15 22:24:48 2009: <seki!n=user@falbala.seki.fr##emacsfr> non :)
+[patrocle] Tue Sep 15 22:25:12 2009: <seki!n=user@falbala.seki.fr##emacsfr> maintenant que je suis de retour sur ton serveur, je peux corriger des trucs 
+[patrocle] Tue Sep 15 22:25:16 2009: <seki!n=user@falbala.seki.fr##emacsfr> vpm :)
+[patrocle] Tue Sep 15 22:25:37 2009: <vpm!n=vpm@reverse-94.fdn.fr##emacsfr> tiens, il �crit en UTF-8 ton patrocle ? Ses accents s'affichent mal chez moi
+[patrocle] Tue Sep 15 22:27:54 2009: <seki!n=user@falbala.seki.fr##emacsfr> oui c'est r�gl� comme �a pour #emacsfr
+[patrocle] Tue Sep 15 22:28:05 2009: <seki!n=user@falbala.seki.fr##emacsfr> pourquoi ? ce n'est pas le bon r�glage ?
+[patrocle] Tue Sep 15 22:28:10 2009: <seki!n=user@falbala.seki.fr##emacsfr> !reloadlogic
+[patrocle] Tue Sep 15 22:31:46 2009: <vpm!n=vpm@reverse-94.fdn.fr##emacsfr> seki: �a vient probablement de chez moi, mais d'un autre c�t�, tes accents je les vois bien
+[patrocle] Tue Sep 15 22:31:56 2009: <vpm!n=vpm@reverse-94.fdn.fr##emacsfr> bref, faut que j'aille dormir..
+[patrocle] Tue Sep 15 22:31:56 2009: <patrocle##emacsfr>	 rrrooonnnnn... zzzzzzzzzzzz...
+[patrocle] Tue Sep 15 22:32:02 2009: <vpm!n=vpm@reverse-94.fdn.fr##emacsfr> h�h�
+[patrocle] Tue Sep 15 22:32:02 2009: <patrocle##emacsfr>	 H�h�!
+[patrocle] Tue Sep 15 22:32:15 2009: <vpm!n=vpm@reverse-94.fdn.fr##emacsfr> patrocle: perroquet, va
+[patrocle] Tue Sep 15 22:32:15 2009: <seki!n=user@falbala.seki.fr##emacsfr> c'est parce que mon ERC est mal r�gl� : il persiste � rester en latin
+[patrocle] Tue Sep 15 22:32:15 2009: <seki!n=user@falbala.seki.fr##emacsfr> 1 sur emacsfr :o)
+[patrocle] Tue Sep 15 22:32:22 2009: <vpm!n=vpm@reverse-94.fdn.fr##emacsfr> -)
+[patrocle] Tue Sep 15 22:32:27 2009: <seki!n=user@falbala.seki.fr##emacsfr> on va essayer un truc
+[patrocle] Tue Sep 15 22:32:38 2009: <vpm!n=vpm@reverse-94.fdn.fr##emacsfr> bonne nuit seki et patrocle 
+[patrocle] Tue Sep 15 22:32:38 2009: *	s#patrocle* #emacsfr
+[patrocle] Tue Sep 15 22:32:57 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Tue Sep 15 22:32:57 2009: <patrocle##emacsfr>	 Bonjour, c'est moi, patrocle.
+[patrocle] Tue Sep 15 22:33:18 2009: <seki`!n=seki@falbala.seki.fr##emacsfr> à plus, vpm
+[patrocle] Tue Sep 15 22:33:25 2009: <seki`!n=seki@falbala.seki.fr##emacsfr> ça va patrocle ?
+[patrocle] Tue Sep 15 22:33:48 2009: <seki`!n=seki@falbala.seki.fr#patrocle> whoami
+[patrocle] Tue Sep 15 22:34:51 2009: <seki`!n=seki@falbala.seki.fr#patrocle> channels
+[patrocle] Tue Sep 15 22:34:51 2009: <patrocle#seki`!n=seki@falbala.seki.fr> Dommage, cette commande réclame que je te fasse encore plus confiance, seki`!
+[patrocle] Tue Sep 15 22:36:29 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Tue Sep 15 22:36:29 2009: <patrocle##emacsfr>	 Bonjour, c'est moi, patrocle.
+[patrocle] Tue Sep 15 22:36:39 2009: <seki`!n=seki@falbala.seki.fr#patrocle> channels
+[patrocle] Tue Sep 15 22:36:39 2009: <patrocle#seki`!n=seki@falbala.seki.fr> Dommage, cette commande réclame que je te fasse encore plus confiance, seki`!
+[patrocle] Tue Sep 15 22:36:53 2009: <seki`!n=seki@falbala.seki.fr#patrocle> whoami
+[patrocle] Tue Sep 15 22:37:22 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Tue Sep 15 22:37:22 2009: <patrocle##emacsfr>	 Bonjour, c'est moi, patrocle.
+[patrocle] Tue Sep 15 22:37:24 2009: <seki`!n=seki@falbala.seki.fr#patrocle> whoami
+[patrocle] Tue Sep 15 22:38:19 2009: <seki!n=user@falbala.seki.fr#patrocle> whoami
+[patrocle] Tue Sep 15 22:38:38 2009: <seki!n=user@falbala.seki.fr#patrocle> channels
+[patrocle] Tue Sep 15 23:08:23 2009: <seki`!n=seki@falbala.seki.fr##seki8> hello
+[patrocle] Tue Sep 15 23:08:39 2009: <seki`!n=seki@falbala.seki.fr##seki8> hello tous
+[patrocle] Tue Sep 15 23:08:39 2009: <patrocle##seki8>	 Je te souhaite le bonjour, seki`.
+[patrocle] Tue Sep 15 23:26:39 2009: <patrocle##seki8>	 Merci de m'accueillir avec bienveillance!
+[patrocle] Tue Sep 15 23:26:54 2009: <seki_!n=seki@falbala.seki.fr#patrocle> leave #seki8
+[patrocle] Tue Sep 15 23:26:54 2009: <patrocle#seki_!n=seki@falbala.seki.fr> C'est pas que je ne t'aime pas, mais je ne te connais pas encore assez pour t'autoriser cette commande, seki.
+[patrocle] Tue Sep 15 23:27:56 2009: <seki!n=seki@falbala.seki.fr#patrocle> whoami
+[patrocle] Tue Sep 15 23:28:11 2009: <seki!n=seki@falbala.seki.fr#patrocle> !leave
+[patrocle] Tue Sep 15 23:28:20 2009: <seki!n=seki@falbala.seki.fr#patrocle> !quit
+[patrocle] Tue Sep 15 23:29:22 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Tue Sep 15 23:29:22 2009: <patrocle##emacsfr>	 Bonjour, c'est moi, patrocle.
+[patrocle] Tue Sep 15 23:29:31 2009: <patrocle##seki8>	 Enfin de retour, seki! :)
+[patrocle] Tue Sep 15 23:29:37 2009: <seki!n=seki@falbala.seki.fr##seki8> !op
+[patrocle] Tue Sep 15 23:30:10 2009: <seki!n=seki@falbala.seki.fr##seki8> �a va patrocle ?
+[patrocle] Tue Sep 15 23:30:36 2009: <seki!n=seki@falbala.seki.fr##seki8> !cahnnels
+[patrocle] Tue Sep 15 23:30:41 2009: <seki!n=seki@falbala.seki.fr##seki8> !channels
+[patrocle] Tue Sep 15 23:31:24 2009: <seki!n=seki@falbala.seki.fr##seki8> �a va patrocle ?
+[patrocle] Tue Sep 15 23:31:35 2009: <seki!n=seki@falbala.seki.fr##seki8> quelle heure patrocle ?
+[patrocle] Tue Sep 15 23:31:35 2009: <patrocle##seki8>	 J'ai 23 heures 31 minutes à ma montre.
+[patrocle] Wed Sep 16 00:11:05 2009: <seki!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Wed Sep 16 00:11:18 2009: <seki!n=seki@falbala.seki.fr##seki8> !die
+[patrocle] Wed Sep 16 00:11:26 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Wed Sep 16 00:11:26 2009: <patrocle##emacsfr>	 Bonjour, c'est moi, patrocle.
+[patrocle] Wed Sep 16 00:11:40 2009: <seki!n=seki@falbala.seki.fr##seki8> !die
+[patrocle] Wed Sep 16 00:13:24 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Wed Sep 16 00:13:24 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Wed Sep 16 00:13:45 2009: <seki!n=seki@falbala.seki.fr##seki8> quelle heure patrocle ?
+[patrocle] Wed Sep 16 00:13:45 2009: <patrocle##seki8>	 Il est 0 heure 13 minutes.
+[patrocle] Wed Sep 16 00:13:56 2009: <seki!n=seki@falbala.seki.fr##seki8> quelle heure patrocle ?
+[patrocle] Wed Sep 16 00:13:56 2009: <patrocle##seki8>	 J'ai 0 heure 13 minutes à ma montre.
+[patrocle] Wed Sep 16 00:14:04 2009: <patrocle##seki>	 Bon retour parmi nous, seki!
+[patrocle] Wed Sep 16 00:14:15 2009: <seki!n=seki@falbala.seki.fr##seki> quelle heure patrocle  ?
+[patrocle] Wed Sep 16 00:14:15 2009: <patrocle##seki>	 Ici, il est 0 heure 14 minutes.
+[patrocle] Wed Sep 16 00:14:19 2009: <seki!n=seki@falbala.seki.fr##seki> quelle heure patrocle  ?
+[patrocle] Wed Sep 16 00:14:19 2009: <patrocle##seki>	 Moi j'ai 0 heure 14 minutes.
+[patrocle] Wed Sep 16 00:14:22 2009: <seki!n=seki@falbala.seki.fr##seki> quelle heure patrocle  ?
+[patrocle] Wed Sep 16 00:14:22 2009: <patrocle##seki>	 Il est 0 heure 14 minutes.
+[patrocle] Wed Sep 16 00:14:27 2009: <seki!n=seki@falbala.seki.fr##seki> quelle heure patrocle  ?
+[patrocle] Wed Sep 16 00:14:27 2009: <patrocle##seki>	 J'ai 0 heure 14 minutes à ma montre.
+[patrocle] Wed Sep 16 00:15:03 2009: <seki!n=seki@falbala.seki.fr##seki> quelle heure patrocle  ?
+[patrocle] Wed Sep 16 00:15:03 2009: *	s#patrocle* #seki
+[patrocle] Wed Sep 16 00:15:05 2009: <seki!n=seki@falbala.seki.fr##seki> quelle heure patrocle  ?
+[patrocle] Wed Sep 16 00:15:05 2009: <patrocle##seki>	 Ici, il est 0 heure 15 minutes.
+[patrocle] Wed Sep 16 00:15:07 2009: <seki!n=seki@falbala.seki.fr##seki> quelle heure patrocle  ?
+[patrocle] Wed Sep 16 00:15:07 2009: <patrocle##seki>	 Moi j'ai 0 heure 15 minutes.
+[patrocle] Wed Sep 16 00:15:09 2009: <seki!n=seki@falbala.seki.fr##seki> quelle heure patrocle  ?
+[patrocle] Wed Sep 16 00:15:09 2009: <patrocle##seki>	 Il est 0 heure 15 minutes.
+[patrocle] Wed Sep 16 00:15:10 2009: <seki!n=seki@falbala.seki.fr##seki> quelle heure patrocle  ?
+[patrocle] Wed Sep 16 00:15:10 2009: <patrocle##seki>	 J'ai 0 heure 15 minutes à ma montre.
+[patrocle] Wed Sep 16 00:15:38 2009: <seki!n=seki@falbala.seki.fr##seki> !say h�h�
+[patrocle] Wed Sep 16 00:15:38 2009: <patrocle##seki> h�h�
+[patrocle] Wed Sep 16 00:15:53 2009: <seki!n=seki@falbala.seki.fr##seki> !say h�h�
+[patrocle] Wed Sep 16 00:15:53 2009: <patrocle##seki> h�h�
+[patrocle] Wed Sep 16 00:16:13 2009: <seki!n=seki@falbala.seki.fr##seki> !say h�h�
+[patrocle] Wed Sep 16 00:16:13 2009: <patrocle##seki> h�h�
+[patrocle] Wed Sep 16 00:16:27 2009: <seki!n=seki@falbala.seki.fr##seki> !say h�h�
+[patrocle] Wed Sep 16 00:16:27 2009: <patrocle##seki> h�h�
+[patrocle] Wed Sep 16 00:16:43 2009: <seki!n=seki@falbala.seki.fr##seki> !channels
+[patrocle] Wed Sep 16 00:23:40 2009: <seki!n=seki@falbala.seki.fr#patrocle> ils font la fÃªte
+[patrocle] Wed Sep 16 00:24:58 2009: <seki!n=seki@falbala.seki.fr#patrocle> salut tt le monde
+[patrocle] Wed Sep 16 00:24:58 2009: <patrocle#seki!n=seki@falbala.seki.fr> Salut seki.
+[patrocle] Wed Sep 16 00:25:28 2009: <seki!n=seki@falbala.seki.fr#patrocle> y a du monde
+[patrocle] Wed Sep 16 00:25:46 2009: <seki!n=seki@falbala.seki.fr#patrocle> hei tt le monde
+[patrocle] Wed Sep 16 00:25:55 2009: <seki!n=seki@falbala.seki.fr#patrocle> hej tt le monde
+[patrocle] Wed Sep 16 00:26:44 2009: <seki!n=seki@falbala.seki.fr#patrocle> yo 
+[patrocle] Wed Sep 16 00:26:44 2009: <patrocle#seki!n=seki@falbala.seki.fr> Salut à toi aussi, seki.
+[patrocle] Wed Sep 16 00:26:48 2009: <seki!n=seki@falbala.seki.fr#patrocle> yo
+[patrocle] Wed Sep 16 00:27:09 2009: <seki!n=seki@falbala.seki.fr#patrocle> hihi
+[patrocle] Wed Sep 16 00:27:09 2009: <patrocle#seki!n=seki@falbala.seki.fr> Haha!
+[patrocle] Wed Sep 16 00:27:59 2009: <seki!n=seki@falbala.seki.fr#patrocle> hi all
+[patrocle] Wed Sep 16 00:27:59 2009: *patrocle#seki* salue seki.
+[patrocle] Wed Sep 16 00:28:07 2009: <seki!n=seki@falbala.seki.fr#patrocle> hihi all
+[patrocle] Wed Sep 16 00:28:07 2009: <patrocle#seki!n=seki@falbala.seki.fr> H�h�!
+[patrocle] Wed Sep 16 00:28:25 2009: <seki!n=seki@falbala.seki.fr##seki8> hihi all
+[patrocle] Wed Sep 16 00:28:25 2009: <patrocle##seki8>	 Huhu!
+[patrocle] Wed Sep 16 00:28:28 2009: <seki!n=seki@falbala.seki.fr##seki8> hihi all
+[patrocle] Wed Sep 16 00:28:28 2009: <patrocle##seki8>	 Haha!
+[patrocle] Wed Sep 16 00:30:00 2009: <seki!n=seki@falbala.seki.fr##seki8> slt toi
+[patrocle] Wed Sep 16 00:30:14 2009: <seki!n=seki@falbala.seki.fr##seki8> je reste là
+[patrocle] Wed Sep 16 00:30:31 2009: <seki!n=seki@falbala.seki.fr##seki8> how are you
+[patrocle] Wed Sep 16 00:30:59 2009: <seki!n=seki@falbala.seki.fr##seki8> !die
+[patrocle] Wed Sep 16 00:31:11 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Wed Sep 16 00:31:11 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Wed Sep 16 00:31:26 2009: <seki!n=seki@falbala.seki.fr##seki8> quelle heure patrocle ?
+[patrocle] Wed Sep 16 00:31:30 2009: <seki!n=seki@falbala.seki.fr##seki8> slt toi
+[patrocle] Wed Sep 16 00:31:37 2009: <seki!n=seki@falbala.seki.fr##seki8> how are you
+[patrocle] Wed Sep 16 00:31:50 2009: <seki!n=seki@falbala.seki.fr##seki8> hi
+[patrocle] Wed Sep 16 00:31:54 2009: <seki!n=seki@falbala.seki.fr##seki8> hi 
+[patrocle] Wed Sep 16 00:32:05 2009: <seki!n=seki@falbala.seki.fr##seki8> arvoir
+[patrocle] Wed Sep 16 08:45:00 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Wed Sep 16 08:45:00 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Wed Sep 16 08:45:22 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?
+[patrocle] Wed Sep 16 08:45:22 2009: <patrocle##seki8>	 Ouhou, seki, je suis l�.
+[patrocle] Wed Sep 16 08:50:50 2009: <seki!n=seki@falbala.seki.fr##seki8> sboub ?
+[patrocle] Wed Sep 16 08:50:50 2009: <patrocle##seki8>	 on danse une sboubada ?
+[patrocle] Wed Sep 16 08:50:59 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?
+[patrocle] Wed Sep 16 08:50:59 2009: <patrocle##seki8>	 Bien s�r seki, je suis l�.
+[patrocle] Wed Sep 16 08:51:35 2009: <seki!n=seki@falbala.seki.fr##seki8> !channels
+[patrocle] Wed Sep 16 08:52:05 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?
+[patrocle] Wed Sep 16 08:52:05 2009: <patrocle##seki>	 Je suis l�, seki, comme toujours.
+[patrocle] Wed Sep 16 08:54:44 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?
+[patrocle] Wed Sep 16 08:54:44 2009: <patrocle##seki>	 seki: �videmment qu'il y a quelqu'un!
+[patrocle] Wed Sep 16 08:54:57 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?
+[patrocle] Wed Sep 16 08:54:57 2009: *	s#patrocle* #seki
+[patrocle] Wed Sep 16 08:55:09 2009: <seki!n=seki@falbala.seki.fr##seki8> !channels
+[patrocle] Wed Sep 16 08:55:11 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?
+[patrocle] Wed Sep 16 08:55:11 2009: <patrocle##seki8>	 Mais oui seki: tu es l�.
+[patrocle] Wed Sep 16 09:01:39 2009: <seki!n=seki@falbala.seki.fr##seki8> !die
+[patrocle] Wed Sep 16 09:01:51 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Wed Sep 16 09:01:51 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Wed Sep 16 09:01:55 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?
+[patrocle] Wed Sep 16 09:01:55 2009: <patrocle##seki8>	 Ouhou, seki, je suis l�.
+[patrocle] Wed Sep 16 09:02:08 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?
+[patrocle] Wed Sep 16 09:02:08 2009: <patrocle##seki8>	 Oui.
+[patrocle] Wed Sep 16 09:02:15 2009: <seki!n=seki@falbala.seki.fr##seki8> !die
+[patrocle] Wed Sep 16 09:12:26 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Wed Sep 16 09:12:26 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Wed Sep 16 09:12:48 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?
+[patrocle] Wed Sep 16 09:12:48 2009: <patrocle##seki8>	 Ouhou, seki, je suis l�.
+[patrocle] Wed Sep 16 09:18:30 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Wed Sep 16 09:18:30 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Wed Sep 16 09:20:29 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Wed Sep 16 09:20:29 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Wed Sep 16 09:20:39 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?
+[patrocle] Wed Sep 16 09:20:40 2009: <patrocle##seki8>	 Ouhou, seki, je suis l�.
+[patrocle] Wed Sep 16 09:20:49 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?
+[patrocle] Wed Sep 16 09:20:49 2009: <patrocle##seki>	 Oui.
+[patrocle] Wed Sep 16 09:20:53 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?
+[patrocle] Wed Sep 16 09:20:53 2009: <patrocle##seki>	 Bien s�r seki, je suis l�.
+[patrocle] Wed Sep 16 09:20:57 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?
+[patrocle] Wed Sep 16 09:20:57 2009: <patrocle##seki>	 Je suis l�, seki, comme toujours.
+[patrocle] Wed Sep 16 09:21:02 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?
+[patrocle] Wed Sep 16 09:21:02 2009: <patrocle##seki8>	 seki: �videmment qu'il y a quelqu'un!
+[patrocle] Wed Sep 16 09:42:14 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Wed Sep 16 09:42:14 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Wed Sep 16 09:42:31 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?
+[patrocle] Wed Sep 16 09:42:31 2009: <patrocle##seki>	 Ouhou, seki, je suis l�.
+[patrocle] Wed Sep 16 09:42:55 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?
+[patrocle] Wed Sep 16 09:42:55 2009: <patrocle##seki>	 Oui.
+[patrocle] Wed Sep 16 09:42:57 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?
+[patrocle] Wed Sep 16 09:42:57 2009: <patrocle##seki>	 Bien s�r seki, je suis l�.
+[patrocle] Wed Sep 16 09:43:22 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?
+[patrocle] Wed Sep 16 09:43:22 2009: <patrocle##seki8>	 Je suis l�, seki, comme toujours.
+[patrocle] Wed Sep 16 10:21:34 2009: <seki!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Wed Sep 16 10:21:39 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?
+[patrocle] Wed Sep 16 10:21:39 2009: *	s#patrocle* #seki8
+[patrocle] Wed Sep 16 10:21:47 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?
+[patrocle] Wed Sep 16 10:21:47 2009: <patrocle##seki>	 Mais oui seki: tu es là.
+[patrocle] Wed Sep 16 10:59:02 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?
+[patrocle] Wed Sep 16 10:59:02 2009: <patrocle##seki>	 Il y a au moins toi et moi, seki.
+[patrocle] Wed Sep 16 10:59:04 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?
+[patrocle] Wed Sep 16 10:59:04 2009: <patrocle##seki>	 Ouhou, seki, je suis là.
+[patrocle] Wed Sep 16 10:59:11 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?
+[patrocle] Wed Sep 16 10:59:11 2009: <patrocle##seki8>	 Oui.
+[patrocle] Wed Sep 16 10:59:12 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?
+[patrocle] Wed Sep 16 10:59:12 2009: <patrocle##seki8>	 Bien sûr seki, je suis là.
+[patrocle] Wed Sep 16 11:17:14 2009: <seki!n=seki@falbala.seki.fr#patrocle> wieder sehen
+[patrocle] Wed Sep 16 12:21:01 2009: <seki!n=seki@falbala.seki.fr#patrocle> pd
+[patrocle] Wed Sep 16 14:27:46 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?
+[patrocle] Wed Sep 16 14:27:47 2009: <patrocle##seki>	 Je suis là, seki, comme toujours.
+[patrocle] Wed Sep 16 14:29:16 2009: <seki!n=seki@falbala.seki.fr##seki> !die
+[patrocle] Wed Sep 16 14:37:18 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Wed Sep 16 14:37:18 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Wed Sep 16 15:30:57 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?
+[patrocle] Wed Sep 16 15:30:57 2009: <patrocle##seki8>	 Ouhou, seki, je suis là.
+[patrocle] Wed Sep 16 15:31:13 2009: <seki!n=seki@falbala.seki.fr##seki8> !die
+[patrocle] Wed Sep 16 21:39:23 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Wed Sep 16 21:39:23 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle_nerim] Wed Sep 16 21:39:46 2009: <patrocle_nerim##seki8>	 Bonjour à tous!
+[patrocle_nerim] Wed Sep 16 21:39:46 2009: <patrocle_nerim##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Wed Sep 16 21:39:47 2009: <patrocle##seki8>	  La foule: «Ah, enfin!» :)
+[patrocle] Wed Sep 16 21:39:47 2009: <patrocle##seki>	 Merci de m'accueillir avec bienveillance!
+[patrocle_nerim] Wed Sep 16 21:41:14 2009: <2502AAAAW!~seki@falbala.seki.fr##seki8> salut patrocle
+[patrocle] Wed Sep 16 21:41:48 2009: <seki!n=seki@falbala.seki.fr##seki8> salut patrocle
+[patrocle] Wed Sep 16 22:39:05 2009: <seki_!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Wed Sep 16 22:39:20 2009: <seki_!n=seki@falbala.seki.fr##seki8> hello
+[patrocle] Wed Sep 16 22:40:46 2009: <seki_!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Wed Sep 16 22:40:55 2009: <seki_!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Wed Sep 16 22:41:05 2009: <seki_!n=seki@falbala.seki.fr##seki8> hello
+[patrocle] Wed Sep 16 22:41:53 2009: <seki_!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Wed Sep 16 22:42:11 2009: <seki_!n=seki@falbala.seki.fr##seki8> hello
+[patrocle] Wed Sep 16 22:42:21 2009: <seki_!n=seki@falbala.seki.fr##seki8> hello
+[patrocle] Wed Sep 16 22:42:34 2009: <seki_!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Wed Sep 16 22:43:32 2009: <seki_!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Wed Sep 16 22:43:35 2009: <seki_!n=seki@falbala.seki.fr##seki8> hello
+[patrocle] Wed Sep 16 22:45:02 2009: <seki_!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Wed Sep 16 22:45:05 2009: <seki_!n=seki@falbala.seki.fr##seki8> hello
+[patrocle_nerim] Wed Sep 16 22:46:21 2009: <patrocle_nerim##seki8>	 Bonjour à tous!
+[patrocle_nerim] Wed Sep 16 22:46:21 2009: <patrocle_nerim##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Wed Sep 16 22:46:23 2009: <patrocle##seki8>	  La foule: «Ah, enfin!» :)
+[patrocle] Wed Sep 16 22:46:23 2009: <patrocle##seki>	 Merci de m'accueillir avec bienveillance!
+[patrocle] Wed Sep 16 22:46:25 2009: <seki_!n=seki@falbala.seki.fr##seki8> hello
+[patrocle] Wed Sep 16 22:46:35 2009: <seki_!n=seki@falbala.seki.fr##seki8> hello
+[patrocle] Wed Sep 16 22:50:30 2009: <seki_!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Wed Sep 16 22:50:33 2009: <seki_!n=seki@falbala.seki.fr##seki8> hello
+[patrocle] Wed Sep 16 22:51:02 2009: <seki_!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Wed Sep 16 22:51:15 2009: <seki_!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Wed Sep 16 22:51:22 2009: <seki_!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Wed Sep 16 22:52:06 2009: <seki_!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Wed Sep 16 22:52:07 2009: <seki_!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Wed Sep 16 22:52:07 2009: <seki_!n=seki@falbala.seki.fr##seki8> !reloadlogic<----- from lua
+[patrocle] Wed Sep 16 23:18:05 2009: <seki!n=seki@falbala.seki.fr##seki8> !channels
+[patrocle] Wed Sep 16 23:18:05 2009: <seki!n=seki@falbala.seki.fr##seki8> !channels<----- from lua
+[patrocle_nerim] Wed Sep 16 23:32:40 2009: <patrocle_nerim##seki8>	 Bonjour à tous!
+[patrocle_nerim] Wed Sep 16 23:32:40 2009: <patrocle_nerim##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Wed Sep 16 23:32:42 2009: <patrocle##seki8>	  La foule: «Ah, enfin!» :)
+[patrocle] Wed Sep 16 23:32:42 2009: <patrocle##seki>	 Merci de m'accueillir avec bienveillance!
+[patrocle] Wed Sep 16 23:32:55 2009: <seki_!n=seki@falbala.seki.fr##seki8> !channels
+[patrocle] Wed Sep 16 23:32:56 2009: <seki_!n=seki@falbala.seki.fr##seki8> !channels<----- from lua
+[patrocle] Wed Sep 16 23:32:56 2009: <patrocle##seki8>	 C'est pas que je ne t'aime pas, mais je ne te connais pas encore assez pour t'autoriser cette commande, seki.
+[patrocle] Wed Sep 16 23:33:34 2009: <seki!n=seki@falbala.seki.fr##seki8> !channels
+[patrocle] Wed Sep 16 23:33:34 2009: <seki!n=seki@falbala.seki.fr##seki8> !channels<----- from lua
+[patrocle_nerim] Wed Sep 16 23:38:09 2009: <patrocle_nerim##seki8>	 Bonjour à tous!
+[patrocle_nerim] Wed Sep 16 23:38:09 2009: <patrocle_nerim##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Wed Sep 16 23:38:11 2009: <patrocle##seki8>	  La foule: «Ah, enfin!» :)
+[patrocle] Wed Sep 16 23:38:11 2009: <patrocle##seki>	 Merci de m'accueillir avec bienveillance!
+[patrocle_nerim] Wed Sep 16 23:43:33 2009: <patrocle_nerim##seki8>	 Bonjour à tous!
+[patrocle_nerim] Wed Sep 16 23:43:33 2009: <patrocle_nerim##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Wed Sep 16 23:43:42 2009: <patrocle##seki8>	  La foule: «Ah, enfin!» :)
+[patrocle] Wed Sep 16 23:43:42 2009: <patrocle##seki>	 Merci de m'accueillir avec bienveillance!
+[patrocle_nerim] Wed Sep 16 23:45:35 2009: <patrocle_nerim##seki8>	 Bonjour à tous!
+[patrocle_nerim] Wed Sep 16 23:45:35 2009: <patrocle_nerim##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Wed Sep 16 23:45:44 2009: <patrocle##seki8>	  La foule: «Ah, enfin!» :)
+[patrocle] Wed Sep 16 23:45:44 2009: <patrocle##seki>	 Merci de m'accueillir avec bienveillance!
+[patrocle_nerim] Wed Sep 16 23:49:57 2009: <patrocle_nerim##seki8>	 Bonjour à tous!
+[patrocle_nerim] Wed Sep 16 23:49:57 2009: <patrocle_nerim##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Wed Sep 16 23:49:58 2009: <patrocle##seki8>	  La foule: «Ah, enfin!» :)
+[patrocle] Wed Sep 16 23:49:58 2009: <patrocle##seki>	 Merci de m'accueillir avec bienveillance!
+[patrocle_nerim] Wed Sep 16 23:50:26 2009: <patrocle_nerim##seki8>	 Bonjour à tous!
+[patrocle_nerim] Wed Sep 16 23:50:26 2009: <patrocle_nerim##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Wed Sep 16 23:50:28 2009: <patrocle##seki8>	  La foule: «Ah, enfin!» :)
+[patrocle] Wed Sep 16 23:50:28 2009: <patrocle##seki>	 Merci de m'accueillir avec bienveillance!
+[patrocle] Wed Sep 16 23:51:17 2009: <seki!n=seki@falbala.seki.fr##seki8> !channels
+[patrocle] Wed Sep 16 23:51:17 2009: <seki!n=seki@falbala.seki.fr##seki8> !channels<----- from lua
+[patrocle] Wed Sep 16 23:53:01 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Wed Sep 16 23:53:01 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle_nerim] Wed Sep 16 23:53:01 2009: <patrocle_nerim##seki8>	  La foule: «Ah, enfin!» :)
+[patrocle_nerim] Wed Sep 16 23:53:01 2009: <patrocle_nerim##seki>	 Merci de m'accueillir avec bienveillance!
+[patrocle] Wed Sep 16 23:53:03 2009: <seki!n=seki@falbala.seki.fr##seki8> !channels
+[patrocle] Wed Sep 16 23:53:03 2009: <seki!n=seki@falbala.seki.fr##seki8> !channels<----- from lua
+[patrocle] Wed Sep 16 23:54:52 2009: <seki!n=seki@falbala.seki.fr##seki8> salut patrocle
+[patrocle] Wed Sep 16 23:54:52 2009: <seki!n=seki@falbala.seki.fr##seki8> salut patrocle<----- from lua
+[patrocle] Wed Sep 16 23:55:04 2009: <seki!n=seki@falbala.seki.fr##seki8> é
+[patrocle] Wed Sep 16 23:55:04 2009: <seki!n=seki@falbala.seki.fr##seki8> é<----- from lua
+[patrocle_nerim] Thu Sep 17 00:07:01 2009: <patrocle_nerim##seki8>	 Bonjour à tous!
+[patrocle_nerim] Thu Sep 17 00:07:01 2009: <patrocle_nerim##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Thu Sep 17 00:07:15 2009: <patrocle##seki8>	  La foule: «Ah, enfin!» :)
+[patrocle] Thu Sep 17 00:07:15 2009: <patrocle##seki>	 Merci de m'accueillir avec bienveillance!
+[patrocle] Thu Sep 17 00:08:07 2009: <seki!n=seki@falbala.seki.fr##seki8> allo
+[patrocle] Thu Sep 17 00:09:35 2009: <seki!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Thu Sep 17 00:10:45 2009: <seki!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Thu Sep 17 00:11:49 2009: <seki!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Thu Sep 17 00:11:49 2009: <seki!n=seki@falbala.seki.fr##seki8> !reloadlogic<----- from lua
+[patrocle] Thu Sep 17 00:12:12 2009: <seki!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Thu Sep 17 00:12:12 2009: <seki!n=seki@falbala.seki.fr##seki8> !reloadlogic<----- from lua
+[patrocle] Thu Sep 17 00:12:39 2009: <seki!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Thu Sep 17 00:12:39 2009: <seki!n=seki@falbala.seki.fr##seki8> !reloadlogic<----- from lua
+[patrocle] Thu Sep 17 00:12:59 2009: <seki!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Thu Sep 17 00:12:59 2009: <seki!n=seki@falbala.seki.fr##seki8> !reloadlogic<----- from lua
+[patrocle] Thu Sep 17 00:13:04 2009: <seki!n=seki@falbala.seki.fr##seki8> allo
+[patrocle] Thu Sep 17 00:13:04 2009: <seki!n=seki@falbala.seki.fr##seki8> allo<----- from lua
+[patrocle] Thu Sep 17 00:13:25 2009: <seki!n=seki@falbala.seki.fr##seki8> stp allo
+[patrocle] Thu Sep 17 00:13:25 2009: <seki!n=seki@falbala.seki.fr##seki8> stp allo<----- from lua
+[patrocle] Thu Sep 17 00:14:30 2009: <seki!n=seki@falbala.seki.fr##seki8> sboub
+[patrocle] Thu Sep 17 00:14:30 2009: <seki!n=seki@falbala.seki.fr##seki8> sboub<----- from lua
+[patrocle] Thu Sep 17 00:14:30 2009: <patrocle##seki8>	 ;o)
+[patrocle] Thu Sep 17 00:14:41 2009: <seki!n=seki@falbala.seki.fr##seki8> stp sboub
+[patrocle] Thu Sep 17 00:14:41 2009: <seki!n=seki@falbala.seki.fr##seki8> stp sboub<----- from lua
+[patrocle] Thu Sep 17 00:14:41 2009: <patrocle##seki8>	 sboub alors !
+[patrocle] Thu Sep 17 00:14:50 2009: <seki!n=seki@falbala.seki.fr##seki8> sboub
+[patrocle] Thu Sep 17 00:14:50 2009: <seki!n=seki@falbala.seki.fr##seki8> sboub<----- from lua
+[patrocle] Thu Sep 17 00:14:50 2009: <patrocle##seki8>	 on danse une sboubada ?
+[patrocle_nerim] Thu Sep 17 01:10:25 2009: <patrocle_nerim##seki8>	 Bonjour à tous!
+[patrocle_nerim] Thu Sep 17 01:10:25 2009: <patrocle_nerim##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Thu Sep 17 01:10:26 2009: <patrocle##seki8>	  La foule: «Ah, enfin!» :)
+[patrocle] Thu Sep 17 01:10:26 2009: <patrocle##seki>	 Merci de m'accueillir avec bienveillance!
+[patrocle_nerim] Thu Sep 17 01:11:41 2009: <patrocle_nerim##seki8>	 Heureux de vous voir.
+[patrocle_nerim] Thu Sep 17 01:11:41 2009: <patrocle_nerim##seki>	 Bonjour, ça va?
+[patrocle_nerim] Thu Sep 17 01:16:14 2009: <2502AAAAX!~seki@falbala.seki.fr##seki8> y a quelqu'un ?
+[patrocle_nerim] Thu Sep 17 01:16:14 2009: <2502AAAAX!~seki@falbala.seki.fr##seki8> y a quelqu'un ?<----- from lua
+[patrocle_nerim] Thu Sep 17 01:16:14 2009: <patrocle_nerim##seki8>	 2502AAAAX: Évidemment qu'il y a quelqu'un!
+[patrocle_nerim] Thu Sep 17 01:16:14 2009: *	s#patrocle_nerim* #seki8
+[patrocle] Thu Sep 17 01:17:00 2009: <patrocle##seki>	 Enfin de retour, seki! :)
+[patrocle] Thu Sep 17 01:17:13 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?
+[patrocle] Thu Sep 17 01:17:13 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?<----- from lua
+[patrocle] Thu Sep 17 01:17:13 2009: <patrocle##seki>	 Il y a au moins toi et moi, seki.
+[patrocle] Thu Sep 17 01:17:13 2009: <patrocle##seki>	 Ouhou, seki, je suis là.
+[patrocle_nerim] Thu Sep 17 01:18:33 2009: <patrocle_nerim##seki8>	 Bonjour, ça va?
+[patrocle_nerim] Thu Sep 17 01:18:33 2009: <patrocle_nerim##seki>	 Bonjour à tous!
+[patrocle] Thu Sep 17 01:19:44 2009: <seki!n=seki@falbala.seki.fr##seki> !die
+[patrocle] Thu Sep 17 01:19:44 2009: <seki!n=seki@falbala.seki.fr##seki> !die<----- from lua
+[patrocle] Thu Sep 17 01:20:23 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Thu Sep 17 01:20:23 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Thu Sep 17 01:20:38 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?
+[patrocle] Thu Sep 17 01:20:38 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?<----- from lua
+[patrocle] Thu Sep 17 01:20:38 2009: <patrocle##seki8>	 Ouhou, seki, je suis là.
+[patrocle] Thu Sep 17 01:20:38 2009: <patrocle##seki8>	 Oui.
+[patrocle] Thu Sep 17 01:21:43 2009: <seki!n=seki@falbala.seki.fr##seki8> !reloadlogic
+[patrocle] Thu Sep 17 01:21:43 2009: <seki!n=seki@falbala.seki.fr##seki8> !reloadlogic<----- from lua
+[patrocle] Thu Sep 17 01:21:50 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?
+[patrocle] Thu Sep 17 01:21:50 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?<----- from lua
+[patrocle] Thu Sep 17 01:21:50 2009: <patrocle##seki8>	 Bien sûr seki, je suis là.
+[patrocle] Thu Sep 17 01:21:59 2009: <seki!n=seki@falbala.seki.fr##seki8> c'est calme
+[patrocle] Thu Sep 17 01:21:59 2009: <seki!n=seki@falbala.seki.fr##seki8> c'est calme<----- from lua
+[patrocle] Thu Sep 17 01:21:59 2009: <patrocle##seki8>	 Ça repose, non?
+[patrocle] Thu Sep 17 01:22:03 2009: <seki!n=seki@falbala.seki.fr##seki8> c'est calme
+[patrocle] Thu Sep 17 01:22:03 2009: <seki!n=seki@falbala.seki.fr##seki8> c'est calme<----- from lua
+[patrocle] Thu Sep 17 01:22:03 2009: <patrocle##seki8>	 seki: C'est le moment pour faire son yoga!
+[patrocle] Thu Sep 17 01:24:58 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?
+[patrocle] Thu Sep 17 01:24:58 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?<----- from lua
+[patrocle] Thu Sep 17 01:24:58 2009: <patrocle##seki>	 Mais oui seki: tu es là.
+[patrocle] Thu Sep 17 01:25:21 2009: <seki!n=seki@falbala.seki.fr##seki> !cannels
+[patrocle] Thu Sep 17 01:25:21 2009: <seki!n=seki@falbala.seki.fr##seki> !cannels<----- from lua
+[patrocle] Thu Sep 17 01:25:25 2009: <seki!n=seki@falbala.seki.fr##seki> !channels
+[patrocle] Thu Sep 17 01:25:25 2009: <seki!n=seki@falbala.seki.fr##seki> !channels<----- from lua
+[patrocle] Thu Sep 17 01:29:57 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Thu Sep 17 01:29:57 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Thu Sep 17 01:30:05 2009: <seki!n=seki@falbala.seki.fr##seki> !channels
+[patrocle] Thu Sep 17 01:30:05 2009: <seki!n=seki@falbala.seki.fr##seki> !channels<----- from lua
+[patrocle] Thu Sep 17 01:30:29 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?
+[patrocle] Thu Sep 17 01:30:29 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?<----- from lua
+[patrocle] Thu Sep 17 01:30:29 2009: <patrocle##seki>	 Ouhou, seki, je suis là.
+[patrocle] Thu Sep 17 01:36:31 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Thu Sep 17 01:36:31 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Thu Sep 17 01:36:43 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?
+[patrocle] Thu Sep 17 01:36:43 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?<----- from lua
+[patrocle] Thu Sep 17 01:36:43 2009: <patrocle##seki>	 Ouhou, seki, je suis là.
+[patrocle] Thu Sep 17 01:36:52 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?
+[patrocle] Thu Sep 17 01:36:52 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?<----- from lua
+[patrocle] Thu Sep 17 01:36:52 2009: <patrocle##seki>	 Oui.
+[patrocle] Thu Sep 17 01:36:55 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?
+[patrocle] Thu Sep 17 01:36:55 2009: <seki!n=seki@falbala.seki.fr##seki> y a quelqu'un ?<----- from lua
+[patrocle] Thu Sep 17 01:36:55 2009: <patrocle##seki>	 Bien sûr seki, je suis là.
+[patrocle] Thu Sep 17 01:37:14 2009: <seki!n=seki@falbala.seki.fr##seki8> ya quelqu'un ?
+[patrocle] Thu Sep 17 01:37:14 2009: <seki!n=seki@falbala.seki.fr##seki8> ya quelqu'un ?<----- from lua
+[patrocle] Thu Sep 17 01:37:22 2009: <seki!n=seki@falbala.seki.fr##seki8> ya quelqu'un ?
+[patrocle] Thu Sep 17 01:37:22 2009: <seki!n=seki@falbala.seki.fr##seki8> ya quelqu'un ?<----- from lua
+[patrocle] Thu Sep 17 01:37:27 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?
+[patrocle] Thu Sep 17 01:37:27 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?<----- from lua
+[patrocle] Thu Sep 17 01:37:27 2009: <patrocle##seki8>	 Je suis là, seki, comme toujours.
+[patrocle] Thu Sep 17 01:37:29 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?
+[patrocle] Thu Sep 17 01:37:29 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?<----- from lua
+[patrocle] Thu Sep 17 01:37:29 2009: <patrocle##seki8>	 seki: Évidemment qu'il y a quelqu'un!
+[patrocle] Thu Sep 17 01:37:32 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?
+[patrocle] Thu Sep 17 01:37:32 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?<----- from lua
+[patrocle] Thu Sep 17 01:37:32 2009: *	s#patrocle* #seki8
+[patrocle] Thu Sep 17 01:37:34 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?
+[patrocle] Thu Sep 17 01:37:34 2009: <seki!n=seki@falbala.seki.fr##seki8> y a quelqu'un ?<----- from lua
+[patrocle] Thu Sep 17 01:37:34 2009: <patrocle##seki8>	 Mais oui seki: tu es là.
+[patrocle] Thu Sep 17 01:40:10 2009: <seki_away!n=seki@falbala.seki.fr##seki> !die
+[patrocle] Thu Sep 17 01:40:10 2009: <seki_away!n=seki@falbala.seki.fr##seki> !die<----- from lua
+[patrocle] Thu Sep 17 01:41:31 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Thu Sep 17 01:41:31 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Thu Sep 17 01:41:44 2009: <seki_away!n=seki@falbala.seki.fr##seki> c'est calme
+[patrocle] Thu Sep 17 01:41:44 2009: <seki_away!n=seki@falbala.seki.fr##seki> c'est calme<----- from lua
+[patrocle] Thu Sep 17 01:41:44 2009: <patrocle##seki>	 Ça ne va peut-être pas durer.
+[patrocle] Thu Sep 17 01:41:57 2009: <seki_away!n=seki@falbala.seki.fr##seki> c'est calme
+[patrocle] Thu Sep 17 01:41:57 2009: <seki_away!n=seki@falbala.seki.fr##seki> c'est calme<----- from lua
+[patrocle] Thu Sep 17 01:41:57 2009: <patrocle##seki>	 Profitons-en. Si ça se trouve, ça va pas durer.
+[patrocle] Thu Sep 17 01:41:59 2009: <seki_away!n=seki@falbala.seki.fr##seki> c'est calme
+[patrocle] Thu Sep 17 01:41:59 2009: <seki_away!n=seki@falbala.seki.fr##seki> c'est calme<----- from lua
+[patrocle] Thu Sep 17 01:41:59 2009: <patrocle##seki>	 C'est pas de ma faute, seki_away!
+[patrocle] Thu Sep 17 01:42:03 2009: <seki_away!n=seki@falbala.seki.fr##seki> c'est calme
+[patrocle] Thu Sep 17 01:42:03 2009: <seki_away!n=seki@falbala.seki.fr##seki> c'est calme<----- from lua
+[patrocle] Thu Sep 17 01:42:03 2009: <patrocle##seki>	 Ça repose, non?
+[patrocle] Thu Sep 17 01:42:58 2009: <seki_away!n=seki@falbala.seki.fr##seki> é
+[patrocle] Thu Sep 17 01:42:58 2009: <seki_away!n=seki@falbala.seki.fr##seki> é<----- from lua
+[patrocle] Thu Sep 17 01:43:04 2009: <seki_away!n=seki@falbala.seki.fr##seki> æÂê
+[patrocle] Thu Sep 17 01:43:04 2009: <seki_away!n=seki@falbala.seki.fr##seki> æÂê<----- from lua
+[patrocle] Thu Sep 17 01:43:09 2009: <seki_away!n=seki@falbala.seki.fr##seki> Âê®
+[patrocle] Thu Sep 17 01:43:09 2009: <seki_away!n=seki@falbala.seki.fr##seki> Âê®<----- from lua
+[patrocle] Thu Sep 17 01:43:11 2009: <seki_away!n=seki@falbala.seki.fr##seki> é
+[patrocle] Thu Sep 17 01:43:11 2009: <seki_away!n=seki@falbala.seki.fr##seki> é<----- from lua
+[patrocle] Thu Sep 17 01:43:15 2009: <seki_away!n=seki@falbala.seki.fr##seki> héhé
+[patrocle] Thu Sep 17 01:43:15 2009: <seki_away!n=seki@falbala.seki.fr##seki> héhé<----- from lua
+[patrocle] Thu Sep 17 01:43:18 2009: <seki_away!n=seki@falbala.seki.fr##seki> hihi
+[patrocle] Thu Sep 17 01:43:18 2009: <patrocle##seki>	 H�h�!
+[patrocle] Thu Sep 17 01:43:18 2009: <seki_away!n=seki@falbala.seki.fr##seki> hihi<----- from lua
+[patrocle] Thu Sep 17 01:43:35 2009: <seki_away!n=seki@falbala.seki.fr##seki> théoliane
+[patrocle] Thu Sep 17 01:43:35 2009: <seki_away!n=seki@falbala.seki.fr##seki> théoliane<----- from lua
+[patrocle] Thu Sep 17 01:43:44 2009: <seki_away!n=seki@falbala.seki.fr##seki> !stimlist
+[patrocle] Thu Sep 17 01:43:44 2009: <seki_away!n=seki@falbala.seki.fr##seki> !stimlist<----- from lua
+[patrocle] Thu Sep 17 01:43:44 2009: <patrocle##seki>	 C'est pas que je ne t'aime pas, mais je ne te connais pas encore assez pour t'autoriser cette commande, seki_away.
+[patrocle] Thu Sep 17 01:44:01 2009: <seki_away!n=seki@falbala.seki.fr##seki> stp patrocle 
+[patrocle] Thu Sep 17 01:44:01 2009: <seki_away!n=seki@falbala.seki.fr##seki> stp patrocle <----- from lua
+[patrocle] Thu Sep 17 01:44:08 2009: <seki_away!n=seki@falbala.seki.fr##seki> stp sboub
+[patrocle] Thu Sep 17 01:44:08 2009: <seki_away!n=seki@falbala.seki.fr##seki> stp sboub<----- from lua
+[patrocle] Thu Sep 17 01:44:08 2009: <patrocle##seki>	 ;o)
+[patrocle] Thu Sep 17 01:44:11 2009: <seki_away!n=seki@falbala.seki.fr##seki> stp sboub
+[patrocle] Thu Sep 17 01:44:11 2009: <seki_away!n=seki@falbala.seki.fr##seki> stp sboub<----- from lua
+[patrocle] Thu Sep 17 01:44:11 2009: <patrocle##seki>	 magne toi le sboub !
+[patrocle] Thu Sep 17 01:44:13 2009: <seki_away!n=seki@falbala.seki.fr##seki> stp sboub
+[patrocle] Thu Sep 17 01:44:13 2009: <seki_away!n=seki@falbala.seki.fr##seki> stp sboub<----- from lua
+[patrocle] Thu Sep 17 01:44:13 2009: <patrocle##seki>	 ;o)
+[patrocle] Thu Sep 17 01:44:14 2009: <seki_away!n=seki@falbala.seki.fr##seki> stp sboub
+[patrocle] Thu Sep 17 01:44:14 2009: <seki_away!n=seki@falbala.seki.fr##seki> stp sboub<----- from lua
+[patrocle] Thu Sep 17 01:44:14 2009: <patrocle##seki>	 magne toi le sboub !
+[patrocle] Thu Sep 17 01:44:21 2009: <seki_away!n=seki@falbala.seki.fr##seki> !whoami
+[patrocle] Thu Sep 17 01:44:21 2009: <seki_away!n=seki@falbala.seki.fr##seki> !whoami<----- from lua
+[patrocle] Thu Sep 17 01:46:35 2009: <seki_away!n=seki@falbala.seki.fr##seki> !reloadlogic
+[patrocle] Thu Sep 17 01:46:35 2009: <seki_away!n=seki@falbala.seki.fr##seki> !reloadlogic<----- from lua
+[patrocle] Thu Sep 17 01:46:41 2009: <seki_away!n=seki@falbala.seki.fr##seki> !whoami
+[patrocle] Thu Sep 17 01:46:41 2009: <seki_away!n=seki@falbala.seki.fr##seki> !whoami<----- from lua
+[patrocle] Thu Sep 17 01:47:21 2009: <seki_away!n=seki@falbala.seki.fr##seki> !quit
+[patrocle] Thu Sep 17 01:47:21 2009: <seki_away!n=seki@falbala.seki.fr##seki> !quit<----- from lua
+[patrocle] Thu Sep 17 01:47:37 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Thu Sep 17 01:47:37 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Thu Sep 17 02:34:50 2009: <seki_away!n=seki@falbala.seki.fr##seki8> phrasescount
+[patrocle] Thu Sep 17 02:34:50 2009: <seki_away!n=seki@falbala.seki.fr##seki8> phrasescount<----- from lua
+[patrocle] Thu Sep 17 02:34:50 2009: <patrocle##seki8>	 sur #seki8, 1 traitees
+[patrocle] Thu Sep 17 02:35:04 2009: <seki_away!n=seki@falbala.seki.fr##seki8> luaversion
+[patrocle] Thu Sep 17 02:35:04 2009: <seki_away!n=seki@falbala.seki.fr##seki8> luaversion<----- from lua
+[patrocle] Thu Sep 17 02:35:04 2009: <patrocle##seki8>	 je fonctionne avec Lua 5.1
+[patrocle] Thu Sep 17 02:39:57 2009: <seki_away!n=seki@falbala.seki.fr##seki8> lastseen kh
+[patrocle] Thu Sep 17 02:39:57 2009: <seki_away!n=seki@falbala.seki.fr##seki8> lastseen kh<----- from lua
+[patrocle] Thu Sep 17 02:40:07 2009: <seki_away!n=seki@falbala.seki.fr##seki8> !lastseen kh
+[patrocle] Thu Sep 17 02:40:07 2009: <seki_away!n=seki@falbala.seki.fr##seki8> !lastseen kh<----- from lua
+[patrocle] Thu Sep 17 03:07:49 2009: <seki_away!n=seki@falbala.seki.fr##seki8> !die
+[patrocle] Thu Sep 17 03:07:49 2009: <seki_away!n=seki@falbala.seki.fr##seki8> !die<----- from lua
+[patrocle] Thu Sep 17 14:33:16 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Thu Sep 17 14:33:16 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Thu Sep 17 14:33:35 2009: <seki!i=seki@falbala.seki.fr##seki8> Bonjour patrocle
+[patrocle] Thu Sep 17 14:33:35 2009: <seki!i=seki@falbala.seki.fr##seki8> Bonjour patrocle<----- from lua
+[patrocle] Thu Sep 17 14:33:44 2009: <seki!i=seki@falbala.seki.fr##seki8> Sboub :)
+[patrocle] Thu Sep 17 14:33:44 2009: <seki!i=seki@falbala.seki.fr##seki8> Sboub :)<----- from lua
+[patrocle] Thu Sep 17 14:33:44 2009: <patrocle##seki8>	 magne toi le sboub !
+[patrocle] Thu Sep 17 14:33:58 2009: <seki!i=seki@falbala.seki.fr##seki8> !whoami
+[patrocle] Thu Sep 17 14:33:58 2009: <seki!i=seki@falbala.seki.fr##seki8> !whoami<----- from lua
+[patrocle] Thu Sep 17 14:38:04 2009: <seki!i=seki@falbala.seki.fr##seki8> !lastseen seki
+[patrocle] Thu Sep 17 14:38:04 2009: <seki!i=seki@falbala.seki.fr##seki8> !lastseen seki<----- from lua
+[patrocle] Thu Sep 17 14:38:18 2009: <seki!i=seki@falbala.seki.fr##seki8> Tu as vu seki patrocle ?
+[patrocle] Thu Sep 17 14:38:18 2009: <seki!i=seki@falbala.seki.fr##seki8> Tu as vu seki patrocle ?<----- from lua
+[patrocle] Thu Sep 17 14:40:27 2009: <patrocle##seki>	 Bon retour parmi nous, seki!
+[patrocle] Thu Sep 17 14:40:56 2009: <seki!i=seki@falbala.seki.fr##seki> !leave
+[patrocle] Thu Sep 17 14:40:56 2009: <seki!i=seki@falbala.seki.fr##seki> !leave<----- from lua
+[patrocle] Thu Sep 17 14:41:20 2009: <seki!i=seki@falbala.seki.fr##seki8> !quit
+[patrocle] Thu Sep 17 14:41:20 2009: <seki!i=seki@falbala.seki.fr##seki8> !quit<----- from lua
+[patrocle] Sat Sep 19 00:18:25 2009: <patrocle##seki8>	 Bonjour à tous!
+[patrocle] Sat Sep 19 00:18:25 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Sat Sep 19 00:18:29 2009: <patrocle##seki8>	 Enfin de retour, seki! :)
+[patrocle] Sat Sep 19 00:18:58 2009: <seki!n=seki@falbala.seki.fr##seki8> bonjour patrocle 
+[patrocle] Sat Sep 19 16:25:30 2009: <seki!n=seki@falbala.seki.fr##seki8> !op
+[patrocle] Sat Sep 19 16:25:35 2009: <seki!n=seki@falbala.seki.fr##seki8> !quit

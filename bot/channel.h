@@ -1,3 +1,22 @@
+/*
+ channel.h - a better implementation to handle channels on IRC
+ Copyright (C) 1993 VladDrac (irvdwijk@cs.vu.nl)
+ Copyright (C) 1996, 1997 François Parmentier
+ Copyright (C) 2009 Sébastien Kirche 
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #ifndef CHANNEL_H
 #define CHANNEL_H
 
@@ -21,7 +40,7 @@ typedef struct	BAN_struct
 typedef	struct	CHAN_struct
 {
 	char	*name;			/* channel's name */
-	int	active;			/* are we there? */
+	int	active;				/* are we there? */
 	USER_list	*users;		/* user on that channel */
 	BAN_list	*banned;	/* banned user on channel */
 	unsigned	int	mode;	/* private etc. */
@@ -52,42 +71,47 @@ typedef	struct	CHAN_struct
 #define MODE_FLAGS	0x07ff
 
 
-CHAN_list	*search_chan(char *);
-void	add_channel(CHAN_list *);
-int	delete_channel(CHAN_list *);
-void	delete_all_channels();
-void	copy_channellist(CHAN_list *);
-int	join_channel(char *, char *, char *, char *, int);
-int	leave_channel(char *);
-int	mark_success(char *);
-int	mark_failed(char *);
-int     user_nb_on_channel (CHAN_list *);
-void	show_channellist(char *);
-void	reset_channels(int);
-char	*currentchannel();
-int	add_user_to_channel(char *, char *, char *, char *);
-int	remove_user_from_channel( char *, char *);
-void	change_nick(char *, char *);
-void	remove_user(char *);
-int	show_users_on_channel(char *, char *);
-void	add_channelmode(char *, unsigned int, char *);
-void	del_channelmode(char *, unsigned int, char *);
-void	change_usermode(char *, char *, unsigned int);
-int	open_channel(char *);
-void	channel_massop(char *, char *);
-void    channel_massdeop(char *, char *);
-void    channel_masskick(char *, char *);
-int	invite_to_channel(char *, char *);
-char	*username(char *);
-char    *channelname (char *);
-unsigned int	usermode(char *, char *);
-BAN_list	*search_ban(BAN_list **, char *);
-void	add_ban(BAN_list **, char *);
-int	delete_ban(BAN_list **, char *);
-void    clear_all_bans(BAN_list **);
-void    channel_massunban(char *);
-void	channel_unban(char *, char *);
-int	find_highest(char *, char *);
-int     is_log_on (char *);
+CHAN_list		*search_chan(const char *);
+void			 add_channel(CHAN_list *);
+int				 delete_channel(CHAN_list *);
+void			 delete_all_channels();
+void			 copy_channellist(CHAN_list *);
+int				 join_channel(char *, char *, char *, char *, int);
+int				 leave_channel(char *);
+int				 mark_success(char *);
+int				 mark_failed(char *);
+int				 user_nb_on_channel (CHAN_list *);
+void			 show_channellist(char *);
+void			 reset_channels(int);
+char			*currentchannel();
+int				 add_user_to_channel(char *, char *, char *, char *);
+int				 remove_user_from_channel( char *, char *);
+void			 change_nick(char *, char *);
+void			 remove_user(char *);
+int				 show_users_on_channel(char *, char *);
+void			 add_channelmode(char *, unsigned int, char *);
+void			 del_channelmode(char *, unsigned int, char *);
+void			 change_usermode(char *, char *, unsigned int);
+int				 open_channel(char *);
+void			 channel_massop(char *, char *);
+void			 channel_massdeop(char *, char *);
+void			 channel_masskick(char *, char *);
+int				 invite_to_channel(char *, char *);
+char			*username(char *);
+char			*channelname (char *);
+unsigned int	 usermode(char *, char *);
+BAN_list		*search_ban(BAN_list **, char *);
+void			 add_ban(BAN_list **, char *);
+int				 delete_ban(BAN_list **, char *);
+void			 clear_all_bans(BAN_list **);
+void			 channel_massunban(char *);
+void			 channel_unban(char *,	char *);
+int				 find_highest(char *,	char *);
+int				 is_log_on (const char *);
 
 #endif /* CHANNEL_H */
+
+// Local variables:
+// coding: utf-8
+// end:
+

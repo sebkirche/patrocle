@@ -1,3 +1,23 @@
+/*
+ vlad-ons.c - kinda like /on ^.. in ircII
+ Copyright (C) 1993, 1994 VladDrac (irvdwijk@cs.vu.nl)
+ Copyright (C) 1996, 1997, 1998 François Parmentier
+ Copyright (C) 2009 Sébastien Kirche 
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #ifndef VLAD_ONS_H
 #define VLAD_ONS_H
 /*
@@ -8,12 +28,12 @@
 
 typedef	struct
 {
-	char	*name;			/* name of command 	*/
+	char		*name;			/* name of command 	*/
 	void	(*function)(char *, char*, char*);	/* pointer to function 	*/
-	int	userlevel;		/* required userlvl 	*/
-	int	shitlevel;		/* max. allowed shitlvl */
-        int     rellevel;               /* required rellvl      */
-	int	forcedcc;		/* If true, command requires DCC */
+	int			 userlevel;		/* required userlvl 	*/
+	int			 shitlevel;		/* max. allowed shitlvl */
+	int			 rellevel;      /* required rellvl      */
+	int			 forcedcc;		/* If true,		command requires DCC */
 } command_tbl;
 
 void	on_msg( char *from, char *to, char *next );
@@ -121,7 +141,12 @@ void    do_stimdel (char *from, char *to, char *rest);
 void    do_repdel (char *from, char *to, char *rest);
 void    do_seen (char *from, char *to, char *rest);
 char    *UserStr (char *nuh);
-char    *NickUserStr (char *nuh);
-int		ChaineEstDans (char *aFouiller, char *aChercher);
-void    Repondre (char *from, char *to, int AjoutHumeurPos, int NbRepPos, char **RepPos, int AjoutHumeurNeg, int NbRepNeg, char **RepNeg);
+char    *NickUserStr (const char *nuh);
+int		ChaineEstDans (const char *aFouiller, const char *aChercher);
+void    Repondre (const char *from, const char *to, int AjoutHumeurPos, int NbRepPos, char **RepPos, int AjoutHumeurNeg, int NbRepNeg, char **RepNeg);
+void	Ecrire (const char *from, const char *to, char *phrase);
 #endif /* VLAD_ONS_H */
+
+// Local variables:
+// coding: utf-8
+// end:
