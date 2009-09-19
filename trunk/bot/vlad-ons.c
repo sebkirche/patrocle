@@ -1,20 +1,21 @@
 /*
- * vlad-ons.c - kinda like /on ^.. in ircII
- * (c) 1993 VladDrac (irvdwijk@cs.vu.nl)
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ vlad-ons.c - kinda like /on ^.. in ircII
+ Copyright (C) 1993, 1994 VladDrac (irvdwijk@cs.vu.nl)
+ Copyright (C) 1996, 1997, 1998 François Parmentier
+ Copyright (C) 2009 Sébastien Kirche 
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <stdlib.h>
@@ -214,7 +215,7 @@ char *UserStr (char *nuh) {
 }
 
 /* Don't forget to delete the string returned. */
-char *NickUserStr (char *nuh) {
+char *NickUserStr (const char *nuh) {
   /* nuh = nick!user@host */
   char *NUH, *pNUH; 
   char *ret;
@@ -297,7 +298,7 @@ void ForceDCC (char *from, char *to, char *msg) {
     }
 }
 
-void    Ecrire (char *from, char *to, char *phrase) {
+void Ecrire (const char *from, const char *to, char *phrase) {
 	char Ecrite[MAXLEN];
 
 	if (!phrase)
@@ -331,7 +332,7 @@ void    Ecrire (char *from, char *to, char *phrase) {
     }
 } /* void Ecrire () */
 
-void    Repondre (char *from, char *to,
+void    Repondre (const char *from, const char *to,
 		  int AjoutHumeurPos,
 		  int NbRepPos, char **RepPos,
 		  int AjoutHumeurNeg,
@@ -1161,8 +1162,9 @@ void	on_msg(char *from, char *to, char *msg_untranslated)
 	
 	Flooding = check_session (from);
 	if (Flooding != IS_FLOODING && !is_bot (currentbot->botlist, to, from)){
-		Traite (from, to, msg);
+		//Traite (from, to, msg);
 		//LuaTraite(from, to, msg);
+		LuaTraite(currentbot, from, to, msg, GNumPhrase++);
 	}
 	else if (Flooding == IS_FLOODING)
 		return;
@@ -3040,8 +3042,6 @@ void	do_apprends(char *from, char *to, char *rest) {
   char *pointeur_init = 0;
   char *inter;
 
-  int i;
-
   if (rest) 
     rest_init = strdup (rest);
 
@@ -3282,8 +3282,6 @@ void do_repload (char *from, char *to, char *rest)
 
 
 void    do_repwrite (char *from, char *to, char *rest) {
-  int i;
-  FILE *fichier;
   
   if (rest) {
     SKIPSPC (rest);
@@ -3484,7 +3482,7 @@ void do_seen (char *from, char *to, char *rest) {
 	}
 }
 
-int ChaineEstDans (char *aFouiller, char *aChercher) {
+int ChaineEstDans (const char *aFouiller, const char *aChercher) {
   char *AFouiller;
   char *AChercher;
   char *p;
@@ -3704,7 +3702,7 @@ void    Traite (char *from, char *to, char *msg)
       Locuteur = AjouteLocuteur (currentbot->lists->ListeLocuteurs,
 				 NUS);
       
-
+	//---------------------------------------------------------------- Lecture des stimulis simples (!APPRENDS)
     for (i=0; i<TailleStim; i++)
       if (ChaineEstDans (msg, TableDesStimuli[i]->Stimulus))
 	TableDesStimuli[i]->Present = TRUE;
@@ -3753,7 +3751,8 @@ void    Traite (char *from, char *to, char *msg)
 
     if (Num)
       Repondre (from, to, 0, Num, Reponse, 0, Num, Reponse2);
-    
+//---------------------------------------------------------------- fin stimulis
+
 
     if (STP) {
       Repondre (from, to, +2, 0, 0, +3, 0, 0);
@@ -6795,114 +6794,13 @@ void    Traite (char *from, char *to, char *msg)
   /* Si l'autorisation de parler n'est pas donnee */
   else {
 
-    if ((PARLER || REVEILLE_TOI) && !LANGUE && !FONCTION_SAY && (!ischannel (to) || NOM)) {
-      if (rellevel (from) >= 0)
-	if (Channel_to) Channel_to->talk = TRUE;
 
-      Reponse = malloc (6*sizeof (char *));
-      Reponse[0] = strdup ("%s: Je ne suis plus gênant? :)");
-      Reponse[1] = strdup ("À vos ordres, %s.");
-      Reponse[2] = strdup ("Il sera fait selon vos désirs, maître %s.");
-      Reponse[3] = strdup ("%s: Pour me faire taire à nouveau, demandez-le moi, tout simplement.");
-      Reponse[4] = strdup ("Avec plaisir, %s.");
-      Reponse[5] = strdup ("Depuis le temps que j'attendais qu'on me le dise, %s! :)");
-
-      if (!STP) {
-	Reponse2 = malloc (6*sizeof (char *));
-	Reponse2[0] = strdup ("Nan! Demande-le gentiment, %s!");
-	Reponse2[1] = strdup ("%s: On m'a dit de me taire, je me tairai!");
-	Reponse2[2] = strdup ("Pas question! Je n'obéis pas à ceux qui me sont antipathiques, %s!");
-	Reponse2[3] = strdup ("Et pis quoi encore, %s! Cent balles et un Mars?");
-	Reponse2[4] = strdup ("Non. J'ai pas envie de te faire plaisir, %s.");
-	Reponse2[5] = strdup ("T'as une chance si tu demandes a quelqu'un que j'aime bien, %s. Pour l'instant je continue à me taire. Na!");
-	
-	Repondre (from, to, +1, 6, Reponse, 0, 6, Reponse2);
-      }
-      else {
-	if (Channel_to) Channel_to->talk = TRUE;
-
-	Reponse2 = malloc (6*sizeof (char *));
-	Reponse2[0] = strdup ("Bon! C'est bien parce que tu l'as demandé gentiment, %s!");
-	Reponse2[1] = strdup ("%s: On m'a dit de me taire, mais comme tu as été poli, j'agrée ta demande.");
-	Reponse2[2] = strdup ("Tu m'es antipathique, %s, mais je ne me tairai plus.");
-	Reponse2[3] = strdup ("Et pis j'en ai marre de me taire!");
-	Reponse2[4] = strdup ("Bon. J'ai pas envie de te faire plaisir, %s, mais j'en ai ras la casquette d'être obligé de me taire...");
-	Reponse2[5] = strdup ("Tu me fais pitié, %s. Pour l'instant je vais me remettre à parler...");
-	
-	Repondre (from, to, +1, 6, Reponse, +2, 6, Reponse2);
-      }
-      
-    }
   }
   
-  GNumPhrase++;
 
-  if (GROS_MOT && !COMPLIMENT && !CLINDOEIL) {
-    Reponse2 = malloc (6*sizeof (char *));
-    Reponse2[0] = strdup ("Sois poli, s'il-te-plaît, %s!");
-    Reponse2[1] = 0;
-    Reponse2[2] = strdup ("Un peu de tenue, %s!");
-    Reponse2[3] = 0;
-    Reponse2[4] = strdup ("Tu vas arrêter d'être grossier, %s?");
-    Reponse2[5] = 0;
-    
-    Repondre (from, to, -1, 0, 0, -2, 6, Reponse2);
-  }
-
-  if (GNumPhrase%500 == 100) {
-    Reponse = malloc (11*sizeof (char *));
-    Reponse[0] = strdup ("C'est peut-être hors propos, mais je vous propose une petite visite de la page de mon créateur : http://francois.parmentier.free.fr/index.html");
-    /*Reponse[1] = strdup ("Ça ne vous intéresse peut-être pas, mais pour voir les gens qui passent sur #nancy: http://www.loria.fr/~parmenti/irc/");*/
-	Reponse[1] = strdup ("Vous saviez que j'ai un cousin écrit en C ? http://ector.sourceforge.net/");
-    Reponse[2] = strdup ("Pour relancer le débat: l'Amiga c'est quand-même mieux que le PC.");
-    /*Reponse[3] = strdup ("Pour me voir tout nu: http://www.loria.fr/~parmenti/irc/achille.html (veuillez m'excuser de m'immiscer ainsi dans la conversation).");*/
-	Reponse[3] = strdup ("Ma famille est grande, j'ai aussi un cousin écrit en python : http://code.google.com/p/pyector/");
-    /*Reponse[4] = strdup ("Vous êtes à Nancy, et vous voulez chanter? http://www.loria.fr/~parmenti/chorale/choraleU.html");*/
-	Reponse[4] = strdup ("Hop !");
-    Reponse[5] = strdup ("Une petite documentation sur IRC: http://www.funet.fi/~irc/.");
-    /*Reponse[6] = strdup ("Si vous voulez délirer, allez voir la page du frangin d'H_I (un usurpateur de nickname): http://www.mygale.org/06/parmenti/"); */
-    Reponse[6] = strdup ("Atchoum!");
-    Reponse[7] = strdup ("Si vous vous ennuyez, vous pouvez toujours jouer a pierre-papier-ciseaux avec moi.");
-    /*Reponse[8] = strdup ("Vous voulez signer le Livre d'Or d'H_I? Pas difficile, allez voir http://www.loria.fr/~parmenti/francois.html (pis si vous voulez pas, ben vous êtes pas obligés)");*/
-	Reponse[8] = strdup ("Si jamais ça vous tente, vous pouvez jeter un oeil sur une page de geek : http://sebastien.kirche.free.fr");
-    Reponse[9] = strdup ("Vous saviez que Sébastien à mis sa config Emacs/Gnus en ligne sur http://sebastien.kirche.free.fr/emacs_stuff/ ? Je sais: c'est en dehors de la conversation, mais que voulez-vous, faut bien que j'fasse un peu d'pub de temps en temps...");
-    /*Reponse[10] = strdup ("Allez faire un tour sur les pages WWW de #reunion: http://www.mygale.org/~reunion/(si vous en avez envie, bien entendu, j'vous force pas).");*/
-	Reponse[10] = strdup ("Perl c'est bien. Ruby c'est mieux");
-
-    Reponse2 = malloc (9*sizeof (char *));
-    Reponse2[0] = strdup ("Encore quelqu'un qui encombre le canal!");
-    Reponse2[1] = strdup ("T'es toujours là, %s?");
-    Reponse2[2] = strdup ("%s: :PPPP");
-    Reponse2[3] = strdup ("C'est pas vrai! Tu persistes, %s!");
-    Reponse2[4] = strdup ("%s: Ta mère en short sur internet :P");
-    Reponse2[5] = strdup ("Encore là, %s? Pfff...");
-    Reponse2[6] = strdup ("%s: Pas encore parti, toi? Zut!");
-    Reponse2[7] = strdup ("Tu ne m'as toujours pas demandé pardon, %s, au fait!");
-    Reponse2[8] = strdup ("Pourquoi tu ne me demandes pas pardon, j'suis pas complètement ingrat, tu sais, %s?");
-    Repondre (from, to, 0, 11, Reponse, 0, 9, Reponse2);
-  }
-
-  LuaTraite(currentbot, from, to, msg, GNumPhrase);
-
-  if (FONCTION)
+   if (FONCTION)
     if (Channel_to) Channel_to->talk = AncienneAutorisation;
 
-  /* Si c'est un nouveau jour */
-  if (Jour != time2day (time (NULL))) {
-    Jour = time2day (time (NULL));
-
-    /* On sauvegarde le fichier des relations */
-    cancel_level (currentbot->lists->rellist, DEFAUT_LVL);
-    write_lvllist (currentbot->lists->rellist,
-		   currentbot->lists->relfile);
-
-    /* On nettoie la liste des locuteurs des locuteurs muets anciens */
-    NettoieListeLocuteurs (currentbot->lists->ListeLocuteurs);
-
-    /* On sauvegarde aussi le fichier des locuteurs */
-    SauveLocuteurs (currentbot->lists->ListeLocuteurs,
-		    currentbot->lists->locuteurfile);
-  }
 
   
   if (NUS)
@@ -6910,3 +6808,6 @@ void    Traite (char *from, char *to, char *msg)
 
 }
 
+// Local variables:
+// coding: utf-8
+// end:

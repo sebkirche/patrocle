@@ -1,8 +1,22 @@
-/* 
-   Interface between the bot and lua
-   
-   We provide some interface funcs that are accessible to the lua part.
-*/
+/*
+ luainterface.c - Interface between the bot and lua
+ Copyright (C) 2009 Sébastien Kirche 
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ We provide some interface funcs that are accessible to the lua part.
+ */
 
 #include <strings.h>
 #include <string.h>
@@ -18,6 +32,8 @@
 	#include <lualib.h>
 	#include <lauxlib.h>
 //#endif
+#include <sys/types.h>
+#include <time.h>
 
 #include "log.h"
 #include "cfgfile.h"
@@ -84,8 +100,29 @@ int c2l_locutorexists(lua_State *L)
 	locuteur *Locuteur;
 	const char *name = luaL_checkstring(L, 1);
 	Locuteur = LocuteurExiste(currentbot->lists->ListeLocuteurs, name);
-	lua_pushboolean(L, Locuteur);
+	lua_pushboolean(L, Locuteur != NULL);
 	return 1;
+}
+
+int c2l_addlocutor(lua_State *L)
+{
+	locuteur *Locuteur;
+	const char *name = luaL_checkstring(L, 1);
+	Locuteur = LocuteurExiste(currentbot->lists->ListeLocuteurs, name);
+	if (!Locuteur)
+		Locuteur = AjouteLocuteur (currentbot->lists->ListeLocuteurs, name);
+	return 0;
+}
+
+int c2l_getlocutorsalutes(lua_State *L)
+{
+	locuteur *Locuteur;
+	const char *name = luaL_checkstring(L, 1);
+	Locuteur = LocuteurExiste(currentbot->lists->ListeLocuteurs, name);
+	if (!Locuteur)
+		Locuteur = AjouteLocuteur(currentbot->lists->ListeLocuteurs, name);
+	lua_pushnumber(L, Locuteur->Bonjours);
+	return 0;
 }
 
 int c2l_userlevel(lua_State *L)
@@ -224,6 +261,8 @@ void register_cstuff()
 	lua_register(L, "is_log_on", c2l_islogon);
 	lua_register(L, "nick_user_str", c2l_nickuserstr);
 	lua_register(L, "locuteur_existe", c2l_locutorexists);
+	lua_register(L, "ajoute_locuteur", c2l_addlocutor);
+	lua_register(L, "locuteur_bonjours", c2l_getlocutorsalutes);
 	lua_register(L, "userlever", c2l_userlevel);
 	lua_register(L, "shitlevel", c2l_shitlevel);
 	lua_register(L, "protlevel", c2l_protlevel);
@@ -269,6 +308,8 @@ void load_lualogic(char **return_msg)
 
 void    LuaTraite (botinfo	*currentbot, char *from, char *to, char *msg, int numphrase)
 {
+	static int Jour = 0;
+
 	/* do not pass a complex botinfo struct, just expose the bot nick */
 	lua_pushstring(L, "BotNick");
 	lua_pushstring(L, currentbot->nick);
@@ -285,10 +326,33 @@ void    LuaTraite (botinfo	*currentbot, char *from, char *to, char *msg, int num
 	lua_pushnumber(L, numphrase);
 	if(lua_pcall(L, 4, 0, 0)){
 #ifdef DBUG
-                printf("Error while executing lua TraiteMessage : %s\n", lua_tostring(L, -1));
+        printf("Error while executing lua TraiteMessage : %s\n", lua_tostring(L, -1));
 #endif
 		botlog(ERRFILE, "Error while executing lua TraiteMessage");
                 botlog(ERRFILE, lua_tostring(L, -1));
                 lua_pop(L, 1);
-        }
+	}
+	// était dans Traite()
+	/* Si c'est un nouveau jour */
+	if (Jour != time2day (time (NULL))) {
+		Jour = time2day (time (NULL));
+		
+		/* On sauvegarde le fichier des relations */
+		cancel_level (currentbot->lists->rellist, DEFAUT_LVL);
+		write_lvllist (currentbot->lists->rellist,
+					   currentbot->lists->relfile);
+		
+		/* On nettoie la liste des locuteurs des locuteurs muets anciens */
+		NettoieListeLocuteurs (currentbot->lists->ListeLocuteurs);
+		
+		/* On sauvegarde aussi le fichier des locuteurs */
+		SauveLocuteurs (currentbot->lists->ListeLocuteurs,
+						currentbot->lists->locuteurfile);
+	}
+	
 }
+
+// Local variables:
+// coding: utf-8
+// end:
+

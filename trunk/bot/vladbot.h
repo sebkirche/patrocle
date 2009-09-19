@@ -1,3 +1,33 @@
+/*
+ VladBot  - servicebot for IRC.
+ Copyright (C) 1993, 1994 VladDrac (irvdwijk@cs.vu.nl)
+ Copyright (C) 1996, 1997, 1998 François Parmentier (H_I)
+ Copyright (C) 2009 Sébastien Kirche 
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ 
+ This module deals with the creation, handling, deleting etc. of more
+ than one bot. This module if NOT the main module and does not contain
+ the main loop (see main.c) 
+ 
+ WARNING: These functions should only be called from on_msg with great
+ caution as wrong use can really mess things up (like changing
+ currentbot etc.) Most of these functions should only be called
+ from cfgfile.c and main.c (the "Creating" and "Maintaining"
+ modules)
+ */
 #ifndef VLADBOT_H
 #define VLADBOT_H
 
@@ -117,3 +147,6 @@ void	global_debug(char *from, char *rest);
 void	global_list(char *from, char *rest);
 
 #endif
+// Local variables:
+// coding: utf-8
+// end:

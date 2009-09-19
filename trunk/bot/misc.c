@@ -1,22 +1,21 @@
-/*  
- * misc.c - misc functions for VladBot
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- *
- * Misc. functions that don't really fit anywhere
- *
+/*
+ misc.c - misc functions for VladBot
+ Copyright (C) 1993, 1994 VladDrac (irvdwijk@cs.vu.nl)
+ Copyright (C) 1996, 1997 François Parmentier (H_I)
+ Copyright (C) 2009 Sébastien Kirche 
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <stdio.h>
@@ -38,15 +37,14 @@ static	char	timebuf[MAXLEN];
 static 	char	idlestr[MAXLEN];
 static	char	path_buf[MAXLEN];
 
-char	*months[] =
-{
+char	*months[] = {
 	"Jan", "Feb", "Mar", "Apr", "May", "Jun", 
 	"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 };
 
 int 	ischannel(const char *channel)
 {
-    	return(*channel == '#' || *channel == '&');
+	return(*channel == '#' || *channel == '&');
 }
 
 int	isnick(const char *nick)
@@ -60,28 +58,28 @@ int	isnick(const char *nick)
 	return TRUE;
 }
 
-char	*getnick(char *nick_userhost)
+char *getnick(const char *nick_userhost)
 {
 	strcpy(usernick, nick_userhost);
 	return(strtok( usernick, "!" ));
 }
 
-char    *GetNick (char *nick_userhost) 
+char    *GetNick (const char *nick_userhost) 
 {
-  char *pointeur;
-  char *fin;
+	char *pointeur;
+	char *fin;
   
-  strcpy (usernick, nick_userhost);
-  pointeur = strtok (usernick, "!");
-  while (*pointeur=='_') pointeur++;
+	strcpy (usernick, nick_userhost);
+	pointeur = strtok (usernick, "!");
+	while (*pointeur=='_') pointeur++;
 
-  fin = &pointeur[strlen (pointeur)-1];
-  while (*fin =='_' && fin > pointeur) {
-    *fin = '\0';
-    fin--;
-  }
+	fin = &pointeur[strlen (pointeur)-1];
+	while (*fin =='_' && fin > pointeur) {
+		*fin = '\0';
+		fin--;
+	}
   
-  return (pointeur);
+	return (pointeur);
 }
 
 
@@ -92,71 +90,71 @@ char	*time2str(long time)
 	btime = localtime(&time);
 	if(time && (sprintf(timebuf, "%-2.2d:%-2.2d:%-2.2d %s %-2.2d %d", 
 						btime->tm_hour, btime->tm_min, btime->tm_sec, 
-		      months[btime->tm_mon], btime->tm_mday, 
-		      btime->tm_year + 1900)))
+						months[btime->tm_mon], btime->tm_mday, 
+						btime->tm_year + 1900)))
 		return timebuf;
 	return(NULL);
 } 
 
 int     time2day (long time)
 {
-  struct	tm	*btime;
+	struct	tm	*btime;
 
-  btime = localtime(&time);
+	btime = localtime(&time);
 
-  return (btime->tm_mday);
+	return (btime->tm_mday);
 }
 
 int     time2hour (long time)
 {
-  struct tm *btime;
+	struct tm *btime;
 
-  btime = localtime (&time);
+	btime = localtime (&time);
 
-  return (btime->tm_hour);
+	return (btime->tm_hour);
 }
 
 int     time2hours (long time)
 {
-  struct        tm      *btime;
+	struct tm *btime;
 
-  btime = localtime (&time);
+	btime = localtime (&time);
 
-  return (  btime->tm_year * 12 * 31 * 24
-	  + btime->tm_mon * 31 * 24
-	  + btime->tm_mday*24
-	  + btime->tm_hour);
+	return (  btime->tm_year * 12 * 31 * 24
+			  + btime->tm_mon * 31 * 24
+			  + btime->tm_mday*24
+			  + btime->tm_hour);
 }
 
 char    *time2heure (long time)
 {
-  struct tm  *btime;
+	struct tm  *btime;
 
-  btime = localtime (&time);
-/*   if (time && (sprintf (timebuf, "%d heure%s %d minute%s et %d seconde%s", */
-/* 			btime->tm_hour, (btime->tm_hour>1?"s":""), */
-/* 			btime->tm_min, (btime->tm_min>1?"s":""), */
-/* 			btime->tm_sec, (btime->tm_sec>1?"s":"")))) */
-  if (time && btime->tm_min && sprintf (timebuf, "%d heure%s %d minute%s",
-			btime->tm_hour, (btime->tm_hour>1?"s":""),
-			btime->tm_min, (btime->tm_min>1?"s":"")))
-    return timebuf;
+	btime = localtime (&time);
+	/*   if (time && (sprintf (timebuf, "%d heure%s %d minute%s et %d seconde%s", */
+	/* 			btime->tm_hour, (btime->tm_hour>1?"s":""), */
+	/* 			btime->tm_min, (btime->tm_min>1?"s":""), */
+	/* 			btime->tm_sec, (btime->tm_sec>1?"s":"")))) */
+	if (time && btime->tm_min && sprintf (timebuf, "%d heure%s %d minute%s",
+										  btime->tm_hour, (btime->tm_hour>1?"s":""),
+										  btime->tm_min, (btime->tm_min>1?"s":"")))
+		return timebuf;
 
-  if (time && (sprintf (timebuf, "%d heure%s %d minute%s",
-			btime->tm_hour, (btime->tm_hour>1?"s":""),
-			btime->tm_min, (btime->tm_min>1?"s":""))))
-    return timebuf;
+	if (time && (sprintf (timebuf, "%d heure%s %d minute%s",
+						  btime->tm_hour, (btime->tm_hour>1?"s":""),
+						  btime->tm_min, (btime->tm_min>1?"s":""))))
+		return timebuf;
 
-  return (NULL);
+	return (NULL);
 }
 
 char	*time2small(long time)
 {
-	struct	tm	*btime;
+	struct tm *btime;
 
 	btime = localtime( &time );
 	if(time && (sprintf(timebuf, "%s %-2.2d", 
-		      months[btime->tm_mon], btime->tm_mday)))
+						months[btime->tm_mon], btime->tm_mday)))
 		return timebuf;
 	return(NULL);
 }
@@ -174,36 +172,37 @@ char	*idle2str(long time)
 	secs  = (time - (days*86400) - (hours*3600) - (mins*60));
 
 	sprintf(idlestr, "%d day%s, %d hour%s, %d minute%s and %d second%s",
-		days, EXTRA_CHAR(days), hours, EXTRA_CHAR(hours),
-		mins, EXTRA_CHAR(mins), secs, EXTRA_CHAR(secs)); 
+			days, EXTRA_CHAR(days), hours, EXTRA_CHAR(hours),
+			mins, EXTRA_CHAR(mins), secs, EXTRA_CHAR(secs)); 
+
 	return idlestr;
 }
 
-char	*mstrcpy(char **dest, char *src)
+char	*mstrcpy(char **dest, const char *src)
 {
-	if(src)
-	{
+	if(src){
 		*dest = (char *) malloc(strlen(src)+1);
 		strcpy(*dest, src);
 	}
 	else
 		*dest = NULL;
+
 	return *dest;
 }
 
-char	*mstrncpy(char **dest, char *src, int len)
+char	*mstrncpy(char **dest, const char *src, int len)
 {
-	if(src)
-	{
+	if(src){
 		*dest = (char *) malloc(len+1);
 		strncpy(*dest, src, len);
 	}
 	else
 		*dest = NULL;
+
 	return *dest;
 }
 
-char	*get_token(char **src, char *token_sep)
+char	*get_token(char **src, const char *token_sep)
 /*
  * Just a little more convenient than strtok()
  * This function returns a pointer to the first token
@@ -228,8 +227,7 @@ char	*get_token(char **src, char *token_sep)
 
 	/* Make *src point after token */
 	*src = strpbrk(*src, token_sep);
-	if(*src)
-	{
+	if(*src){
 		**src = '\0';
 		(*src)++;
 		while(**src && strchr(token_sep, **src))
@@ -253,39 +251,35 @@ char	*get_string(char **src)
 		return NULL;
 
 	s = ++(*src);
-	while(**src)
-	{
-		if(**src == '"')
-		{
+	while(**src){
+		if(**src == '"'){
 			s[p] = '\0';
 			(*src)++;
 			return s;
 		}
-		if(**src == '\\')
-		{
+		if(**src == '\\'){
 			(*src)++;
 			if(!**src)
 				return NULL;
-			switch(**src)
-			{
-			case 'b': 	
-				s[p++] = '\002';
-				break;
-			case 'u':	
-				s[p++] = ''; /* '\031'; */
-				break;
-			case 'i':	
-				s[p++] = ''; /* '\022'; */
-				break;
-			case '"':	
-				s[p++] = '"';
-				break;
-			case '\\':
-				s[p++] = '\\';
-				break;
-			default:
-				s[p++] = **src;
-				break;
+			switch(**src){
+				case 'b': 	
+					s[p++] = '\002';
+					break;
+				case 'u':	
+					s[p++] = ''; /* '\031'; */
+					break;
+				case 'i':	
+					s[p++] = ''; /* '\022'; */
+					break;
+				case '"':	
+					s[p++] = '"';
+					break;
+				case '\\':
+					s[p++] = '\\';
+					break;
+				default:
+					s[p++] = **src;
+					break;
 			}
 		}
 		else
@@ -308,17 +302,14 @@ char	*expand_twiddle(char *s)
 	if(!s)
 		return NULL;
 	
-	if(*s == '~')
-	{
+	if(*s == '~'){
 		s++;
-		if(*s == '/')
-		{
+		if(*s == '/'){
 			/* my homedir */
 			s++;
 			entry = getpwuid(getuid());
 		}
-		else
-		{
+		else{
 			char	*user;
 
 			if((user = get_token(&s, "/")))
@@ -351,3 +342,7 @@ char 	*strcasestr(char *s1, char *s2)
     return( strstr( n1,n2 ) );
 }
 #endif
+
+// Local variables:
+// coding: utf-8
+// end:

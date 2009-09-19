@@ -147,7 +147,7 @@ Triggers = {
 	{{"repond", "reponse"},
 	 "REPONDRE"},
 
-	{{{"ami", "^gamin", "^amiga", "^whoami"}, "copain", "camarade", "pote", "poto"},
+	{{{"ami", "^gamin", "^amiga", "^!whoami"}, "copain", "camarade", "pote", "poto"},
 	 "AMI"},
 
 	{{{"heure", "^heureu", "^tout-a-l'heure", "^tout a l'heure"},
@@ -727,8 +727,22 @@ function TraiteMessage(from, to, message, nbphrases)
 	  end
    end
    
+   if isChannel then
+	  canTalk = can_talk(to)
+   else
+	  canTalk = true
+   end if
 
-   ProcessReponsesSimples(from, to)
+   if canTalk then
+
+	  if not locuteur_existe(from) then
+		 ajoute_locuteur(from)
+	  end if
+	  ProcessReponsesSimples(from, to)
+
+   else
+
+   end if
    
 
    

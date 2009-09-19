@@ -1,22 +1,22 @@
 /*
- * ftp-dcc.c - ftp-interface for dcc
- * Copyright (C) 1993-94 VladDrac (irvdwijk@cs.vu.nl)
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- *
- * Provide a ftp-ish interface for dcc
+ ftp-dcc.c - ftp-interface for dcc
+ Copyright (C) 1993, 1994 VladDrac (irvdwijk@cs.vu.nl)
+ Copyright (C) 2009 Sébastien Kirche 
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ Provide a ftp-ish interface for dcc
  */
 
 #ifdef NEXT
@@ -114,21 +114,20 @@ char	*make_dir(char *old, char *new, char *dirbuffer)
 	dest = tmp;
 
 	while((component = get_token(&s, "/")))
-		if(STREQUAL("..", component))
-		{
+		if(STREQUAL("..", component)){
 			p = strrchr(dest, '/');
 			if(p != dest)
 				*p = '\0';
 			else
 				*(p+1) = '\0';
 		}
-		else if(!STREQUAL(".", component))
-		{
-			if(!STREQUAL(dest, "/"))
-				strcat(dest, "/");
-			strcat(dest, component);
-			p = dest + strlen(dest) - 1;
-		}
+		else 
+			if(!STREQUAL(".", component)){
+				if(!STREQUAL(dest, "/"))
+					strcat(dest, "/");
+				strcat(dest, component);
+				p = dest + strlen(dest) - 1;
+			}
 
 	strcpy(dirbuffer, tmp);	
 	return dirbuffer;
@@ -141,12 +140,10 @@ void	sort_dir(char *list[], int n)
 {
 	int	j, k, sorted;
 	
-	for(k=n-1, sorted = FALSE; k>0 && !sorted; k--)
-	{
+	for(k=n-1, sorted = FALSE; k>0 && !sorted; k--){
 		sorted = TRUE;
 		for(j=0; j<k; j++)
-			if(strcmp(list[j], list[j+1])>0)
-			{
+			if(strcmp(list[j], list[j+1])>0){
 				char	*tmp;
 	
 				mstrcpy(&tmp, list[j+1]);
@@ -172,40 +169,37 @@ void	output_dir(char *from, char *path, char *list[], int n)
 	char	modebits[11];	/* drwxr-xr-x */
 	char	file_type;	/* link, dir, ... */
 	
-	for(i=0; i<n; i++)
-	{
-		if(rr_stat(make_dir(path, list[i], real_path), &buf) == -1)
-		{
+	for(i=0; i<n; i++){
+		if(rr_stat(make_dir(path, list[i], real_path), &buf) == -1){
 #ifdef DBUG
 			debug(ERROR, "output_dir(): Could not stat file %s!", list[i]);
 #endif
 			continue;		/* should not happen! */
 		}
 		file_type = S_ISDIR(buf.st_mode)?'d':
-			    S_ISCHR(buf.st_mode)?'c':
-			    S_ISBLK(buf.st_mode)?'b':
-			    S_ISREG(buf.st_mode)?'-':
-			    S_ISLNK(buf.st_mode)?'l':
-			    S_ISSOCK(buf.st_mode)?'s':
-			    S_ISFIFO(buf.st_mode)?'f':
-			    '-';
+			S_ISCHR(buf.st_mode)?'c':
+			S_ISBLK(buf.st_mode)?'b':
+			S_ISREG(buf.st_mode)?'-':
+			S_ISLNK(buf.st_mode)?'l':
+			S_ISSOCK(buf.st_mode)?'s':
+			S_ISFIFO(buf.st_mode)?'f':
+			'-';
 		sprintf(modebits, "%c%c%c%c%c%c%c%c%c%c", file_type,
-			buf.st_mode&S_IRUSR?'r':'-',
-			buf.st_mode&S_IWUSR?'w':'-',
-			buf.st_mode&S_IXUSR?'x':buf.st_mode&S_ISUID?'s':'-',
-			buf.st_mode&S_IRGRP?'r':'-',
-			buf.st_mode&S_IWGRP?'w':'-',
-			buf.st_mode&S_IXGRP?'x':buf.st_mode&S_ISGID?'s':'-',
-			buf.st_mode&S_IROTH?'r':'-',
-			buf.st_mode&S_IWOTH?'w':'-',
-			buf.st_mode&S_IXOTH?'x':'-');
+				buf.st_mode&S_IRUSR?'r':'-',
+				buf.st_mode&S_IWUSR?'w':'-',
+				buf.st_mode&S_IXUSR?'x':buf.st_mode&S_ISUID?'s':'-',
+				buf.st_mode&S_IRGRP?'r':'-',
+				buf.st_mode&S_IWGRP?'w':'-',
+				buf.st_mode&S_IXGRP?'x':buf.st_mode&S_ISGID?'s':'-',
+				buf.st_mode&S_IROTH?'r':'-',
+				buf.st_mode&S_IWOTH?'w':'-',
+				buf.st_mode&S_IXOTH?'x':'-');
 		sendreply("%s %8u %20s %s%s", modebits, buf.st_size, 
 		          time2str(buf.st_mtime), list[i],
-			     S_ISDIR(buf.st_mode)?"/":
-			     S_ISLNK(buf.st_mode)?"@":
-			     (buf.st_mode&S_IXUSR)?"*":
-			     "");
-
+				  S_ISDIR(buf.st_mode)?"/":
+				  S_ISLNK(buf.st_mode)?"@":
+				  (buf.st_mode&S_IXUSR)?"*":
+				  "");
 	}
 }
 
@@ -227,12 +221,12 @@ int	read_dir(char *list[], char *path, char *pattern)
 #ifdef NEXT
 /* It seems that readdir was defined to return dirent, but NEXT doesn't
    know dirent! */
-				(struct direct *)
+							 (struct direct *)
 #endif /* NEXT */
-						readdir(dir)))
+							 readdir(dir)))
 		if(!STREQUAL(dir_entry->d_name, "..") &&
-	           !STREQUAL(dir_entry->d_name, ".") &&
-	           !fnmatch(pattern, dir_entry->d_name, FNM_PERIOD))
+		   !STREQUAL(dir_entry->d_name, ".") &&
+		   !fnmatch(pattern, dir_entry->d_name, FNM_PERIOD))
 			mstrncpy(&(list[n++]), dir_entry->d_name, 127);
 	closedir(dir);
 	return n;
@@ -254,54 +248,50 @@ void	do_ls(char *from, char *path)
 	int	n;
 	
 	make_dir(get_cwd(from), path, real_path);
-	if(rr_stat(real_path, &buf) != -1)
-	{	/* existing file/directory */
-		if(S_ISDIR(buf.st_mode))	/* list directory	*/
-			if(rr_access(real_path, R_OK) || rr_access(real_path, X_OK))
-			{
+	if(rr_stat(real_path, &buf) != -1){
+		/* existing file/directory */
+		if(S_ISDIR(buf.st_mode)){
+			/* list directory	*/
+			if(rr_access(real_path, R_OK) || rr_access(real_path, X_OK)){
 				sendreply("%s: Permission denied", path);
 				return;
 			}
 			else
 				n = read_dir(dir_list, real_path, "*");
-		else	/* a path with file */
-		{
+		}
+		else{
+			/* a path with file */
 			char	*file;
 
 			file = strrchr(real_path, '/');
 			*(file++) = '\0';
-			if(rr_stat(real_path, &buf) == -1)
-			{
+			if(rr_stat(real_path, &buf) == -1){
 				sendreply("%s: No such file or directory", 
 				          path);
 				return;
 			}
-			if(rr_access(real_path, R_OK))
-			{
+			if(rr_access(real_path, R_OK)){
 				sendreply("%s: Permission denied", path);
 				return;
 			}
 			n = read_dir(dir_list, real_path, file);
 		}
 	}
-	else	/* path with pattern or typo */
-	{
+	else{
+		/* path with pattern or typo */
 		char	*pattern;
 
 		pattern = strrchr(real_path, '/');
 		*(pattern++) = '\0';
-		if(rr_stat(real_path, &buf) == -1)
-		{
+		if(rr_stat(real_path, &buf) == -1){
 			sendreply("%s: No such file or directory", path);
 			return;
 		}
-		if(rr_access(real_path, R_OK) || rr_access(real_path, X_OK))
-		{
+		if(rr_access(real_path, R_OK) || rr_access(real_path, X_OK)){
 			sendreply("%s: Permission denied", path);
 			return;
 		}	
-		if((n = read_dir(dir_list, real_path, pattern)) == 0)
-		{
+		if((n = read_dir(dir_list, real_path, pattern)) == 0){
 			sendreply("%s: No such file or directory", path);
 			return;
 		}
@@ -321,29 +311,27 @@ void	send_file(char *from, char *name)
 	botlog(DCCLOGFILE, "DCC get from %s: %s received", from, name);
 
 	make_dir(get_cwd(from), name, real_path);
-	if(rr_stat(real_path, &buf) != -1)
-	{
-		if(S_ISDIR(buf.st_mode))	/* list directory	*/
-			if(rr_access(real_path, R_OK) || rr_access(real_path, X_OK))
-			{
+	if(rr_stat(real_path, &buf) != -1){
+		if(S_ISDIR(buf.st_mode)){
+			/* list directory	*/
+			if(rr_access(real_path, R_OK) || rr_access(real_path, X_OK)){
 				sendreply("%s: Permission denied", name);
 				return;
 			} 
 			else /* user is grabbing entire directory */
 				n = read_dir(dir_list, real_path, "*");
-		else	/* seperate path and pattern (pattern can be filename) */
-		{
+		}
+		else{
+			/* seperate path and pattern (pattern can be filename) */
 			char	*file;
 
 			file = strrchr(real_path, '/');
 			*(file++) = '\0';
-			if(rr_stat(real_path, &buf) == -1)
-			{
+			if(rr_stat(real_path, &buf) == -1){
 				sendreply("%s: No such file or directory", name);
 				return;
 			}
-			if(rr_access(real_path, R_OK) || rr_access(real_path, X_OK))
-			{
+			if(rr_access(real_path, R_OK) || rr_access(real_path, X_OK)){
 				sendreply("%s: Permission denied", name);
 				return;
 			}			
@@ -351,24 +339,21 @@ void	send_file(char *from, char *name)
 				sendreply("%s: No such file or directory", name);
 		}
 	}
-	else	/* path with pattern or typo */
-	{
+	else{
+		/* path with pattern or typo */
 		char	*pattern;
 
 		pattern = strrchr(real_path, '/');
 		*(pattern++) = '\0';
-		if(rr_stat(real_path, &buf) == -1)
-		{
+		if(rr_stat(real_path, &buf) == -1){
 			sendreply("%s: No such file or directory", name);
 			return;
 		}
-		if(rr_access(real_path, R_OK) || rr_access(real_path, X_OK))
-		{
+		if(rr_access(real_path, R_OK) || rr_access(real_path, X_OK)){
 			sendreply("%s: Permission denied", name);
 			return;
 		}		
-		if((n = read_dir(dir_list, real_path, pattern)) == 0)
-		{
+		if((n = read_dir(dir_list, real_path, pattern)) == 0){
 			sendreply("%s: No such file or directory", name);
 			return;
 		}
@@ -395,11 +380,10 @@ int	send_file_from_list(char *user, char *path, char *file)
 		sendreply("%s: Is a directory", file);
 	else if(rr_access(sendfile, R_OK))
 		sendreply("%s: Permission denied", file);
-	else
-	{
+	else{
 		dcc_sendfile(user, real_root(sendfile, rr_sendfile));
 		sendreply("Now please type: /dcc get %s %s", 
-			  currentbot->nick, file);
+				  currentbot->nick, file);
 		return TRUE;
 	}
 	return FALSE;	
@@ -412,12 +396,9 @@ void	do_chdir(char *from, char *new_dir)
 	
 	make_dir(get_cwd(from), new_dir, real_path);
 
-	if(rr_stat(real_path, &buf)!= -1)
-	{
-		if(S_ISDIR(buf.st_mode))
-		{
-			if(rr_access(real_path, R_OK) || rr_access(real_path, X_OK))
-			{
+	if(rr_stat(real_path, &buf)!= -1){
+		if(S_ISDIR(buf.st_mode)){
+			if(rr_access(real_path, R_OK) || rr_access(real_path, X_OK)){
 				sendreply("%s: Permission denied", new_dir);
 				return;
 			}
@@ -443,3 +424,7 @@ FILE	*openindex(char *from, char *name)
 			return fopen(real_root(fname, rr_buf), "r");
 	return NULL;
 }
+
+// Local variables:
+// coding: utf-8
+// end:

@@ -1,20 +1,20 @@
 /*
- * parsing.c - some general string parsing routines
- * Copyright (C) 1993/94 VladDrac (irvdwijk@cs.vu.nl)
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ parsing.c - some general string parsing routines
+ Copyright (C) 1993, 1994 VladDrac (irvdwijk@cs.vu.nl)
+ Copyright (C) 2009 Sébastien Kirche 
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <ctype.h>
@@ -37,16 +37,14 @@ int	readint(char **src, int *dest)
 	skipspc(src);
 	if(not(**src && (isdigit(**src) || **src == '-')))
 		return FALSE;
-	if(**src == '-')
-	{
+	if(**src == '-'){
 		*s = '-';
 		s++; (*src)++;
 		if(not(isdigit(**src)))
 			return FALSE;
 	}
 	
-	while(**src && isdigit(**src))
-	{
+	while(**src && isdigit(**src)){
 		*s = **src;
 		s++; (*src)++;
 	}
@@ -68,36 +66,32 @@ int	readstring(char **src, char *dest)
 	if(**src != '"')
 		return FALSE;
 	(*src)++;
-	while(**src && **src != '"')
-	{
-		if(**src == '\\')
-		{
+	while(**src && **src != '"'){
+		if(**src == '\\'){
 			(*src)++;
 			if(not(**src))
 				return FALSE;
-			switch(**src)
-			{
-			case 'b':
-				*dest = '\002';	/* bold */
-				break;
-			case 'u':
-				*dest = '\022';
-				break;
-			case 'i':
-				*dest = '\031';
-				break;
-			default:
-				/* i.e. \\ or " */
-				*dest = **src;
-				break;
+			switch(**src){
+				case 'b':
+					*dest = '\002';	/* bold */
+					break;
+				case 'u':
+					*dest = '\022';
+					break;
+				case 'i':
+					*dest = '\031';
+					break;
+				default:
+					/* i.e. \\ or " */
+					*dest = **src;
+					break;
 			}
 		}
 		else
 			*dest = **src;
 		dest++; (*src)++;
 	}
-	if(**src == '"')
-	{
+	if(**src == '"'){
 		(*src)++;
 		*(dest++) = '\0';
 		return TRUE;
@@ -117,8 +111,7 @@ int	readident(char **src, char *dest)
 	}
 
 	while(**src && (isdigit(**src) || isalpha(**src) || 
-	                **src == '@' || **src == '_'))
-	{
+	                **src == '@' || **src == '_')){
 		*dest = **src;
 		dest++; (*src)++;
 	}
@@ -134,14 +127,12 @@ int	readboolean(char **src, int *dest)
  */
 {
 	skipspc(src);
-	if(strncasecmp(*src, "true", 4) == 0)
-	{
+	if(strncasecmp(*src, "true", 4) == 0){
 		(*src) += 4;
 		*dest = TRUE;
 		return TRUE;
 	}
-	if(strncasecmp(*src, "false", 5) == 0)
-	{
+	if(strncasecmp(*src, "false", 5) == 0){
 		(*src) += 5;
 		*dest = FALSE;
 		return TRUE;
@@ -163,8 +154,7 @@ int	readnick(char **src, char *dest)
 	skipspc(src);
 	if(not(isalpha(**src)))
 		return FALSE;
-	while(**src && (isalpha(**src) || isdigit(**src) || isspecial(**src)))
-	{
+	while(**src && (isalpha(**src) || isdigit(**src) || isspecial(**src))){
 		*dest = **src;
 		dest++; (*src)++;
 	}
@@ -180,11 +170,14 @@ int	readchannel(char **src, char *dest)
 	*dest = **src;
 	dest++; (*src)++;
 	while(**src && (**src != ' ' && **src != '\t' && **src != '\007' && **src != ','
-	            && **src != '\n' && **src != '\013'))
-	{
+	            && **src != '\n' && **src != '\013')){
 		*dest = **src;
 		dest++; (*src)++;
 	}
 	*dest = '\0';
 	return TRUE;
 }
+
+// Local variables:
+// coding: utf-8
+// end:

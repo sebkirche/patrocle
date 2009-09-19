@@ -1,3 +1,33 @@
+/*
+ session.c - manages sessions between IRC users and the bot
+ Copyright (C) 1993, 1994 VladDrac (irvdwijk@cs.vu.nl)
+ Copyright (C) 2009 Sébastien Kirche 
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ A session is created:
+ - When a user starts a DCC chat connection
+ - When a user sends a legal command (public or private)
+ - When a user sends an illegal private message (for floodcontrol)
+ 
+ A session is deleted when the user has been idle for a defined
+ amount of time.
+ 
+ Sessions can be used for "remembering" the cwd (with filetransfer),
+ last used command, floodingcontrol etc.
+ 
+ */
 #ifndef SESSION_H
 #define SESSION_H
 
@@ -42,3 +72,6 @@ void	do_showqueue();
 void	sendreply(char *s, ...);
 
 #endif
+// Local variables:
+// coding: utf-8
+// end:
