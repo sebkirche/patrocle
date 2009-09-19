@@ -714,7 +714,7 @@ function TraiteMessage(from, to, message, nbphrases)
 
    isChannel = is_channel(to)
 
-   if (isChannel and is_log_on(to)) or (not is_channel(to) and LogLevel > 0) then
+   if (isChannel and is_log_on(to)) or (not isChannel and LogLevel > 0) then
       botlog("bot.log", "<%s#%s> %s", from, to, message .. "<----- from lua")
    end
 
@@ -731,29 +731,62 @@ function TraiteMessage(from, to, message, nbphrases)
 	  canTalk = can_talk(to)
    else
 	  canTalk = true
-   end if
+   end
 
    if canTalk then
+	  -- on a l'autorisation de parler
 
 	  if not locuteur_existe(from) then
 		 ajoute_locuteur(from)
-	  end if
+	  end
 	  ProcessReponsesSimples(from, to)
 
-   else
+	  --process stimulis simples
 
-   end if
+	  
+   else
+	  -- on n'a PAS l'autorisation de parler
+	  if (Flags.PARLER or Flags.REVEILLE_TOI) and (not Flags.LANGUE) and (not Flags.FONCTION_SAY) and ((not isChannel) or Flags.NOM) then
+		 if rellevel(from) >= 0 then
+			set_talk(true)
+		 end
+
+		 RespGood = {"%s: Je ne suis plus gênant? :)", "À vos ordres, %s.", "Il sera fait selon vos désirs, maître %s.", "%s: Pour me faire taire à nouveau, demandez-le moi, tout simplement.", "Avec plaisir, %s.", "Depuis le temps que j'attendais qu'on me le dise, %s! :)"}
+
+		 if Flags.STP then
+			RespBad = {"Bon! C'est bien parce que tu l'as demandé gentiment, %s!", "%s: On m'a dit de me taire, mais comme tu as été poli, j'agrée ta demande.", "Tu m'es antipathique, %s, mais je ne me tairai plus.", "Et pis j'en ai marre de me taire!", "Bon. J'ai pas envie de te faire plaisir, %s, mais j'en ai ras la casquette d'être obligé de me taire...", "Tu me fais pitié, %s. Pour l'instant je vais me remettre à parler..."}
+			repondre(from, to, 1, RespGood, 2, RespBad)
+		 else
+			RespBad = {"Nan! Demande-le gentiment, %s!", "%s: On m'a dit de me taire, je me tairai!", "Pas question! Je n'obéis pas à ceux qui me sont antipathiques, %s!", "Et pis quoi encore, %s! Cent balles et un Mars?", "Non. J'ai pas envie de te faire plaisir, %s.", "T'as une chance si tu demandes a quelqu'un que j'aime bien, %s. Pour l'instant je continue à me taire. Na!"}
+			repondre(from, to, 1, RespGood, 0, RespBad)
+		 end
+
+	  end --redonne autorisation
+
+   end --autorisation de parler ?
+   
+   if Flags.GROS_MOT and (not Flags.COMPLIMENT) and (not Flags.CLINDOEIL) then
+	  repondre(from, to, 
+				-1, {},
+				-2, {"Sois poli, s'il-te-plaît, %s!", "", "Un peu de tenue, %s!", "", "Tu vas arrêter d'être grossier, %s?"})
+   end
+
+   -- ajout de phrases aléatoires
+   if (nbphrases % 500) == 0 then
+	  repondre(from, to,
+			   0, {"C'est peut-être hors propos, mais je vous propose une petite visite de la page de mon créateur : http://francois.parmentier.free.fr/index.html", "Vous saviez que j'ai un cousin écrit en C ? http://ector.sourceforge.net/", "Pour relancer le débat: l'Amiga c'est quand-même mieux que le PC.", "Ma famille est grande, j'ai aussi un cousin écrit en python : http://code.google.com/p/pyector/", "Hop !", "Une petite documentation sur IRC: http://www.funet.fi/~irc/.", "Atchoum!", "Si vous vous ennuyez, vous pouvez toujours jouer a pierre-papier-ciseaux avec moi.", "Si jamais ça vous tente, vous pouvez jeter un oeil sur une page de geek : http://sebastien.kirche.free.fr", "Vous saviez que Sébastien à mis sa config Emacs/Gnus en ligne sur http://sebastien.kirche.free.fr/emacs_stuff/ ? Je sais: c'est en dehors de la conversation, mais que voulez-vous, faut bien que j'fasse un peu d'pub de temps en temps...", "Perl c'est bien. Ruby c'est mieux"},
+			   0, {"Encore quelqu'un qui encombre le canal!", "T'es toujours là, %s?", "%s: :PPPP", "C'est pas vrai! Tu persistes, %s!", "%s: Ta mère en short sur internet :P", "Encore là, %s? Pfff...", "%s: Pas encore parti, toi? Zut!", "Tu ne m'as toujours pas demandé pardon, %s, au fait!", "Pourquoi tu ne me demandes pas pardon, j'suis pas complètement ingrat, tu sais, %s?"})
+
+   end
+   
+   if Flags.FONCTION then
+	  set_talk(AncienneAutorisation)
+   end
+
    
 
    
 --[[
-   if Flags.ILYA and Flags.QUELQUUN and Flags.QUESTION then
-	  repondre(from, to, 
-			   1, {"Mais oui %s: tu es là.", "Il y a au moins toi et moi, %s.", "Ouhou, %s, je suis là.", "Oui.", "Bien sûr %s, je suis là.", "Je suis là, %s, comme toujours.", "%s: Évidemment qu'il y a quelqu'un!", "/me est là."}, 
-			   0, {"Qu'est-ce que ça peut te faire, %s, qu'il y ait quelqu'un ou non? De toute facon on ne souhaite pas ta présence (sauf si tu te conduis gentiment).", "Je ne sais pas si on peut considérer que comme tu es là, il y a quelqu'un, %s?", "Ça dépend, %s: te considères-tu comme une personne à part entière?"})
-   end
-]]
-
    if Flags.ILYA and Flags.QUELQUUN and Flags.QUESTION then
 	  repondre(from, to, 
 			   1, {"Mais oui %s: tu es là.", "Il y a au moins toi et moi, %s.", "Ouhou, %s, je suis là.", "Oui.", "Bien sûr %s, je suis là.", "Je suis là, %s, comme toujours.", "%s: Évidemment qu'il y a quelqu'un!", "/me est là."}, 
@@ -765,7 +798,7 @@ function TraiteMessage(from, to, message, nbphrases)
 				1, {"C'est le calme avant la tempête?", "Le silence t'angoisse, %s?", "Ça ne va peut-être pas durer.", "Profitons-en. Si ça se trouve, ça va pas durer.", "C'est pas de ma faute, %s!", "Ça repose, non?", "%s: C'est le moment pour faire son yoga!"},
 				0, {"%s: Et j'espère que ça va continuer.", "Comme tu es là, %s, je pense que ça ne va pas durer!", "Oui, %s, c'était calme avant que tu n'arrives!", "%s: J'ai peur que ça ne dure pas!"})
 	end
-
+]]
 
 	if string.find(from, "seki@falbala.seki.fr") then
 	   if string.find(message,"phrasescount ?") == 1 then 
