@@ -27,18 +27,18 @@ typedef struct	USERLVL_struct
   struct	USERLVL_struct	*next;	/* next user */
 } USERLVL_list;
 
-USERLVL_list	 *exist_userhost (USERLVL_list **, const char *);
-USERLVL_list	 *find_userhost(USERLVL_list **, char *);
+USERLVL_list    *exist_userhost ( USERLVL_list **l_list, const char *userhost );
+USERLVL_list	*find_userhost( USERLVL_list **l_list, char *userhost );
 USERLVL_list	**init_levellist();
-void			  add_to_levellist(USERLVL_list **, char *, int);
-int				  remove_from_levellist(USERLVL_list **, char *);
-void			  delete_levellist(USERLVL_list **);
-int				  get_level(USERLVL_list **, const char *);
-int				  get_level_neg(USERLVL_list **,const char *, int *);
-void			  add_to_level (USERLVL_list **, const char *, int);
-void			  show_lvllist(USERLVL_list **, char *, char *);
-void			  cancel_level(USERLVL_list **, int);
-int				  write_lvllist(USERLVL_list **, char *);
+void			add_to_levellist( USERLVL_list **l_list, const char *userhost, int level );
+int				remove_from_levellist( USERLVL_list **l_list, char *userhost );
+void			delete_levellist(USERLVL_list **l_list );
+int				get_level( USERLVL_list **l_list, const char *userhost );
+int				get_level_neg ( USERLVL_list **l_list, const char *userhost , int *success );
+void			add_to_level (USERLVL_list **l_list, const char *userhost, int humeur );
+void			show_lvllist( USERLVL_list **l_list, char *from, char *userhost );
+void			cancel_level ( USERLVL_list **l_list, int level );
+int				write_lvllist( USERLVL_list **l_list, char *filename );
 
 #endif /* USERLIST_H */
 
