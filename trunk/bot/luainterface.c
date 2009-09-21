@@ -100,7 +100,8 @@ int c2l_locutorexists(lua_State *L)
 	locuteur *Locuteur;
 	const char *name = luaL_checkstring(L, 1);
 	Locuteur = LocuteurExiste(currentbot->lists->ListeLocuteurs, name);
-	lua_pushboolean(L, Locuteur != NULL);
+	//lua_pushboolean(L, Locuteur != NULL);
+	lua_pushlightuserdata(L, (void *) Locuteur);
 	return 1;
 }
 
@@ -111,17 +112,50 @@ int c2l_addlocutor(lua_State *L)
 	Locuteur = LocuteurExiste(currentbot->lists->ListeLocuteurs, name);
 	if (!Locuteur)
 		Locuteur = AjouteLocuteur (currentbot->lists->ListeLocuteurs, name);
-	return 0;
+	lua_pushlightuserdata(L, (void *)Locuteur);
+	return 1;
 }
+
+//TODO : remplacer le light user data pour passer le pointeur Locuteur par un userdata avec metatables
 
 int c2l_getlocutorsalutes(lua_State *L)
 {
 	locuteur *Locuteur;
-	const char *name = luaL_checkstring(L, 1);
-	Locuteur = LocuteurExiste(currentbot->lists->ListeLocuteurs, name);
-	if (!Locuteur)
-		Locuteur = AjouteLocuteur(currentbot->lists->ListeLocuteurs, name);
-	lua_pushnumber(L, Locuteur->Bonjours);
+	if (lua_isuserdata(L, 1)){
+		Locuteur = (locuteur*)lua_touserdata(L, 1);
+		lua_pop(L, 1);
+#ifdef DBUG
+		printf("c2l_getlocutorsalutes called on Locuteur %s\n", Locuteur->nuh);
+#endif
+		lua_pushnumber(L, Locuteur->Bonjours);
+	}
+	else
+		lua_pushnumber(L, -1);
+	return 1;
+}
+
+int c2l_getlocutorlastcontact(lua_State *L)
+{
+	locuteur *Locuteur;
+	if (lua_isuserdata(L, 1)){
+		Locuteur = (locuteur*)lua_touserdata(L, 1);
+		lua_pop(L, 1);
+		lua_pushnumber(L, Locuteur->DernierContact);
+	}
+	else
+		lua_pushnumber(L, 0);
+	return 1;
+}
+
+int c2l_setlocutorsalutes(lua_State *L)
+{
+	locuteur *Locuteur;
+	int newbjr = luaL_checknumber(L, 2);
+	if (lua_isuserdata(L, 1)){
+		Locuteur = (locuteur*)lua_touserdata(L, 1);
+		lua_pop(L, 1);
+		Locuteur->Bonjours = newbjr;
+	}
 	return 0;
 }
 
@@ -263,6 +297,8 @@ void register_cstuff()
 	lua_register(L, "locuteur_existe", c2l_locutorexists);
 	lua_register(L, "ajoute_locuteur", c2l_addlocutor);
 	lua_register(L, "locuteur_bonjours", c2l_getlocutorsalutes);
+	lua_register(L, "locuteur_derniercontact", c2l_getlocutorlastcontact);
+	lua_register(L, "locuteur_setbonjours", c2l_setlocutorsalutes);
 	lua_register(L, "userlever", c2l_userlevel);
 	lua_register(L, "shitlevel", c2l_shitlevel);
 	lua_register(L, "protlevel", c2l_protlevel);
