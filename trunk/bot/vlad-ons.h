@@ -144,6 +144,7 @@ char    *UserStr (char *nuh);
 char    *NickUserStr (const char *nuh);
 int		ChaineEstDans (const char *aFouiller, const char *aChercher);
 void    Repondre (const char *from, const char *to, int AjoutHumeurPos, int NbRepPos, char **RepPos, int AjoutHumeurNeg, int NbRepNeg, char **RepNeg);
+void    KickerRepondre (const char *from, const char *to, int AjoutHumeurPos, int NbRepPos, char **RepPos, int AjoutHumeurNeg, int NbRepNeg, char **RepNeg);
 void	Ecrire (const char *from, const char *to, char *phrase);
 #endif /* VLAD_ONS_H */
 
