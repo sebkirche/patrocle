@@ -62,7 +62,7 @@ USERLVL_list	**init_levellist( )
 	return(l_list);
 }
 
-void	add_to_levellist( USERLVL_list **l_list, char *userhost, int level )
+void	add_to_levellist( USERLVL_list **l_list, const char *userhost, int level )
 {
 	/*
 	 * adds a user to the list... 

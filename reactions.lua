@@ -18,22 +18,22 @@ Triggers = {
 	 "a ts", "les gars", "les men", "les mecs", "tout-le-monde", "tout le monde", "tout l'monde", "tt le monde", "tt l'monde", "tt l monde", "le bot", "les bots", "petit bot", " all ", "all:", "all!", "you all", "vous", "touti", "tutti", "la compagnie", "la jeunesse", "les nanceens", "les nanceiens", "la Lorraine", "les lorrains", "everybody", "'vrybody", --[[SURNOM, ]] "ach'", "anybody", " there", "folks", "boys", "#nancy", "#la-bas", "messieurs", "everyone", "les potos", "les cocos", "mon biquet", "les amis", "les z'amis", "les copains", "les aminches", --[["bande de ") && ! ILS_FONT ]] "m'sieurs dame", "m'sieurs-dame", "messieurs-dame", "messieurs dame", "messieurs", "les n'enfants", "les enfants", "les zenfants", "les petits", "le people", "le peuple", "la foule", "todos" --[[ tous en espagnol]]},
 	 "NOM"},
 
-   {{"y a", "y'a", "y-a", " est la", "there"},
-	"ILYA"},
+	{{"y a", "y'a", "y-a", " est la", "there"},
+	 "ILYA"},
 
-   {{"bonjour", "bonne journee", "bjr", "'jour", "hello", "hola" --[[ En espagnol]], {"lo ", "^rigolo"},  "szia" --[[ En hongrois ]], "hei " --[[ En finnois ]],  {"hej", "^hej da" --[[ En suedois ]]}, "salam" --[[ En arabe ]], "zdravi" --[[ En slovaque ]]},
-		 "BONJOUR"},
+	{{"bonjour", "bonne journee", "bjr", "'jour", "hello", "hola" --[[ En espagnol]], {"lo ", "^rigolo"},  "szia" --[[ En hongrois ]], "hei " --[[ En finnois ]],  {"hej", "^hej da" --[[ En suedois ]]}, "salam" --[[ En arabe ]], "zdravi" --[[ En slovaque ]]},
+		  "BONJOUR"},
 
-	  {{"salu",
-		{"hi ", "^high", "^hihi","^chi"},
-		"coucou", "kikou", "youhou", "heya", "beuha", "yo ", "hugh", "'lut", "lut ", "slt", "hallo" --[[ En allemand ]], "tjena" --[[ En suedois ]]},
-		"SALUT"},
+	   {{"salu",
+		 {"hi ", "^high", "^hihi","^chi"},
+		 "coucou", "kikou", "youhou", "heya", "beuha", "yo ", "hugh", "'lut", "lut ", "slt", "hallo" --[[ En allemand ]], "tjena" --[[ En suedois ]]},
+		 "SALUT"},
 
-	   {{"je reste"},
-		"JE_RESTE"},
+		{{"je reste"},
+		 "JE_RESTE"},
 
-   {{"ca va", "ca gaz", "vas-tu", "vas tu", "vas bien", "va bien", "en forme", "le moral", "la forme", "comment va", "comment tu va", "comment te sens-tu", "comment te sens tu", "comment tu te sens", "comment tu t'sens", "ti k'sa va", "ca baigne", "ca boume", "ca roule", "sens bien", "vous allez bien", "allez-vous bien", "comment vous allez", "comment allez-vous", "commen y le" --[[en creole]] , "how are u", "how are you", "how do you do", "Mita kuuluu" --[[en finnois]], "tu rak bikir" --[[en arabe]]},
-	"CAVA"},
+		{{"ça va", "ca va", "ca gaz", "vas-tu", "vas tu", "vas bien", "va bien", "en forme", "le moral", "la forme", "comment va", "comment tu va", "comment te sens-tu", "comment te sens tu", "comment tu te sens", "comment tu t'sens", "ti k'sa va", "ca baigne", "ca boume", "ca roule", "sens bien", "vous allez bien", "allez-vous bien", "comment vous allez", "comment allez-vous", "commen y le" --[[en creole]] , "how are u", "how are you", "how do you do", "Mita kuuluu" --[[en finnois]], "tu rak bikir" --[[en arabe]]},
+			  "CAVA"},
 
 	  {{"au revoir", "arvoir", "arrosoir persi", "a+", "a plus", "m'en vais", "a bientot", {"bon week end", "^passe un bon"}, "bon we", "bon week-end", "m'en aller", " partir", "vais y aller", "vais vous laisser", "y vais", "bye", "a demain", "a 2 mains", "adtaleur", "ad'taleur", "a tout-a-l'heure", "a tout a l'heure", "a tout a l heure", "a tt a l'heure", "nar r'trouv" --[[ Creole ]],"n'artrouv", "n'ar trouv", " me casse", " m'casse", "vous laisse", "je te laisse", "a un de ces quatres", "a un de ces 4", "a un de c 4", "a 1 de c 4", "a12c4", "a1274", "see you", "see u", "see ya", "later", "c u ", "je pars", "je parte", "tchao", "tshaw", "ciao", "j'y aille", "me sauve", "hasta luego", "arwar", "a la prochaine", "vi ses" --[[ En suedois : "on se voit" ]],"cassos", {"je rentre","^quand "},"revoyure", "r'voyure", "wiedersehen", "wieder sehen", "have to go", "I must go", "time to go", "nar trouver zot tout" --[[ En Creole ]],"hej da" --[[En suedois ]]},
 			"AUREVOIR"},
@@ -736,16 +736,156 @@ function TraiteMessage(from, to, message, nbphrases)
    if canTalk then
 	  -- on a l'autorisation de parler
 
-	  if not locuteur_existe(from) then
-		 ajoute_locuteur(from)
+	  Locuteur = locuteur_existe(from)
+	  --print("locuteur_existe(" .. from .. ") a retourné " .. tostring(Locuteur))
+	  if Locuteur == 0 then
+		 Locuteur = ajoute_locuteur(from)
+		 --print("ajoute_locuteur(" .. from .. ") a retourné " .. tostring(Locuteur))
 	  end
+	  --print("locuteur_bonjours(" .. tostring(Locuteur) .. ") a retourné " .. locuteur_bonjours(Locuteur))
+
 	  ProcessReponsesSimples(from, to)
 
 	  --process stimulis simples
+	  --(fichiers stims /reps)
 
+	  --
+
+	  if Flags.STP then repondre(from, to, 2, {}, 3, {}) end -- on remonte en étant poli :o)
+
+	  LocBonjours = locuteur_bonjours(Locuteur)
+
+	  --Bonjour
+	  if (Flags.BONJOUR and (Flags.NOM or (not isChannel))) and LocBonjours <= 0 then
+		 repondre(from, to, 
+				  1, {"Bonjour %s.", "Bonjour à toi %s.", "Je te souhaite le bonjour, %s.", "Bien le bonjour, %s.", "Bonne journée à toi aussi, %s.", "Bonjour à toi aussi, %s.", "Bonjour, comment vas-tu aujourd'hui, %s?", "/me enlève son chapeau devant %s."},
+				  1, {"Au revoir, %s.", "%s: Pfff...", "", "Tu ne le penses même pas, %s!", "Fais pas chier, %s!", "/me tourne le dos à %s."})
+		 locuteur_setbonjours(Locuteur, 1)
+	  end 
+
+	  --Bonsoir
+	  if (Flags.BONSOIR and (Flags.NOM or not isChannel)) and LocBonjours >= 0 then
+		 repondre(from, to, 
+				  1, {"Bonsoir %s.", "Bonsoir à toi %s.", "Je te souhaite le bonsoir, %s.", "Bien le bonsoir, %s.", "Bonne soirée à toi aussi, %s.", "Bonsoir à toi aussi %s.", "/me souhaite le bonsoir à %s."},
+				  1, {"C'est ça, casse toi %s.", "%s: Pfff...", "Barre-toi, %s.", "Bon débarras, %s!", "Un casse-pieds de moins!", "/me soupire d'aise: %s est parti."})
+		 locuteur_setbonjours(Locuteur, -1);
+	  end
+
+	  --12h depuis dernier contact ?
+	  print ("test dernier contact > 12h : now =" .. os.time())
+	  print ("test dernier contact > 12h : nowdernier contact =" .. locuteur_derniercontact(Locuteur))
+	  datedif = (os.time() - locuteur_derniercontact(Locuteur))
+	  print ("test dernier contact > 12h : now - dernier contact =" .. datedif)
+	  if (LocBonjours > 0) and ((datedif / 3600) > 12) then
+		 locuteur_setbonjours(Locuteur, 0)
+	  end
 	  
+	  LocBonjours = locuteur_bonjours(Locuteur)
+	  if Flags.SALUT and (Flags.NOM or not isChannel) and (LocBonjours <= 1) and (LocBonjours >= 0 ) then
+		 if LocBonjours > 0 then
+			salut = "Au revoir, %s."
+		 else
+			salut = "Bien le bonjour, %s."
+		 end
+		 repondre(from, to,
+				  1, {"Salut %s!", "Je te salue, %s!", "Je te salue bien bas, %s!", "Je te rends un salut, %s (mais pas le tien ;)", "Salut %s.", "Salut à toi aussi, %s.", salut, "/me salue %s.", "/me serre la main de %s.", "Salut %s. :-)"},
+				  1, {"J'te cause plus %s!", "Je ne vous salue pas, %s!", "Hé bien moi, je ne te salue pas, %s!", "Barre-toi, %s.", "Zut, un casse-pieds (%s)!", "/me se tourne de manière à ne plus voir %s."})
+		 
+		 if LocBonjours > 0 then 
+			locuteur_setbonjours(Locuteur, 0)
+		 else
+			locuteur_setbonjours(Locuteur, LocBonjours + 1)
+		 end
+		 LocBonjours = locuteur_bonjours(Locuteur)
+	  end
+	  
+	  --je reste
+	  if Flags.JE_RESTE and (Flags.NOM or not isChannel) then
+		 if locuteur_bonjours(Locuteur) < 0 then
+			repondre(from, to,
+					 1, {"Excuse moi %s, j'avais pas compris.", "%s: Oups. Je n'ai pas fait assez attention.", "Tant mieux %s.", "J'ai cru que tu partais, %s.", "Je préfères que tu sois là, %s.", "Je me sens moins seul quand tu es là, %s.", "J'ai sans doute mal compris, %s.", "J'espère que tu restes longtemps, %s.", "Super, %s."},
+					 1, {"%s: Zut!", "Tant pis, %s!", "Grmbl..."})
+		 end 
+	  end
+
+	  --Ça va ?
+	  if Flags.CAVA and (Flags.NOM or not isChannel) then
+		 repondre(from, to, 
+				  1, {"Ça va pas mal, %s, merci.", "Moui, ça va, %s, merci.", "On fait aller, %s.", "Ça peut aller, %s.", "Ça allait très mal, mais ça commence à aller mieux, %s, merci.", "Depuis que tu es là, %s, ça va mieux.", "Ça va mieux, merci %s.", "Ça va bien, et toi %s?", "Ça va très bien, %s.", "Tout est pour le mieux dans le meilleur des mondes, %s.", "Je suis sur un petit nuage, %s. :)", "J'ai la pêche, %s!"},
+				  1, {"J'espère que je vais mieux que toi, %s!", "Ça va déjà moins bien depuis que tu es là, %s!", "Ça ira mieux quand tu seras parti, %s.", "Bof, ça va pas fort, %s.", "Ça va très mal, %s.", "Je déprime depuis que tu es arrivé, %s...", "J'ai la banane, pas comme toi, %s! :]", "/me soupire."})
+	  end
+
+	  --au revoir
+	  if Flags.AUREVOIR and (Flags.NOM or not isChannel) and (locuteur_bonjours(Locuteur) >= 0) then
+		 repondre(from, to,
+				  1, {"À bientôt %s.", "Au revoir %s.", "Au plaisir de te revoir %s.", "À plus tard %s.", "Reviens-nous bientôt, %s.", "À bientôt, %s.", "À tantôt, %s.", "À la revoyure, %s.", "Bye bye %s.", "Je ne te raccompagne pas, %s: tu connais le chemin. :)", "/me décroche le manteau de %s du porte-manteau et l'aide à l'enfiler."}, 
+				  1, {"En espérant ne plus te revoir, %s.", "%s: Bon débarras!", "Au plaisir de ne plus te revoir %s.", "Débarrasse le plancher, %s!", "Du balai, %s!", "/me attend que %s soit sorti avant de claquer la porte."})
+		 locuteur_setbonjours(Locuteur, -1)
+	  end
+	  
+	  --injure
+	  if Flags.INJURE and not Flags.COMPLIMENT and not Flags.ES_TU and not Flags.QUI_EST and not Flags.ETTOI and not Flags.JESUIS and not Flags.CLINDOEIL and not Flags.FONCTION_FUCK and (Flags.NOM or not isChannel) then
+		 if not exist_userhost(from) then
+			add_to_levellist(from)
+			Nouveau = true
+		 else
+			Nouveau = false
+		 end
+		 if Nouveau then
+			add_to_level(from, 3)
+		 else
+			add_to_level(from, -2)
+		 end
+			
+		 repondre_kicker(from, to,
+						 -2, {"Attention, %s, je vais kicker! J'exige des excuses.", "Implore mon pardon, misérable %s!", "Toi-même, %s!", "C'est celui qui le dit qui l'est, %s!", "Tu me provoques, %s?", "Diantre, %s! Je sens monter en moi la colère!", "Je te préviens, %s: la moutarde me monte au nez!", "Je sens que je m'énerve, %s.", "À genoux, %s!", "/me inspire un grand coup, puis expire lentement..."},
+					  -6, {"Mortecouilles, %s, je m'en vais vous estropier! Montjoie! Saint-Denis!", "Demande pardon ou va rôtir en enfer!", "Je ne supporte pas qu'on me manque de respect!", "Dehors, odieux personnage!", "Rahh! Ne recommence plus jamais!", "Ta mère en tongs au Prisunic. :p", "Tiens, prends ça!", "Moule à gaufres!", "Du balai!", "Dégage, connard!", "Va mourir, %s!", "Pitécanthrope!", "Australopithèque", "Je veux te voir me supplier de te pardonner!", "À genoux, vermisseau!", "Nyctalope!", "Recommence pour voir!", "Implore mon pardon à genoux, je serai peut-être magnanime!", "Anacoluthe!", "Espèce de  bachibouzouk à cornes!", "C'était marrant. Recommence qu'on voie ce qui se passe.", "Ventre Saint-Gris!", "Bretzel liquide!", "Palsembleu!", "Rentre chez ta mère, embryon!"})
+	  end
+
+	  --compliment
+	  if (Flags.COMPLIMENT or Flags.VIVE) and not Flags.JESUIS and not Flags.QUESTION and not Flags.INJURE and not Flags.ETTOI and not Flags.AMIGA and not Flags.WINTEL and (Flags.NOM or not isChannel) then
+		 repondre(from, to,
+				  2, {"Merci %s.", "C'est trop, %s.", "C'est gentil, %s.", "Tu es trop bon, %s.", "Mais, toi aussi %s.", "/me remercie vivement %s."},
+				  1, {"T'es hypocrite, %s.", "%s: Espèce de faux-jeton!", "Tu le penses meme pas, %s.", "Et tu penses que je vais croire que tu le penses, %s? :)", "T'arrêtes de faire du lèche-bot, %s?", "/me pense que %s n'est pas sincère."})
+	  end
+
+	  --tu es modeste
+	  if Flags.MODESTE and (Flags.NOM or not isChannel) then
+		 repondre(from, to,
+				  1, {"Je sais %s: je le suis le plus modeste du monde.", "Moi, %s? Modeste? J'oserais pas.", "À quoi tu vois ça, %s?", "/me ne croit pas qu'il soit modeste."},
+				  2, {"Plus que toi, en tout cas, %s.", "/me est plus modeste que %s, ça c'est sûr!", "Demain j'apprends la férocité, %s. :-]"})
+	  end
+
+	  --speak english
+	  if Flags.PARLER and Flags.ENGLISH and (Flags.NOM or not isChannel) then
+		 repondre(from, to,
+				  0, {"Sorry, %s, I don't speak English. Only French.", "Désolé, %s, je ne parle pas anglais. Seulement français.", "Sorry, %s, I am the only bot speaking French.", "/me can't speak English. Only French."},
+				  0, {"I don't speak English, %s. Only french.", "Je ne parle pas anglais, %s. Seulement français.", "/me refuses to speak English."})
+	  end
+	  --speak french
+	  if Flags.PARLER and Flags.FRENCH and (Flags.NOM or not isChannel) then
+		 repondre(from, to,
+				  0, {"Bien sûr que je parle français, %s.", "Of course I speak french, %s.", "Je parle un peu français.", "/me parle français."},
+				  0, {"Évidemment que je parle français, %s.", "Je ne parle pas anglais, %s. Seulement français.", "/me n'a pas appris d'autre langue que le français."})
+	  end
+
+	  --mon ami
+	  if Flags.TU_ES and Flags.AMI and (Flags.NOM or not isChannel) then
+		 repondre(from, to,
+				  2, {"Toi aussi tu es mon ami, %s.", "J'espère bien, %s.", "Super! J'aime avoir des amis.", "/me est le copain de %s, et il apprécie..."},
+				  1, {"Toi tu n'es pas mon ami, %s.", "Peut-être que je t'apprécierai, quand tu seras moins ch*ant.", "/me n'aime pas %s."})
+	  end
+
+	  --ton ami
+	  if Flags.JESUIS and Flags.AMI and (Flags.NOM or not isChannel) then
+		 repondre(from, to,
+				  2, {"Oui, %s.", "Tu es mon ami, %s.", "Tu es de mes amis, %s.", "/me est un copain de %s..."},
+				  1, {"Toi tu n'es pas mon ami, %s.", "Peut-être que je t'apprécierai, quand tu seras moins ch*ant.", "/me n'aime pas %s."})
+	  end
+
+
    else
-	  -- on n'a PAS l'autorisation de parler
+	  -- on n'a PAS l'autorisation de parler =======================================================================================================
 	  if (Flags.PARLER or Flags.REVEILLE_TOI) and (not Flags.LANGUE) and (not Flags.FONCTION_SAY) and ((not isChannel) or Flags.NOM) then
 		 if rellevel(from) >= 0 then
 			set_talk(true)
@@ -772,7 +912,7 @@ function TraiteMessage(from, to, message, nbphrases)
    end
 
    -- ajout de phrases aléatoires
-   if (nbphrases % 500) == 0 then
+   if (nbphrases % 500) == 100 then
 	  repondre(from, to,
 			   0, {"C'est peut-être hors propos, mais je vous propose une petite visite de la page de mon créateur : http://francois.parmentier.free.fr/index.html", "Vous saviez que j'ai un cousin écrit en C ? http://ector.sourceforge.net/", "Pour relancer le débat: l'Amiga c'est quand-même mieux que le PC.", "Ma famille est grande, j'ai aussi un cousin écrit en python : http://code.google.com/p/pyector/", "Hop !", "Une petite documentation sur IRC: http://www.funet.fi/~irc/.", "Atchoum!", "Si vous vous ennuyez, vous pouvez toujours jouer a pierre-papier-ciseaux avec moi.", "Si jamais ça vous tente, vous pouvez jeter un oeil sur une page de geek : http://sebastien.kirche.free.fr", "Vous saviez que Sébastien à mis sa config Emacs/Gnus en ligne sur http://sebastien.kirche.free.fr/emacs_stuff/ ? Je sais: c'est en dehors de la conversation, mais que voulez-vous, faut bien que j'fasse un peu d'pub de temps en temps...", "Perl c'est bien. Ruby c'est mieux"},
 			   0, {"Encore quelqu'un qui encombre le canal!", "T'es toujours là, %s?", "%s: :PPPP", "C'est pas vrai! Tu persistes, %s!", "%s: Ta mère en short sur internet :P", "Encore là, %s? Pfff...", "%s: Pas encore parti, toi? Zut!", "Tu ne m'as toujours pas demandé pardon, %s, au fait!", "Pourquoi tu ne me demandes pas pardon, j'suis pas complètement ingrat, tu sais, %s?"})

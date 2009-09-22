@@ -159,32 +159,55 @@ int c2l_setlocutorsalutes(lua_State *L)
 	return 0;
 }
 
-int c2l_userlevel(lua_State *L)
+int c2l_getuserlevel(lua_State *L)
 {
 	const char *name = luaL_checkstring(L, 1);
 	lua_pushnumber(L, userlevel(name));
 	return 1;
 }
 
-int c2l_protlevel(lua_State *L)
+int c2l_getprotlevel(lua_State *L)
 {
 	const char *name = luaL_checkstring(L, 1);
 	lua_pushnumber(L, protlevel(name));
 	return 1;
 }
 
-int c2l_shitlevel(lua_State *L)
+int c2l_getshitlevel(lua_State *L)
 {
 	const char *name = luaL_checkstring(L, 1);
 	lua_pushnumber(L, shitlevel(name));
 	return 1;
 }
 
-int c2l_rellevel(lua_State *L)
+int c2l_getrellevel(lua_State *L)
 {
 	const char *name = luaL_checkstring(L, 1);
 	lua_pushnumber(L, rellevel(name));
 	return 1;
+}
+
+int c2l_existuserhost(lua_State *L)
+{
+	const char *from = luaL_checkstring(L, 1);
+	lua_pushboolean(L, exist_userhost (currentbot->lists->rellist, from) != NULL);
+	return 1;
+}
+
+int c2l_addtolevellist(lua_State *L)
+{
+	const char *from = luaL_checkstring(L, 1);
+	add_to_levellist(currentbot->lists->rellist, NickUserStr(from), 0);
+	return 0;
+}
+
+int c2l_addtolevel(lua_State *L)
+{
+	const char *from = luaL_checkstring(L, 1);
+	int level = luaL_checknumber(L, 2);
+
+	add_to_levellist(currentbot->lists->rellist, from, level);
+	return 0;
 }
 
 int c2l_chaineestdans(lua_State *L)
@@ -238,6 +261,36 @@ int c2l_repondre(lua_State *L)
 		}
 	}
 	Repondre(from, to, humpos, nbpos, Rpos, humneg, nbneg, Rneg);
+	return 0;
+}
+
+int c2l_kickerrepondre(lua_State *L)
+{
+	int i;
+	char **Rpos = 0, **Rneg = 0;
+	const char *from = luaL_checkstring(L, 1);
+	const char *to = luaL_checkstring(L, 2);
+	int humpos = luaL_checknumber(L, 3);
+	int nbpos = lua_objlen(L, 4);//luaL_checknumber(L, 4);
+	int humneg = luaL_checknumber(L, 5);
+	int nbneg = lua_objlen(L, 6);//luaL_checknumber(L, 7);
+	if(lua_istable(L, 4)){
+		Rpos = malloc(nbpos * sizeof(char *));
+		for(i=0; i<nbpos; i++){
+			lua_rawgeti(L, 4, i+1);
+			Rpos[i] = strdup(lua_tostring(L, -1));
+			lua_pop(L, 1);
+		}
+	}
+	if(lua_istable(L, 6)){
+		Rneg = malloc(nbneg * sizeof(char *));
+		for(i=0; i<nbneg; i++){
+			lua_rawgeti(L, 6, i+1);
+			Rneg[i] = strdup(lua_tostring(L, -1));
+			lua_pop(L, 1);
+		}
+	}
+	KickerRepondre(from, to, humpos, nbpos, Rpos, humneg, nbneg, Rneg);
 	return 0;
 }
 
@@ -299,14 +352,18 @@ void register_cstuff()
 	lua_register(L, "locuteur_bonjours", c2l_getlocutorsalutes);
 	lua_register(L, "locuteur_derniercontact", c2l_getlocutorlastcontact);
 	lua_register(L, "locuteur_setbonjours", c2l_setlocutorsalutes);
-	lua_register(L, "userlever", c2l_userlevel);
-	lua_register(L, "shitlevel", c2l_shitlevel);
-	lua_register(L, "protlevel", c2l_protlevel);
-	lua_register(L, "rellevel", c2l_rellevel);
+	lua_register(L, "userlevel", c2l_getuserlevel);
+	lua_register(L, "shitlevel", c2l_getshitlevel);
+	lua_register(L, "protlevel", c2l_getprotlevel);
+	lua_register(L, "rellevel", c2l_getrellevel);
+	lua_register(L, "exist_userhost", c2l_existuserhost);	
+	lua_register(L, "add_to_levellist", c2l_addtolevellist);	
+	lua_register(L, "add_to_level", c2l_addtolevel);
 	lua_register(L, "chaine_est_dans", c2l_chaineestdans);
 	lua_register(L, "send_to_user", c2l_sendtouser);
 	lua_register(L, "send_notice", c2l_sendnotice);
 	lua_register(L, "repondre", c2l_repondre);
+	lua_register(L, "kicker_repondre", c2l_kickerrepondre);
 	lua_register(L, "botlog", c2l_botlog);
 }
 
