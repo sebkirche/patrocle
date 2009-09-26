@@ -123,7 +123,7 @@ void MAJDernierContact (locuteur *Locuteur)
 			AnnuleBonjours (Locuteur);
 		}
 		Locuteur->LastSeen = time(NULL);
-		Locuteur->DernierContact = time2hours (time (NULL));
+		Locuteur->DernierContact = time2hours(Locuteur->LastSeen);
 	}
 }
 
@@ -190,7 +190,7 @@ int SauveLocuteurs (locuteur **Liste, char *NomFichier)
 	fprintf( fichier, "#############################################\n" );
 	fprintf( fichier, "## %s\n", NomFichier );
 	fprintf( fichier, "## Created: %s", ctime( &T ) );
-	fprintf( fichier, "## (c) 1996 H_I (parmenti@loria.fr)\n" );
+	fprintf( fichier, "## (c) 2009 seki (sebastien.kirche@free.fr)\n" );
 	fprintf( fichier, "#############################################\n" );
 	
 	for (Locuteur = *Liste; Locuteur; Locuteur = Locuteur->suivant)

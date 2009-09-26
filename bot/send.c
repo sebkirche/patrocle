@@ -46,7 +46,7 @@ int	sendprivmsg(const char *sendto, const char *format, ...)
 	char buf[WAYTOBIG];
 	va_list	msg;
 
-	//todo : factoriser
+	//TODO: factoriser
 	char  *pbuf = (char*)&buf;
 	char utfized[WAYTOBIG*2], *putf = (char*)&utfized;
 	CHAN_list *Channel_to;

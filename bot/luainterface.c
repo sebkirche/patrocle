@@ -70,7 +70,11 @@ int c2l_settalk(lua_State *L)
 	int talk;
 	if lua_isboolean(L, 2){
 		talk = lua_toboolean(L, 2);
+		lua_pop(L, 1);
 		CHAN_list *Channel_to  = (ischannel(name) ? search_chan(name) : 0);
+#ifdef DBUG
+		printf("c2l_settalk() on <%s> (we received '%s') to %d\n", Channel_to?Channel_to->name:"chan inconnu", name, talk);
+#endif
 		if (Channel_to)
 			Channel_to->talk = talk;
 	}
@@ -116,7 +120,7 @@ int c2l_addlocutor(lua_State *L)
 	return 1;
 }
 
-//TODO : remplacer le light user data pour passer le pointeur Locuteur par un userdata avec metatables
+//TODO: remplacer le light user data pour passer le pointeur Locuteur par un userdata avec metatables
 
 int c2l_getlocutorsalutes(lua_State *L)
 {
@@ -333,6 +337,13 @@ int c2l_botlog(lua_State *L)
 	return 0;
 }
 
+int c2l_time2hours(lua_State *L)
+{
+	const int instant = luaL_checknumber(L, 1);
+	lua_pushnumber(L, time2hours(instant));
+	return 1;
+}
+	
 void register_cstuff()
 {
 	//strings
@@ -340,18 +351,28 @@ void register_cstuff()
 	lua_setglobal(L, "LOGFILE");
 	lua_pushstring(L, ERRFILE);
 	lua_setglobal(L, "ERRFILE");
+	
+	//levels
+	lua_pushnumber(L, AUTO_OPLVL);
+	lua_setglobal(L, "AUTO_OPLVL");
+	lua_pushnumber(L, SYMPA_LVL);
+	lua_setglobal(L, "SYMPA_LVL");
+	lua_pushnumber(L, CONFIANCE_LVL);
+	lua_setglobal(L, "CONFIANCE_LVL");
+	lua_pushnumber(L, DEFAUT_LVL);
+	lua_setglobal(L, "DEFAUT_LVL");
 
 	//interface functions
 	lua_register(L, "is_channel", c2l_ischannel);
 	lua_register(L, "can_talk", c2l_cantalk);
-	lua_register(L, "set_talk", c2l_cantalk);
+	lua_register(L, "set_talk", c2l_settalk);
 	lua_register(L, "is_log_on", c2l_islogon);
 	lua_register(L, "nick_user_str", c2l_nickuserstr);
 	lua_register(L, "locuteur_existe", c2l_locutorexists);
 	lua_register(L, "ajoute_locuteur", c2l_addlocutor);
-	lua_register(L, "locuteur_bonjours", c2l_getlocutorsalutes);
-	lua_register(L, "locuteur_derniercontact", c2l_getlocutorlastcontact);
+	lua_register(L, "locuteur_getbonjours", c2l_getlocutorsalutes);
 	lua_register(L, "locuteur_setbonjours", c2l_setlocutorsalutes);
+	lua_register(L, "locuteur_derniercontact", c2l_getlocutorlastcontact);
 	lua_register(L, "userlevel", c2l_getuserlevel);
 	lua_register(L, "shitlevel", c2l_getshitlevel);
 	lua_register(L, "protlevel", c2l_getprotlevel);
@@ -365,6 +386,7 @@ void register_cstuff()
 	lua_register(L, "repondre", c2l_repondre);
 	lua_register(L, "kicker_repondre", c2l_kickerrepondre);
 	lua_register(L, "botlog", c2l_botlog);
+	lua_register(L, "time2hours", c2l_time2hours);
 }
 
 int init_lua()
@@ -427,8 +449,8 @@ void    LuaTraite (botinfo	*currentbot, char *from, char *to, char *msg, int num
 	}
 	// était dans Traite()
 	/* Si c'est un nouveau jour */
-	if (Jour != time2day (time (NULL))) {
-		Jour = time2day (time (NULL));
+	if (Jour != gettimeday(time (NULL))) {
+		Jour = gettimeday (time (NULL));
 		
 		/* On sauvegarde le fichier des relations */
 		cancel_level (currentbot->lists->rellist, DEFAUT_LVL);

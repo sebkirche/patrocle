@@ -26,7 +26,7 @@ Bots = {
       channels = {
 		--{name = "#emacsfr", mode = "", topic = "", encoding = "UTF-8"},
 		 {name = "#seki", mode = "",topic = "",	encoding = "iso-8859-1"},
-		 {name = "#seki8", mode = "",topic = "#seki8, le canal d'essai de Patrocle en utf-8",	encoding = ""}
+		 {name = "#patrocle", mode = "",topic = "Bienvenue chez Patrocle, le bot parlant",	encoding = "utf-8"}
       },
       servers = {"irc.freenode.org"},
       stims = "Citations.stim",
@@ -45,8 +45,8 @@ Bots = {
       login = "patrocle",			--login name for the server
       channels = {
 		--{name = "#emacsfr", mode = "", topic = "", encoding = "UTF-8"},
-		 {name = "#seki", mode = "",topic = "",	encoding = "iso-8859-1"},
-		 {name = "#seki8", mode = "",topic = "#seki8, le canal d'essai de Patrocle en utf-8", encoding = ""}
+		--{name = "#seki", mode = "",topic = "",	encoding = "iso-8859-1"},
+		 {name = "#patrocle", mode = "",topic = "Bienvenue chez Patrocle, le bot parlant",	encoding = "utf-8"}
       },
       servers = {"ircnet.nerim.fr"},
       stims = "Citations.stim",

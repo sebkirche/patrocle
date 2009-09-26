@@ -41,7 +41,7 @@ USERLVL_list    *exist_userhost ( USERLVL_list **l_list, const char *userhost )
 	return(NULL);
 }
 
-USERLVL_list	*find_userhost( USERLVL_list **l_list, char *userhost )
+USERLVL_list	*find_userhost( USERLVL_list **l_list, const char *userhost )
 {
 	USERLVL_list	*User;
 

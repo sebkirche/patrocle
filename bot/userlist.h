@@ -28,7 +28,7 @@ typedef struct	USERLVL_struct
 } USERLVL_list;
 
 USERLVL_list    *exist_userhost ( USERLVL_list **l_list, const char *userhost );
-USERLVL_list	*find_userhost( USERLVL_list **l_list, char *userhost );
+USERLVL_list	*find_userhost( USERLVL_list **l_list, const char *userhost );
 USERLVL_list	**init_levellist();
 void			add_to_levellist( USERLVL_list **l_list, const char *userhost, int level );
 int				remove_from_levellist( USERLVL_list **l_list, char *userhost );

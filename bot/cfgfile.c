@@ -372,7 +372,7 @@ void	add_server(botinfo *bot, char *servername)
 {  
 	int	port = 0;
 	
-	//TODO parse the port
+	//TODO: parse the port
 	port = 6667;
 		
 	if(find_server(bot, servername, port))

@@ -1,9 +1,9 @@
 #############################################
 ## user.list
-## Created: Sat Sep 19 16:25:35 2009
+## Created: Sat Sep 26 13:28:37 2009
 ## (c) 1993 VladDrac (irvdwijk@cs.vu.nl)
 #############################################
-                            *!*@*.seki.fr 150
-  pgas!*n=user@pdpc/supporter/active/pgas 50
              kh!*n=karim@*.davromaniak.eu 50
+  pgas!*n=user@pdpc/supporter/active/pgas 50
+                            *!*@*.seki.fr 150
 # End of user.list
