@@ -1,32 +1,33 @@
 #############################################
 ## rel.list
-## Created: Sat Sep 19 16:25:35 2009
+## Created: Sat Sep 26 18:36:03 2009
 ## (c) 1993 VladDrac (irvdwijk@cs.vu.nl)
 #############################################
-                  seki`!*n=seki@*.seki.fr 6
-             adrien!*n=brilhaua@*.imag.fr 3
-                   seki!*n=user@*.seki.fr 999
- theoliane!*n=helen@*.w92-132.abo.wanadoo.fr 4
- theoliane!*n=helen@*.w90-51.abo.wanadoo.fr 1
-                  seki-!*n=Seki@*.seki.fr 6
-                sekibis!*n=user@*.seki.fr 6
-       ngirard!*n=ngirard@*.pck.nerim.net 6
-    thbkrshw!*n=thbkrshw@*.fbx.proxad.net 6
-  pgas!*n=user@pdpc/supporter/active/pgas 26
-         auzain!*n=user@*.adsl.proxad.net 12
-              seki_zzzz!*n=seki@*.seki.fr 8
-                 seki__!*n=seki@*.seki.fr 6
-           kaaah!n=karim@*.davromaniak.eu 10
-              kh!n=karim@*.davromaniak.eu 27
-       ecocode!n=ecocode@*.dsl.scarlet.be 25
-                    seki!*=seki@*.seki.fr 88
-           fsbot!*n=user@*.pepperfish.net 3
-             ecocode!*n=ecocode@*.ovh.net 16
-                     kh!*n=karim@88.191.* -4
-            zeDek!*n=xma@*.fbx.proxad.net 3
-              xma!*n=xma@*.fbx.proxad.net 6
- Chokoloff!*n=Gauthier@*.130.192-77.rev.gaoland.net 6
- theoliane!*n=helen@*.w90-22.abo.wanadoo.fr 6
-                2502AAAAX!*seki@*.seki.fr 6
+                      vpm!*n=vpm@*.fdn.fr 6
               seki_away!*n=seki@*.seki.fr 6
+                2502AAAAX!*seki@*.seki.fr 6
+ theoliane!*n=helen@*.w90-22.abo.wanadoo.fr 6
+ Chokoloff!*n=Gauthier@*.130.192-77.rev.gaoland.net 6
+              xma!*n=xma@*.fbx.proxad.net 6
+            zeDek!*n=xma@*.fbx.proxad.net 3
+                     kh!*n=karim@88.191.* -4
+             ecocode!*n=ecocode@*.ovh.net 16
+           fsbot!*n=user@*.pepperfish.net 3
+                    seki!*=seki@*.seki.fr 95
+       ecocode!n=ecocode@*.dsl.scarlet.be 25
+              kh!n=karim@*.davromaniak.eu 27
+           kaaah!n=karim@*.davromaniak.eu 10
+                 seki__!*n=seki@*.seki.fr 6
+              seki_zzzz!*n=seki@*.seki.fr 8
+         auzain!*n=user@*.adsl.proxad.net 12
+  pgas!*n=user@pdpc/supporter/active/pgas 26
+    thbkrshw!*n=thbkrshw@*.fbx.proxad.net 6
+       ngirard!*n=ngirard@*.pck.nerim.net 6
+                sekibis!*n=user@*.seki.fr 6
+                  seki-!*n=Seki@*.seki.fr 6
+ theoliane!*n=helen@*.w90-51.abo.wanadoo.fr 1
+ theoliane!*n=helen@*.w92-132.abo.wanadoo.fr 4
+                   seki!*n=user@*.seki.fr 999
+             adrien!*n=brilhaua@*.imag.fr 3
+                  seki`!*n=seki@*.seki.fr 6
 # End of rel.list

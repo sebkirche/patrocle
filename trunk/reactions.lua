@@ -22,18 +22,18 @@ Triggers = {
 	 "ILYA"},
 
 	{{"bonjour", "bonne journee", "bjr", "'jour", "hello", "hola" --[[ En espagnol]], {"lo ", "^rigolo"},  "szia" --[[ En hongrois ]], "hei " --[[ En finnois ]],  {"hej", "^hej da" --[[ En suedois ]]}, "salam" --[[ En arabe ]], "zdravi" --[[ En slovaque ]]},
-		  "BONJOUR"},
+	 "BONJOUR"},
 
-	   {{"salu",
-		 {"hi ", "^high", "^hihi","^chi"},
-		 "coucou", "kikou", "youhou", "heya", "beuha", "yo ", "hugh", "'lut", "lut ", "slt", "hallo" --[[ En allemand ]], "tjena" --[[ En suedois ]]},
-		 "SALUT"},
+	{{"salu",
+	  {"hi ", "^high", "^hihi","^chi"},
+	  "coucou", "kikou", "youhou", "heya", "beuha", "yo ", "hugh", "'lut", "lut ", "slt", "hallo" --[[ En allemand ]], "tjena" --[[ En suedois ]]},
+	  "SALUT"},
 
-		{{"je reste"},
-		 "JE_RESTE"},
+	 {{"je reste"},
+	  "JE_RESTE"},
 
-		{{"ça va", "ca va", "ca gaz", "vas-tu", "vas tu", "vas bien", "va bien", "en forme", "le moral", "la forme", "comment va", "comment tu va", "comment te sens-tu", "comment te sens tu", "comment tu te sens", "comment tu t'sens", "ti k'sa va", "ca baigne", "ca boume", "ca roule", "sens bien", "vous allez bien", "allez-vous bien", "comment vous allez", "comment allez-vous", "commen y le" --[[en creole]] , "how are u", "how are you", "how do you do", "Mita kuuluu" --[[en finnois]], "tu rak bikir" --[[en arabe]]},
-			  "CAVA"},
+	 {{"ça va", "ca va", "ca gaz", "vas-tu", "vas tu", "vas bien", "va bien", "en forme", "le moral", "la forme", "comment va", "comment tu va", "comment te sens-tu", "comment te sens tu", "comment tu te sens", "comment tu t'sens", "ti k'sa va", "ca baigne", "ca boume", "ca roule", "sens bien", "vous allez bien", "allez-vous bien", "comment vous allez", "comment allez-vous", "commen y le" --[[en creole]] , "how are u", "how are you", "how do you do", "Mita kuuluu" --[[en finnois]], "tu rak bikir" --[[en arabe]]},
+		   "CAVA"},
 
 	  {{"au revoir", "arvoir", "arrosoir persi", "a+", "a plus", "m'en vais", "a bientot", {"bon week end", "^passe un bon"}, "bon we", "bon week-end", "m'en aller", " partir", "vais y aller", "vais vous laisser", "y vais", "bye", "a demain", "a 2 mains", "adtaleur", "ad'taleur", "a tout-a-l'heure", "a tout a l'heure", "a tout a l heure", "a tt a l'heure", "nar r'trouv" --[[ Creole ]],"n'artrouv", "n'ar trouv", " me casse", " m'casse", "vous laisse", "je te laisse", "a un de ces quatres", "a un de ces 4", "a un de c 4", "a 1 de c 4", "a12c4", "a1274", "see you", "see u", "see ya", "later", "c u ", "je pars", "je parte", "tchao", "tshaw", "ciao", "j'y aille", "me sauve", "hasta luego", "arwar", "a la prochaine", "vi ses" --[[ En suedois : "on se voit" ]],"cassos", {"je rentre","^quand "},"revoyure", "r'voyure", "wiedersehen", "wieder sehen", "have to go", "I must go", "time to go", "nar trouver zot tout" --[[ En Creole ]],"hej da" --[[En suedois ]]},
 			"AUREVOIR"},
@@ -76,6 +76,12 @@ Triggers = {
 	{{"nancy"},
 	 "NANCY"},
 
+	{{"metz"},
+	 "METZ"},
+
+	{{"laquenexy"},
+	 "LAQUENEXY"},
+
 	{{"parent", "pere", "papa", " mere", "maman"},
 	 "PARENTS"},
 
@@ -106,7 +112,7 @@ Triggers = {
 	{{{"aper", "^taper"}, "bon appe", "bonne appe" --[[ Pfff! ]], "bonne bouffe", "suze", "ricard"},
 		  "BONAPP"}, --[[ TODO DOUBLON SUR APER ??]]
 
-	{{"dejeuner", "diner", "manger", "grailler", "bouffer"},
+	{{"dejeuner", "diner", "manger", "grailler", "bouffer", "casser la croute"},
 	 "REPAS"},
 
 	{{"je pars ", "vais aller", "je vais", "je v ", "je file"},
@@ -121,7 +127,7 @@ Triggers = {
 	{{"boire", "apero", "champagne", "pommard", "pastis", "buvons", " vin "},
 	 "ABOIRE"},
 
-	{{" moi ", "je ", "j'", " me "},
+	{{" moi ", "je ", "j'", " me ", "je m'"},
 	 "MOI"},
 
 	{{"pelforth", "Guinness", "Guiness" --[[ erreur courante ]], "Kro", "K-net", "canette", "binouse", " pel ", " mousse", "biere"},
@@ -595,38 +601,38 @@ end
 
 function TraiteMessage(from, to, message, nbphrases)
 
+   processStart = os.clock()
+
+   print("----- TraiteMessage ()-----------------------------------------------------------")
    print(string.format("Message de %s -> %s : '%s'", from, to, message))
 
-   tdeb = os.clock()
+   print("Levels : AUTO_OPLVL=".. AUTO_OPLVL .. " SYMPA_LVL=" .. SYMPA_LVL .. " CONFIANCE_LVL=" .. CONFIANCE_LVL .. " DEFAUT_LVL=" .. DEFAUT_LVL)
+   print("rellevel(" .. from .. ")=" .. rellevel(from))
+   print("userlevel(" .. from .. ")=" .. userlevel(from))
+   print("protlevel(" .. from .. ")=" .. protlevel(from))
+   print("shitlevel(" .. from .. ")=" .. shitlevel(from))
+
+
    ProcessFlags(from, to, message)
 
    --ajustements
    --local Flags = Flags   
    if Flags.NEGATION then
 	  if Flags.LIBRE then
-		 Flags.LIBRE = false
-		 if NOT(Flags.OCCUPE) then 
-			Flags.OCCUPE = true
-		 end
+		 Flags.LIBRE = false 
+		 if NOT(Flags.OCCUPE) then Flags.OCCUPE = true end
 	  elseif Flags.OCCUPE then
 		 Flags.OCCUPE = false
-		 if NOT(Flags.LIBRE) then 
-			Flags.LIBRE = true
-		 end
+		 if NOT(Flags.LIBRE) then Flags.LIBRE = true end
 	  end
 
-	  if Flags.JE_T_AIME then
-		 Flags.JE_T_AIME = false
-	  end
+	  if Flags.JE_T_AIME then Flags.JE_T_AIME = false end
 
-	  if Flags.ABOIRE then
-		 Flags.ABOIRE = false
-	  end
-	  if Flags.ENERVEMENT then
-		 Flags.ENERVEMENT = false
-	  end
+	  if Flags.ABOIRE then Flags.ABOIRE = false end
+	  if Flags.ENERVEMENT then Flags.ENERVEMENT = false end
 	  if Flags.AUREVOIR then Flags.AUREVOIR = false end
 	  if Flags.MERCI then Flags.MERCI = false end
+
 	  if Flags.INJURE then
 		 Flags.INJURE = false
 		 Flags.COMPLIMENT = true
@@ -654,15 +660,18 @@ function TraiteMessage(from, to, message, nbphrases)
 			Flags.ENGLISH = false
 		 end
 	  end
+
 	  if Flags.TOUTSEUL then
 		 Flags.TOUTSEUL = false
 		 Flags.QUELQUUN = true
 	  end
+
 	  if Flags.ENERVEMENT then Flags.ENERVEMENT = false end
 	  if Flags.BISOUS then Flags.BISOUS = false end
 	  if Flags.DACCORD then Flags.DACCORD = false end
 	  if Flags.EXCUSE then Flags.EXCUSE = false end
 	  if Flags.AMI then Flags.AMI = false end
+
 	  if Flags.GRAND then
 		 Flags.GRAND = false
 		 Flags.PETIT = true
@@ -670,6 +679,7 @@ function TraiteMessage(from, to, message, nbphrases)
 		 Flags.GRAND = true
 		 Flags.PETIT = false
 	  end
+
 	  if Flags.CALME then
 		 Flags.CALME = false
 	  end
@@ -685,14 +695,12 @@ function TraiteMessage(from, to, message, nbphrases)
 		 Flags.POUR = not(Flags.POUR)
 	  end
 	  
-	  if Flags.MODESTE then
-		 Flags.MODESTE = false
-	  end
+	  if Flags.MODESTE then Flags.MODESTE = false end
+	  if Flags.CONTENT then Flags.CONTENT = false end
+	  if Flags.JEMENVAIS then Flags.JEMENVAIS = false end
 
-	  if Flags.CONTENT then
-		 Flags.CONTENT = false
-	  end
-   end   
+   end  --negation
+
    if chaine_est_dans(message, "il fait") or chaine_est_dans(message, "temps") then
 	  if Flags.INJURE then
 		 Flags.INJURE = false
@@ -705,9 +713,6 @@ function TraiteMessage(from, to, message, nbphrases)
    Flags.LANGUE = Flags.FRENCH or Flags.ENGLISH or Flags.SWEDISH
 
    Flags.FONCTION = Flags.FONCTION_SAY or Flags.FONCTION_FUCK or Flags.FONCTION_JOIN or Flags.FONCTION_ACTIVE or Flags.FONCTION_DESACTIVE or Flags.FONCTION_APPRENDS
-
-   tfin = os.clock()
-   print(string.format("elapsed time: %.2f\n", tfin-tdeb))
 
    print("liste des flags")
    for k,v in pairs(Flags) do if v then print(k) end end
@@ -733,6 +738,8 @@ function TraiteMessage(from, to, message, nbphrases)
 	  canTalk = true
    end
 
+   print("CanTalk ? =" .. tostring(canTalk));
+
    if canTalk then
 	  -- on a l'autorisation de parler
 
@@ -742,7 +749,7 @@ function TraiteMessage(from, to, message, nbphrases)
 		 Locuteur = ajoute_locuteur(from)
 		 --print("ajoute_locuteur(" .. from .. ") a retourné " .. tostring(Locuteur))
 	  end
-	  --print("locuteur_bonjours(" .. tostring(Locuteur) .. ") a retourné " .. locuteur_bonjours(Locuteur))
+	  --print("locuteur_getbonjours(" .. tostring(Locuteur) .. ") a retourné " .. locuteur_getbonjours(Locuteur))
 
 	  ProcessReponsesSimples(from, to)
 
@@ -753,7 +760,7 @@ function TraiteMessage(from, to, message, nbphrases)
 
 	  if Flags.STP then repondre(from, to, 2, {}, 3, {}) end -- on remonte en étant poli :o)
 
-	  LocBonjours = locuteur_bonjours(Locuteur)
+	  LocBonjours = locuteur_getbonjours(Locuteur)
 
 	  --Bonjour
 	  if (Flags.BONJOUR and (Flags.NOM or (not isChannel))) and LocBonjours <= 0 then
@@ -772,15 +779,14 @@ function TraiteMessage(from, to, message, nbphrases)
 	  end
 
 	  --12h depuis dernier contact ?
-	  print ("test dernier contact > 12h : now =" .. os.time())
-	  print ("test dernier contact > 12h : nowdernier contact =" .. locuteur_derniercontact(Locuteur))
-	  datedif = (os.time() - locuteur_derniercontact(Locuteur))
+	  now = time2hours(os.time())
+	  datedif = (now - locuteur_derniercontact(Locuteur))
 	  print ("test dernier contact > 12h : now - dernier contact =" .. datedif)
-	  if (LocBonjours > 0) and ((datedif / 3600) > 12) then
+	  if (LocBonjours > 0) and (datedif > 12) then
 		 locuteur_setbonjours(Locuteur, 0)
 	  end
 	  
-	  LocBonjours = locuteur_bonjours(Locuteur)
+	  LocBonjours = locuteur_getbonjours(Locuteur)
 	  if Flags.SALUT and (Flags.NOM or not isChannel) and (LocBonjours <= 1) and (LocBonjours >= 0 ) then
 		 if LocBonjours > 0 then
 			salut = "Au revoir, %s."
@@ -796,12 +802,12 @@ function TraiteMessage(from, to, message, nbphrases)
 		 else
 			locuteur_setbonjours(Locuteur, LocBonjours + 1)
 		 end
-		 LocBonjours = locuteur_bonjours(Locuteur)
+		 LocBonjours = locuteur_getbonjours(Locuteur)
 	  end
 	  
 	  --je reste
 	  if Flags.JE_RESTE and (Flags.NOM or not isChannel) then
-		 if locuteur_bonjours(Locuteur) < 0 then
+		 if locuteur_getbonjours(Locuteur) < 0 then
 			repondre(from, to,
 					 1, {"Excuse moi %s, j'avais pas compris.", "%s: Oups. Je n'ai pas fait assez attention.", "Tant mieux %s.", "J'ai cru que tu partais, %s.", "Je préfères que tu sois là, %s.", "Je me sens moins seul quand tu es là, %s.", "J'ai sans doute mal compris, %s.", "J'espère que tu restes longtemps, %s.", "Super, %s."},
 					 1, {"%s: Zut!", "Tant pis, %s!", "Grmbl..."})
@@ -816,7 +822,7 @@ function TraiteMessage(from, to, message, nbphrases)
 	  end
 
 	  --au revoir
-	  if Flags.AUREVOIR and (Flags.NOM or not isChannel) and (locuteur_bonjours(Locuteur) >= 0) then
+	  if Flags.AUREVOIR and (Flags.NOM or not isChannel) and (locuteur_getbonjours(Locuteur) >= 0) then
 		 repondre(from, to,
 				  1, {"À bientôt %s.", "Au revoir %s.", "Au plaisir de te revoir %s.", "À plus tard %s.", "Reviens-nous bientôt, %s.", "À bientôt, %s.", "À tantôt, %s.", "À la revoyure, %s.", "Bye bye %s.", "Je ne te raccompagne pas, %s: tu connais le chemin. :)", "/me décroche le manteau de %s du porte-manteau et l'aide à l'enfiler."}, 
 				  1, {"En espérant ne plus te revoir, %s.", "%s: Bon débarras!", "Au plaisir de ne plus te revoir %s.", "Débarrasse le plancher, %s!", "Du balai, %s!", "/me attend que %s soit sorti avant de claquer la porte."})
@@ -859,7 +865,7 @@ function TraiteMessage(from, to, message, nbphrases)
 	  --speak english
 	  if Flags.PARLER and Flags.ENGLISH and (Flags.NOM or not isChannel) then
 		 repondre(from, to,
-				  0, {"Sorry, %s, I don't speak English. Only French.", "Désolé, %s, je ne parle pas anglais. Seulement français.", "Sorry, %s, I am the only bot speaking French.", "/me can't speak English. Only French."},
+				  0, {"Sorry, 0%s, I don't speak English. Only French.", "Désolé, %s, je ne parle pas anglais. Seulement français.", "Sorry, %s, I am the only bot speaking French.", "/me can't speak English. Only French."},
 				  0, {"I don't speak English, %s. Only french.", "Je ne parle pas anglais, %s. Seulement français.", "/me refuses to speak English."})
 	  end
 	  --speak french
@@ -883,12 +889,189 @@ function TraiteMessage(from, to, message, nbphrases)
 				  1, {"Toi tu n'es pas mon ami, %s.", "Peut-être que je t'apprécierai, quand tu seras moins ch*ant.", "/me n'aime pas %s."})
 	  end
 
+	  --je te deteste
+	  if Flags.JE_TE_DETESTE and (Flags.NOM or not isChannel) then
+		 repondre(from, to,
+				  -1, {"Ben pas moi, %s.", "Je ne déteste pas encore moi, %s.", "%s: Ben pourquoi?", "Faut pas m'en vouloir, %s : je ne comprends pas toujours ce que tu dis, je ne suis qu'un bot, après tout.", "J'ai dû mal interpréter ce que tu m'as dit %s. Prends bien garde à ne pas dire plus d'une phrase à la fois : je les mélange..."},
+			      -2, {"Ben moi auss, %s: je te déteste.", "C'est réciproque, %s.", "/me n'en a rien à faire..."})
+	  end
+
+	  --swedish
+	  if Flags.PARLER and Flags.SWEDISH and (Flags.NOM or not isChannel) then
+		 repondre(from, to,
+				  0, {"Désolé, %s. Je préfère parler français.", "Je ne sais pas parler suédois, %s. Parle-moi en français.", "J'essaye de parler un peu français, c'est déjà assez difficile, %s."},
+				  0, {"Je ne parle pas du tout suédois, %s.", "Je ne vois pas pourquoi je parlerais suédois, %s."})
+	  end
+
+	  --bebe
+	  if Flags.BEBE then
+		 repondre(from, to,
+				  1, {"Gouzi gouzi, %s. T'es un zoli bébé, hein?", "", "Fais ton rot, %s. Ça ira mieux après.", "", "Regardez moi ça, comme il est joli, le bébé %s.", "", "", "Comme il est mignon, le bébé %s.", "", "", "Comme tu ressembles à ta maman, %s!", "", "", "Oh %s! C'est son père tout craché!", "", "", "Quel zoOoli bébé!", "", "", "On dirait qu'il a les yeux de son grand-père le bébé %s.", "", "", "/me prend %s dans ses bras et le berce tendrement.", ""},
+				  1, {"Tiens! Un schtroumpf!", "", "", "%s: Casse-toi mouflet!", "", "", "Ah! Un Gremlin (%s)!", "", "", "%s: Mouche ton nez et dis bonjour à la dame!", "", ""})
+	  end
+	  
+	  --tout seul ?
+	  if (Flags.JESUIS or Flags.ILYA) and Flags.TOUTSEUL and (Flags.NOM or not isChannel) then
+		 repondre(from, to,
+				  1, {"Mais non, %s, nous ne sommes pas seuls, nous sommes au moins 2.", "Et moi alors, %s, je compte pour du beurre?", "Comptez vous! Je commence: 1", "C'est gentil pour moi, %s!", "Nous sommes tous seuls, %s.", "/me se demande s'il compte pour du beurre..."},
+				  0, {"Ça m'étonne pas, %s!", "%s: le jour où tu ne seras plus seul, il tombera de la m....!", "Tu crois ça, %s? B]"})
+	  end
+
+	  --je suis content
+	  if Flags.JESUIS and Flags.CONTENT and (Flags.NOM or not isChannel) then
+		 repondre(from, to,
+				  1, {"Tant mieux, %s, je ne demande que cela.", "Et moi aussi alors, %s.", "Bravo %s.", "Tant mieux pour toi, %s!", "Moi aussi, %s.", "/me est content pour %s, c'que c'est que l'empathie..."},
+				  1, {"T'est toujours content de toi, %s?", "%s: Tant pis!", "Ça va pas durer %s! B]"})
+	  end
+
+	  --tu habites Nancy ?
+	  if (Flags.HABITE or Flags.ES_TU) and Flags.NANCY and (not Flags.QUEL_ENDROIT) and (Flags.NOM or not isChannel) then
+		 repondre(from, to, 
+				  1, {"J'ai habité à Nancy, %s. Mais j'ai déménagé près de Metz.", "%s: Plus maintenant, mais j'y suis né, à Nancy.", "Nancy, c'est mon pays natal, %s."},
+				  1, {"%s: J'te d'mande si t'es de quelque part ?", "Et toi, %s, t'habites en prison ?", "/me ne donne pas de détail sur sa vie privée."})
+	  end 
+
+	  --tu habites Metz ?
+	  if (Flags.HABITE or Flags.ES_TU) and (Flags.METZ or Flags.LAQUENEXY) and (not Flags.QUEL_ENDROIT) and (Flags.NOM or not isChannel) then
+		 repondre(from, to, 
+				  1, {"En quelque sorte oui, %s, je suis à Laquenexy.", "Oui %s, on peut dire que je réside près de Metz (à Laquenexy).", "Eh oui, %s, je vis à Metz (en fait à Laquenexy).", "/me se trouve près de Metz, à Laquenexy."},
+				  1, {"%s: J'te d'mande si t'es de quelque part ?", "Et toi, %s, t'habites en prison ?", "/me ne donne pas de détail sur sa vie privée."})
+	  end
+
+	  --ennui
+	  if Flags.ENNUI and (Flags.NOM or not isChannel) then
+		 repondre(from, to,
+				  1, {"C'est gentil de te soucier de moi, %s, mais ne t'inquiète pas: je ne m'ennuie jamais.", "Tu sais %s, un bot, ça s'ennuie jamais.", "Tu m'as déjà vu m'ennuyer, %s?", "Sache, %s, que je suis toujours occupé.", "Sache, %s, que je ne m'ennuie jamais.", "%s: J'ai toujours quelque chose à faire.", "Moi, %s? M'ennuyer? :)", "/me ne s'ennuye jamais."},
+				  1, {"Moi, %s, je m'émerveille d'un rien, pas comme toi, je suppose!", "%s: Tu n'admires pas la beauté du silence?", "%s: J'ai la force de ne pas m'ennuyer, moi!"})
+	  end
+
+	  --dormir
+	  if Flags.DORMIR and (not Flags.REVEILLE_TOI) and (Flags.NOM or not isChannel) then
+		 repondre(from, to, 
+				  1, {"C'est gentil de te soucier de moi, %s, mais ne t'inquiète pas: je ne dors jamais.", "Tu sais %s, un bot, ça ne dort jamais.", "Tu m'as déjà vu m'endormir, %s?", "Sache, %s, que je ne m'endors jamais.", "%s: J'ai pas le temps de dormir.", "Moi, %s? Dormir? :)", "J'ai l'air de dormir, %s?", "/me ne dort pas."},
+				  1, {"Moi, %s, je m'émerveille d'un rien, pas comme toi, je suppose!", "%s: Tu n'admires pas la beauté du silence?", "%s: J'ai la force de ne pas m'endormir, moi!"})
+	  end
+
+	  --y a quelqu'un ?
+	  if Flags.ILYA and Flags.QUELQUUN and Flags.QUESTION then --and (Flags.NOM or not isChannel) then
+		 repondre(from, to, 
+				  1, {"Mais oui %s: tu es là.", "Il y a au moins toi et moi, %s.", "Ouhou, %s, je suis là.", "Oui.", "Bien sûr %s, je suis là.", "Je suis là, %s, comme toujours.", "%s: Évidemment qu'il y a quelqu'un!", "/me est là."}, 
+				  0, {"Qu'est-ce que ça peut te faire, %s, qu'il y ait quelqu'un ou non? De toute facon on ne souhaite pas ta présence (sauf si tu te conduis gentiment).", "Je ne sais pas si on peut considérer que comme tu es là, il y a quelqu'un, %s?", "Ça dépend, %s: te considères-tu comme une personne à part entière?"})
+	  end
+  
+	  --c'est calme
+	  if Flags.C_EST and Flags.CALME then
+		 repondre(from, to, 
+				  1, {"C'est le calme avant la tempête?", "Le silence t'angoisse, %s?", "Ça ne va peut-être pas durer.", "Profitons-en. Si ça se trouve, ça va pas durer.", "C'est pas de ma faute, %s!", "Ça repose, non?", "%s: C'est le moment pour faire son yoga!"},
+				  0, {"%s: Et j'espère que ça va continuer.", "Comme tu es là, %s, je pense que ça ne va pas durer!", "Oui, %s, c'était calme avant que tu n'arrives!", "%s: J'ai peur que ça ne dure pas!"})
+	  end
+
+	  --je vais manger
+	  if Flags.JEMENVAIS and Flags.REPAS then
+		 repondre(from, to,
+				  1, {"Bon appétit %s.", "Bon repas, %s.", "Mange bien, %s.", "Régale-toi, %s.", "/me souhaite bon appétit à %s."},
+				  0, {"%s: Si tu pouvais attraper une indigestion!", "J'suis pas un faible humain comme toi, moi, %s. J'ai pas besoin de manger.", "Une petite crise de foie en perspective, %s? :)", "%s: Eh! Faut pas me manger, hein!"})
+	  end
+
+	  --bon app
+	  if Flags.BONAPP and (Flags.NOM or not isChannel) then
+		 repondre(from, to,
+				  1, {"Merci, à toi aussi %s.", "T'es gentil, %s.", "À toi aussi, %s.", "Régale-toi aussi, %s."},
+				  1, {"%s: Comme si je pouvais avoir de l'appétit!", "J'suis pas un faible humain comme toi, moi, %s. J'ai pas besoin de manger.", "Pourquoi je devrais avoir de l'appétit, %s?", "%s: J'espère que tu auras une indigestion!"})
+	  end
+
+
+	  --parle  TODO: revoir les réponses et ajouter la gestion de l'autorisation ?
+	  if Flags.PARLER and (not Flags.LANGUE) and (Flags.NOM or not isChannel) then
+		 repondre(from, to,
+				  0, {"On me l'a déjà dit, %s.", "Ben! Je le sais que je peux parler, %s.", "Tu désires que j'accapare la parole, %s?", "Z'êtes pas lourd, vous!", "Tu confonds, %s: tu voulais peut-être me faire taire?", "/me se demande si %s ne radote pas un peu... À son âge, ce serait normal ;)"},
+				  -1, {"%s: Pourquoi j'devrais parler? Hein?", "T'as besoin de quelqu'un avec qui papoter, %s?", "Tu sais pas parler à quelqu'un d'autre qu'à un bot, %s?", "%s: Tu radotes!", "%s: Z'êtes chiants à dire tout le temps la meme chose!"})
+	  end
+
+	  --enerver ->
+	  if Flags.ENERVEMENT and (not Flags.MOI) and (Flags.NOM or not isChannel) then
+		 repondre(from, to,
+				  0, {"Mais non, %s, j'm'énerve pas!", "J'm'énerve pas, %s: j'explique.", "Tu m'as déjà vu m'énerver vraiment, %s?", "Pourquoi j'm'énerverais, %s?", "Meuh non, j'suis pas énervé!", "/me est calme."},
+				  -1, {"%s: Moi? M'énerver?", "Tu veux que je m'énerve vraiment, %s?", "Tu veux me voir m'énerver, %s?", "%s: Grrrr!", "%s: Oui, tu m'énerves!", "/me est passablement agacé par %s."})
+
+	  end 
+
+	  --enerver <--
+	  if Flags.ENERVEMENT and Flags.MOI and (Flags.NOM or not isChannel) then
+		 repondre(from, to,
+				  -1, {"Mais non, %s, je ne t'énerve pas!", "T'énerve pas, %s, explique calmement.", "Tu t'es vu quand t'es énervé, %s?", "Faut pas s'énerver, %s.", "Meuh non, t'énerve pas, %s, ça vaut pas l'coup.", "Reste cool, %s."},
+			   -1, {"%s: Moi? T'énerver?", "Tu veux que je t'énerve vraiment, %s? :]", "Y'a une solution simple, %s: je te kicke et tu ne nous énerveras plus ici.", "%s: On croirait Joe Dalton!", "Mais c'est qu'on est énervé, %s!"})
+	  end
+
+	  --GESTION SILENCE 
+	  if Flags.TAISTOI and (Flags.NOM or not isChannel) then
+		 Humeur = rellevel(from)
+
+		 if Humeur > SYMPA_LVL then
+			repondre(from, to,
+					 -1,{"%s: Suis-je gênant ? :(", "Avec plaisir, %s.", "Il sera fait selon vos désirs, maître %s.", "J'ai pas envie de me taire, mais j'obtempère. Je t'aime bien, tu sais %s?", "%s: Pour entendre à nouveau ma douce voix, demandez-le moi.", "/me se tait, pour faire plaisir à %s."},
+				     0, {})
+			if isChannel then set_talk(to, false) end
+		 elseif Humeur >= 0 then
+			repondre(from, to, 
+					 -1, {"%s: Suis-je gênant ? :(", "Bon d'accord, %s: je me tais.", "J'ai mal compris %s: tu ne veux tout-de-même pas me faire taire ?.", "Pourquoi tu veux me couper la parole, %s ?", "/me se tait. Mais il proteste."},
+				  0, {})
+			if isChannel then set_talk(to, false) end
+		 elseif Humeur < 0 and Flags.STP then
+			repondre(from, to,
+					 -1, {"%s, je dois avouer que tu m'horripiles, mais comme tu le demandes gentiment, je vais me taire.", "C'est bien parce que tu le demandes poliment, %s. Sinon je ne me serais pas tu.", "Bon! D'accord. J'me tais. Mais tu peux me rendre la parole quand tu veux, %s.", "/me se tait."},
+				  0, {})
+			if isChannel then set_talk(to, false) end
+		 elseif Humeur < 0 and (not Flags.STP) then
+			repondre(from, to,
+					 -1, {"%s: J'te gêne? :[", "Tu crois p't'être que j'ai envie de t'obéir, %s? Je ne suis pas à tes ordres!", "Hé, %s! Tu voudrais pas me demander poliment?", "%s: J'ai pas envie de me taire, la parole c'est tout ce que j'ai!", "%s, je dois te le dire: tu m'énerves. Si tu veux que je t'obéisse, demande-le gentiment."},
+				  0, {})
+		 end
+	  end
+
+	  --LORIA
+	  if Flags.QUEST_CE and Flags.LORIA and (not Flags.NANCY) and (not Flags.ES_TU) then
+		 repondre(from, to,
+				  1, {"%s, le LORIA c'est le Laboratoire Lorrain de Recherche en Informatique et ses Applications.", "%s, le LORIA c'est un bâtiment de la fac de sciences à Nancy.", --[["Le LORIA, %s, c'est un beau bâtiment tout neuf."]] "Le LORIA, c'est le Laboratoire Lorrain de Recherche en Informatique et ses Applications, %s.", "Le LORIA, c'est le laboratoire de recherche dans lequel j'ai appris à parler, %s.", "Si tu veux des détails, %s, va voir à http://www.loria.fr/"},
+				  1, {"%s: Qu'est-ce que t'en as à faire du LORIA?", "De toute façon, %s, ça m'étonnerait que tu y sois un jour, au LORIA!", "Le LORIA, %s, c'est un beau bâtiment climatisé plein d'ordinateurs.", "/me croyait que tout le monde savait ce qu'est le LORIA."})
+	  end
+	  if Flags.LORIA and (Flags.NANCY and Flags.QUEL_ENDROIT) and (Flags.NOM or not isChannel) then
+		 repondre(from, to,
+				  1, {"%s, le LORIA est à Nancy.", "%s, le LORIA c'est le Laboratoire Lorrain de Recherche en Informatique et ses Applications (à Nancy).", "%s, le LORIA c'est un bâtiment de la fac de sciences à Nancy.", --[["Le LORIA, %s, c'est un beau bâtiment tout neuf à Nancy.",]] "À Nancy, évidemment, %s."},
+				  1, {"Évidemment, %s, le LORIA est à Nancy, pfff!", "Bien sûr %s! Le LORIA est situé à Nancy.", "%s: Ça me semble normal, pour le bâtiment du Centre de Recherche en Informatique de Nancy, d'être à Nancy."})
+	  end
+
+	  --bot
+	  if Flags.ES_TU and Flags.UN_BOT and (Flags.NOM or not isChannel) then
+		 repondre(from, to,
+				  1, {"%s: Bah oui. Je suis un bot.", "Je suis un bot, moi, %s, et j'en suis fier.", "Devrais-je avoir honte d'être un bot, %s?", "Moi, je suis un bot, ça m'évite tout un tas de désagrements dûs à la condition humaine, %s.", "Et toi, %s, t'es un bot?", "Eh oui. J'essaye de penser, %s, mais j'y arrive pas beaucoup. :(", "Et toi, %s, tu en penses quoi?", "En tant que bot, je n'ai guère l'occasion de penser, %s.", "Eh oui, %s, je suis un bot.", "/me est effectivement un bot."},
+				  1, {"Je suis un bot, et moi je ne me laisse pas emporter par mes sentiments, %s. Pas comme certains!", "Oui, et alors, %s! T'es botiste?", "Je suis un bot. Moi au moins je sais garder mon calme, %s!", "%s: Non, j'suis Alien 8]"})
+	  end
+	  if (Flags.QUI_EST or (not Flags.ES_TU)) and Flags.UN_BOT and Flags.PRESENT and (not Flags.NEGATION) then
+		 repondre(from, to,
+				  1, {"Moi, %s.", "Je suis un bot, %s.", "Ça te surprendrait si je te disais que j'en suis un, %s?", "%s: Ben moi.", "J'en suis un, et toi %s?", "Je suis fier d'être un bot, %s.", "/me est un bot."},
+				  -1, {"%s: Qu'est-ce que ça peut te faire, %s?", "/me est un bot, et il en est fier, quand il voit %s!", "%s: Moi! Et j'en suis fier, môssieur!", "Y'a un humain qui fait une chasse aux bots?", "/me ne répondra pas à l'humain %s. C'est un provocateur."})
+	  end
+
+
+
+	  --Achille
+	  if Flags.ACHILLE and Flags.QUESTION and (Flags.NOM or not isChannel) then
+		 repondre(from, to,
+				  1, {"Achille ? Je l'ai bien connu, %s.", "J'étais Achille dans une release antérieure, %s.", "Je suis la réincarnation d'Achille, %s.", "Achille est un frère pour moi, %s"},
+				  1, {"Achille ? Que lui veux-tu, %s ?", "Je ne connais aucun Achille, %s.", "Achille , Jamais entendu parler."})
+	  end
+
+
+	  --TODO gestion as-tu-vu
+
+
 
    else
 	  -- on n'a PAS l'autorisation de parler =======================================================================================================
 	  if (Flags.PARLER or Flags.REVEILLE_TOI) and (not Flags.LANGUE) and (not Flags.FONCTION_SAY) and ((not isChannel) or Flags.NOM) then
 		 if rellevel(from) >= 0 then
-			set_talk(true)
+			set_talk(to, true)
 		 end
 
 		 RespGood = {"%s: Je ne suis plus gênant? :)", "À vos ordres, %s.", "Il sera fait selon vos désirs, maître %s.", "%s: Pour me faire taire à nouveau, demandez-le moi, tout simplement.", "Avec plaisir, %s.", "Depuis le temps que j'attendais qu'on me le dise, %s! :)"}
@@ -920,25 +1103,10 @@ function TraiteMessage(from, to, message, nbphrases)
    end
    
    if Flags.FONCTION then
-	  set_talk(AncienneAutorisation)
+	  set_talk(to, AncienneAutorisation)
    end
 
    
-
-   
---[[
-   if Flags.ILYA and Flags.QUELQUUN and Flags.QUESTION then
-	  repondre(from, to, 
-			   1, {"Mais oui %s: tu es là.", "Il y a au moins toi et moi, %s.", "Ouhou, %s, je suis là.", "Oui.", "Bien sûr %s, je suis là.", "Je suis là, %s, comme toujours.", "%s: Évidemment qu'il y a quelqu'un!", "/me est là."}, 
-			   0, {"Qu'est-ce que ça peut te faire, %s, qu'il y ait quelqu'un ou non? De toute facon on ne souhaite pas ta présence (sauf si tu te conduis gentiment).", "Je ne sais pas si on peut considérer que comme tu es là, il y a quelqu'un, %s?", "Ça dépend, %s: te considères-tu comme une personne à part entière?"})
-   end
-  
-    if Flags.C_EST and Flags.CALME then
-	   repondre(from, to, 
-				1, {"C'est le calme avant la tempête?", "Le silence t'angoisse, %s?", "Ça ne va peut-être pas durer.", "Profitons-en. Si ça se trouve, ça va pas durer.", "C'est pas de ma faute, %s!", "Ça repose, non?", "%s: C'est le moment pour faire son yoga!"},
-				0, {"%s: Et j'espère que ça va continuer.", "Comme tu es là, %s, je pense que ça ne va pas durer!", "Oui, %s, c'était calme avant que tu n'arrives!", "%s: J'ai peur que ça ne dure pas!"})
-	end
-]]
 
 	if string.find(from, "seki@falbala.seki.fr") then
 	   if string.find(message,"phrasescount ?") == 1 then 
@@ -955,6 +1123,10 @@ function TraiteMessage(from, to, message, nbphrases)
     ]]
 	
 	--repondre(from, to, 0, {"fin d'analyse"}, 0, {})
+
+   processEnd = os.clock()
+   print(string.format("elapsed time: %.5f s\n", processEnd - processStart))
+
 
 
 end

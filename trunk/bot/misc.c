@@ -96,7 +96,7 @@ char	*time2str(long time)
 	return(NULL);
 } 
 
-int     time2day (long time)
+int     gettimeday (long time)
 {
 	struct	tm	*btime;
 
@@ -105,7 +105,7 @@ int     time2day (long time)
 	return (btime->tm_mday);
 }
 
-int     time2hour (long time)
+int     gettimehour(long time)
 {
 	struct tm *btime;
 
@@ -114,7 +114,7 @@ int     time2hour (long time)
 	return (btime->tm_hour);
 }
 
-int     time2hours (long time)
+int     time2hours(long time)
 {
 	struct tm *btime;
 
@@ -123,7 +123,8 @@ int     time2hours (long time)
 	return (  btime->tm_year * 12 * 31 * 24
 			  + btime->tm_mon * 31 * 24
 			  + btime->tm_mday*24
-			  + btime->tm_hour);
+			+ btime->tm_hour);	//FIXME: this does not take seconds into account; so between 2 contacts at 17:58 and 18:02 we get 1 hour of delay...
+								//maybe that we should use the seconds too, to compute more accurately the contacts ?
 }
 
 char    *time2heure (long time)

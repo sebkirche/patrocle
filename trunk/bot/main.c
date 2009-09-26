@@ -62,7 +62,7 @@ int select(int, fd_set *, fd_set *, fd_set *, struct timeval *);
 int bzero(char *, int);
 #endif /* NEXT */
 
-/* TODO mettre un #ifdef ou #ifndef ici
+/* TODO: mettre un #ifdef ou #ifndef ici
 int 	fork ();
 int 	atoi (char *);
 */

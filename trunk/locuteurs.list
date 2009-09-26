@@ -1,16 +1,16 @@
 #############################################
 ## locuteurs.list
-## Created: Sat Sep 19 16:25:35 2009
-## (c) 1996 H_I (parmenti@loria.fr)
+## Created: Sat Sep 26 18:36:03 2009
+## (c) 2009 seki (sebastien.kirche@free.fr)
 #############################################
-             seki_away!*n=seki@*.seki.fr 11 979513 979514 1253149669
-                 seki_!*n=seki@*.seki.fr 0 0 979487 1253136775
-                 seki`!*n=seki@*.seki.fr 0 979487 979487 1253048919
-                    kh!*n=karim@88.191.* -13 974483 974486 1235482788
-          Patrocle!*n=Patrocle@*.seki.fr 0 979560 979560 1253312305
-                  seki!*n=seki@*.seki.fr 0 979560 979560 1253370335
-            patrocle!*n=patrocle@81.56.* 0 979512 979513 1253143223
-            patrocle!*patrocle@*.seki.fr 0 979526 979526 1253190796
+                     vpm!*n=vpm@*.fdn.fr 0 979739 979739 1253958743
+                  seki!*i=seki@*.seki.fr 8 979643 979654 1253651523
                2502AAAAX!*seki@*.seki.fr 1 979513 979513 1253142974
-                  seki!*i=seki@*.seki.fr 0 979526 979526 1253191280
+            patrocle!*patrocle@*.seki.fr 0 979741 979746 1253982953
+            patrocle!*n=patrocle@81.56.* 0 979746 979746 1253982197
+                  seki!*n=seki@*.seki.fr 21 979739 979746 1253982963
+          Patrocle!*n=Patrocle@*.seki.fr 0 979741 979746 1253982424
+                    kh!*n=karim@88.191.* -13 974483 974486 1235482788
+                 seki_!*n=seki@*.seki.fr 0 0 979487 1253136775
+             seki_away!*n=seki@*.seki.fr 11 979513 979514 1253149669
 # End of locuteurs.list
