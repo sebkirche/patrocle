@@ -118,7 +118,7 @@ void MAJPremierContact (locuteur *Locuteur)
 void MAJDernierContact (locuteur *Locuteur)
 { 
 	if (Locuteur) {
-		if (Locuteur->DernierContact - Locuteur->PremierContact > 12) {
+		if (Locuteur->DernierContact - Locuteur->PremierContact > HOURS_BETWEEN_SALUTES) {
 			MAJPremierContact (Locuteur);
 			AnnuleBonjours (Locuteur);
 		}

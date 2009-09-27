@@ -122,7 +122,7 @@ static	int	linenum = 0;
 static	int	dbg_lvl = QUIET;
 
 extern lua_State *L;
-char	*configfile = "cfg.lua";
+char	*configfile = CFGFILE;
 
 /*
  * misc functions
