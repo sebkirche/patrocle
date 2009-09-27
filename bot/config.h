@@ -67,6 +67,7 @@
 #define CONFIANCE_LVL   20
 #define DEFAUT_LVL      5       /* Default rel level. Let's be
                                    optimistic... */
+#define HOURS_BETWEEN_SALUTES 8
 
 /* The command prefix character -------------------------------------
    The prefixchar is only needed for public commands
@@ -75,7 +76,7 @@
 
 /* Name of the default configurationfile ----------------------------
 */
-#define CFGFILE		"./infile.cfg"
+#define CFGFILE		"./cfg.lua"
 
 /* Select() - stuff ------------------------------------------------- 
    Number of seconds before VladBot should stop waiting for input 
@@ -131,16 +132,16 @@
 			will overflow and some files will discarded.
  */
 
-#define FLOOD_RATE	6		/* six lines 	*/
+#define FLOOD_RATE	6			/* six lines 	*/
 #define	FLOOD_INTERVAL	1		/* in one sec 	*/
 #define FLOOD_TALKAGAIN	90		/* 90 secs 	*/
 #define SESSION_TIMEOUT	600		/* 10 mins 	*/
-#define LISTSIZE	128		/* 128 files.. plenty! 		*/
+#define LISTSIZE	128			/* 128 files.. plenty! 		*/
 
 /* Misc stuff -------------------------------------------------------
    ONLY_OPS_FOR_REGISTRED	Only allow registred people to be 
-                    	opped. If someone ops a non-registred user,
-			deop him (her)
+							opped. If someone ops a non-registred user,
+							deop him (her)
  */
 
 #undef	ONLY_OPS_FOR_REGISTRED
@@ -160,8 +161,8 @@
 #define LOG
 
 /* Customization ----------------------------------------------------
-   Achille may have another nickname.
-   */
+   The bot may have another nickname.
+ */
 #define SURNOM "Chichill"
 
 
@@ -171,7 +172,7 @@
 #define VERSION		"2.1sk-lua1"
 
 #define MAXLEN		255
-#define WAYTOBIG        1024
+#define WAYTOBIG    1024
 #define BIG_BUFFER	1024
 #define MAXNICKLEN	10	
 #define NICKLEN		9	

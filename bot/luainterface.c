@@ -346,7 +346,11 @@ int c2l_time2hours(lua_State *L)
 	
 void register_cstuff()
 {
-	//strings
+	//some constants that can be useful to lua too
+	lua_pushnumber(L, HOURS_BETWEEN_SALUTES);
+	lua_setglobal(L, "HOURS_BETWEEN_SALUTES");
+	
+	//file names
 	lua_pushstring(L, LOGFILE);
 	lua_setglobal(L, "LOGFILE");
 	lua_pushstring(L, ERRFILE);
