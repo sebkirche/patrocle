@@ -1,8 +1,10 @@
 #############################################
 ## rel.list
-## Created: Sat Sep 26 18:36:03 2009
+## Created: Tue Sep 29 02:48:46 2009
 ## (c) 1993 VladDrac (irvdwijk@cs.vu.nl)
 #############################################
+                   test!*n=test@*.seki.fr 6
+                   test!*n=seki@*.seki.fr 6
                       vpm!*n=vpm@*.fdn.fr 6
               seki_away!*n=seki@*.seki.fr 6
                 2502AAAAX!*seki@*.seki.fr 6
@@ -13,7 +15,7 @@
                      kh!*n=karim@88.191.* -4
              ecocode!*n=ecocode@*.ovh.net 16
            fsbot!*n=user@*.pepperfish.net 3
-                    seki!*=seki@*.seki.fr 95
+                    seki!*=seki@*.seki.fr 99
        ecocode!n=ecocode@*.dsl.scarlet.be 25
               kh!n=karim@*.davromaniak.eu 27
            kaaah!n=karim@*.davromaniak.eu 10

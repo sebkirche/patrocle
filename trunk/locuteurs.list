@@ -1,15 +1,17 @@
 #############################################
 ## locuteurs.list
-## Created: Sat Sep 26 18:36:03 2009
+## Created: Tue Sep 29 02:48:46 2009
 ## (c) 2009 seki (sebastien.kirche@free.fr)
 #############################################
+                  test!*n=test@*.seki.fr 0 979801 979801 1254179492
+                  test!*n=seki@*.seki.fr 0 979801 979801 1254179393
                      vpm!*n=vpm@*.fdn.fr 0 979739 979739 1253958743
-                  seki!*i=seki@*.seki.fr 8 979643 979654 1253651523
+                  seki!*i=seki@*.seki.fr 1 979787 979787 1254136243
                2502AAAAX!*seki@*.seki.fr 1 979513 979513 1253142974
-            patrocle!*patrocle@*.seki.fr 0 979741 979746 1253982953
+            patrocle!*patrocle@*.seki.fr 0 979801 979802 1254184899
             patrocle!*n=patrocle@81.56.* 0 979746 979746 1253982197
-                  seki!*n=seki@*.seki.fr 21 979739 979746 1253982963
-          Patrocle!*n=Patrocle@*.seki.fr 0 979741 979746 1253982424
+                  seki!*n=seki@*.seki.fr 114 979797 979802 1254185326
+          Patrocle!*n=Patrocle@*.seki.fr 0 979802 979802 1254184666
                     kh!*n=karim@88.191.* -13 974483 974486 1235482788
                  seki_!*n=seki@*.seki.fr 0 0 979487 1253136775
              seki_away!*n=seki@*.seki.fr 11 979513 979514 1253149669

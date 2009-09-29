@@ -47,6 +47,7 @@
 
 extern short logging;
 extern	botinfo	*currentbot;
+extern char *botmaintainer;
 lua_State *L = NULL;
 
 int c2l_ischannel(lua_State *L)
@@ -96,6 +97,13 @@ int c2l_nickuserstr(lua_State *L)
 	lua_pushstring(L, NUS);
 	if(NUS)
 		free(NUS);
+	return 1;
+}
+
+int c2l_getnick(lua_State *L)
+{
+	const char *from = luaL_checkstring(L, 1);
+	lua_pushstring(L, GetNick(from));
 	return 1;
 }
 
@@ -349,6 +357,8 @@ void register_cstuff()
 	//some constants that can be useful to lua too
 	lua_pushnumber(L, HOURS_BETWEEN_SALUTES);
 	lua_setglobal(L, "HOURS_BETWEEN_SALUTES");
+	lua_pushstring(L, botmaintainer);
+	lua_setglobal(L, "botmaintainer");
 	
 	//file names
 	lua_pushstring(L, LOGFILE);
@@ -372,6 +382,7 @@ void register_cstuff()
 	lua_register(L, "set_talk", c2l_settalk);
 	lua_register(L, "is_log_on", c2l_islogon);
 	lua_register(L, "nick_user_str", c2l_nickuserstr);
+	lua_register(L, "getnick", c2l_getnick);
 	lua_register(L, "locuteur_existe", c2l_locutorexists);
 	lua_register(L, "ajoute_locuteur", c2l_addlocutor);
 	lua_register(L, "locuteur_getbonjours", c2l_getlocutorsalutes);
