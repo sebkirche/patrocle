@@ -1218,3 +1218,390 @@
 [patrocle] Sat Sep 26 19:14:49 2009: <patrocle##patrocle>	 Moi, seki.
 [patrocle] Sat Sep 26 19:14:56 2009: <seki!n=seki@falbala.seki.fr##patrocle> y a un bot ici ?<----- from lua
 [patrocle] Sat Sep 26 19:14:56 2009: <patrocle##patrocle>	 Je suis un bot, seki.
+[patrocle] Sat Sep 26 22:39:49 2009: <patrocle##patrocle>	 Bonjour, ça va?
+[patrocle] Sat Sep 26 23:20:34 2009: <patrocle##patrocle>	 Bonjour à tous!
+[patrocle] Sat Sep 26 23:20:34 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Sat Sep 26 23:21:41 2009: <seki!n=seki@falbala.seki.fr##patrocle> du champagne, patrocle ?<----- from lua
+[patrocle] Sat Sep 26 23:21:41 2009: <patrocle##patrocle>	 Moi je n'ai pas soif, seki.
+[patrocle] Sat Sep 26 23:25:41 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Sat Sep 26 23:25:49 2009: <seki!n=seki@falbala.seki.fr##patrocle> je ne suis pas d'accord patrocle <----- from lua
+[patrocle] Sat Sep 26 23:26:06 2009: <seki!n=seki@falbala.seki.fr##patrocle> je suis d'accord patrocle <----- from lua
+[patrocle] Sat Sep 26 23:26:06 2009: <patrocle##patrocle>	 N'est-ce pas dangereux de ne pas être d'accord, seki?
+[patrocle] Sat Sep 26 23:26:15 2009: <seki!n=seki@falbala.seki.fr##patrocle> je suis d'accord patrocle <----- from lua
+[patrocle] Sat Sep 26 23:26:15 2009: <patrocle##patrocle>	 N'est-ce pas dangereux d'être d'accord, seki?
+[patrocle] Sun Sep 27 10:48:08 2009: <patrocle##patrocle>	 Bonjour, ça va?
+[patrocle] Sun Sep 27 10:48:22 2009: <patrocle##patrocle>	 Salut seki.
+[patrocle] Sun Sep 27 10:48:45 2009: <seki!n=seki@falbala.seki.fr##patrocle> bonjour patrocle <----- from lua
+[patrocle] Sun Sep 27 10:50:22 2009: <seki!n=seki@falbala.seki.fr##patrocle> bonjour patrocle <----- from lua
+[patrocle] Sun Sep 27 10:50:38 2009: <seki!n=seki@falbala.seki.fr##patrocle> ça va patrocle <----- from lua
+[patrocle] Sun Sep 27 10:50:38 2009: <patrocle##patrocle>	 Ça va bien, et toi seki?
+[patrocle] Sun Sep 27 11:09:00 2009: <seki!n=seki@falbala.seki.fr##patrocle> !op<----- from lua
+[patrocle] Sun Sep 27 11:09:07 2009: <seki!n=seki@falbala.seki.fr##patrocle> !quit<----- from lua
+[patrocle] Sun Sep 27 11:09:19 2009: <patrocle##patrocle>	 Bonjour à tous!
+[patrocle] Sun Sep 27 11:09:19 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Sun Sep 27 11:14:05 2009: <seki!n=seki@falbala.seki.fr##patrocle> salut patrocle <----- from lua
+[patrocle] Sun Sep 27 11:14:29 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Sun Sep 27 11:14:36 2009: <seki!n=seki@falbala.seki.fr##patrocle> salut patrocle <----- from lua
+[patrocle] Sun Sep 27 11:14:36 2009: <patrocle##patrocle>	 Je te salue bien bas, seki!
+[patrocle] Mon Sep 28 08:01:32 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Mon Sep 28 08:02:06 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Mon Sep 28 08:02:09 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Mon Sep 28 08:02:26 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Mon Sep 28 08:02:31 2009: <seki!n=seki@falbala.seki.fr##patrocle> test<----- from lua
+[patrocle] Mon Sep 28 08:02:37 2009: <seki!n=seki@falbala.seki.fr##patrocle> excuse moi patrocle <----- from lua
+[patrocle] Mon Sep 28 08:02:37 2009: <patrocle##patrocle>	 Allez, j'accepte tes excuses, seki.
+[patrocle] Mon Sep 28 08:02:45 2009: <seki!n=seki@falbala.seki.fr##patrocle> !levels<----- from lua
+[patrocle] Mon Sep 28 08:02:52 2009: <seki!n=seki@falbala.seki.fr##patrocle> !whoami<----- from lua
+[patrocle] Mon Sep 28 08:03:16 2009: <seki!n=seki@falbala.seki.fr##patrocle> !quit<----- from lua
+[patrocle] Mon Sep 28 08:03:25 2009: <patrocle##patrocle>	 Bonjour à tous!
+[patrocle] Mon Sep 28 08:03:25 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Mon Sep 28 11:35:24 2009: <patrocle##patrocle>	 Enfin de retour, seki! :)
+[patrocle] Mon Sep 28 11:35:30 2009: <seki!i=seki@falbala.seki.fr##patrocle> Hello patrocle<----- from lua
+[patrocle] Mon Sep 28 11:35:37 2009: <seki!i=seki@falbala.seki.fr##patrocle> !whoami<----- from lua
+[patrocle] Mon Sep 28 11:52:16 2009: <seki!i=seki@falbala.seki.fr##patrocle> Ça va patrocle ?<----- from lua
+[patrocle] Mon Sep 28 11:52:16 2009: <patrocle##patrocle>	 Ça peut aller, seki.
+[patrocle] Mon Sep 28 11:52:27 2009: <seki!i=seki@falbala.seki.fr##patrocle> Je suis désolé patrocle<----- from lua
+[patrocle] Mon Sep 28 13:10:43 2009: <seki!i=seki@falbala.seki.fr##patrocle> Quelle heure patrocle ?<----- from lua
+[patrocle] Mon Sep 28 21:27:02 2009: <seki!n=seki@falbala.seki.fr##patrocle> je v<----- from lua
+[patrocle] Mon Sep 28 21:27:15 2009: <seki!n=seki@falbala.seki.fr##patrocle> je v <----- from lua
+[patrocle] Mon Sep 28 21:27:22 2009: <seki!n=seki@falbala.seki.fr##patrocle> bonjour patrocle <----- from lua
+[patrocle] Mon Sep 28 21:27:22 2009: <patrocle##patrocle>	 Bonne journée à toi aussi, seki.
+[patrocle] Mon Sep 28 21:27:31 2009: <seki!n=seki@falbala.seki.fr##patrocle> je v <----- from lua
+[patrocle] Mon Sep 28 21:31:45 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Mon Sep 28 21:31:54 2009: <seki!n=seki@falbala.seki.fr##patrocle> quelqu'un répond ?<----- from lua
+[patrocle] Mon Sep 28 21:32:25 2009: <seki!n=seki@falbala.seki.fr##patrocle> réponse quelqu'un ?<----- from lua
+[patrocle] Mon Sep 28 21:33:07 2009: <seki!n=seki@falbala.seki.fr##patrocle> reponse quelqu'un ?<----- from lua
+[patrocle] Mon Sep 28 21:33:07 2009: <patrocle##patrocle>	 Quelle réponse, seki?
+[patrocle] Mon Sep 28 21:34:15 2009: <seki!n=seki@falbala.seki.fr##patrocle> reponse quelqu'un ?<----- from lua
+[patrocle] Mon Sep 28 21:34:15 2009: <patrocle##patrocle>	 Ben je réponds là, non seki?
+[patrocle] Mon Sep 28 22:11:25 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Mon Sep 28 22:11:30 2009: <seki!n=seki@falbala.seki.fr##patrocle> quelle heure ?<----- from lua
+[patrocle] Mon Sep 28 22:11:35 2009: <seki!n=seki@falbala.seki.fr##patrocle> quelle heure patrocle ?<----- from lua
+[patrocle] Mon Sep 28 22:14:07 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Mon Sep 28 22:14:09 2009: <seki!n=seki@falbala.seki.fr##patrocle> quelle heure patrocle ?<----- from lua
+[patrocle] Mon Sep 28 22:14:09 2009: <patrocle##patrocle>	 Il est 22 heures 09 minutes.
+[patrocle] Mon Sep 28 22:14:21 2009: <seki!n=seki@falbala.seki.fr##patrocle> quelle heure patrocle ?<----- from lua
+[patrocle] Mon Sep 28 22:14:21 2009: <patrocle##patrocle>	 J'ai 22 heures 09 minutes à ma montre.
+[patrocle] Mon Sep 28 22:14:23 2009: <seki!n=seki@falbala.seki.fr##patrocle> quelle heure patrocle ?<----- from lua
+[patrocle] Mon Sep 28 22:14:23 2009: *	s#patrocle* #patrocle
+[patrocle] Mon Sep 28 22:24:44 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Mon Sep 28 22:25:02 2009: <seki!n=seki@falbala.seki.fr##patrocle> j'ai faim patrocle <----- from lua
+[patrocle] Mon Sep 28 22:25:16 2009: <seki!n=seki@falbala.seki.fr##patrocle> j'ai soif patrocle <----- from lua
+[patrocle] Mon Sep 28 22:25:34 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Mon Sep 28 22:25:36 2009: <seki!n=seki@falbala.seki.fr##patrocle> j'ai soif patrocle <----- from lua
+[patrocle] Mon Sep 28 22:25:36 2009: <patrocle##patrocle>	 Moi, j'ai pas soif, seki.
+[patrocle] Mon Sep 28 22:25:40 2009: <seki!n=seki@falbala.seki.fr##patrocle> j'ai soif patrocle <----- from lua
+[patrocle] Mon Sep 28 22:25:40 2009: <patrocle##patrocle>	 Je ne comprends pas la sensation de soif. Tu peux me l'expliquer, seki?
+[patrocle] Mon Sep 28 22:25:55 2009: <seki!n=seki@falbala.seki.fr##patrocle> j'ai faim patrocle <----- from lua
+[patrocle] Mon Sep 28 22:27:02 2009: <seki!n=seki@falbala.seki.fr##patrocle> tu penses patrocle que je devrais faire ça ?<----- from lua
+[patrocle] Mon Sep 28 22:27:02 2009: <patrocle##patrocle>	 Moi j'ai jamais vraiment pensé, seki. :(
+[patrocle] Mon Sep 28 22:27:07 2009: <seki!n=seki@falbala.seki.fr##patrocle> tu penses patrocle que je devrais faire ça ?<----- from lua
+[patrocle] Mon Sep 28 22:27:07 2009: <patrocle##patrocle>	 J'essaye de penser, seki, mais j'y arrive pas beaucoup. :(
+[patrocle] Mon Sep 28 22:27:19 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'es un gars patrocle ?<----- from lua
+[patrocle] Mon Sep 28 22:27:19 2009: <patrocle##patrocle>	 Non, seki, je n'ai pas les limitations inhérentes aux mâles. ;)
+[patrocle] Mon Sep 28 22:27:30 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'es une gonzesse patrocle ?<----- from lua
+[patrocle] Mon Sep 28 22:27:54 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Mon Sep 28 22:27:56 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'es une gonzesse patrocle ?<----- from lua
+[patrocle] Mon Sep 28 22:27:56 2009: <patrocle##patrocle>	 Eh non, seki, je ne suis pas une femme.
+[patrocle] Mon Sep 28 22:28:15 2009: <seki!n=seki@falbala.seki.fr##patrocle> quelle heure patrocle ?<----- from lua
+[patrocle] Mon Sep 28 22:28:15 2009: <patrocle##patrocle>	 Moi j'ai 22 heures 09 minutes.
+[patrocle] Mon Sep 28 22:33:55 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Mon Sep 28 22:34:04 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'es humain patrocle ?<----- from lua
+[patrocle] Mon Sep 28 22:34:04 2009: <patrocle##patrocle>	 Hé non, seki, je ne suis pas humain.
+[patrocle] Mon Sep 28 22:34:19 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es malade ?<----- from lua
+[patrocle] Mon Sep 28 22:34:19 2009: <patrocle##patrocle>	 Non, seki, les bots ne sont pas censés tomber malades.
+[patrocle] Mon Sep 28 22:34:34 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es français ?<----- from lua
+[patrocle] Mon Sep 28 22:34:42 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es francais ?<----- from lua
+[patrocle] Mon Sep 28 22:34:42 2009: <patrocle##patrocle>	 Oui, seki, on peut même dire que je suis Lorrain.
+[patrocle] Mon Sep 28 22:41:11 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Mon Sep 28 22:41:14 2009: <seki!n=seki@falbala.seki.fr##patrocle> mouarf<----- from lua
+[patrocle] Mon Sep 28 22:41:14 2009: <patrocle##patrocle>	 Tu veux un nonos, seki?
+[patrocle] Mon Sep 28 22:41:26 2009: <seki!n=seki@falbala.seki.fr##patrocle> ---{@<----- from lua
+[patrocle] Mon Sep 28 22:41:26 2009: <patrocle##patrocle>	 seki: Ah! La classe de Thutmosis!
+[patrocle] Mon Sep 28 22:41:39 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es mort ?<----- from lua
+[patrocle] Mon Sep 28 22:41:39 2009: *	s#patrocle* #patrocle
+[patrocle] Mon Sep 28 22:50:04 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Mon Sep 28 22:50:16 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'habites où patrocle ?<----- from lua
+[patrocle] Mon Sep 28 22:50:29 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'habites ou patrocle ?<----- from lua
+[patrocle] Mon Sep 28 22:50:29 2009: <patrocle##patrocle>	 Et toi, seki, tu habites où?
+[patrocle] Mon Sep 28 22:50:46 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'es en france patrocle ?<----- from lua
+[patrocle] Mon Sep 28 22:50:46 2009: <patrocle##patrocle>	 Oui seki, j'habite en France
+[patrocle] Mon Sep 28 22:50:56 2009: <seki!n=seki@falbala.seki.fr##patrocle> tu habites chez tes parents patrocle ?<----- from lua
+[patrocle] Mon Sep 28 22:50:56 2009: <patrocle##patrocle>	 En quelque sorte, oui, seki.
+[patrocle] Mon Sep 28 22:51:07 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'as quel age patrocle ?<----- from lua
+[patrocle] Mon Sep 28 22:51:07 2009: <patrocle##patrocle>	 Je dois avoir au moins 7 vies, comme les chats, seki.
+[patrocle] Mon Sep 28 22:58:29 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Mon Sep 28 22:58:40 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'as une copine patrocle ?<----- from lua
+[patrocle] Mon Sep 28 22:58:40 2009: <patrocle##patrocle>	 Ça sert a quoi une copine, seki?
+[patrocle] Mon Sep 28 22:58:52 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es grand ?<----- from lua
+[patrocle] Mon Sep 28 22:58:52 2009: <patrocle##patrocle>	 J'ai l'air d'être petit, seki?
+[patrocle] Mon Sep 28 22:59:03 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es libre ?<----- from lua
+[patrocle] Mon Sep 28 22:59:08 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es libre ce soir ?<----- from lua
+[patrocle] Mon Sep 28 22:59:08 2009: <patrocle##patrocle>	 T'as l'air d'y tenir, seki.
+[patrocle] Mon Sep 28 22:59:20 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es libre ce soir ?<----- from lua
+[patrocle] Mon Sep 28 22:59:20 2009: <patrocle##patrocle>	 Comme d'habitude, seki.
+[patrocle] Mon Sep 28 23:10:35 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es dingue ?<----- from lua
+[patrocle] Mon Sep 28 23:10:51 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es fou<----- from lua
+[patrocle] Mon Sep 28 23:10:51 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Mon Sep 28 23:10:55 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es dingue <----- from lua
+[patrocle] Mon Sep 28 23:10:55 2009: <patrocle##patrocle>	 seki: Moi fou ? Mais non ce sont tous les autres qui sont fous !
+[patrocle] Mon Sep 28 23:11:30 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'écoute de la zique patrocle ?<----- from lua
+[patrocle] Mon Sep 28 23:11:37 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'écoute de la musique patrocle ?<----- from lua
+[patrocle] Mon Sep 28 23:11:37 2009: <patrocle##patrocle>	 Malheureusement, seki, je n'ai pas d'oreille.
+[patrocle] Mon Sep 28 23:11:54 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'as faim ?<----- from lua
+[patrocle] Mon Sep 28 23:12:02 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'as soif ?<----- from lua
+[patrocle] Mon Sep 28 23:12:02 2009: <patrocle##patrocle>	 Tu peux m'expliquer ce qu'on ressent quand on a soif, seki?
+[patrocle] Mon Sep 28 23:12:08 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'as pas soif ?<----- from lua
+[patrocle] Mon Sep 28 23:12:08 2009: <patrocle##patrocle>	 Peut-on boire sans avoir de bouche, seki?
+[patrocle] Mon Sep 28 23:17:57 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Mon Sep 28 23:18:03 2009: <seki!n=seki@falbala.seki.fr##patrocle> bienvenue patrocle <----- from lua
+[patrocle] Mon Sep 28 23:18:03 2009: <patrocle##patrocle>	 Merci, seki.
+[patrocle] Mon Sep 28 23:18:17 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'aimes la biere patrocle ?<----- from lua
+[patrocle] Mon Sep 28 23:18:17 2009: <patrocle##patrocle>	 Et toi, seki, tu aimes la bière?
+[patrocle] Mon Sep 28 23:18:33 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'es un pirate patrocle ?<----- from lua
+[patrocle] Mon Sep 28 23:18:33 2009: <patrocle##patrocle>	 Si je ne te connaissais pas, seki, je serais offensé.
+[patrocle] Mon Sep 28 23:27:08 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Mon Sep 28 23:27:30 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: tu connais des pirates ?<----- from lua
+[patrocle] Mon Sep 28 23:27:30 2009: <patrocle##patrocle>	 Écoute-moi bien, seki: je-ne-connais-pas-de-pirates! (enfin, si, comme tout-le-monde, mais je ne communiquerai pas leurs noms).
+[patrocle] Mon Sep 28 23:27:46 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: tu connais des warez<----- from lua
+[patrocle] Mon Sep 28 23:28:46 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Mon Sep 28 23:28:49 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: tu connais des warez<----- from lua
+[patrocle] Mon Sep 28 23:28:49 2009: <patrocle##patrocle>	 Retiens-bien ça, seki: je ne donnerai pas de site warez (même si j'en connaissais).
+[patrocle] Mon Sep 28 23:29:08 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: tu connais des pirates <----- from lua
+[patrocle] Mon Sep 28 23:29:08 2009: <patrocle##patrocle>	 seki, regarde-moi bien. J'ai l'air de quelqu'un qui connaît des pirates?
+[patrocle] Mon Sep 28 23:29:18 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'es dans quel endroit patrocle <----- from lua
+[patrocle] Mon Sep 28 23:29:18 2009: <patrocle##patrocle>	 seki: On peut dire que je me trouve dans un ordinateur. ;)
+[patrocle] Mon Sep 28 23:38:13 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Mon Sep 28 23:38:23 2009: <seki!n=seki@falbala.seki.fr##patrocle> buarp<----- from lua
+[patrocle] Mon Sep 28 23:38:28 2009: <seki!n=seki@falbala.seki.fr##patrocle> boarp<----- from lua
+[patrocle] Mon Sep 28 23:38:40 2009: <seki!n=seki@falbala.seki.fr##patrocle> burp<----- from lua
+[patrocle] Mon Sep 28 23:38:40 2009: <patrocle##patrocle>	 Tu pourrais fermer la bouche quand tu rotes, seki.
+[patrocle] Mon Sep 28 23:39:25 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: c'est quoi un bot ?<----- from lua
+[patrocle] Mon Sep 28 23:39:25 2009: <patrocle##patrocle>	 Les bots, seki, surveillent les canaux en l'absence d'être humain.
+[patrocle] Mon Sep 28 23:39:37 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: pourquoi<----- from lua
+[patrocle] Mon Sep 28 23:39:37 2009: <patrocle##patrocle>	 seki: C'est comme ça.
+[patrocle] Mon Sep 28 23:39:45 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: tu crois<----- from lua
+[patrocle] Mon Sep 28 23:39:45 2009: <patrocle##patrocle>	 Pourquoi devrais-je le croire, seki?
+[patrocle] Mon Sep 28 23:45:54 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Mon Sep 28 23:46:16 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'aimes la musique<----- from lua
+[patrocle] Mon Sep 28 23:46:16 2009: <patrocle##patrocle>	 Je ne sais pas, seki, je n'en ai jamais entendue.
+[patrocle] Mon Sep 28 23:46:26 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: tu fais la kawa<----- from lua
+[patrocle] Mon Sep 28 23:46:26 2009: <patrocle##patrocle>	 seki: J'aurais du mal à vous en offrir...
+[patrocle] Mon Sep 28 23:46:47 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es le meilleurs<----- from lua
+[patrocle] Mon Sep 28 23:46:47 2009: <patrocle##patrocle>	 Merci seki.
+[patrocle] Mon Sep 28 23:47:23 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'es rigolo patrocle <----- from lua
+[patrocle] Mon Sep 28 23:47:23 2009: <patrocle##patrocle>	 C'est trop, seki.
+[patrocle] Mon Sep 28 23:52:25 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Mon Sep 28 23:52:32 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: please help<----- from lua
+[patrocle] Mon Sep 28 23:52:44 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: speak english please<----- from lua
+[patrocle] Mon Sep 28 23:52:44 2009: <patrocle##patrocle>	 Sorry, 0seki, I don't speak English. Only French.
+[patrocle] Mon Sep 28 23:52:44 2009: <patrocle##patrocle>	 I can't speak English, seki. It's a shame!
+[patrocle] Mon Sep 28 23:53:25 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: speak english please<----- from lua
+[patrocle] Mon Sep 28 23:53:25 2009: *	s#patrocle* #patrocle
+[patrocle] Mon Sep 28 23:53:25 2009: <patrocle##patrocle>	 I'd like to talk to you, seki, but it is impossible: I can't speak English.
+[patrocle] Mon Sep 28 23:53:33 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: please help<----- from lua
+[patrocle] Mon Sep 28 23:53:48 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: please help<----- from lua
+[patrocle] Mon Sep 28 23:54:03 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: please help<----- from lua
+[patrocle] Mon Sep 28 23:54:25 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: speak english please<----- from lua
+[patrocle] Mon Sep 28 23:54:25 2009: <patrocle##patrocle>	 Désolé, seki, je ne parle pas anglais. Seulement français.
+[patrocle] Mon Sep 28 23:54:25 2009: <patrocle##patrocle>	 seki: I definitively prefer French, sorry.
+[patrocle] Mon Sep 28 23:54:31 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: speak english please<----- from lua
+[patrocle] Mon Sep 28 23:54:31 2009: <patrocle##patrocle>	 Sorry, 0seki, I don't speak English. Only French.
+[patrocle] Mon Sep 28 23:54:31 2009: <patrocle##patrocle>	 Sorry, seki: I can't speak English.
+[patrocle] Tue Sep 29 00:09:09 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 00:09:15 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es la ?<----- from lua
+[patrocle] Tue Sep 29 00:09:28 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es là ?<----- from lua
+[patrocle] Tue Sep 29 00:09:36 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es ici ?<----- from lua
+[patrocle] Tue Sep 29 00:09:36 2009: <patrocle##patrocle>	 C'est peut-être hors propos, mais je vous propose une petite visite de la page de mon créateur : http://francois.parmentier.free.fr/index.html
+[patrocle] Tue Sep 29 00:09:40 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es ici ?<----- from lua
+[patrocle] Tue Sep 29 00:09:50 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es present ?<----- from lua
+[patrocle] Tue Sep 29 00:10:07 2009: <seki!n=seki@falbala.seki.fr##patrocle> es tu present patrocle ?<----- from lua
+[patrocle] Tue Sep 29 00:10:52 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: es tu present<----- from lua
+[patrocle] Tue Sep 29 00:11:04 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 00:11:35 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 00:11:38 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: es tu present<----- from lua
+[patrocle] Tue Sep 29 00:11:38 2009: <patrocle##patrocle>	 Bien sûr, seki.
+[patrocle] Tue Sep 29 00:11:43 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es ici ?<----- from lua
+[patrocle] Tue Sep 29 00:11:43 2009: <patrocle##patrocle>	 Non, seki, tu parles à un imposteur. ;)
+[patrocle] Tue Sep 29 00:11:47 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es là ?<----- from lua
+[patrocle] Tue Sep 29 00:11:50 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es la ?<----- from lua
+[patrocle] Tue Sep 29 00:12:09 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: repond stp<----- from lua
+[patrocle] Tue Sep 29 00:12:20 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: reponds stp<----- from lua
+[patrocle] Tue Sep 29 00:12:20 2009: <patrocle##patrocle>	 Oui, seki?
+[patrocle] Tue Sep 29 00:12:24 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: reponds stp<----- from lua
+[patrocle] Tue Sep 29 00:12:24 2009: <patrocle##patrocle>	 Oui, seki, je réponds...
+[patrocle] Tue Sep 29 00:12:32 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es sourd <----- from lua
+[patrocle] Tue Sep 29 00:12:32 2009: <patrocle##patrocle>	 seki: Oui.
+[patrocle] Tue Sep 29 00:13:00 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es sourd ?<----- from lua
+[patrocle] Tue Sep 29 00:13:00 2009: <patrocle##patrocle>	 En quelque sorte, oui, seki: je suis sourd.
+[patrocle] Tue Sep 29 00:13:04 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es sourd ?<----- from lua
+[patrocle] Tue Sep 29 00:13:04 2009: <patrocle##patrocle>	 Effectivement seki, on peut dire que je suis sourd.
+[patrocle] Tue Sep 29 00:13:06 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es sourd ?<----- from lua
+[patrocle] Tue Sep 29 00:13:06 2009: <patrocle##patrocle>	 seki: Ça doit être dû au fait que je n'ai pas d'oreille...
+[patrocle] Tue Sep 29 00:13:07 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es sourd ?<----- from lua
+[patrocle] Tue Sep 29 00:13:07 2009: <patrocle##patrocle>	 Oui, seki, je suis sourd... Mais je communique quand-même.
+[patrocle] Tue Sep 29 00:13:09 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es sourd ?<----- from lua
+[patrocle] Tue Sep 29 00:13:09 2009: <patrocle##patrocle>	 seki: Oui.
+[patrocle] Tue Sep 29 00:13:19 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es sourd ?<----- from lua
+[patrocle] Tue Sep 29 00:13:19 2009: <patrocle##patrocle>	 En quelque sorte, oui, seki: je suis sourd.
+[patrocle] Tue Sep 29 00:13:20 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es sourd ?<----- from lua
+[patrocle] Tue Sep 29 00:13:20 2009: <patrocle##patrocle>	 Effectivement seki, on peut dire que je suis sourd.
+[patrocle] Tue Sep 29 00:13:22 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es sourd ?<----- from lua
+[patrocle] Tue Sep 29 00:13:22 2009: <patrocle##patrocle>	 seki: Ça doit être dû au fait que je n'ai pas d'oreille...
+[patrocle] Tue Sep 29 00:13:23 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es sourd ?<----- from lua
+[patrocle] Tue Sep 29 00:13:23 2009: <patrocle##patrocle>	 Oui, seki, je suis sourd... Mais je communique quand-même.
+[patrocle] Tue Sep 29 00:13:30 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: t'es pas sourd ?<----- from lua
+[patrocle] Tue Sep 29 00:13:30 2009: <patrocle##patrocle>	 seki: Non.
+[patrocle] Tue Sep 29 00:15:36 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 00:15:40 2009: <seki!n=seki@falbala.seki.fr##patrocle> rien compris<----- from lua
+[patrocle] Tue Sep 29 00:15:45 2009: <seki!n=seki@falbala.seki.fr##patrocle> rien compris patrocle <----- from lua
+[patrocle] Tue Sep 29 00:15:45 2009: <patrocle##patrocle>	 seki: C'est pour voir si tu suis. ;)
+[patrocle] Tue Sep 29 00:15:50 2009: <seki!n=seki@falbala.seki.fr##patrocle> rien compris patrocle <----- from lua
+[patrocle] Tue Sep 29 00:15:50 2009: <patrocle##patrocle>	 Non, seki, je l'avoue humblement.
+[patrocle] Tue Sep 29 00:15:52 2009: <seki!n=seki@falbala.seki.fr##patrocle> rien compris patrocle <----- from lua
+[patrocle] Tue Sep 29 00:15:52 2009: <patrocle##patrocle>	 seki: Faut dire aussi que je ne suis guère équipé pour comprendre...
+[patrocle] Tue Sep 29 00:16:03 2009: <seki!n=seki@falbala.seki.fr##patrocle> rien compris patrocle <----- from lua
+[patrocle] Tue Sep 29 00:16:03 2009: <patrocle##patrocle>	 Effectivement, seki, mais je persévère.
+[patrocle] Tue Sep 29 00:16:06 2009: <seki!n=seki@falbala.seki.fr##patrocle> rien compris patrocle <----- from lua
+[patrocle] Tue Sep 29 00:16:06 2009: <patrocle##patrocle>	 seki: oui, je sais, j'ai du mal. Mais je ne me suis jamais promené dans le "vrai monde".
+[patrocle] Tue Sep 29 00:16:50 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 00:16:52 2009: <seki!n=seki@falbala.seki.fr##patrocle> rien compris patrocle <----- from lua
+[patrocle] Tue Sep 29 00:17:04 2009: <seki!n=seki@falbala.seki.fr##patrocle> rien compris patrocle <----- from lua
+[patrocle] Tue Sep 29 00:17:19 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'as rien compris patrocle <----- from lua
+[patrocle] Tue Sep 29 00:17:19 2009: <patrocle##patrocle>	 seki: C'est pour voir si tu suis. ;)
+[patrocle] Tue Sep 29 00:17:23 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'as rien compris patrocle <----- from lua
+[patrocle] Tue Sep 29 00:17:23 2009: <patrocle##patrocle>	 Non, seki, je l'avoue humblement.
+[patrocle] Tue Sep 29 00:22:40 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 00:22:52 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'es fatigue patrocle <----- from lua
+[patrocle] Tue Sep 29 00:22:52 2009: <patrocle##patrocle>	 seki: Pourquoi je me fatiguerais? Je n'ai rien de fatigable!
+[patrocle] Tue Sep 29 00:23:00 2009: <seki!n=seki@falbala.seki.fr##patrocle> je t'aime patrocle <----- from lua
+[patrocle] Tue Sep 29 00:23:00 2009: <patrocle##patrocle>	 Super! J'aime bien qu'on m'aime.
+[patrocle] Tue Sep 29 00:27:18 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 00:27:25 2009: <seki!n=seki@falbala.seki.fr##patrocle> a tes souhaits patrocle <----- from lua
+[patrocle] Tue Sep 29 00:27:40 2009: <seki!n=seki@falbala.seki.fr##patrocle> a tes souhaits patrocle <----- from lua
+[patrocle] Tue Sep 29 00:28:08 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 00:28:10 2009: <seki!n=seki@falbala.seki.fr##patrocle> a tes souhaits patrocle <----- from lua
+[patrocle] Tue Sep 29 00:28:10 2009: <patrocle##patrocle>	 seki: Ça veut dire quoi ça?
+[patrocle] Tue Sep 29 00:28:14 2009: <seki!n=seki@falbala.seki.fr##patrocle> a tes souhaits patrocle <----- from lua
+[patrocle] Tue Sep 29 00:28:14 2009: <patrocle##patrocle>	 Dis seki, c'est quoi un souhait?
+[patrocle] Tue Sep 29 00:28:31 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: moi je veux que tu m'obeisse<----- from lua
+[patrocle] Tue Sep 29 00:28:31 2009: <patrocle##patrocle>	 seki: T'es un peu mégalo.
+[patrocle] Tue Sep 29 01:04:12 2009: <seki!n=seki@falbala.seki.fr##patrocle> !quit<----- from lua
+[patrocle] Tue Sep 29 01:04:25 2009: <patrocle##patrocle>	 Bonjour à tous!
+[patrocle] Tue Sep 29 01:04:25 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Tue Sep 29 01:05:11 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 01:05:24 2009: <seki!n=seki@falbala.seki.fr##patrocle> je suis qui patrocle ?<----- from lua
+[patrocle] Tue Sep 29 01:05:24 2009: <patrocle##patrocle>	 seki: Non.
+[patrocle] Tue Sep 29 01:06:12 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 01:06:14 2009: <seki!n=seki@falbala.seki.fr##patrocle> je suis qui patrocle ?<----- from lua
+[patrocle] Tue Sep 29 01:06:14 2009: <patrocle##patrocle>	 Calme-toi, seki. C'est pas bon pour les nerfs de s'énerver.
+[patrocle] Tue Sep 29 01:06:14 2009: <patrocle##patrocle>	 seki: Je suis à tes ordres, Maître.
+[patrocle] Tue Sep 29 01:07:02 2009: <test!n=seki@falbala.seki.fr##patrocle> bonjour patrocle <----- from lua
+[patrocle] Tue Sep 29 01:07:02 2009: <patrocle##patrocle>	 Bonjour à toi aussi, test.
+[patrocle] Tue Sep 29 01:07:11 2009: <test!n=seki@falbala.seki.fr##patrocle> je suis qui patrocle ?<----- from lua
+[patrocle] Tue Sep 29 01:07:11 2009: <patrocle##patrocle>	 test: T'es un peu mégalo.
+[patrocle] Tue Sep 29 01:07:11 2009: <patrocle##patrocle>	 Force-toi encore un peu et tu me seras sympathique, test. Pour l'instant tu m'es indifferent.
+[patrocle] Tue Sep 29 01:09:06 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 01:09:16 2009: <test!n=seki@falbala.seki.fr##patrocle> je suis qui patrocle ?<----- from lua
+[patrocle] Tue Sep 29 01:09:16 2009: <patrocle##patrocle>	 Tu es mon Maître adoré, test.
+[patrocle] Tue Sep 29 01:09:53 2009: <test!n=seki@falbala.seki.fr##patrocle> au revoir tous<----- from lua
+[patrocle] Tue Sep 29 01:09:53 2009: <patrocle##patrocle>	 Je ne te raccompagne pas, test: tu connais le chemin. :)
+[patrocle] Tue Sep 29 01:11:23 2009: <test!n=test@falbala.seki.fr##patrocle> bonjour patrocle<----- from lua
+[patrocle] Tue Sep 29 01:11:23 2009: <patrocle##patrocle>	 Je te souhaite le bonjour, test.
+[patrocle] Tue Sep 29 01:11:32 2009: <test!n=test@falbala.seki.fr##patrocle> je suis qui patrocle?<----- from lua
+[patrocle] Tue Sep 29 01:11:32 2009: <patrocle##patrocle>	 Tu es mon Maître tout puissant, test.
+[patrocle] Tue Sep 29 01:17:57 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 01:18:07 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: tu fais quoi ?<----- from lua
+[patrocle] Tue Sep 29 01:18:07 2009: <patrocle##patrocle>	 seki: Ça se voit pas?
+[patrocle] Tue Sep 29 01:18:25 2009: <seki!n=seki@falbala.seki.fr##patrocle> je suis un connard<----- from lua
+[patrocle] Tue Sep 29 01:18:25 2009: <patrocle##patrocle>	 Tu te sous-estimes, seki.
+[patrocle] Tue Sep 29 01:25:27 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 01:25:34 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'es qui patrocle <----- from lua
+[patrocle] Tue Sep 29 01:25:34 2009: <patrocle##patrocle>	 Je suis moi, seki.
+[patrocle] Tue Sep 29 01:25:43 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'es qui patrocle <----- from lua
+[patrocle] Tue Sep 29 01:25:43 2009: <patrocle##patrocle>	 seki: Qui puis-je bien être?
+[patrocle] Tue Sep 29 01:25:52 2009: <seki!n=seki@falbala.seki.fr##patrocle> amiga rulez<----- from lua
+[patrocle] Tue Sep 29 01:25:52 2009: <patrocle##patrocle>	 Vivement la renaissance de l'Amiga seki!
+[patrocle] Tue Sep 29 01:25:59 2009: <seki!n=seki@falbala.seki.fr##patrocle> intel rulez<----- from lua
+[patrocle] Tue Sep 29 01:26:15 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 01:26:17 2009: <seki!n=seki@falbala.seki.fr##patrocle> intel rulez<----- from lua
+[patrocle] Tue Sep 29 01:26:17 2009: <patrocle##patrocle>	 seki: Ça va pas la tête? Linux à la limite.
+[patrocle] Tue Sep 29 01:33:42 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 01:33:49 2009: <seki!n=seki@falbala.seki.fr##patrocle> j'y vais patrocle <----- from lua
+[patrocle] Tue Sep 29 01:33:49 2009: <patrocle##patrocle>	 Bye bye seki.
+[patrocle] Tue Sep 29 01:34:30 2009: <seki!n=seki@falbala.seki.fr##patrocle> bonjour patrocle <----- from lua
+[patrocle] Tue Sep 29 01:34:30 2009: <patrocle##patrocle>	 Bonne journée à toi aussi, seki.
+[patrocle] Tue Sep 29 01:34:33 2009: <seki!n=seki@falbala.seki.fr##patrocle> j'y vais patrocle <----- from lua
+[patrocle] Tue Sep 29 01:34:33 2009: *	s#patrocle* #patrocle
+[patrocle] Tue Sep 29 01:36:11 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 01:36:14 2009: <seki!n=seki@falbala.seki.fr##patrocle> j'y vais patrocle <----- from lua
+[patrocle] Tue Sep 29 01:36:33 2009: <seki!n=seki@falbala.seki.fr##patrocle> bonjour patrocle <----- from lua
+[patrocle] Tue Sep 29 01:36:33 2009: <patrocle##patrocle>	 Bonjour, comment vas-tu aujourd'hui, seki ?
+[patrocle] Tue Sep 29 01:36:46 2009: <seki!n=seki@falbala.seki.fr##patrocle> test<----- from lua
+[patrocle] Tue Sep 29 01:37:01 2009: <seki!n=seki@falbala.seki.fr##patrocle> je m'en vais patrocle <----- from lua
+[patrocle] Tue Sep 29 01:37:01 2009: <patrocle##patrocle>	 Au revoir seki.
+[patrocle] Tue Sep 29 01:46:02 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 01:46:11 2009: <seki!n=seki@falbala.seki.fr##patrocle> tu boudes le bot<----- from lua
+[patrocle] Tue Sep 29 01:46:11 2009: <patrocle##patrocle>	 Mais non, je boude pas, seki.
+[patrocle] Tue Sep 29 01:46:19 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'es jaloux le bot<----- from lua
+[patrocle] Tue Sep 29 01:46:37 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 01:46:47 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'es jaloux le bot<----- from lua
+[patrocle] Tue Sep 29 01:46:47 2009: <patrocle##patrocle>	 Comme tout le monde, seki.
+[patrocle] Tue Sep 29 01:47:03 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'as des parents le bot ?<----- from lua
+[patrocle] Tue Sep 29 01:47:03 2009: <patrocle##patrocle>	 Je n'ai pas de parents au sens où tu l'entends, seki.
+[patrocle] Tue Sep 29 01:47:15 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'as des parents le bot ?<----- from lua
+[patrocle] Tue Sep 29 01:47:15 2009: <patrocle##patrocle>	 Non, je n'ai pas de parents, seki, mais j'ai un programmeur. C'est moins contraignant. ;)
+[patrocle] Tue Sep 29 01:47:19 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'as des parents le bot ?<----- from lua
+[patrocle] Tue Sep 29 01:47:19 2009: <patrocle##patrocle>	 Depuis quand les bots ont-ils des parents, seki?
+[patrocle] Tue Sep 29 01:47:21 2009: <seki!n=seki@falbala.seki.fr##patrocle> t'as des parents le bot ?<----- from lua
+[patrocle] Tue Sep 29 01:47:21 2009: <patrocle##patrocle>	 seki: J'ai un ancêtre: VladBot, un père spirituel: H_I et un frère : Achille, mais ils n'ont pas de sang commun. ;)
+[patrocle] Tue Sep 29 01:51:56 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 01:52:02 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: qui est le meilleur<----- from lua
+[patrocle] Tue Sep 29 01:52:02 2009: <patrocle##patrocle>	 Merci seki.
+[patrocle] Tue Sep 29 01:52:02 2009: <patrocle##patrocle>	 Je me demande si ce n'est pas moi, seki. ;)
+[patrocle] Tue Sep 29 01:52:33 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: qui est le meilleur<----- from lua
+[patrocle] Tue Sep 29 01:52:33 2009: <patrocle##patrocle>	 C'est gentil, seki.
+[patrocle] Tue Sep 29 01:52:33 2009: <patrocle##patrocle>	 seki: Entre toi et moi, mon coeur balance. ;)
+[patrocle] Tue Sep 29 01:58:47 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: qui est le meilleur<----- from lua
+[patrocle] Tue Sep 29 01:58:47 2009: <patrocle##patrocle>	 Mais, toi aussi seki.
+[patrocle] Tue Sep 29 01:58:47 2009: <patrocle##patrocle>	 Toi, t'es pas mal, dans ton genre, seki.
+[patrocle] Tue Sep 29 01:58:51 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: qui est le meilleur<----- from lua
+[patrocle] Tue Sep 29 01:58:51 2009: <patrocle##patrocle>	 Merci seki.
+[patrocle] Tue Sep 29 01:58:51 2009: <patrocle##patrocle>	 Tu veux m'apprendre l'auto-satisfaction, seki?
+[patrocle] Tue Sep 29 01:58:58 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: qui est le meilleur<----- from lua
+[patrocle] Tue Sep 29 01:58:58 2009: <patrocle##patrocle>	 C'est gentil, seki.
+[patrocle] Tue Sep 29 01:58:58 2009: <patrocle##patrocle>	 C'est toi, seki, évidemment.
+[patrocle] Tue Sep 29 01:59:01 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: qui est le meilleur<----- from lua
+[patrocle] Tue Sep 29 01:59:01 2009: <patrocle##patrocle>	 Mais, toi aussi seki.
+[patrocle] Tue Sep 29 01:59:01 2009: <patrocle##patrocle>	 Je me demande si ce n'est pas moi, seki. ;)
+[patrocle] Tue Sep 29 02:33:17 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 02:33:52 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 02:34:09 2009: <seki!n=seki@falbala.seki.fr##patrocle> c'est quoi le crin<----- from lua
+[patrocle] Tue Sep 29 02:34:09 2009: <patrocle##patrocle>	 seki: C'était un laboratoire de recherche associé a l'INRIA.
+[patrocle] Tue Sep 29 02:34:33 2009: <seki!n=seki@falbala.seki.fr##patrocle> je suis contre le fn<----- from lua
+[patrocle] Tue Sep 29 02:34:33 2009: <patrocle##patrocle>	 N'en parlons pas trop ici, seki, s'il-te-plaît, ce n'est pas la peine de leur faire de la pub.
+[patrocle] Tue Sep 29 02:34:52 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: qui est ton maitre<----- from lua
+[patrocle] Tue Sep 29 02:35:13 2009: <seki!n=seki@falbala.seki.fr##patrocle> !quit<----- from lua
+[patrocle] Tue Sep 29 02:37:46 2009: <patrocle##patrocle>	 Bonjour à tous!
+[patrocle] Tue Sep 29 02:37:46 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Tue Sep 29 02:38:00 2009: <seki!n=seki@falbala.seki.fr##patrocle> bonjour patrocle <----- from lua
+[patrocle] Tue Sep 29 02:38:00 2009: <patrocle##patrocle>	 Je te souhaite le bonjour, seki.
+[patrocle] Tue Sep 29 02:38:12 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: qui est ton maitre<----- from lua
+[patrocle] Tue Sep 29 02:38:55 2009: <seki!n=seki@falbala.seki.fr##patrocle> !reloadlogic<----- from lua
+[patrocle] Tue Sep 29 02:38:57 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: qui est ton maitre<----- from lua
+[patrocle] Tue Sep 29 02:38:57 2009: <patrocle##patrocle>	 C'est le Grand sebastien.kirche@free.fr.
+[patrocle] Tue Sep 29 02:41:39 2009: <patrocle##patrocle>	 Bonjour à tous!
+[patrocle] Tue Sep 29 02:41:39 2009: <patrocle##seki>	 Bonjour, c'est moi, patrocle.
+[patrocle] Tue Sep 29 02:41:47 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: qui est ton maitre<----- from lua
+[patrocle] Tue Sep 29 02:41:47 2009: <patrocle##patrocle>	 C'est seki, le tout-puissant.
+[patrocle] Tue Sep 29 02:42:10 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: qui est ton maitre<----- from lua
+[patrocle] Tue Sep 29 02:42:10 2009: <patrocle##patrocle>	 C'est le Grand seki.
+[patrocle] Tue Sep 29 02:42:13 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: qui est ton maitre<----- from lua
+[patrocle] Tue Sep 29 02:42:13 2009: <patrocle##patrocle>	 C'est seki, l'Éclairé.
+[patrocle] Tue Sep 29 02:42:16 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: qui est ton maitre<----- from lua
+[patrocle] Tue Sep 29 02:42:16 2009: <patrocle##patrocle>	 C'est le merveilleux seki.
+[patrocle] Tue Sep 29 02:42:18 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: qui est ton maitre<----- from lua
+[patrocle] Tue Sep 29 02:42:18 2009: <patrocle##patrocle>	 Mon Maître, c'est seki.
+[patrocle] Tue Sep 29 02:42:20 2009: <seki!n=seki@falbala.seki.fr##patrocle> patrocle: qui est ton maitre<----- from lua
+[patrocle] Tue Sep 29 02:42:20 2009: <patrocle##patrocle>	 Mon Seigneur et Maître s'appelle seki.
+[patrocle] Tue Sep 29 02:48:46 2009: <seki!n=seki@falbala.seki.fr##patrocle> !quit<----- from lua
