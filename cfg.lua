@@ -1,7 +1,7 @@
 -- -*- coding: utf-8 -*-
 
 debug = 2
-maintainer = "sebastien.kirche@free.fr"
+maintainer = "seki!sebastien.kirche@free.fr"
 maintainer_name = "seki"
 --notefile = path_to_notefile
 --idletimeout = 42
