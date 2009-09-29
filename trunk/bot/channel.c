@@ -625,7 +625,7 @@ char	*username( char *nick )
 	return(NULL);
 }
 
-char    *channelname (char *nick)
+char    *channelname (const char *nick)
 /*
  * Searches all lists for nick and if it finds it, returns 
  * a name of channel on which he is

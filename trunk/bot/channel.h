@@ -98,7 +98,7 @@ void			 channel_massdeop(char *, char *);
 void			 channel_masskick(char *, char *);
 int				 invite_to_channel(char *, char *);
 char			*username(char *);
-char			*channelname (char *);
+char			*channelname (const char *);
 unsigned int	 usermode(char *, char *);
 BAN_list		*search_ban(BAN_list **, char *);
 void			 add_ban(BAN_list **, char *);
