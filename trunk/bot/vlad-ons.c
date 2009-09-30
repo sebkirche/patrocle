@@ -275,7 +275,7 @@ char *NickUserStr (const char *nuh) {
   return ret;
 }
 
-void ForceDCC (char *from, char *to, char *msg) {
+void ForceDCC (const char *from, const char *to, const char *msg) {
   DCC_list	*userclient;
   char	msg_copy[BIG_BUFFER];	/* for session */
   strcpy(msg_copy, msg);
