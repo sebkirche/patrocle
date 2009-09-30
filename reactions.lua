@@ -1606,14 +1606,16 @@ function TraiteMessage(from, to, message, nbphrases)
 		 repondre(from, to, 1, RespGood, 0, RespBad)
 	  end
 
-
-
+	  --lister STIMULI + REPONSES
+	  if Flags.LISTE_STIMULI and (Flags.NOM or not isChannel) then
+		 print(tostring(stimuli.size()) .. " stimuli")
+	  end
 
 
 
 	  --Achille
 	  if Flags.ACHILLE and Flags.QUESTION and (Flags.NOM or not isChannel) then
-		 repondre(from, to,
+		 Repondre(from, to,
 				  1, {"Achille ? Je l'ai bien connu, %s.", "J'étais Achille dans une release antérieure, %s.", "Je suis la réincarnation d'Achille, %s.", "Achille est un frère pour moi, %s"},
 				  1, {"Achille ? Que lui veux-tu, %s ?", "Je ne connais aucun Achille, %s.", "Achille , Jamais entendu parler."})
 	  end

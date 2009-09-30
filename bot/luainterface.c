@@ -351,7 +351,24 @@ int c2l_time2hours(lua_State *L)
 	lua_pushnumber(L, time2hours(instant));
 	return 1;
 }
-	
+
+int c2l_stimuli_count(lua_State *L)
+{
+	lua_pushnumber(L, TailleStim);
+	return 1;
+}
+
+static const struct luaL_reg stimlib[] = {
+	{"size", c2l_stimuli_count},
+	{NULL, NULL}
+};
+
+void expose_stimlist(void)
+{
+	luaL_newmetatable(L, "bot.stimuli");
+	luaL_openlib(L, "stimuli", stimlib, 0);
+}
+
 void register_cstuff()
 {
 	//some constants that can be useful to lua too
@@ -402,6 +419,8 @@ void register_cstuff()
 	lua_register(L, "kicker_repondre", c2l_kickerrepondre);
 	lua_register(L, "botlog", c2l_botlog);
 	lua_register(L, "time2hours", c2l_time2hours);
+	
+	expose_stimlist();
 }
 
 int init_lua()
@@ -481,6 +500,9 @@ void    LuaTraite (botinfo	*currentbot, char *from, char *to, char *msg, int num
 	}
 	
 }
+
+
+
 
 // Local variables:
 // coding: utf-8
