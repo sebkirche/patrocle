@@ -31,11 +31,11 @@
 #include <sys/select.h>
 #endif /* AIX */
 #include <unistd.h>
-#ifndef __APPLE__
+#ifdef __linux__
 	#include <lua5.1/lua.h>
 	#include <lua5.1/lualib.h>
 	#include <lua5.1/lauxlib.h>
-#else
+#else //__APPLE__, WIN32
 	#include <lua.h>
 	#include <lualib.h>
 	#include <lauxlib.h>
@@ -66,33 +66,34 @@ int bzero(char *, int);
 int 	fork ();
 int 	atoi (char *);
 */
+
+// the next 2 defines are for win32 porting
+#ifndef NBBY
+#define	NBBY 8
+#endif
+#ifndef NFDBITS
+#define	NFDBITS	(sizeof (unsigned long) * NBBY)	// bits per mask
+#endif
+
+
 void 	readcfg ();
 void 	readlevelfiles ();
 
-void 	sig_hup ();
 void 	sig_cntl_c ();
-void 	sig_bus ();
-void 	sig_pipe ();
 void 	sig_segv ();
 void 	sig_alrm ();
 int	alarme = 0;
+
+#ifndef WIN32
+void 	sig_hup ();
+void 	sig_bus ();
+void 	sig_pipe ();
 
 void 	sig_hup ()
 {
 	globallog (ERRFILE, "REHASHING: Hangup (sighup) received");
 	rehash = TRUE;
 	signal (SIGHUP, sig_hup);
-}
-
-void 	sig_int ()
-{
-  	quit_all_bots (NULL, "Received SIGINT - Control-C!");
-	cleanup_listsets();
-  	globallog (ERRFILE, "SIGNING OFF: Control-C (sigint) received");
-  	dump_notelist ();
-	shutdown_lua();
-	cleanupcfg();
-  	exit (0);
 }
 
 void 	sig_bus ()
@@ -106,6 +107,18 @@ void 	sig_pipe ()
   	globallog (ERRFILE, "IGNORING: received Broken Pipe!");
   	signal (SIGPIPE, sig_pipe);
 }
+#endif
+
+void 	sig_int ()
+{
+  	quit_all_bots (NULL, "Received SIGINT - Control-C!");
+	cleanup_listsets();
+  	globallog (ERRFILE, "SIGNING OFF: Control-C (sigint) received");
+  	dump_notelist ();
+	shutdown_lua();
+	cleanupcfg();
+  	exit (0);
+}
 
 void 	sig_segv ()
 {
@@ -118,7 +131,7 @@ void 	sig_segv ()
   	exit (0);
 }
 
-void 	sig_alrm ()
+void 	sig_alrm () //cannot work with WIN32 : there is no SIGALRM
 {
 	alarme = 1;
 	sendprivmsg(currentchannel(),"C'est l'heure!!!!!");
@@ -215,8 +228,10 @@ int main (int argc, char *argv[])
 			case 'h':
 				printf ("usage: %s [switches [args]]\n", myname);
 				printf ("-h               shows this help\n");
+#ifndef WIN32 //Win32 has no fork(), we need something else
 				printf ("-b               run %s in the background\n",
-						myname);
+					myname);
+#endif
 				printf ("-f file          Read configfile 'file'\n");
 #ifdef DBUG
 				printf ("-d [0|1|2]	 Set debuglevel.\n");
@@ -226,9 +241,11 @@ int main (int argc, char *argv[])
 #endif
 				exit (0);
 				break;
+#ifndef WIN32 //Win32 has no fork(), we need something else
 			case 'b':
 				do_fork = TRUE;
 				break;
+#endif
 			case 'f':
 				++argv;
 				if (!*argv){
@@ -260,18 +277,21 @@ int main (int argc, char *argv[])
 		}
 	}
 
-  	signal (SIGHUP, sig_hup);
+
   	signal (SIGINT, sig_int);
+  	signal (SIGSEGV, sig_segv);
+#ifndef WIN32
+  	signal (SIGHUP, sig_hup);
   	signal (SIGBUS, sig_bus);
   	signal (SIGPIPE, sig_pipe);
-  	signal (SIGSEGV, sig_segv);
+#endif
 
 	if(init_lua()){
 		globallog(ERRFILE, "cannot start lua interpreter");
 		exit(1);
 	}
 
-	
+#ifndef WIN32 //Win32 has no fork(), we need something else	
   	if (do_fork){
 		if (!fork ()){
 			printf ("Running %s in background\n", myname);
@@ -281,6 +301,7 @@ int main (int argc, char *argv[])
 			exit (0);
 	}
   	else
+#endif
 		start_bots ();
 	return 0;
 }

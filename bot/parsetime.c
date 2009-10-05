@@ -5,6 +5,9 @@
  *  modifications for English-language times
  *  Copyright (C) 1993  David Parsons
  *
+ *  modifications for compiling with Win32
+ *  Copyright (C) 2009 Sébastien Kirche
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -33,13 +36,15 @@
  *                                   \PLUS NUMBER MINUTES|HOURS|DAYS|WEEKS/
  */
 
+#ifndef WIN32
 #include <sys/cdefs.h>
+#include <err.h>
+#endif
 
 /* System Headers */
 
 #include <sys/types.h>
 #include <ctype.h>
-#include <err.h>
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>

@@ -55,9 +55,11 @@
 #include "luainterface.h"
 
 //FIXME : weird, but fixes a link problem with my OSX
+#ifdef __APPLE__
 #define iconv_open iconv_open
 #define iconv iconv
 #define iconv_close iconv_close
+#endif
 
 extern	botinfo	*currentbot;
 extern	int	number_of_bots;
@@ -182,7 +184,9 @@ command_tbl on_msg_commands[] =
 		{ "DIE",		do_die,			150,	0,		-100,			FALSE },		
 		{ "DIEDIE",		do_die,			150,	0,		-100,			FALSE },		
 		{ "QUIT",		do_quit,		150,	0,		-100,			FALSE },		
-		{ "ALARM",		do_alarm,		50,		0,		SYMPA_LVL,		FALSE },		
+#ifndef WIN32
+		{ "ALARM",		do_alarm,		50,		0,		SYMPA_LVL,		FALSE },
+#endif
 		/*
 		  :
 		  :
@@ -1411,6 +1415,7 @@ void	do_op(char *from, char *to, char *rest)
 	}
 }
 
+#ifndef WIN32 //FIXME find another solution for windows
 void	do_alarm(char *from, char *to, char *rest)
 {
 	time_t maintenant = time(NULL);
@@ -1434,6 +1439,7 @@ void	do_alarm(char *from, char *to, char *rest)
 				quand-maintenant);
 		}
 }
+#endif
 
 void	do_giveop(char *from, char *to, char *rest)
 {

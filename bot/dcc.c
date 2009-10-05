@@ -23,11 +23,14 @@
 //#include <sys/time.h>
 #include <time.h>
 #include <sys/types.h>
-#include <sys/socket.h>
+
 #include <sys/stat.h>
+#ifndef WIN32
+#include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netdb.h>
+#endif
 #include <unistd.h>
 #include <fcntl.h>
 #include <strings.h>
@@ -162,7 +165,7 @@ int	do_dcc(DCC_list *Client)
 		getsockname(Client->read, (struct sockaddr *)&localaddr, &size );
 		gethostname(localhost, 64);
 		if((hp=gethostbyname(localhost)))
-			bcopy(hp->h_addr, (char*) &MyHostAddr, sizeof(MyHostAddr));		
+			memcpy((char*) &MyHostAddr, hp->h_addr, sizeof(MyHostAddr));		
 		my_ip = (unsigned long)ntohl(MyHostAddr.s_addr);
 		if(Client->flags & DCC_TWOCLIENTS){
 			if((Client->flags & DCC_FILEOFFER) &&

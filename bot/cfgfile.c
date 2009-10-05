@@ -26,11 +26,11 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <assert.h>
-#ifndef __APPLE__
+#ifdef __linux__
 	#include <lua5.1/lua.h>
 	#include <lua5.1/lualib.h>
 	#include <lua5.1/lauxlib.h>
-#else
+#else //__APPLE__, WIN32
 	#include <lua.h>
 	#include <lualib.h>
 	#include <lauxlib.h>

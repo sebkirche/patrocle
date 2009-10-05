@@ -21,9 +21,9 @@
 #ifndef LUAINTERFACE_H
 #define LUAINTERFACE_H
 
-#ifndef __APPLE__
+#ifdef __linux__
 #include <lua5.1/lua.h>
-#else
+#else //__APPLE__, WIN32
 #include <lua.h>
 #endif
 #include "vladbot.h"

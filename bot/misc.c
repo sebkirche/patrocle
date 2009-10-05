@@ -26,8 +26,12 @@
 #include <sys/types.h>
 //#include <sys/time.h>
 #include <time.h>
-#include <pwd.h>
 #include <unistd.h>
+#ifdef WIN32
+#include <windows.h>
+#else
+#include <pwd.h>
+#endif
 
 #include "config.h"
 #include "misc.h"
@@ -290,6 +294,7 @@ char	*get_string(char **src)
 	return NULL;				
 }
 
+
 char	*expand_twiddle(char *s)
 /*
  * Expands:
@@ -298,33 +303,48 @@ char	*expand_twiddle(char *s)
  * Trailing path will be added
  */
 {
-	struct 	passwd	*entry;
+#ifdef WIN32
+    char entry[MAXLEN];
+#else
+    struct passwd *entry;
+#endif
 
-	if(!s)
-		return NULL;
-	
-	if(*s == '~'){
-		s++;
-		if(*s == '/'){
-			/* my homedir */
-			s++;
-			entry = getpwuid(getuid());
-		}
-		else{
-			char	*user;
-
-			if((user = get_token(&s, "/")))
-				entry = getpwnam(user);
-			else
-				entry = NULL;
-		}
-		if(!entry)
-			return NULL;
-		sprintf(path_buf, "%s/%s", entry->pw_dir, s);		
-		return path_buf;
+    if(!s)
+	return NULL;
+    
+    if(*s == '~'){
+	s++;
+	if(*s == '/'){
+	    /* my homedir */
+	    s++;
+#ifdef WIN32
+	    GetEnvironmentVariable("USERPROFILE", entry, sizeof(entry));
+#else
+	    entry = getpwuid(getuid());
+#endif
 	}
-	else
-		return s;
+#ifndef WIN32 //FIXME : find another solution in WIN32
+	else{
+	    char	*user;
+	    
+	    if((user = get_token(&s, "/")))
+		entry = getpwnam(user);
+	    else
+		entry = NULL;
+	}
+#endif
+	if(!entry)
+	    return NULL;
+#ifdef WIN32
+	sprintf(path_buf, "%s/%s", entry, s);
+#else
+	sprintf(path_buf, "%s/%s", entry->pw_dir, s);		
+	
+#endif
+	return path_buf;
+    }
+    else
+	return s;
 }
 
 #ifndef __APPLE__

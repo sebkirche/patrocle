@@ -111,7 +111,9 @@ void	do_kick(char *from, char *to, char *rest);
 void	do_listdcc( char *from, char *rest, char *to );
 void	do_rehash( char *from, char *rest, char *to );
 void	do_reloadlogic(char *from, char *to, char *rest);
+#ifndef WIN32
 void	do_alarm( char *from, char *rest, char *to );
+#endif
 void	giveop( char *channel, char *nicks );
 int 	userlevel(const char *from );
 int 	shitlevel(const char *from );
