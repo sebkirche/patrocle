@@ -1,0 +1,39 @@
+Readme about compiling Patrocle on different platforms.
+------------------------------------------------------
+
+Patrocle has been successfully compiled and runned on :
+- GNU/Linux
+- MacOS X Leopard (10.5)
+
+Library prerequisites :
+- libiconv
+- liblua
+
+
+GNU/Linux 
+
+On GNU/Linux, the installation is the simplest : just install the
+needed libs with the package manager dedicated to your distribution,
+build.
+
+MacOS X
+
+My own OSX was missing the liblua and libiconv, I installed them with
+MacPorts.
+
+Windows XP
+
+The Win32 platform support is not finished yet (will it be in the
+future ?). I have just fixed some build issues but there is still some
+work on the unix socket porting to winsock. 
+I have downloaded libiconv from http://www.gnu.org/software/libiconv/
+and Lua for Windows package from the LuaForge
+http://luaforge.net/frs/?group_id=377 The libiconv was built with
+MinGW and the makefile was only hacked to get the libs directly in
+their build places.
+
+
+----------------
+Local variables:
+coding: utf-8
+End:

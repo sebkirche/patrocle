@@ -35,7 +35,9 @@
 #include "vladbot.h"
 #include "vlad-ons.h"
 
+#ifdef NEXT
 extern	int	gethostname(char *, int);
+#endif
 
 extern	botinfo	*currentbot;
 

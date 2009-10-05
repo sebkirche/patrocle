@@ -32,6 +32,9 @@
 #define VLADBOT_H
 
 #include <iconv.h>
+#ifdef WIN32
+#include <winsock2.h>
+#endif
 #include "session.h"
 #include "userlist.h"
 #include "botlist.h"

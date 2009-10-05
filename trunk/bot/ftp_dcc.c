@@ -163,6 +163,7 @@ void	output_dir(char *from, char *path, char *list[], int n)
  * match mask
  */
 {
+#ifndef WIN32 //FIXME on win32
 	int	i;
 	struct	stat	buf;
 	char	real_path[MAXLEN];
@@ -201,6 +202,7 @@ void	output_dir(char *from, char *path, char *list[], int n)
 				  (buf.st_mode&S_IXUSR)?"*":
 				  "");
 	}
+#endif
 }
 
 int	read_dir(char *list[], char *path, char *pattern)

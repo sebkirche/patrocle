@@ -28,6 +28,10 @@
 /* AIX needs <sys/types.h> included before <sys/select.h> */
 #	include <sys/select.h>
 #endif /* AIX */
+#ifdef WIN32
+#include <winsock2.h>
+#endif
+
 #include "config.h"
 
 #define DCC_CHAT        ((unsigned) 0x0001)

@@ -30,9 +30,11 @@
 #include "config.h"
 
 //FIXME : weird, but fixes a link problem with my OSX
+#ifdef __APPLE__
 #define iconv_open iconv_open
 #define iconv iconv
 #define iconv_close iconv_close
+#endif
 
 extern	int	send_to_server(char *format, ...);
 extern	int 	send_chat(const char *to, const char *text);
