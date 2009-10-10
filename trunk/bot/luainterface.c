@@ -137,9 +137,9 @@ int c2l_getlocutorsalutes(lua_State *L)
 		Locuteur = (locuteur*)lua_touserdata(L, 1);
 		lua_pop(L, 1);
 #ifdef DBUG
-		printf("c2l_getlocutorsalutes called on Locuteur %s\n", Locuteur->nuh);
+		printf("c2l_getlocutorsalutes called on Locuteur %s\n", Locuteur?Locuteur->nuh:"<null>");
 #endif
-		lua_pushnumber(L, Locuteur->Bonjours);
+		lua_pushnumber(L, Locuteur?Locuteur->Bonjours:-1);
 	}
 	else
 		lua_pushnumber(L, -1);
@@ -152,7 +152,7 @@ int c2l_getlocutorlastcontact(lua_State *L)
 	if (lua_isuserdata(L, 1)){
 		Locuteur = (locuteur*)lua_touserdata(L, 1);
 		lua_pop(L, 1);
-		lua_pushnumber(L, Locuteur->DernierContact);
+		lua_pushnumber(L, Locuteur?Locuteur->DernierContact:-1);
 	}
 	else
 		lua_pushnumber(L, 0);
@@ -166,7 +166,8 @@ int c2l_setlocutorsalutes(lua_State *L)
 	if (lua_isuserdata(L, 1)){
 		Locuteur = (locuteur*)lua_touserdata(L, 1);
 		lua_pop(L, 1);
-		Locuteur->Bonjours = newbjr;
+		if (Locuteur)
+			Locuteur->Bonjours = newbjr;
 	}
 	return 0;
 }
