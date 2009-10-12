@@ -39,7 +39,7 @@
 int 	ischannel(const char *channel );
 int		isnick(const char *nick);
 char	*getnick(const char *nick_userhost);
-char    *GetNick (const char *nick_userhost);
+char    *GetNick(const char *nick_userhost);
 char	*time2str(long time);
 int      gettimeday(long time);
 int      gettimehour(long time);

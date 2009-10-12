@@ -224,7 +224,7 @@ botinfo	*add_bot(char *s)
 			botlist[i]->server_ok = TRUE;
 			botlist[i]->def_encoder = iconv_open(utf8, latin1); //to, from
 			botlist[i]->def_decoder = iconv_open(latin1, utf8); //to, from
-			botlist[i]->botlist = init_botlist ();
+			botlist[i]->botlist = init_botlist();
 			number_of_bots++;
 			return botlist[i];
 		}
@@ -247,9 +247,9 @@ listinfo *add_listset(char *s)
 			listset[i]->opperlist = init_levellist();
 			listset[i]->protlist = init_levellist();
 			listset[i]->shitlist = init_levellist();
-			listset[i]->rellist = init_levellist ();
-/* 			listset[i]->botlist = init_botlist (); */
-			listset[i]->ListeLocuteurs = InitLocuteurListe ();
+			listset[i]->rellist = init_levellist();
+/* 			listset[i]->botlist = init_botlist(); */
+			listset[i]->ListeLocuteurs = InitLocuteurListe();
 			mstrcpy(&listset[i]->opperfile, USERFILE);
 			mstrcpy(&listset[i]->shitfile, SHITFILE);
 			mstrcpy(&listset[i]->protfile, PROTFILE);
@@ -285,8 +285,8 @@ void	free_listset(listinfo *elem)
 		delete_levellist(elem->protlist);
 		delete_levellist(elem->shitlist);
 		delete_levellist(elem->rellist);
-		/*delete_botlist (elem->botlist); */
-		DetruitListe (elem->ListeLocuteurs);
+		/*delete_botlist(elem->botlist); */
+		DetruitListe(elem->ListeLocuteurs);
 		free(elem);
 		elem = NULL;
 	}
@@ -318,9 +318,9 @@ void	readlevelfiles()
 							 listset[i]->shitlist);
 			readuserdatabase(listset[i]->relfile,
 							 listset[i]->rellist);
-/* 			readbotdatabase (listset[i]->botfile, */
+/* 			readbotdatabase(listset[i]->botfile, */
 /* 					 listset[i]->botlist); */
-			ChargeLocuteurs (listset[i]->locuteurfile,
+			ChargeLocuteurs(listset[i]->locuteurfile,
 							 listset[i]->ListeLocuteurs);
 		}
 }
@@ -385,10 +385,10 @@ int	killbot(char *reason)
 	if(currentbot->server_sock != -1){
 		sendquit(reason);
 		close(currentbot->server_sock);
-		if (currentbot->serverlist[currentbot->current_server].realname)
-			free (currentbot->serverlist[currentbot->current_server].realname);
-		if (currentbot->serverlist[currentbot->current_server].name)
-			free (currentbot->serverlist[currentbot->current_server].name);
+		if(currentbot->serverlist[currentbot->current_server].realname)
+			free(currentbot->serverlist[currentbot->current_server].realname);
+		if(currentbot->serverlist[currentbot->current_server].name)
+			free(currentbot->serverlist[currentbot->current_server].name);
 	}
 	free(currentbot->botname);
 	free(currentbot->name);

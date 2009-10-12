@@ -30,12 +30,12 @@
 #include "userlist.h"
 
 
-USERLVL_list    *exist_userhost ( USERLVL_list **l_list, const char *userhost )
+USERLVL_list    *exist_userhost( USERLVL_list **l_list, const char *userhost )
 {
 	USERLVL_list	*User;
 
 	for( User = *l_list; User; User = User->next )
-		if( !fnmatch ( User->userhost, userhost, FNM_CASEFOLD ) )
+		if( !fnmatch( User->userhost, userhost, FNM_CASEFOLD ) )
 			return(User);
 
 	return(NULL);
@@ -132,7 +132,7 @@ int	get_level( USERLVL_list **l_list, const char *userhost )
 	return(access);
 }
 
-int	get_level_neg ( USERLVL_list **l_list, const char *userhost , int *success )
+int	get_level_neg( USERLVL_list **l_list, const char *userhost , int *success )
 {
 	USERLVL_list	*dummy;
 	int		access = -500;
@@ -149,7 +149,7 @@ int	get_level_neg ( USERLVL_list **l_list, const char *userhost , int *success )
 	return(access);
 }
 
-void    add_to_level (USERLVL_list **l_list, const char *userhost, int humeur )
+void    add_to_level(USERLVL_list **l_list, const char *userhost, int humeur )
 {
 	USERLVL_list	*dummy;
 	int		rel = 0;
@@ -170,7 +170,7 @@ void	show_lvllist( USERLVL_list **l_list, char *from, char *userhost )
 						  dummy->userhost, dummy->access );
 }
 
-void    cancel_level ( USERLVL_list **l_list, int level )
+void    cancel_level( USERLVL_list **l_list, int level )
 {
   USERLVL_list *dummy;
   USERLVL_list *next;
@@ -178,7 +178,7 @@ void    cancel_level ( USERLVL_list **l_list, int level )
   dummy = *l_list;
   while(dummy){
       next = dummy->next;
-      if (dummy->access == level)
+      if(dummy->access == level)
 		  remove_from_levellist(l_list, dummy->userhost);
       dummy = next;
   }

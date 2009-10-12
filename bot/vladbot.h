@@ -123,7 +123,7 @@ botinfo	*add_bot(char *s);
 listinfo	*listset_created(char *s);
 listinfo	*add_listset(char *s);
 void	delete_listset(char *s);
-void    readlevelfiles ();
+void    readlevelfiles();
 int	forkbot(char *nick, char *login, char *name);
 int	killbot(char *reason);
 void	cleanup_listsets();

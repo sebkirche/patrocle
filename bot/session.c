@@ -142,7 +142,7 @@ void	cleanup_sessions()
 			session->flooding = FALSE;
 			session->flood_cnt = 0;
 			send_to_user(session->user, "You may speak again");
-			botlog (LOGFILE, "<%s#%s> You may speak again", currentbot->botname, session->user);
+			botlog(LOGFILE, "<%s#%s> You may speak again", currentbot->botname, session->user);
 	    }
 	}
 }
@@ -190,7 +190,7 @@ int	check_flood(char *user)
 			if(currentsession->flood_cnt < FLOOD_RATE)
 				return FALSE;
 			send_to_user(user, "I'm gonna ignore you for a while, LAMER!");
-			botlog (LOGFILE, "<%s#%s> I'm gonna ignore you for a while, LAMER!", currentbot->botname, user);
+			botlog(LOGFILE, "<%s#%s> I'm gonna ignore you for a while, LAMER!", currentbot->botname, user);
 			currentsession->flooding = TRUE;
 			return TRUE;
 		}

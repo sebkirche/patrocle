@@ -65,7 +65,7 @@ struct
 } dcc_commands[] ={
 	{ "CHAT",	dcc_chat },
 	{ "SEND",	dcc_sendfile },
-	{ NULL,		null(void (*)) }
+	{ NULL,		null(void(*)) }
 };
 
 char *dcc_types[] =

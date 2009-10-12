@@ -42,16 +42,16 @@ extern rep_tbl **TableDesReponses;
 extern int TailleStim;
 extern int TailleRep;
 
-int SauveStimuli (char *nom_fichier);
-int ChargeStimuli (char *nom_fichier);
-int AjouteStimulus (char *from, char *channel, char *Stimulus, char *NomStimulus);
-int SauveReponses (char *nom_fichier);
-int ChargeReponses (char *nom_fichier);
-int AjouteReponse (char *from, char *channel, char *Reponse, char *NomStimulus);
-int SupprimeRep (int numero);
-int SupprimeStim (int numero);
-void LibereStimuli ();
-void LibereReponses ();
+int SauveStimuli(char *nom_fichier);
+int ChargeStimuli(char *nom_fichier);
+int AjouteStimulus(char *from, char *channel, char *Stimulus, char *NomStimulus);
+int SauveReponses(char *nom_fichier);
+int ChargeReponses(char *nom_fichier);
+int AjouteReponse(char *from, char *channel, char *Reponse, char *NomStimulus);
+int SupprimeRep(int numero);
+int SupprimeStim(int numero);
+void LibereStimuli();
+void LibereReponses();
 
 #endif
 

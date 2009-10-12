@@ -76,7 +76,7 @@ int c2l_settalk(lua_State *L)
 #ifdef DBUG
 		printf("c2l_settalk() on <%s> (we received '%s') to %d\n", Channel_to?Channel_to->name:"chan inconnu", name, talk);
 #endif
-		if (Channel_to)
+		if(Channel_to)
 			Channel_to->talk = talk;
 	}
 	return 0;
@@ -122,8 +122,8 @@ int c2l_addlocutor(lua_State *L)
 	locuteur *Locuteur;
 	const char *name = luaL_checkstring(L, 1);
 	Locuteur = LocuteurExiste(currentbot->lists->ListeLocuteurs, name);
-	if (!Locuteur)
-		Locuteur = AjouteLocuteur (currentbot->lists->ListeLocuteurs, name);
+	if(!Locuteur)
+		Locuteur = AjouteLocuteur(currentbot->lists->ListeLocuteurs, name);
 	lua_pushlightuserdata(L, (void *)Locuteur);
 	return 1;
 }
@@ -133,7 +133,7 @@ int c2l_addlocutor(lua_State *L)
 int c2l_getlocutorsalutes(lua_State *L)
 {
 	locuteur *Locuteur;
-	if (lua_isuserdata(L, 1)){
+	if(lua_isuserdata(L, 1)){
 		Locuteur = (locuteur*)lua_touserdata(L, 1);
 		lua_pop(L, 1);
 #ifdef DBUG
@@ -149,7 +149,7 @@ int c2l_getlocutorsalutes(lua_State *L)
 int c2l_getlocutorlastcontact(lua_State *L)
 {
 	locuteur *Locuteur;
-	if (lua_isuserdata(L, 1)){
+	if(lua_isuserdata(L, 1)){
 		Locuteur = (locuteur*)lua_touserdata(L, 1);
 		lua_pop(L, 1);
 		lua_pushnumber(L, Locuteur?Locuteur->DernierContact:-1);
@@ -163,10 +163,10 @@ int c2l_setlocutorsalutes(lua_State *L)
 {
 	locuteur *Locuteur;
 	int newbjr = luaL_checknumber(L, 2);
-	if (lua_isuserdata(L, 1)){
+	if(lua_isuserdata(L, 1)){
 		Locuteur = (locuteur*)lua_touserdata(L, 1);
 		lua_pop(L, 1);
-		if (Locuteur)
+		if(Locuteur)
 			Locuteur->Bonjours = newbjr;
 	}
 	return 0;
@@ -203,7 +203,7 @@ int c2l_getrellevel(lua_State *L)
 int c2l_existuserhost(lua_State *L)
 {
 	const char *from = luaL_checkstring(L, 1);
-	lua_pushboolean(L, exist_userhost (currentbot->lists->rellist, from) != NULL);
+	lua_pushboolean(L, exist_userhost(currentbot->lists->rellist, from) != NULL);
 	return 1;
 }
 
@@ -456,7 +456,7 @@ void load_lualogic(char **return_msg)
 	}
 }
 
-void    LuaTraite (botinfo	*currentbot, char *from, char *to, char *msg, int numphrase)
+void    LuaTraite(botinfo	*currentbot, char *from, char *to, char *msg, int numphrase)
 {
 	static int Jour = 0;
 
@@ -484,19 +484,19 @@ void    LuaTraite (botinfo	*currentbot, char *from, char *to, char *msg, int num
 	}
 	// était dans Traite()
 	/* Si c'est un nouveau jour */
-	if (Jour != gettimeday(time (NULL))) {
-		Jour = gettimeday (time (NULL));
+	if(Jour != gettimeday(time(NULL))) {
+		Jour = gettimeday(time(NULL));
 		
 		/* On sauvegarde le fichier des relations */
-		cancel_level (currentbot->lists->rellist, DEFAUT_LVL);
-		write_lvllist (currentbot->lists->rellist,
+		cancel_level(currentbot->lists->rellist, DEFAUT_LVL);
+		write_lvllist(currentbot->lists->rellist,
 					   currentbot->lists->relfile);
 		
 		/* On nettoie la liste des locuteurs des locuteurs muets anciens */
-		NettoieListeLocuteurs (currentbot->lists->ListeLocuteurs);
+		NettoieListeLocuteurs(currentbot->lists->ListeLocuteurs);
 		
 		/* On sauvegarde aussi le fichier des locuteurs */
-		SauveLocuteurs (currentbot->lists->ListeLocuteurs,
+		SauveLocuteurs(currentbot->lists->ListeLocuteurs,
 						currentbot->lists->locuteurfile);
 	}
 	

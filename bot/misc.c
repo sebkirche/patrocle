@@ -68,22 +68,22 @@ char *getnick(const char *nick_userhost)
 	return(strtok( usernick, "!" ));
 }
 
-char    *GetNick (const char *nick_userhost) 
+char    *GetNick(const char *nick_userhost) 
 {
 	char *pointeur;
 	char *fin;
   
-	strcpy (usernick, nick_userhost);
-	pointeur = strtok (usernick, "!");
-	while (*pointeur=='_') pointeur++;
+	strcpy(usernick, nick_userhost);
+	pointeur = strtok(usernick, "!");
+	while(*pointeur=='_') pointeur++;
 
-	fin = &pointeur[strlen (pointeur)-1];
-	while (*fin =='_' && fin > pointeur) {
+	fin = &pointeur[strlen(pointeur)-1];
+	while(*fin =='_' && fin > pointeur) {
 		*fin = '\0';
 		fin--;
 	}
   
-	return (pointeur);
+	return(pointeur);
 }
 
 
@@ -100,57 +100,57 @@ char	*time2str(long time)
 	return(NULL);
 } 
 
-int     gettimeday (long time)
+int     gettimeday(long time)
 {
 	struct	tm	*btime;
 
 	btime = localtime(&time);
 
-	return (btime->tm_mday);
+	return(btime->tm_mday);
 }
 
 int     gettimehour(long time)
 {
 	struct tm *btime;
 
-	btime = localtime (&time);
+	btime = localtime(&time);
 
-	return (btime->tm_hour);
+	return(btime->tm_hour);
 }
 
 int     time2hours(long time)
 {
 	struct tm *btime;
 
-	btime = localtime (&time);
+	btime = localtime(&time);
 
-	return (  btime->tm_year * 12 * 31 * 24
+	return(  btime->tm_year * 12 * 31 * 24
 			  + btime->tm_mon * 31 * 24
 			  + btime->tm_mday*24
 			+ btime->tm_hour);	//FIXME: this does not take seconds into account; so between 2 contacts at 17:58 and 18:02 we get 1 hour of delay...
 								//maybe that we should use the seconds too, to compute more accurately the contacts ?
 }
 
-char    *time2heure (long time)
+char    *time2heure(long time)
 {
 	struct tm  *btime;
 
-	btime = localtime (&time);
-	/*   if (time && (sprintf (timebuf, "%d heure%s %d minute%s et %d seconde%s", */
+	btime = localtime(&time);
+	/*   if(time && (sprintf(timebuf, "%d heure%s %d minute%s et %d seconde%s", */
 	/* 			btime->tm_hour, (btime->tm_hour>1?"s":""), */
 	/* 			btime->tm_min, (btime->tm_min>1?"s":""), */
 	/* 			btime->tm_sec, (btime->tm_sec>1?"s":"")))) */
-	if (time && btime->tm_min && sprintf (timebuf, "%d heure%s %d minute%s",
+	if(time && btime->tm_min && sprintf(timebuf, "%d heure%s %d minute%s",
 										  btime->tm_hour, (btime->tm_hour>1?"s":""),
 										  btime->tm_min, (btime->tm_min>1?"s":"")))
 		return timebuf;
 
-	if (time && (sprintf (timebuf, "%d heure%s %d minute%s",
+	if(time && (sprintf(timebuf, "%d heure%s %d minute%s",
 						  btime->tm_hour, (btime->tm_hour>1?"s":""),
 						  btime->tm_min, (btime->tm_min>1?"s":""))))
 		return timebuf;
 
-	return (NULL);
+	return(NULL);
 }
 
 char	*time2small(long time)
@@ -353,11 +353,11 @@ char 	*strcasestr(char *s1, char *s2)
     char n1[256], n2[256];
     int i;
 
-    for ( i = 0; s1[i] != '\0'; i++ )
+    for( i = 0; s1[i] != '\0'; i++ )
         n1[i] = toupper( s1[i] );
     n1[i] = '\0';
 
-    for ( i = 0; s2[i] != '\0'; i++ )
+    for( i = 0; s2[i] != '\0'; i++ )
         n2[i] = toupper( s2[i] );
     n2[i] = '\0';
     return( strstr( n1,n2 ) );

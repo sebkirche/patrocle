@@ -70,7 +70,7 @@ int	sendprivmsg(const char *sendto, const char *format, ...)
 		return(send_to_server("PRIVMSG %s :%s", sendto, buf));
 }
 
-int sendaction (const char *sendto, const char *format, ...) 
+int sendaction(const char *sendto, const char *format, ...) 
 {
 	char 	buf[WAYTOBIG];
 	va_list	msg;

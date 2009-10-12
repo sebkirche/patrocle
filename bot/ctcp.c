@@ -44,7 +44,7 @@ struct
 	{ "PING",	ctcp_ping 	},
 	{ "SOURCE",	ctcp_source 	},
 	{ "DCC",	ctcp_dcc 	},
-	{ NULL,		null(void (*)) 	}
+	{ NULL,		null(void(*)) 	}
 };
 
 void 	on_ctcp(char *from, char *to, char *ctcp_msg)

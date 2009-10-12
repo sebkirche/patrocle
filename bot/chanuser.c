@@ -48,7 +48,7 @@ void	add_user( USER_list **u_list, char *nick,
 	if( (New_user = (USER_list*)malloc(sizeof(*New_user))) == NULL)
 		return;
 	if( search_user(u_list, nick) != NULL ) {
-	  free (New_user);
+	  free(New_user);
 	  return;
 	}
 	strcpy(New_user->nick, nick );
@@ -100,8 +100,8 @@ void	clear_all_users( USER_list **u_list )
 	USER_list       *next;
 
 	for( old = u_list; *old; *old = next){
-		free ((*old)->user);
-		free ((*old)->host);
+		free((*old)->user);
+		free((*old)->host);
 		next = (*old)->next;
 		free( *old );
 	}
