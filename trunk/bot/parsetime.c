@@ -206,8 +206,8 @@ static int parse_token(char *arg)
 {
     size_t i;
 
-    for (i=0; i<(sizeof Specials/sizeof Specials[0]); i++)
-	if (strcasecmp(Specials[i].name, arg) == 0) {
+    for(i=0; i<(sizeof Specials/sizeof Specials[0]); i++)
+	if(strcasecmp(Specials[i].name, arg) == 0) {
 	    sc_tokplur = Specials[i].plural;
 	    return sc_tokid = Specials[i].value;
 	}
@@ -226,10 +226,10 @@ static int init_scanner(int argc, char **argv)
     scc = argc;
     need = 1;
     sc_len = 1;
-    while (argc-- > 0)
+    while(argc-- > 0)
 	sc_len += strlen(*argv++);
 
-    if ((sc_token = malloc(sc_len)) == NULL)
+    if((sc_token = malloc(sc_len)) == NULL)
 		/*errx(EXIT_FAILURE, "virtual memory exhausted");*/
 		return(-1);
 
@@ -243,7 +243,7 @@ static int token(void)
 {
     int idx;
 
-    while (1) {
+    while(1) {
 	memset(sc_token, 0, sc_len);
 	sc_tokid = EOF;
 	idx = 0;
@@ -252,8 +252,8 @@ static int token(void)
 	 * if we need to read another argument, walk along the argument list;
 	 * when we fall off the arglist, we'll just return EOF forever
 	 */
-	if (need) {
-	    if (scc < 1)
+	if(need) {
+	    if(scc < 1)
 		return sc_tokid;
 	    sct = *scp;
 	    scp++;
@@ -265,9 +265,9 @@ static int token(void)
 	 * we'll continue, which puts us up at the top of the while loop
 	 * to fetch the next argument in
 	 */
-	while (isspace(*sct))
+	while(isspace(*sct))
 	    ++sct;
-	if (!*sct) {
+	if(!*sct) {
 	    need = 1;
 	    continue;
 	}
@@ -280,26 +280,26 @@ static int token(void)
 	/*
 	 * then see what it is
 	 */
-	if (isdigit(sc_token[0])) {
-	    while (isdigit(*sct))
+	if(isdigit(sc_token[0])) {
+	    while(isdigit(*sct))
 		sc_token[++idx] = *sct++;
 	    sc_token[++idx] = 0;
 	    return sc_tokid = NUMBER;
-	} else if (isalpha(sc_token[0])) {
-	    while (isalpha(*sct))
+	} else if(isalpha(sc_token[0])) {
+	    while(isalpha(*sct))
 		sc_token[++idx] = *sct++;
 	    sc_token[++idx] = 0;
 	    return parse_token(sc_token);
 	}
-	else if (sc_token[0] == ':' || sc_token[0] == '.')
+	else if(sc_token[0] == ':' || sc_token[0] == '.')
 	    return sc_tokid = DOT;
-	else if (sc_token[0] == '+')
+	else if(sc_token[0] == '+')
 	    return sc_tokid = PLUS;
-	else if (sc_token[0] == '/')
+	else if(sc_token[0] == '/')
 	    return sc_tokid = SLASH;
 	else
 	    return sc_tokid = JUNK;
-    } /* while (1) */
+    } /* while(1) */
 } /* token */
 
 
@@ -319,7 +319,7 @@ static void plonk(int tok)
  */
 static int expect(int desired)
 {
-    if (token() != desired)
+    if(token() != desired)
 		return(-1);	/* and we die here... */
 	return 0;
 } /* expect */
@@ -336,16 +336,16 @@ static void dateadd(minutes, tm)
 {
     /* increment days */
 
-    while (minutes > 24*60) {
+    while(minutes > 24*60) {
 		minutes -= 24*60;
 		tm->tm_mday++;
     }
 
     /* increment hours */
-    while (minutes > 60) {
+    while(minutes > 60) {
 		minutes -= 60;
 		tm->tm_hour++;
-		if (tm->tm_hour > 23) {
+		if(tm->tm_hour > 23) {
 			tm->tm_mday++;
 			tm->tm_hour = 0;
 		}
@@ -354,11 +354,11 @@ static void dateadd(minutes, tm)
     /* increment minutes */
     tm->tm_min += minutes;
 
-    if (tm->tm_min > 59) {
+    if(tm->tm_min > 59) {
 		tm->tm_hour++;
 		tm->tm_min -= 60;
 		
-		if (tm->tm_hour > 23) {
+		if(tm->tm_hour > 23) {
 			tm->tm_mday++;
 			tm->tm_hour = 0;
 		}
@@ -378,13 +378,13 @@ static int plus(struct tm *tm)
     int delay;
     int expectplur;
 
-    if (expect(NUMBER) == -1)
+    if(expect(NUMBER) == -1)
 	return(-1);
 
     delay = atoi(sc_token);
     expectplur = (delay != 1) ? 1 : 0;
 
-    switch (token()) {
+    switch(token()) {
     case YEARS:
 	    tm->tm_year += delay;
 	    break;
@@ -409,12 +409,12 @@ static int plus(struct tm *tm)
     }
 
     /*
-	if (expectplur != sc_tokplur)
+	if(expectplur != sc_tokplur)
 		warnx("pluralization is wrong");
 	*/
 
     tm->tm_isdst = -1;
-    if (mktime(tm) < 0)
+    if(mktime(tm) < 0)
 		/*plonk(sc_tokid);*/
 		return(-1);
 
@@ -438,16 +438,16 @@ static int tod(struct tm *tm)
      * first pick out the time of day - if it's 4 digits, we assume
      * a HHMM time, otherwise it's HH DOT MM time
      */
-    if (token() == DOT) {
-	if (expect(NUMBER) == -1)
+    if(token() == DOT) {
+	if(expect(NUMBER) == -1)
 	    return(-1);
 	minute = atoi(sc_token);
-	if (minute > 59)
+	if(minute > 59)
 	    return(-1);
 	token();
-    } else if (tlen == 4) {
+    } else if(tlen == 4) {
 	minute = hour%100;
-	if (minute > 59)
+	if(minute > 59)
 	    return(-1);
 	hour = hour/100;
     }
@@ -455,19 +455,19 @@ static int tod(struct tm *tm)
     /*
      * check if an AM or PM specifier was given
      */
-    if (sc_tokid == AM || sc_tokid == PM) {
-	if (hour > 12)
+    if(sc_tokid == AM || sc_tokid == PM) {
+	if(hour > 12)
 	    return(-1);
 
-	if (sc_tokid == PM) {
-	    if (hour != 12)	/* 12:xx PM is 12:xx, not 24:xx */
+	if(sc_tokid == PM) {
+	    if(hour != 12)	/* 12:xx PM is 12:xx, not 24:xx */
 			hour += 12;
 	} else {
-	    if (hour == 12)	/* 12:xx AM is 00:xx, not 12:xx */
+	    if(hour == 12)	/* 12:xx AM is 00:xx, not 12:xx */
 			hour = 0;
 	}
 	token();
-    } else if (hour > 23)
+    } else if(hour > 23)
 		return(-1);
 
     /*
@@ -475,14 +475,14 @@ static int tod(struct tm *tm)
      * if we've gone past that time - but if we're specifying a time plus
      * a relative offset, it's okay to bump things
      */
-    if ((sc_tokid == EOF || sc_tokid == PLUS) && tm->tm_hour > hour) {
+    if((sc_tokid == EOF || sc_tokid == PLUS) && tm->tm_hour > hour) {
 	tm->tm_mday++;
 	tm->tm_wday++;
     }
 
     tm->tm_hour = hour;
     tm->tm_min = minute;
-    if (tm->tm_hour == 24) {
+    if(tm->tm_hour == 24) {
 	tm->tm_hour = 0;
 	tm->tm_mday++;
     }
@@ -500,10 +500,10 @@ static int assign_date(struct tm *tm, long mday, long mon, long year)
     * Convert year into tm_year format (year - 1900).
     * We may be given the year in 2 digit, 4 digit, or tm_year format.
     */
-    if (year != -1) {
-		if (year >= 1900)
+    if(year != -1) {
+		if(year >= 1900)
 			year -= 1900;   /* convert from 4 digit year */
-		else if (year < 100) {
+		else if(year < 100) {
 			/* convert from 2 digit year */
 			struct tm *lt;
 			time_t now;
@@ -514,20 +514,20 @@ static int assign_date(struct tm *tm, long mday, long mon, long year)
 			/* Convert to tm_year assuming current century */
 			year += (lt->tm_year / 100) * 100;
 			
-			if (year == lt->tm_year - 1) year++;
-			else if (year < lt->tm_year)
+			if(year == lt->tm_year - 1) year++;
+			else if(year < lt->tm_year)
 				year += 100;    /* must be in next century */
 		}
     }
 
-    if (year < 0 &&
+    if(year < 0 &&
 	(tm->tm_mon > mon ||(tm->tm_mon == mon && tm->tm_mday > mday)))
 	year = tm->tm_year + 1;
 
     tm->tm_mday = mday;
     tm->tm_mon = mon;
 
-    if (year >= 0)
+    if(year >= 0)
 	tm->tm_year = year;
     return(0);
 } /* assign_date */
@@ -548,9 +548,9 @@ static int month(struct tm *tm)
     long mday = 0, wday, mon;
     int tlen;
 
-    switch (sc_tokid) {
+    switch(sc_tokid) {
 		case PLUS:
-			if (plus(tm) == -1)
+			if(plus(tm) == -1)
 				return(-1);
 			break;
 
@@ -567,14 +567,14 @@ static int month(struct tm *tm)
 		     * do month mday [year]
 		     */
 			mon = (sc_tokid-JAN);
-			if (expect(NUMBER) == -1)
+			if(expect(NUMBER) == -1)
 				return(-1);
 			mday = atol(sc_token);
-			if (token() == NUMBER) {
+			if(token() == NUMBER) {
 				year = atol(sc_token);
 				token();
 			}
-			if (assign_date(tm, mday, mon, year) == -1)
+			if(assign_date(tm, mday, mon, year) == -1)
 				return(-1);
 			break;
 
@@ -589,7 +589,7 @@ static int month(struct tm *tm)
 
 			/* if this day is < today, then roll to next week
 		     */
-			if (wday < tm->tm_wday)
+			if(wday < tm->tm_wday)
 				mday += 7 - (tm->tm_wday - wday);
 			else
 				mday += (wday - tm->tm_wday);
@@ -607,15 +607,15 @@ static int month(struct tm *tm)
 			mon = atol(sc_token);
 			token();
 
-			if (sc_tokid == SLASH || sc_tokid == DOT) {
+			if(sc_tokid == SLASH || sc_tokid == DOT) {
 				int sep;
 				
 				sep = sc_tokid;
-				if (expect(NUMBER) == -1)
+				if(expect(NUMBER) == -1)
 					return(-1);
 				mday = atol(sc_token);
-				if (token() == sep) {
-					if (expect(NUMBER) == -1)
+				if(token() == sep) {
+					if(expect(NUMBER) == -1)
 						return(-1);
 					year = atol(sc_token);
 					token();
@@ -624,13 +624,13 @@ static int month(struct tm *tm)
 				/*
 				 * flip months and days for European timing
 				 */
-				if (sep == DOT) {
+				if(sep == DOT) {
 					int x = mday;
 					mday = mon;
 					mon = x;
 				}
-			} else if (tlen == 6 || tlen == 8) {
-				if (tlen == 8) {
+			} else if(tlen == 6 || tlen == 8) {
+				if(tlen == 8) {
 					year = (mon % 10000) - 1900;
 					mon /= 10000;
 				} else {
@@ -643,10 +643,10 @@ static int month(struct tm *tm)
 				return(-1);
 			
 			mon--;
-			if (mon < 0 || mon > 11 || mday < 1 || mday > 31)
+			if(mon < 0 || mon > 11 || mday < 1 || mday > 31)
 				return(-1);
 			
-			if (assign_date(tm, mday, mon, year) == -1)
+			if(assign_date(tm, mday, mon, year) == -1)
 				return(-1);
 			break;
     } /* case */
@@ -669,11 +669,11 @@ time_t parsetime(char *wanted)
     int i, j=strlen(wanted), hr = 0;
     /* this MUST be initialized to zero for midnight/noon/teatime */
 
-    if (!wanted[0])
+    if(!wanted[0])
 	return(-1);
 
-    for (argv[1] = wanted, i=0; i<j; i++)
-	if (wanted[i] == ' ') {
+    for(argv[1] = wanted, i=0; i<j; i++)
+	if(wanted[i] == ' ') {
 	   wanted[i] = '\0';
 	   argv[argc++] =  &wanted[i+1];
 	}
@@ -685,26 +685,26 @@ time_t parsetime(char *wanted)
     runtime.tm_sec = 0;
     runtime.tm_isdst = 0;
 
-    if (init_scanner(argc-1, argv+1) == -1)
+    if(init_scanner(argc-1, argv+1) == -1)
 		return(-1);
 
-    switch (token()) {
+    switch(token()) {
     case NOW:	
-	    if (scc < 1) {
+	    if(scc < 1) {
 			return nowtimer;
 	    }
 		/* now is optional prefix for PLUS tree */
-	    if (expect(PLUS) == -1)
+	    if(expect(PLUS) == -1)
 			return(-1);
     case PLUS:
-	    if (plus(&runtime) == -1)
+	    if(plus(&runtime) == -1)
 			return(-1);
 	    break;
 
     case NUMBER:
-	    if (tod(&runtime) == -1)
+	    if(tod(&runtime) == -1)
 			return(-1);
-	    if (month(&runtime) == -1)
+	    if(month(&runtime) == -1)
 			return(-1);
 	    break;
 
@@ -721,7 +721,7 @@ time_t parsetime(char *wanted)
     case NOON:
 	    hr += 12;
     case MIDNIGHT:
-	    if (runtime.tm_hour >= hr) {
+	    if(runtime.tm_hour >= hr) {
 		runtime.tm_mday++;
 		runtime.tm_wday++;
 	    }
@@ -730,11 +730,11 @@ time_t parsetime(char *wanted)
 	    token();
 	    /* FALLTHROUGH to month setting */
     default:
-	    if (month(&runtime) == -1)
+	    if(month(&runtime) == -1)
 			return(-1);
 	    break;
     } /* ugly case statement */
-/*    if (expect(EOF) == -1)
+/*    if(expect(EOF) == -1)
 	return(-1);
 */
 
@@ -743,15 +743,15 @@ time_t parsetime(char *wanted)
      */
     runtime.tm_isdst = -1;
     runtimer = mktime(&runtime);
-    if (runtime.tm_isdst > 0) {
+    if(runtime.tm_isdst > 0) {
 	runtimer -= 3600;
 	runtimer = mktime(&runtime);
     }
 
-    if (runtimer < 0)
+    if(runtimer < 0)
 		return(-1);
 
-    if (nowtimer > runtimer)
+    if(nowtimer > runtimer)
 		return(-2);
 
     return runtimer;

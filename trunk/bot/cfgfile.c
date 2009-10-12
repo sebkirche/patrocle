@@ -47,7 +47,7 @@
 struct
 {
 	char	*name;
-	void	(*function)(char *s);
+	void(*function)(char *s);
 } config_cmds[] = {
 	/* Table with commands used to configure */
 	{ "SET",		set_var		},
@@ -63,7 +63,7 @@ struct
 {
 	char *name;
 	int	bot_def;	/* bot or list definition */
-	void    (*function)();
+	void(*function)();
 } definition_cmds[] ={
 	/* for bots AND for userlists */
 	/* list definitions */
@@ -91,7 +91,7 @@ struct
 struct
 {
 	char	*name;
-	void    (*function)();
+	void(*function)();
 } setting_cmds[] ={	
 	{ "IDLETIMEOUT",	get_idletimeout 	},
 	{ "WAITTIMEOUT",	get_waittimeout 	},
@@ -307,11 +307,11 @@ void    set_listrel(listinfo *list, char *listname)
 	//  char listname[MAXLEN];
   char *path;
 
-  if (not (path = expand_twiddle (listname))){
-      cfg_debug (ERROR, "Error in pathname \"%s\"!", listname);
+  if(not(path = expand_twiddle(listname))){
+      cfg_debug(ERROR, "Error in pathname \"%s\"!", listname);
       path = "";
   }
-  free (list->relfile);
+  free(list->relfile);
   mstrcpy(&list->relfile, path);
   cfg_debug(NOTICE, "Setting userlist for %s to \"%s\"",
 			list->listname, path);
@@ -422,7 +422,7 @@ void	add_to_channellist(botinfo *bot)
 		lua_pop(L, 1);
 	}
 	//if no encoding, default to utf-8
-	if (strlen(encoding) == 0)
+	if(strlen(encoding) == 0)
 		strncpy(encoding, "utf-8", sizeof(encoding)-1);
 	
 	if(find_channel(bot, channelname))
@@ -508,7 +508,7 @@ void    set_stimfile(botinfo *bot, char *stim)
 			  bot->botname, path);
 	free(bot->stimfile);
 	mstrcpy(&bot->stimfile, path);
-	ChargeStimuli (path);
+	ChargeStimuli(path);
 }
 
 // Sets repfile for bot.
@@ -524,22 +524,22 @@ void    set_repfile(botinfo *bot, char *rep)
 			  bot->botname, path);
 	free(bot->repfile);
 	mstrcpy(&bot->repfile, path);
-	ChargeReponses (path);
+	ChargeReponses(path);
 }
 
-void    set_botfile (botinfo *bot, char *Bot)
+void    set_botfile(botinfo *bot, char *Bot)
 {
 	char *path;
 
-    if (not (path = expand_twiddle (Bot))) {
-		cfg_debug (ERROR, "Error in pathname \"%s\"!", Bot);
+    if(not(path = expand_twiddle(Bot))) {
+		cfg_debug(ERROR, "Error in pathname \"%s\"!", Bot);
 		path = "";
     }
     cfg_debug(NOTICE, "Setting botfile for %s to \"%s\"",
 			  bot->botname, path);
-    free (bot->botfile);
-    mstrcpy (&bot->botfile, path);
-    readbotdatabase (path, bot->botlist);
+    free(bot->botfile);
+    mstrcpy(&bot->botfile, path);
+    readbotdatabase(path, bot->botlist);
 }
 
 /* settings */
@@ -617,7 +617,7 @@ void	set_globaldebug(char *s)
 			cfg_debug(ERROR, "debug expects a number 0..2 (integer)!");
 	}
 	else
-		cfg_debug(ERROR, "debug expects a number 0..2 (integer)!");
+		cfg_debug(ERROR, "debug expects a number 0..2(integer)!");
 }
 
 // Sets the name of the botmaintainer

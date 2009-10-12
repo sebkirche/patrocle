@@ -80,7 +80,7 @@ int				 join_channel(char *, char *, char *, char *, int);
 int				 leave_channel(char *);
 int				 mark_success(char *);
 int				 mark_failed(char *);
-int				 user_nb_on_channel (CHAN_list *);
+int				 user_nb_on_channel(CHAN_list *);
 void			 show_channellist(char *);
 void			 reset_channels(int);
 char			*currentchannel();
@@ -98,7 +98,7 @@ void			 channel_massdeop(char *, char *);
 void			 channel_masskick(char *, char *);
 int				 invite_to_channel(char *, char *);
 char			*username(char *);
-char			*channelname (const char *);
+char			*channelname(const char *);
 unsigned int	 usermode(char *, char *);
 BAN_list		*search_ban(BAN_list **, char *);
 void			 add_ban(BAN_list **, char *);
@@ -107,7 +107,7 @@ void			 clear_all_bans(BAN_list **);
 void			 channel_massunban(char *);
 void			 channel_unban(char *,	char *);
 int				 find_highest(char *,	char *);
-int				 is_log_on (const char *);
+int				 is_log_on(const char *);
 
 #endif /* CHANNEL_H */
 

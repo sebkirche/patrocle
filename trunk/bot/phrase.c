@@ -33,121 +33,121 @@ int TailleStim = 0;
 int TailleRep = 0;
 
 
-int SauveStimuli (char *nom_fichier)
+int SauveStimuli(char *nom_fichier)
 {
 	int i;
 	FILE *fichier;
 	
-	if (nom_fichier && strlen (nom_fichier)) 
-		if ((fichier = fopen (nom_fichier, "w"))) {
-			fprintf (fichier, "%d\n", TailleStim);
-			for (i = 0; i < TailleStim; i++) {
-				fprintf (fichier,"%s\t	%s\t%d\t%s\n",
+	if(nom_fichier && strlen(nom_fichier)) 
+		if((fichier = fopen(nom_fichier, "w"))) {
+			fprintf(fichier, "%d\n", TailleStim);
+			for(i = 0; i < TailleStim; i++) {
+				fprintf(fichier,"%s\t	%s\t%d\t%s\n",
 						 TableDesStimuli[i]->NomStimulus,
 						 TableDesStimuli[i]->Stimulus,
 						 TableDesStimuli[i]->Actif,
 						 TableDesStimuli[i]->Auteur);
 			}
-			fclose (fichier);
-			return (TRUE);
+			fclose(fichier);
+			return(TRUE);
 		}
   
-	return (FALSE);
+	return(FALSE);
   
 }
 
-int ChargeStimuli (char *nom_fichier)
+int ChargeStimuli(char *nom_fichier)
 {
 	int i;
 	FILE *fichier;
 	char Buffer[BIG_BUFFER];
 	char *Pointeur, *debut, *fin, *inter;
 
-	if (nom_fichier && strlen (nom_fichier)) {
-		if ((fichier = fopen (nom_fichier, "r"))) {
-			if (TableDesStimuli && TailleStim) {
-				for (i = 0; i < TailleStim; i++) {
-					if (TableDesStimuli[i]->NomStimulus)
-						free (TableDesStimuli[i]->NomStimulus);
-					if (TableDesStimuli[i]->Stimulus)
-						free (TableDesStimuli[i]->Stimulus);
-					if (TableDesStimuli[i]->Auteur)
-						free (TableDesStimuli[i]->Auteur);
+	if(nom_fichier && strlen(nom_fichier)) {
+		if((fichier = fopen(nom_fichier, "r"))) {
+			if(TableDesStimuli && TailleStim) {
+				for(i = 0; i < TailleStim; i++) {
+					if(TableDesStimuli[i]->NomStimulus)
+						free(TableDesStimuli[i]->NomStimulus);
+					if(TableDesStimuli[i]->Stimulus)
+						free(TableDesStimuli[i]->Stimulus);
+					if(TableDesStimuli[i]->Auteur)
+						free(TableDesStimuli[i]->Auteur);
 				}
 				
-				free (TableDesStimuli);
+				free(TableDesStimuli);
 				TailleStim = 0;
 			}
 			
-			fgets (Buffer, BIG_BUFFER, fichier);
+			fgets(Buffer, BIG_BUFFER, fichier);
 			KILLNEWLINE(Buffer);
 			
-			TailleStim = atoi (Buffer);
+			TailleStim = atoi(Buffer);
 
-			if (TailleStim > 0) {
-				TableDesStimuli = (phr_tbl **) malloc (TailleStim * sizeof (phr_tbl *));
+			if(TailleStim > 0) {
+				TableDesStimuli = (phr_tbl **) malloc(TailleStim * sizeof(phr_tbl *));
 			}
 	
-			for (i = 0; i < TailleStim && TableDesStimuli; i++) {
-				fgets (Buffer, BIG_BUFFER, fichier);
-				fin = strchr (Buffer, '\n');
-				if (fin)
+			for(i = 0; i < TailleStim && TableDesStimuli; i++) {
+				fgets(Buffer, BIG_BUFFER, fichier);
+				fin = strchr(Buffer, '\n');
+				if(fin)
 					*fin = '\0';
 				
-				Pointeur = strdup (Buffer);
+				Pointeur = strdup(Buffer);
 				debut    = Pointeur;
 				
-				inter = strtok (Pointeur, "\t");
+				inter = strtok(Pointeur, "\t");
 				
-				TableDesStimuli[i] = (phr_tbl *) malloc (sizeof (phr_tbl));
-				TableDesStimuli[i]->NomStimulus = strdup (inter?inter:"");
+				TableDesStimuli[i] = (phr_tbl *) malloc(sizeof(phr_tbl));
+				TableDesStimuli[i]->NomStimulus = strdup(inter?inter:"");
 				
-				inter = strtok (NULL, "\t");
-				TableDesStimuli[i]->Stimulus    = (inter?strdup (inter):strdup(""));
+				inter = strtok(NULL, "\t");
+				TableDesStimuli[i]->Stimulus    = (inter?strdup(inter):strdup(""));
 				
-				inter = strtok (NULL, "\t");
+				inter = strtok(NULL, "\t");
 				TableDesStimuli[i]->Actif       = (inter?atoi(inter):FALSE);
 				
-				inter = strtok (NULL, "\t\n\0");
-				TableDesStimuli[i]->Auteur      = (inter?strdup (inter):strdup(""));
+				inter = strtok(NULL, "\t\n\0");
+				TableDesStimuli[i]->Auteur      = (inter?strdup(inter):strdup(""));
 				
 				TableDesStimuli[i]->Present     = FALSE;
 
 
-				/* 	printf ("NomStimulus:\"%s\", Stimulus:\"%s\", Aut	eur:\"%s\"\n", */
+				/* 	printf("NomStimulus:\"%s\", Stimulus:\"%s\", Aut	eur:\"%s\"\n", */
 				/* 		TableDesStimuli[i]->NomStimulus, */
 				/* 		TableDesStimuli[i]->Stimulus, */
 				/* 		TableDesStimuli[i]->Auteur); */
 
-				free (debut);
+				free(debut);
 			}
-			fclose (fichier);
-			return (TRUE);
+			fclose(fichier);
+			return(TRUE);
 		} else
-			return (FALSE);
+			return(FALSE);
 	}
 	else
-		return (FALSE);
+		return(FALSE);
 }
 
-int AjouteStimulus (char *from, char *channel, char *Stimulus, char *NomStimulus) 
+int AjouteStimulus(char *from, char *channel, char *Stimulus, char *NomStimulus) 
 {
 	int i;
 	phr_tbl **TableIntermediaireP;
 
-	if (TailleStim >= 0) {
-		TableIntermediaireP = (phr_tbl **) malloc (sizeof (phr_tbl *)*(TailleStim+1));
+	if(TailleStim >= 0) {
+		TableIntermediaireP = (phr_tbl **) malloc(sizeof(phr_tbl *)*(TailleStim+1));
 		TailleStim++;
     
-		for (i = 0; i < TailleStim -1; i++)
+		for(i = 0; i < TailleStim -1; i++)
 			TableIntermediaireP[i] = TableDesStimuli[i];
     
-		if (TableDesStimuli)
-			free (TableDesStimuli);
+		if(TableDesStimuli)
+			free(TableDesStimuli);
 		
 		TableDesStimuli = TableIntermediaireP;
 		
-		TableDesStimuli[TailleStim-1] = (phr_tbl *) malloc (sizeof (phr_tbl));
+		TableDesStimuli[TailleStim-1] = (phr_tbl *) malloc(sizeof(phr_tbl));
 		TableDesStimuli[TailleStim-1]->NomStimulus = strdup(NomStimulus);
 		TableDesStimuli[TailleStim-1]->Stimulus    = strdup(Stimulus);
 		TableDesStimuli[TailleStim-1]->Auteur      = strdup(from);
@@ -158,115 +158,115 @@ int AjouteStimulus (char *from, char *channel, char *Stimulus, char *NomStimulus
 }
 
 
-int SauveReponses (char *nom_fichier)
+int SauveReponses(char *nom_fichier)
 {
 	int i;
 	FILE *fichier;
 
-	if (TableDesReponses[0]){
-		if (nom_fichier && strlen (nom_fichier)) {
-			if ((fichier = fopen (nom_fichier, "w"))) {
+	if(TableDesReponses[0]){
+		if(nom_fichier && strlen(nom_fichier)) {
+			if((fichier = fopen(nom_fichier, "w"))) {
 				assert(fichier != NULL);
-				fprintf (fichier, "%d\n", TailleRep);
-				for (i = 0; i < TailleRep; i++) {
-					fprintf (fichier,"%s\t%s\t%s\t%s\n",
+				fprintf(fichier, "%d\n", TailleRep);
+				for(i = 0; i < TailleRep; i++) {
+					fprintf(fichier,"%s\t%s\t%s\t%s\n",
 							 TableDesReponses[i]->NomStimulus,
 							 TableDesReponses[i]->Reponse,
 							 TableDesReponses[i]->Auteur,
 							 TableDesReponses[i]->Canal);
 				}
-				fclose (fichier);
-				return (TRUE);
+				fclose(fichier);
+				return(TRUE);
 			}
 		}
 	}
 	else
 		fprintf(stderr,"Table des reponses vide?!?\n");
 	
-	return (FALSE);
+	return(FALSE);
 }
 
-int ChargeReponses (char *nom_fichier)
+int ChargeReponses(char *nom_fichier)
 {
 	int i;
 	FILE *fichier;
 	char Buffer[BIG_BUFFER];
 	char *Pointeur, *debut, *fin;
 	
-	if (nom_fichier && strlen (nom_fichier)) {
-		if ((fichier = fopen (nom_fichier, "r"))) {
-			if (TableDesReponses && TailleRep) {
-				for (i = 0; i < TailleRep; i++) {
-					if (TableDesReponses[i]->Reponse)
-						free (TableDesReponses[i]->Reponse);
-					if (TableDesReponses[i]->NomStimulus)
-						free (TableDesReponses[i]->NomStimulus);
-					if (TableDesReponses[i]->Auteur)
-						free (TableDesReponses[i]->Auteur);
-					if (TableDesReponses[i]->Canal)
-						free (TableDesReponses[i]->Canal);
+	if(nom_fichier && strlen(nom_fichier)) {
+		if((fichier = fopen(nom_fichier, "r"))) {
+			if(TableDesReponses && TailleRep) {
+				for(i = 0; i < TailleRep; i++) {
+					if(TableDesReponses[i]->Reponse)
+						free(TableDesReponses[i]->Reponse);
+					if(TableDesReponses[i]->NomStimulus)
+						free(TableDesReponses[i]->NomStimulus);
+					if(TableDesReponses[i]->Auteur)
+						free(TableDesReponses[i]->Auteur);
+					if(TableDesReponses[i]->Canal)
+						free(TableDesReponses[i]->Canal);
 				}
 	
-				free (TableDesReponses);
+				free(TableDesReponses);
 				TableDesReponses = NULL;
 				TailleRep = 0;
 			}
 		  
 		  
-			fgets (Buffer, BIG_BUFFER, fichier);
-			fin = strchr (Buffer, '\n');
-			if (fin)
+			fgets(Buffer, BIG_BUFFER, fichier);
+			fin = strchr(Buffer, '\n');
+			if(fin)
 				*fin = '\0';
 		  
-			TailleRep = atoi (Buffer);
+			TailleRep = atoi(Buffer);
 
-			if (TailleRep > 0) 
-				TableDesReponses = (rep_tbl **) malloc (TailleRep * sizeof (rep_tbl *));
-			for (i = 0; i < TailleRep; i++) {
-				fgets (Buffer, BIG_BUFFER, fichier);
-				fin = strchr (Buffer, '\n');
-				if (fin)
+			if(TailleRep > 0) 
+				TableDesReponses = (rep_tbl **) malloc(TailleRep * sizeof(rep_tbl *));
+			for(i = 0; i < TailleRep; i++) {
+				fgets(Buffer, BIG_BUFFER, fichier);
+				fin = strchr(Buffer, '\n');
+				if(fin)
 					*fin = '\0';
-				Pointeur = strdup (Buffer);
+				Pointeur = strdup(Buffer);
 				debut    = Pointeur;
 			  
-				TableDesReponses[i] = (rep_tbl*) malloc (sizeof (rep_tbl));
-				TableDesReponses[i]->NomStimulus = strdup (get_token (&Pointeur, "\t"));
-				TableDesReponses[i]->Reponse     = strdup (get_token (&Pointeur, "\t"));
-				TableDesReponses[i]->Auteur      = strdup (get_token (&Pointeur, "\t"));
-				TableDesReponses[i]->Canal       = strdup (get_token (&Pointeur, "\t\n"));
+				TableDesReponses[i] = (rep_tbl*) malloc(sizeof(rep_tbl));
+				TableDesReponses[i]->NomStimulus = strdup(get_token(&Pointeur, "\t"));
+				TableDesReponses[i]->Reponse     = strdup(get_token(&Pointeur, "\t"));
+				TableDesReponses[i]->Auteur      = strdup(get_token(&Pointeur, "\t"));
+				TableDesReponses[i]->Canal       = strdup(get_token(&Pointeur, "\t\n"));
 				TableDesReponses[i]->Active      = TRUE;
 
-				free (debut);
+				free(debut);
 			}
-			fclose (fichier);
-			return (TRUE);
+			fclose(fichier);
+			return(TRUE);
 		} else
-			return (FALSE);
+			return(FALSE);
 	}
 	else
-		return (FALSE);
+		return(FALSE);
 }
 
 
-int AjouteReponse (char *from, char *channel, char *Reponse, char *NomStimulus) 
+int AjouteReponse(char *from, char *channel, char *Reponse, char *NomStimulus) 
 {
 	rep_tbl** TableIntermediaireR;
 	int i;
 
-	if (TailleRep >= 0) {
-		TableIntermediaireR = (rep_tbl**) malloc (sizeof (rep_tbl *)*(TailleRep+1));
+	if(TailleRep >= 0) {
+		TableIntermediaireR = (rep_tbl**) malloc(sizeof(rep_tbl *)*(TailleRep+1));
 		TailleRep++;
 		
-		for (i = 0; i < TailleRep -1; i++)
+		for(i = 0; i < TailleRep -1; i++)
 			TableIntermediaireR[i] = TableDesReponses[i];
     
-		if (TableDesReponses)
-			free (TableDesReponses);
+		if(TableDesReponses)
+			free(TableDesReponses);
     
 		TableDesReponses = TableIntermediaireR;
 		
-		TableDesReponses[TailleRep-1] = (rep_tbl*) malloc (sizeof (rep_tbl));
+		TableDesReponses[TailleRep-1] = (rep_tbl*) malloc(sizeof(rep_tbl));
 		TableDesReponses[TailleRep-1]->Reponse     = strdup(Reponse);
 		TableDesReponses[TailleRep-1]->NomStimulus = strdup(NomStimulus);
 		TableDesReponses[TailleRep-1]->Auteur      = strdup(from);
@@ -278,18 +278,18 @@ int AjouteReponse (char *from, char *channel, char *Reponse, char *NomStimulus)
 		return FALSE;
 }
 
-int SupprimeRep (int numero) 
+int SupprimeRep(int numero) 
 {
 	int i;
 
 	numero--; /* on demarre a 1 */
-	if (numero < TailleRep && numero >= 0) {
-		free (TableDesReponses[numero]->Reponse);
-		free (TableDesReponses[numero]->NomStimulus);
-		free (TableDesReponses[numero]->Auteur);
-		free (TableDesReponses[numero]->Canal);
+	if(numero < TailleRep && numero >= 0) {
+		free(TableDesReponses[numero]->Reponse);
+		free(TableDesReponses[numero]->NomStimulus);
+		free(TableDesReponses[numero]->Auteur);
+		free(TableDesReponses[numero]->Canal);
 		
-		for (i = numero; i < TailleRep-1; i++) {
+		for(i = numero; i < TailleRep-1; i++) {
 			TableDesReponses[i]->Reponse = TableDesReponses[i+1]->Reponse;
 			TableDesReponses[i]->NomStimulus = TableDesReponses[i+1]->NomStimulus;
 			TableDesReponses[i]->Auteur = TableDesReponses[i+1]->Auteur;
@@ -303,17 +303,17 @@ int SupprimeRep (int numero)
 	return FALSE;
 }
 
-int SupprimeStim (int numero) 
+int SupprimeStim(int numero) 
 {
 	int i;
 
 	numero--; /* On demarre a 1 */
-	if (numero < TailleStim && numero >= 0) {
-		free (TableDesStimuli[numero]->NomStimulus);
-		free (TableDesStimuli[numero]->Stimulus);
-		free (TableDesStimuli[numero]->Auteur);
+	if(numero < TailleStim && numero >= 0) {
+		free(TableDesStimuli[numero]->NomStimulus);
+		free(TableDesStimuli[numero]->Stimulus);
+		free(TableDesStimuli[numero]->Auteur);
 		
-		for (i = numero; i < TailleStim-1; i++) {
+		for(i = numero; i < TailleStim-1; i++) {
 			TableDesStimuli[i]->Stimulus = TableDesStimuli[i+1]->Stimulus;
 			TableDesStimuli[i]->NomStimulus = TableDesStimuli[i+1]->NomStimulus;
 			TableDesStimuli[i]->Auteur = TableDesStimuli[i+1]->Auteur;
@@ -327,41 +327,41 @@ int SupprimeStim (int numero)
 	return FALSE;
 }
 
-void LibereStimuli ()
+void LibereStimuli()
 {
 	int i;
 
-	for (i = 0; i < TailleStim; i++)
-		if (TableDesStimuli[i]){
+	for(i = 0; i < TailleStim; i++)
+		if(TableDesStimuli[i]){
 			free(TableDesStimuli[i]->NomStimulus);
 			free(TableDesStimuli[i]->Stimulus);
 			free(TableDesStimuli[i]->Auteur);
 			
 			free(TableDesStimuli[i]);
 		}
-	if (TailleStim && TableDesStimuli){
+	if(TailleStim && TableDesStimuli){
 		free(TableDesStimuli);
 		TableDesStimuli = NULL;
 	}
 }
 
-void LibereReponses () 
+void LibereReponses() 
 {
 	rep_tbl *Courant, *Suivant;
 	int i;
 	
-	for (i = 0; i < TailleRep; i++) 
-		if (TableDesReponses[i]) {
-			free (TableDesReponses[i]->Reponse);
-			free (TableDesReponses[i]->NomStimulus);
-			free (TableDesReponses[i]->Auteur);
-			free (TableDesReponses[i]->Canal);
+	for(i = 0; i < TailleRep; i++) 
+		if(TableDesReponses[i]) {
+			free(TableDesReponses[i]->Reponse);
+			free(TableDesReponses[i]->NomStimulus);
+			free(TableDesReponses[i]->Auteur);
+			free(TableDesReponses[i]->Canal);
 			
-			free (TableDesReponses[i]);
+			free(TableDesReponses[i]);
 		}
 	
-	if (TailleRep && TableDesReponses){
-		free (TableDesReponses);
+	if(TailleRep && TableDesReponses){
+		free(TableDesReponses);
 		TableDesReponses = NULL;
 	}
 }

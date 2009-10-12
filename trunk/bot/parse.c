@@ -89,7 +89,7 @@ void 	parse_privmsg(char *from, char *rest)
 	if( *text == ':' )
 		*( text++ ) = '\0';
 
-/* fprintf (stderr,"** from:%s\n** to:%s\n** text:%s\n",from,to,text); */
+/* fprintf(stderr,"** from:%s\n** to:%s\n** text:%s\n",from,to,text); */
 
 /* This sometimes fails if the string is longer than MAXLEN bytes (the last 
    \001 is gone. Not very interesting, because normal CTCP requests aren't 
@@ -134,7 +134,7 @@ void	parse_join(char *from, char *rest)
 
 void	parse_part(char *from, char *rest)
 {
-	strtok (rest, " \0");
+	strtok(rest, " \0");
 	remove_user_from_channel(rest, getnick(from));
 }
 
@@ -170,7 +170,7 @@ void	parse_ping(char *from, char *rest)
 
 /* 	gethostname(localhost, 64); */
 /*        	sendpong( localhost ); */
-	sendpong (rest);
+	sendpong(rest);
 	/* No need to make a seperate on_ping */
 	currentbot->lastping = time(NULL);
 }
@@ -357,14 +357,14 @@ void 	parseline(char *line)
 			return;
 		*( command++ ) = '\0';
 		from = line + 1; 
-		/* fprintf (stderr,"** from:'%s'\n",from); */
+		/* fprintf(stderr,"** from:'%s'\n",from); */
 	} 
 	else {
 		command = line;
 		from = NULL;
 	}
 
-	/* fprintf (stderr,"** command:'%s'\n",command); */
+	/* fprintf(stderr,"** command:'%s'\n",command); */
   
 	if( ( rest = strchr( command, ' ' ) ) == 0 )
 		return;
@@ -374,7 +374,7 @@ void 	parseline(char *line)
 	if( *rest == ':' )
 		*( rest++ ) = '\0';
 
-	/* fprintf (stderr,"** rest:'%s'\n",rest); */
+	/* fprintf(stderr,"** rest:'%s'\n",rest); */
 
 	for(i=0; parse_funcs[i].name; i++)
 		if(STRCASEEQUAL(parse_funcs[i].name, command)){

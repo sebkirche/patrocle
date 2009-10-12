@@ -49,15 +49,15 @@ int connect_by_number(int service, char *host)
     struct  sockaddr_in server;
     struct  hostent *hp = 0;
     
-    if (service == -2){
+    if(service == -2){
 	server=(*(struct sockaddr_in *) host);
     }
-    else if (service > 0){
-	if (host == null(char *)){
+    else if(service > 0){
+	if(host == null(char *)){
 	    gethostname(buf, 100);
 	    host = buf;
 	}
-	if ((service > 0) && ((server.sin_addr.s_addr =
+	if((service > 0) && ((server.sin_addr.s_addr =
 			       inet_addr(host)) == -1)){
 	    if((hp = gethostbyname(host))){
 		memset((char *) &server, 0, sizeof(server));
@@ -66,21 +66,21 @@ int connect_by_number(int service, char *host)
 		server.sin_family = hp->h_addrtype;
 	    }
 	    else
-		return (-2);
+		return(-2);
 	}
 	else
 	    server.sin_family = AF_INET;
 	server.sin_port = (unsigned short) htons(service);
     }
-    if (((service == -1) && ((s = socket(AF_INET, SOCK_DGRAM, 0)) < 0)) ||
+    if(((service == -1) && ((s = socket(AF_INET, SOCK_DGRAM, 0)) < 0)) ||
 	((service != -1) && ((s = socket(AF_INET, SOCK_STREAM, 0)) < 0)))
-	return (-3);
-    if (service != -1){
+	return(-3);
+    if(service != -1){
 	setsockopt(s, SOL_SOCKET, SO_LINGER, 0, 0);
 	setsockopt(s, SOL_SOCKET, SO_REUSEADDR, 0, 0);
 	setsockopt(s, SOL_SOCKET, SO_KEEPALIVE, 0, 0);
     }
-    if (service <= 0 && service != -2){
+    if(service <= 0 && service != -2){
 	struct  sockaddr_in 	localaddr;
 	struct	hostent		*hp;
 	struct	in_addr		MyHostAddr;
@@ -91,12 +91,12 @@ int connect_by_number(int service, char *host)
 	    memcpy((char *) &MyHostAddr, hp->h_addr, sizeof(MyHostAddr));
 	memset((char*)&localaddr, 0, sizeof(struct sockaddr_in));
 	localaddr.sin_family = AF_INET;
-	if (!service)
+	if(!service)
 	    localaddr.sin_addr.s_addr = INADDR_ANY;
 	else
 	    localaddr.sin_addr=MyHostAddr;
 	localaddr.sin_port = 0;
-	if (bind(s, (struct sockaddr *) &localaddr,
+	if(bind(s, (struct sockaddr *) &localaddr,
 		 sizeof(localaddr)) == -1 ||
 	    (!service && listen(s, 1) == -1)){
 	    close(s);
@@ -104,13 +104,13 @@ int connect_by_number(int service, char *host)
 	}
 	service = sizeof(localaddr);
 	getsockname(s, (struct  sockaddr *) &localaddr, &service);
-	return (s);
+	return(s);
     }
-    if (connect(s, (struct sockaddr *) & server, sizeof(server)) < 0){
+    if(connect(s, (struct sockaddr *) & server, sizeof(server)) < 0){
 	close(s);
-	return (-4);
+	return(-4);
     }
-    return (s);
+    return(s);
 }
 
 

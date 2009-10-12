@@ -243,17 +243,17 @@ int	mark_failed( char *name )
 	return(FALSE);
 }
 
-int     user_nb_on_channel ( CHAN_list *Channel ) 
+int     user_nb_on_channel( CHAN_list *Channel ) 
 {
 	USER_list *User;
 	int N;
 
 	N = 0;
 	
-	for (User = Channel->users; User; User = User->next)
+	for(User = Channel->users; User; User = User->next)
 		N++;
 	
-	return (N);
+	return(N);
 }
 
 
@@ -350,16 +350,16 @@ int	remove_user_from_channel( char *channel, char *nick )
 
 	/* If there is only the bot in this channel and he is not OP,
 	   we left the channel and come back. Thus, we can get OP */
-	if (user_nb_on_channel (Dummy) == 1
-	    && !(get_usermode (Dummy->users)&MODE_CHANOP)) {
-		Topic = strdup (Dummy->topic);
-		Mode  = strdup (Dummy->mod);
-		Encoding = strdup (Dummy->encoding);
-		leave_channel (channel);
-		join_channel (channel, Topic, Mode, Encoding, TRUE);
+	if(user_nb_on_channel(Dummy) == 1
+	    && !(get_usermode(Dummy->users)&MODE_CHANOP)) {
+		Topic = strdup(Dummy->topic);
+		Mode  = strdup(Dummy->mod);
+		Encoding = strdup(Dummy->encoding);
+		leave_channel(channel);
+		join_channel(channel, Topic, Mode, Encoding, TRUE);
 	  
-		sendmode (channel, Mode);
-		sendtopic (channel, Topic);
+		sendmode(channel, Mode);
+		sendtopic(channel, Topic);
 	}
 
 	return(TRUE);
@@ -395,16 +395,16 @@ void	remove_user( char *nick )
 	    Destruction = 0;
 
 		/* if the channel is left empty, we get the control */
-	    if (user_nb_on_channel (Channel) == 1
-			&& !(get_usermode (Channel->users)&MODE_CHANOP)) {
-			Topic = strdup (Channel->topic);
-			Mode  = strdup (Channel->mod);
-			Name  = strdup (Channel->name);
-			Encoding = strdup (Channel->encoding);
+	    if(user_nb_on_channel(Channel) == 1
+			&& !(get_usermode(Channel->users)&MODE_CHANOP)) {
+			Topic = strdup(Channel->topic);
+			Mode  = strdup(Channel->mod);
+			Name  = strdup(Channel->name);
+			Encoding = strdup(Channel->encoding);
 			Next  = Channel->next;
-			leave_channel (Name);
+			leave_channel(Name);
 			Destruction = 1;
-			join_channel (Name, Topic, Mode, Encoding, TRUE);
+			join_channel(Name, Topic, Mode, Encoding, TRUE);
 	    }
 	}
 }
@@ -428,7 +428,7 @@ int	show_users_on_channel( char *from, char *channel )
 					  userlevel(get_username(Blah)),
 					  shitlevel(get_username(Blah)),
 					  protlevel(get_username(Blah)), 
-					  rellevel (get_username(Blah)),
+					  rellevel(get_username(Blah)),
 					  modestr );
 		Blah = get_nextuser( Blah );
 	}
@@ -627,7 +627,7 @@ char	*username( char *nick )
 	return(NULL);
 }
 
-char    *channelname (const char *nick)
+char    *channelname(const char *nick)
 /*
  * Searches all lists for nick and if it finds it, returns 
  * a name of channel on which he is
@@ -808,12 +808,12 @@ int	find_highest(char *channel, char *pattern)
 	return highest;
 }
 
-int is_log_on (const char *to)
+int is_log_on(const char *to)
 {
 	CHAN_list *Canal;
 
 	/* Si ce n'est pas un canal, on logge */
-	if (!(Canal = search_chan (to)))
+	if(!(Canal = search_chan(to)))
 		return TRUE;
   
 	return Canal->log;

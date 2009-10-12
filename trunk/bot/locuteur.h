@@ -31,24 +31,24 @@ typedef struct locuteur_struct {
   struct locuteur_struct *suivant; /* locuteur suivant */
 } locuteur;
 
-locuteur **InitLocuteurListe ();
-locuteur *LocuteurExiste (locuteur **, const char *);
-locuteur *LocuteurNickExiste (locuteur **, char *);
-locuteur *AjouteLocuteur (locuteur **, const char *);
-void      AjoutePoints (locuteur *, int);
-void      AnnulePoints (locuteur *);
-void      AnnuleBonjours (locuteur *);
-void      MAJPremierContact (locuteur *);
-void      MAJDernierContact (locuteur *);
-void	  MAJDerniereActivite (locuteur *);
-void      EnleveLocuteur (locuteur **, locuteur *);
-void      MontreLocuteurs (locuteur **, char *, char *);
-int       SauveLocuteurs (locuteur **, char *);
-void      DetruitListe (locuteur **);
-int       ChargeLocuteurs (char *, locuteur **);
-void      NettoieListeLocuteurs (locuteur **);
-int       loclevel (char *);
-int       loctrue (char *);
+locuteur **InitLocuteurListe();
+locuteur *LocuteurExiste(locuteur **, const char *);
+locuteur *LocuteurNickExiste(locuteur **, char *);
+locuteur *AjouteLocuteur(locuteur **, const char *);
+void      AjoutePoints(locuteur *, int);
+void      AnnulePoints(locuteur *);
+void      AnnuleBonjours(locuteur *);
+void      MAJPremierContact(locuteur *);
+void      MAJDernierContact(locuteur *);
+void	  MAJDerniereActivite(locuteur *);
+void      EnleveLocuteur(locuteur **, locuteur *);
+void      MontreLocuteurs(locuteur **, char *, char *);
+int       SauveLocuteurs(locuteur **, char *);
+void      DetruitListe(locuteur **);
+int       ChargeLocuteurs(char *, locuteur **);
+void      NettoieListeLocuteurs(locuteur **);
+int       loclevel(char *);
+int       loctrue(char *);
 #endif
 
 // Local variables:

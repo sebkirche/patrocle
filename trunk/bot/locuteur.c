@@ -34,51 +34,51 @@
 
 extern botinfo *currentbot;
 
-locuteur **InitLocuteurListe ()
+locuteur **InitLocuteurListe()
 {
-	locuteur **Liste = malloc (sizeof (locuteur *));
+	locuteur **Liste = malloc(sizeof(locuteur *));
   
 	*Liste = NULL;
-	return (Liste);
+	return(Liste);
 }
 
-locuteur *LocuteurExiste (locuteur **Liste, const char *userhost)
+locuteur *LocuteurExiste(locuteur **Liste, const char *userhost)
 {
 	locuteur *User;
 
-	for (User = *Liste; User; User = User->suivant)
-		if (!fnmatch (User->nuh, userhost, FNM_CASEFOLD))
+	for(User = *Liste; User; User = User->suivant)
+		if(!fnmatch(User->nuh, userhost, FNM_CASEFOLD))
 			return User;
 
 	return NULL;
-} /* locuteur LocuteurExiste () */
+} /* locuteur LocuteurExiste() */
 
-locuteur *LocuteurNickExiste (locuteur **Liste, char *nick)
+locuteur *LocuteurNickExiste(locuteur **Liste, char *nick)
 {
 	locuteur *User;
 #ifdef DBUG
 	printf("LocuteurNickExiste : cherche %s\n", nick);
 #endif
-	for (User = *Liste; User; User = User->suivant){
+	for(User = *Liste; User; User = User->suivant){
 #ifdef DBUG
 		printf("Locuteur courant : %s, nick %s\n", User->nuh, GetNick(User->nuh));
 #endif
-		if (!fnmatch (GetNick(User->nuh), nick, FNM_CASEFOLD))
+		if(!fnmatch(GetNick(User->nuh), nick, FNM_CASEFOLD))
 			return User;
 	}
 
 	return NULL;
-} /* locuteur LocuteurNickExiste () */
+} /* locuteur LocuteurNickExiste() */
 
-locuteur *AjouteLocuteur (locuteur **Liste, const char *userhost)
+locuteur *AjouteLocuteur(locuteur **Liste, const char *userhost)
 {
-	if (Liste) {
-		locuteur *AAjouter = malloc (sizeof (locuteur));
+	if(Liste) {
+		locuteur *AAjouter = malloc(sizeof(locuteur));
     
 		AAjouter->nuh = strdup(userhost);
 		AAjouter->bonus_malus = 0;
-		AAjouter->PremierContact = 0 /* time2hours (time (NULL))*/;
-		AAjouter->DernierContact = 0 /* time2hours (time (NULL))*/;
+		AAjouter->PremierContact = 0 /* time2hours(time(NULL))*/;
+		AAjouter->DernierContact = 0 /* time2hours(time(NULL))*/;
 		AAjouter->Bonjours = 0;
 		AAjouter->Veridique = TRUE;
 		AAjouter->LastSeen = time(NULL);
@@ -90,37 +90,37 @@ locuteur *AjouteLocuteur (locuteur **Liste, const char *userhost)
 	}
 	else
 		return NULL;
-} /* void AjouteLocuteur () */
+} /* void AjouteLocuteur() */
 
-void AjoutePoints (locuteur *Locuteur, int Points)
+void AjoutePoints(locuteur *Locuteur, int Points)
 {
-	if (Locuteur)
+	if(Locuteur)
 		Locuteur->bonus_malus += Points;
 	//printf("AjoutePoints %d à %s\n", Points, Locuteur->nuh);
-} /* void AjoutePoints () */
+} /* void AjoutePoints() */
 
-void AnnulePoints (locuteur *Locuteur)
+void AnnulePoints(locuteur *Locuteur)
 {
-	if (Locuteur)
+	if(Locuteur)
 		Locuteur->bonus_malus = 0;
 }
 
-void MAJPremierContact (locuteur *Locuteur)
+void MAJPremierContact(locuteur *Locuteur)
 {
-	if (Locuteur) {
-		Locuteur->PremierContact = time2hours (time (NULL));
+	if(Locuteur) {
+		Locuteur->PremierContact = time2hours(time(NULL));
 		Locuteur->Veridique = FALSE;
 		/* PAS FINI ? */
 	}
 }
 
 /* dernier contact du bot -> locuteur */
-void MAJDernierContact (locuteur *Locuteur)
+void MAJDernierContact(locuteur *Locuteur)
 { 
-	if (Locuteur) {
-		if (Locuteur->DernierContact - Locuteur->PremierContact > HOURS_BETWEEN_SALUTES) {
-			MAJPremierContact (Locuteur);
-			AnnuleBonjours (Locuteur);
+	if(Locuteur) {
+		if(Locuteur->DernierContact - Locuteur->PremierContact > HOURS_BETWEEN_SALUTES) {
+			MAJPremierContact(Locuteur);
+			AnnuleBonjours(Locuteur);
 		}
 		Locuteur->LastSeen = time(NULL);
 		Locuteur->DernierContact = time2hours(Locuteur->LastSeen);
@@ -128,64 +128,64 @@ void MAJDernierContact (locuteur *Locuteur)
 }
 
 /* dernier signe de vie du locuteur */
-void MAJDerniereActivite (locuteur *Locuteur)
+void MAJDerniereActivite(locuteur *Locuteur)
 {
 	if(Locuteur)
 		Locuteur->LastSeen = time(NULL);
 }
 
-void AnnuleBonjours (locuteur *Locuteur)
+void AnnuleBonjours(locuteur *Locuteur)
 {
-	if (Locuteur)
+	if(Locuteur)
 		Locuteur->Bonjours = 0;
 }
 
-void EnleveLocuteur (locuteur **Liste, locuteur *AOter)
+void EnleveLocuteur(locuteur **Liste, locuteur *AOter)
 {
 	locuteur *courant, *prec;
 
-	if (Liste)
-		if (*Liste) {
-			if (AOter) {
+	if(Liste)
+		if(*Liste) {
+			if(AOter) {
 				prec = NULL;
-				for (courant = *Liste; courant; courant = courant->suivant) {
-					if (courant == AOter) {
-						if (prec)
+				for(courant = *Liste; courant; courant = courant->suivant) {
+					if(courant == AOter) {
+						if(prec)
 							prec->suivant = courant->suivant;
 						else
 							*Liste = courant->suivant;
 					}
 					prec = courant;
 				}
-				if (AOter->nuh)
-					free (AOter->nuh);
-				free (AOter);
+				if(AOter->nuh)
+					free(AOter->nuh);
+				free(AOter);
 			}
 		}
-} /* void EnleveLocuteur () */
+} /* void EnleveLocuteur() */
 
-void MontreLocuteurs (locuteur **Liste, char *from, char *userhost)
+void MontreLocuteurs(locuteur **Liste, char *from, char *userhost)
 {
 	locuteur *Locuteur;
 
-	for (Locuteur = *Liste; Locuteur; Locuteur = Locuteur->suivant)
-		if ((userhost && !fnmatch (userhost, Locuteur->nuh, FNM_CASEFOLD))
+	for(Locuteur = *Liste; Locuteur; Locuteur = Locuteur->suivant)
+		if((userhost && !fnmatch(userhost, Locuteur->nuh, FNM_CASEFOLD))
 			|| !userhost)
 			send_to_user( from, " %40s | %4d | %6d | %-2d", 
 						  Locuteur->nuh, Locuteur->bonus_malus,
 						  Locuteur->PremierContact, Locuteur->Bonjours);
-} /* void MontreLocuteurs () */
+} /* void MontreLocuteurs() */
 
-int SauveLocuteurs (locuteur **Liste, char *NomFichier)
+int SauveLocuteurs(locuteur **Liste, char *NomFichier)
 {
 	locuteur *Locuteur;
 	time_t   T;
 	FILE     *fichier;
 
-	if ((fichier = fopen (NomFichier, "w")) == NULL)
-		return (FALSE);
+	if((fichier = fopen(NomFichier, "w")) == NULL)
+		return(FALSE);
 
-	T = time ((time_t *) NULL);
+	T = time((time_t *) NULL);
 
 	fprintf( fichier, "#############################################\n" );
 	fprintf( fichier, "## %s\n", NomFichier );
@@ -193,8 +193,8 @@ int SauveLocuteurs (locuteur **Liste, char *NomFichier)
 	fprintf( fichier, "## (c) 2009 seki (sebastien.kirche@free.fr)\n" );
 	fprintf( fichier, "#############################################\n" );
 	
-	for (Locuteur = *Liste; Locuteur; Locuteur = Locuteur->suivant)
-		fprintf (fichier,
+	for(Locuteur = *Liste; Locuteur; Locuteur = Locuteur->suivant)
+		fprintf(fichier,
 				 "%40s %d %d %d %ld\n",
 				 Locuteur->nuh, Locuteur->bonus_malus,
 				 Locuteur->PremierContact,
@@ -202,46 +202,46 @@ int SauveLocuteurs (locuteur **Liste, char *NomFichier)
 				 Locuteur->LastSeen
 				 );
   
-	fprintf (fichier, "# End of %s\n", NomFichier );
-	fclose (fichier);
-	return (TRUE);
-} /* int SauveLocuteurs () */
+	fprintf(fichier, "# End of %s\n", NomFichier );
+	fclose(fichier);
+	return(TRUE);
+} /* int SauveLocuteurs() */
 
-void DetruitListe (locuteur **Liste)
+void DetruitListe(locuteur **Liste)
 {
 	locuteur *ADetruire;
 
-	if (Liste)
-		while (*Liste){
+	if(Liste)
+		while(*Liste){
 			ADetruire = *Liste;
 			*Liste = (*Liste)->suivant;
-			if (ADetruire->nuh) {
-				free (ADetruire->nuh);
+			if(ADetruire->nuh) {
+				free(ADetruire->nuh);
 			}
-			free (ADetruire);
+			free(ADetruire);
 		}
 	free(Liste);
-} /* void DetruitListe () */
+} /* void DetruitListe() */
 
 
-int Lit_Fichier_Locuteur (FILE *stream, char *usrhost, int *points, int *heure, int *dernier, long *seen)
+int Lit_Fichier_Locuteur(FILE *stream, char *usrhost, int *points, int *heure, int *dernier, long *seen)
 {
 	char s[MAXLEN];
 	char *p;
 	
 	do {
-		p = fgets (s, MAXLEN, stream);
-	} while ((p != NULL) && (*s == '#'));
+		p = fgets(s, MAXLEN, stream);
+	} while((p != NULL) && (*s == '#'));
 	
-	if ( p == NULL )
-		return (FALSE);
+	if( p == NULL )
+		return(FALSE);
 	
-	sscanf (s, "%s %d %d %d %ld", usrhost, points, heure, dernier, seen);
+	sscanf(s, "%s %d %d %d %ld", usrhost, points, heure, dernier, seen);
 	
-	return (TRUE);
-} /* int Lit_Fichier_Locuteur () */
+	return(TRUE);
+} /* int Lit_Fichier_Locuteur() */
 
-int       ChargeLocuteurs (char *NomFichier, locuteur **Liste)
+int       ChargeLocuteurs(char *NomFichier, locuteur **Liste)
 {
 	FILE *fp;
 	char usrhost[MAXLEN];
@@ -251,43 +251,43 @@ int       ChargeLocuteurs (char *NomFichier, locuteur **Liste)
 	long seen;	/* derniÃ¨re activitÃ© vue */
 	locuteur *Loc;
 
-	if ((fp = fopen (NomFichier, "r")) == NULL) {
-		printf ("Fichier \"%s\" non trouve, j'arrete.\n", NomFichier);
-		exit (0);
+	if((fp = fopen(NomFichier, "r")) == NULL) {
+		printf("Fichier \"%s\" non trouve, j'arrete.\n", NomFichier);
+		exit(0);
 	}
 
-	while (Lit_Fichier_Locuteur (fp, usrhost, &points, &pc, &dc, &seen)) {
-		Loc = AjouteLocuteur (Liste, usrhost);
+	while(Lit_Fichier_Locuteur(fp, usrhost, &points, &pc, &dc, &seen)) {
+		Loc = AjouteLocuteur(Liste, usrhost);
 		Loc->bonus_malus = points;
 		Loc->PremierContact = pc;
 		Loc->DernierContact = dc;
 		Loc->LastSeen = seen;
 	}
 	
-	fclose (fp);
-	return (TRUE);
+	fclose(fp);
+	return(TRUE);
 	
-} /* int ChargeLocuteurs () */
+} /* int ChargeLocuteurs() */
 
 /* Enleve tous les locuteurs qui ont un DernierContact ancien, un
    DernierContact - PremierContact petit et un bonus nul */
-void NettoieListeLocuteurs (locuteur **Liste)
+void NettoieListeLocuteurs(locuteur **Liste)
 {
 	locuteur *ListeP, *Suivant;
 	int Premier, Dernier, Bonus, Actuel;
 	
-	if (*Liste) {
-		Actuel = time2hours (time (NULL));
+	if(*Liste) {
+		Actuel = time2hours(time(NULL));
 		ListeP = *Liste;
-		while (ListeP) {
+		while(ListeP) {
 			Premier = ListeP->PremierContact;
 			Dernier = ListeP->DernierContact;
 			Bonus   = ListeP->bonus_malus;
 			Suivant = ListeP->suivant;
-			if ((!Bonus && Dernier-Premier <= 2 && Actuel-Dernier > 24*7) ||
+			if((!Bonus && Dernier-Premier <= 2 && Actuel-Dernier > 24*7) ||
 				((Bonus < 5 && Bonus > -5) && Actuel-Dernier > 24*7*4) ||
 				(Actuel-Dernier > 365 * 24 * 7 )) {
-				EnleveLocuteur (Liste, ListeP);
+				EnleveLocuteur(Liste, ListeP);
 			}
 			ListeP = Suivant;
 		}
@@ -295,25 +295,25 @@ void NettoieListeLocuteurs (locuteur **Liste)
 }
 
 /* Renvoie le score provisoire du locuteur */
-int loclevel (char *from)
+int loclevel(char *from)
 {
 	locuteur *Locuteur = 0;
-	Locuteur = LocuteurExiste (currentbot->lists->ListeLocuteurs, from);
-	if (Locuteur)
-		return (Locuteur->bonus_malus);
+	Locuteur = LocuteurExiste(currentbot->lists->ListeLocuteurs, from);
+	if(Locuteur)
+		return(Locuteur->bonus_malus);
 	else
-		return (0);
+		return(0);
 }
 
 /* Renvoie la valeur du champ Veridique du locuteur correspondant au nom passe en parametre */
-int loctrue (char *from)
+int loctrue(char *from)
 {
 	locuteur *Locuteur = 0;
-	Locuteur = LocuteurExiste (currentbot->lists->ListeLocuteurs, from);
-	if (Locuteur)
-		return (Locuteur->Veridique);
+	Locuteur = LocuteurExiste(currentbot->lists->ListeLocuteurs, from);
+	if(Locuteur)
+		return(Locuteur->Veridique);
 	else
-		return (FALSE);
+		return(FALSE);
  }
 
 // Local variables:

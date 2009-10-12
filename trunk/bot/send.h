@@ -22,7 +22,7 @@
 #define SEND_H
 
 int	sendprivmsg(const char *sendto, const char *format, ...);
-int sendaction (const char *sendto, const char *format, ...);
+int sendaction(const char *sendto, const char *format, ...);
 int	sendnotice(const char *sendto, const char *format, ...);
 int sendregister(const char *nick, const char *login, const char *ircname);
 int	sendtopic(const char *channel, const char *topic);
