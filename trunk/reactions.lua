@@ -1089,7 +1089,7 @@ function TraiteMessage(from, to, message, nbphrases)
 		 nowtbl = os.date("*t")
 		 nowfmt = "%H heure"
 		 if nowtbl.hour > 1 then nowfmt = nowfmt .."s" end
-		 nowfmt = nowfmt .. " %m minute"
+		 nowfmt = nowfmt .. " %M minute"
 		 if nowtbl.min > 1 then nowfmt = nowfmt .."s" end
 		 nowstr = os.date(nowfmt)
 		 repondre(from, to,
@@ -1098,7 +1098,7 @@ function TraiteMessage(from, to, message, nbphrases)
 					  string.format("Il est %s.", nowstr),
 					  string.format("J'ai %s à ma montre.", nowstr),
 					  string.format("/me regarde sa montre et lit: %s.", nowstr)},
-				  1, {"%s: Je crois que je n'ai pas l'heure.", "Je suis censé avoir l'heure, %s?", "Je crois que j'ai perdu ma montre, %s.", "Je n'ai pas de montre, %s.", "Je cherche ma montre, %s!", "Moi? Te donner l'heure, %s! Tu rigoles?", "L'heure de quel endroit, %s?", "%s: Quatre heures moins l'quart, monsieur trottoir.", "%s: L'heure qu'il était hier à cette heure-ci.", "/me regarde sa montre."})
+				  1, {"%s: Je crois que je n'ai pas l'heure.", "Je suis censé avoir l'heure, %s?", "Je crois que j'ai perdu ma montre, %s.", "Je n'ai pas de montre, %s.", "Je cherche ma montre, %s!", "Moi? Te donner l'heure, %s! Tu rigoles?", "L'heure de quel endroit, %s?", "%s: Quatre heures moins l'quart, Monsieur Trottoir.", "%s: L'heure qu'il était hier à cette heure-ci.", "/me regarde sa montre."})
 	  end 
 
 	 --j'ai faim
@@ -1608,7 +1608,8 @@ function TraiteMessage(from, to, message, nbphrases)
 
 	  --lister STIMULI + REPONSES
 	  if Flags.LISTE_STIMULI and (Flags.NOM or not isChannel) then
-		 print(tostring(stimuli.size()) .. " stimuli")
+		 print(TableDesStimuli:size() .. " stimuli")
+		 print("timulus 1 = " .. TableDesStimuli[1])
 	  end
 
 
