@@ -50,6 +50,7 @@ extern	botinfo	*currentbot;
 extern char *botmaintainer;
 lua_State *L = NULL;
 
+//lua wrapper for C ischannel()
 int c2l_ischannel(lua_State *L)
 {
 	const char *name = luaL_checkstring(L, 1);
@@ -57,6 +58,7 @@ int c2l_ischannel(lua_State *L)
 	return 1;
 }
 
+//lua getter to check the talking status of the given channel name
 int c2l_cantalk(lua_State *L)
 {
 	const char *name = luaL_checkstring(L, 1);
@@ -65,6 +67,7 @@ int c2l_cantalk(lua_State *L)
 	return 1;
 }
 
+//lua setter to change the talking status of the given channel 
 int c2l_settalk(lua_State *L)
 {
 	const char *name = luaL_checkstring(L, 1);
@@ -82,6 +85,7 @@ int c2l_settalk(lua_State *L)
 	return 0;
 }
 
+//lua wrapper for the C is_log_on()
 int c2l_islogon(lua_State *L)
 {
 	const char *name = luaL_checkstring(L, 1);
@@ -89,6 +93,7 @@ int c2l_islogon(lua_State *L)
 	return 1;
 }
 
+//lua wrapper for the C NickUserStr()
 int c2l_nickuserstr(lua_State *L)
 {
 	char *NUS;
@@ -100,6 +105,7 @@ int c2l_nickuserstr(lua_State *L)
 	return 1;
 }
 
+//lua wrapper for the C GetNick()
 int c2l_getnick(lua_State *L)
 {
 	const char *from = luaL_checkstring(L, 1);
@@ -107,6 +113,8 @@ int c2l_getnick(lua_State *L)
 	return 1;
 }
 
+//lua wrapper to get a locutor via LocuteurExiste() 
+//returns a light user data = simple pointer
 int c2l_locutorexists(lua_State *L)
 {
 	locuteur *Locuteur;
@@ -117,6 +125,7 @@ int c2l_locutorexists(lua_State *L)
 	return 1;
 }
 
+//lua wrapper to AjouteLocuteur()
 int c2l_addlocutor(lua_State *L)
 {
 	locuteur *Locuteur;
@@ -130,6 +139,7 @@ int c2l_addlocutor(lua_State *L)
 
 //TODO: remplacer le light user data pour passer le pointeur Locuteur par un userdata avec metatables
 
+//lua getter to the Locuteur->Bonjours counter
 int c2l_getlocutorsalutes(lua_State *L)
 {
 	locuteur *Locuteur;
@@ -146,19 +156,7 @@ int c2l_getlocutorsalutes(lua_State *L)
 	return 1;
 }
 
-int c2l_getlocutorlastcontact(lua_State *L)
-{
-	locuteur *Locuteur;
-	if(lua_isuserdata(L, 1)){
-		Locuteur = (locuteur*)lua_touserdata(L, 1);
-		lua_pop(L, 1);
-		lua_pushnumber(L, Locuteur?Locuteur->DernierContact:-1);
-	}
-	else
-		lua_pushnumber(L, 0);
-	return 1;
-}
-
+//lua setter fir the Locuteur->Bonjour counter
 int c2l_setlocutorsalutes(lua_State *L)
 {
 	locuteur *Locuteur;
@@ -172,6 +170,21 @@ int c2l_setlocutorsalutes(lua_State *L)
 	return 0;
 }
 
+//lua getter for the Locuteur->DernierContact field
+int c2l_getlocutorlastcontact(lua_State *L)
+{
+	locuteur *Locuteur;
+	if(lua_isuserdata(L, 1)){
+		Locuteur = (locuteur*)lua_touserdata(L, 1);
+		lua_pop(L, 1);
+		lua_pushnumber(L, Locuteur?Locuteur->DernierContact:-1);
+	}
+	else
+		lua_pushnumber(L, 0);
+	return 1;
+}
+
+//lua wrapper to the C userlevel()
 int c2l_getuserlevel(lua_State *L)
 {
 	const char *name = luaL_checkstring(L, 1);
@@ -179,6 +192,7 @@ int c2l_getuserlevel(lua_State *L)
 	return 1;
 }
 
+//lua wrapper to the C protlevel()
 int c2l_getprotlevel(lua_State *L)
 {
 	const char *name = luaL_checkstring(L, 1);
@@ -186,6 +200,7 @@ int c2l_getprotlevel(lua_State *L)
 	return 1;
 }
 
+//lua wrapper to the C shitlevel()
 int c2l_getshitlevel(lua_State *L)
 {
 	const char *name = luaL_checkstring(L, 1);
@@ -193,6 +208,7 @@ int c2l_getshitlevel(lua_State *L)
 	return 1;
 }
 
+//lua wrapper to the C rellevel()
 int c2l_getrellevel(lua_State *L)
 {
 	const char *name = luaL_checkstring(L, 1);
@@ -200,6 +216,7 @@ int c2l_getrellevel(lua_State *L)
 	return 1;
 }
 
+//lua wrapper to the C exist_userhost()
 int c2l_existuserhost(lua_State *L)
 {
 	const char *from = luaL_checkstring(L, 1);
@@ -207,6 +224,7 @@ int c2l_existuserhost(lua_State *L)
 	return 1;
 }
 
+//lua wrapper to the C add_to_levellist() with a level of 0
 int c2l_addtolevellist(lua_State *L)
 {
 	const char *from = luaL_checkstring(L, 1);
@@ -214,6 +232,7 @@ int c2l_addtolevellist(lua_State *L)
 	return 0;
 }
 
+//lua wrapper to the C add_to_levellist() with the given level
 int c2l_addtolevel(lua_State *L)
 {
 	const char *from = luaL_checkstring(L, 1);
@@ -223,6 +242,7 @@ int c2l_addtolevel(lua_State *L)
 	return 0;
 }
 
+//lua wrapper to the C ChaineEstDans()
 int c2l_chaineestdans(lua_State *L)
 {
 	const char *afouiller = luaL_checkstring(L, 1);
@@ -231,6 +251,7 @@ int c2l_chaineestdans(lua_State *L)
 	return 1;
 }
 
+//lua wrapper to the C send_to_user()
 int c2l_sendtouser(lua_State *L)
 {
 	const char *to = luaL_checkstring(L, 1);
@@ -239,6 +260,7 @@ int c2l_sendtouser(lua_State *L)
 	return 1;
 }
 
+//lua wrapper to the C sendnotice()
 int c2l_sendnotice(lua_State *L)
 {
 	const char *to = luaL_checkstring(L, 1);
@@ -247,6 +269,7 @@ int c2l_sendnotice(lua_State *L)
 	return 1;
 }
 
+//lu wrapper to the C Repondre()
 int c2l_repondre(lua_State *L)
 {
 	int i;
@@ -277,6 +300,7 @@ int c2l_repondre(lua_State *L)
 	return 0;
 }
 
+//lua wrapper to the C KickerRepondre()
 int c2l_kickerrepondre(lua_State *L)
 {
 	int i;
@@ -307,6 +331,7 @@ int c2l_kickerrepondre(lua_State *L)
 	return 0;
 }
 
+//lua wrapper to the C botlog()
 int c2l_botlog(lua_State *L)
 {
 	const char *filename = luaL_checkstring(L, 1);
@@ -346,6 +371,7 @@ int c2l_botlog(lua_State *L)
 	return 0;
 }
 
+//lua wrapper to the C time2hours()
 int c2l_time2hours(lua_State *L)
 {
 	const int instant = luaL_checknumber(L, 1);
@@ -353,23 +379,59 @@ int c2l_time2hours(lua_State *L)
 	return 1;
 }
 
+//lua getter to size of the Stimuli table
 int c2l_stimuli_count(lua_State *L)
 {
 	lua_pushnumber(L, TailleStim);
 	return 1;
 }
 
-static const struct luaL_reg stimlib[] = {
+//lua getter to the given stimulus
+int c2l_stimuli_get(lua_State *L){
+	phr_tbl *stim;
+	int index = luaL_checkint(L, 1);
+	luaL_argcheck(L, index >= 1 && index <= TailleStim, 1, "index out of range");
+	stim = TableDesStimuli[index -1];
+	lua_pushstring(L, stim->Stimulus);
+	return 1;
+}
+
+//methods of the bot.stimuli meta-table
+static const struct luaL_reg stimuli_m[] = {
 	{"size", c2l_stimuli_count},
+	{"get", c2l_stimuli_get},
 	{NULL, NULL}
 };
 
+//initialize the stimlist library
+// -> set up the metatable with the methods
 void expose_stimlist(void)
 {
 	luaL_newmetatable(L, "bot.stimuli");
-	luaL_openlib(L, "stimuli", stimlib, 0);
+	//luaL_openlib(L, "stimuli", stimlib, 0);
+	luaL_openlib(L, NULL, stimuli_m, 0);
+	/* now the stack has the metatable at index 1 and
+	 `stimuli' at index 2 */
+	lua_pushstring(L, "__index");
+	lua_pushstring(L, "get");
+	lua_gettable(L, 1);	//get stimlist.get
+	//lua_pushvalue(L, -2); //push metatable
+	lua_settable(L, 1); //metatable.__index = stimuli.get
+	//luaL_openlib(L, NULL, stimuli_m, 0);
+	
+	//lua_pushlightuserdata(L, TableDesStimuli);
+	phr_tbl **p = (phr_tbl**)lua_newuserdata(L, sizeof(phr_tbl*));
+	p = TableDesStimuli;
+	
+	luaL_getmetatable(L, "bot.stimuli");
+	lua_setmetatable(L, -2);
+	lua_setglobal(L, "TableDesStimuli");
+	
+//	luaL_openlib(L, "stimuli", stimlib, 0);
+
 }
 
+//register the C methods and values accessible to the lua engine
 void register_cstuff()
 {
 	//some constants that can be useful to lua too
@@ -424,6 +486,7 @@ void register_cstuff()
 	expose_stimlist();
 }
 
+//initialize the lua engine
 int init_lua()
 {
 	L = luaL_newstate();
@@ -434,6 +497,7 @@ int init_lua()
 	return 0;
 }
 
+//shutdown the lua engine
 void shutdown_lua()
 {
 	if(L)
@@ -441,6 +505,9 @@ void shutdown_lua()
 	L = NULL;
 }
 
+//(re)load the lua logic from the lua scripts
+//That method must be called first when the bot starts
+//and later it can also make the bot refresh its logic without restarting 
 void load_lualogic(char **return_msg)
 {
 	register_cstuff();
@@ -456,7 +523,8 @@ void load_lualogic(char **return_msg)
 	}
 }
 
-void    LuaTraite(botinfo	*currentbot, char *from, char *to, char *msg, int numphrase)
+//processing of a public (in a channel) or private message by the lua engine
+void LuaTraite(botinfo	*currentbot, char *from, char *to, char *msg, int numphrase)
 {
 	static int Jour = 0;
 
