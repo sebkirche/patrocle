@@ -246,11 +246,20 @@ char *NickUserStr(const char *nuh) {
   while((biz = strchr(nick, ']')))
     *biz = '*';
 
+	if(!NUH){
+		//seen in a message from irc.freenode.net
+		strcpy(ret, nick);
+		if(pNUH)
+			free(pNUH);
+		return ret;
+	}
+	
   user = get_token(&NUH, "@");
-  if(*user == '~' || *user == '#') user++;
+	if(user)
+		if(*user == '~' || *user == '#') user++;
   host = get_token(&NUH, ".");
-  domain = get_token(&NUH, "");/* attention, peut être nul */
-  								/* vu avec un utilisateur dont le host était pdpc/supporter/active/user */
+  domain = get_token(&NUH, "");/* warning, can be nul */
+  								/* seen with a user whose host was pdpc/supporter/active/user on irc.freenode.net */
 
   if(domain){
 	  for(i='0'; i<='9' && !numbers; i++)
@@ -957,7 +966,7 @@ void	on_mode(char *from, char *rest)
 			    RepPos[2] = strdup("S'il-te-plaît, %s, redonne-moi les droits!");
 					
 			    RepNeg = malloc(3 * sizeof(char *));
-			    RepNeg[0] = strdup("Espèce de charogne, %s!");
+			    RepNeg[0] = strdup(""/*Espèce de charogne, %s!"*/);
 			    RepNeg[1] = strdup("Pourquoi tu me déoppes %s?");
 			    RepNeg[2] = strdup("Ne recommence jamais ça!");
 			    Repondre(from, channel, -2, 3, RepPos, -10, 3, RepNeg);
