@@ -1608,8 +1608,19 @@ function TraiteMessage(from, to, message, nbphrases)
 
 	  --lister STIMULI + REPONSES
 	  if Flags.LISTE_STIMULI and (Flags.NOM or not isChannel) then
-		 print(TableDesStimuli:size() .. " stimuli")
-		 print("timulus 1 = " .. TableDesStimuli[1])
+		 stimcount = TableDesStimuli.size()
+		 print(stimcount .. " stimuli")
+		 --print("timulus 1 = " .. TableDesStimuli.get(1))
+		 if stimcount == 0 then
+			send_to_user(from, "Il n'y a pas de stimulus.");
+		 else
+			--ForceDCC(from, to, msg);
+			for i=1,stimcount do
+			   send_to_user(from, string.format("Stimulus num. %d (%s):", i, tostring(TableDesStimuli.is_active(i))));
+			   send_to_user(from, string.format("%s\t\"%s\"", TableDesStimuli.get_name(i), TableDesStimuli.get(i)));
+			   send_to_user(from, TableDesStimuli.get_author(i));
+			end
+		 end
 	  end
 
 

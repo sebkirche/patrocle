@@ -382,13 +382,20 @@ int c2l_time2hours(lua_State *L)
 //lua getter to size of the Stimuli table
 int c2l_stimuli_count(lua_State *L)
 {
+#ifdef DBUG
+	printf("::c2l_stimuli_count\n");
+#endif
 	lua_pushnumber(L, TailleStim);
 	return 1;
 }
 
 //lua getter to the given stimulus
-int c2l_stimuli_get(lua_State *L){
+int c2l_stimuli_get(lua_State *L)
+{
 	phr_tbl *stim;
+#ifdef DBUG
+	printf("::c2l_stimuli_get\n");
+#endif
 	int index = luaL_checkint(L, 1);
 	luaL_argcheck(L, index >= 1 && index <= TailleStim, 1, "index out of range");
 	stim = TableDesStimuli[index -1];
@@ -396,39 +403,77 @@ int c2l_stimuli_get(lua_State *L){
 	return 1;
 }
 
+//lua getter for the active flag of a stimulus
+int c2l_stimuli_isactive(lua_State *L)
+{
+	int index = luaL_checkint(L, 1);
+	if(index > TailleStim)
+		lua_pushboolean(L, FALSE);
+	else
+		lua_pushboolean(L, TableDesStimuli[index - 1]->Actif ? TRUE : FALSE);
+	
+	return 1;
+}
+
+//lua getter for the name of a stimulus
+int c2l_stimuli_getname(lua_State *L)
+{
+	int index = luaL_checkint(L, 1);
+	if(index > TailleStim)
+		lua_pushstring(L, "");
+	else
+		lua_pushstring(L, TableDesStimuli[index - 1]->NomStimulus);
+	
+	return 1;
+}
+
+//lua getter for the author of a stimulus
+int c2l_stimuli_getauthor(lua_State *L)
+{
+	int index = luaL_checkint(L, 1);
+	if(index > TailleStim)
+		lua_pushstring(L, "");
+	else
+		lua_pushstring(L, TableDesStimuli[index - 1]->Auteur);
+	
+	return 1;
+}
+
 //methods of the bot.stimuli meta-table
 static const struct luaL_reg stimuli_m[] = {
 	{"size", c2l_stimuli_count},
 	{"get", c2l_stimuli_get},
+	{"is_active", c2l_stimuli_isactive},
+	{"get_name", c2l_stimuli_getname},
+	{"get_author", c2l_stimuli_getauthor},
 	{NULL, NULL}
 };
 
-//initialize the stimlist library
-// -> set up the metatable with the methods
+//initialize the TableDesStimuli global user object as an accessor to the TableDesStimuli
+//and configure a metatable with the needed methods
 void expose_stimlist(void)
 {
+	//create a metatable
 	luaL_newmetatable(L, "bot.stimuli");
-	//luaL_openlib(L, "stimuli", stimlib, 0);
-	luaL_openlib(L, NULL, stimuli_m, 0);
-	/* now the stack has the metatable at index 1 and
-	 `stimuli' at index 2 */
+
+	//connect the __index method to the list of our methods
 	lua_pushstring(L, "__index");
-	lua_pushstring(L, "get");
-	lua_gettable(L, 1);	//get stimlist.get
-	//lua_pushvalue(L, -2); //push metatable
-	lua_settable(L, 1); //metatable.__index = stimuli.get
-	//luaL_openlib(L, NULL, stimuli_m, 0);
+	lua_pushvalue(L, -2);	//push metatable
+	lua_settable(L, -3);	//metatable.__index = bot.stimuli metatable
 	
-	//lua_pushlightuserdata(L, TableDesStimuli);
+	//associate the list of methods to the metatable
+	//with the NULL name, assume that the package to populate is the metatable on the stack
+	luaL_openlib(L, NULL, stimuli_m, 0);
+	
+	//Create a user object that points to TableDesStimuli
 	phr_tbl **p = (phr_tbl**)lua_newuserdata(L, sizeof(phr_tbl*));
 	p = TableDesStimuli;
 	
+	//set the meta-table of our TableDesStimuli global object
 	luaL_getmetatable(L, "bot.stimuli");
 	lua_setmetatable(L, -2);
 	lua_setglobal(L, "TableDesStimuli");
 	
-//	luaL_openlib(L, "stimuli", stimlib, 0);
-
 }
 
 //register the C methods and values accessible to the lua engine
