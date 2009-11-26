@@ -512,13 +512,12 @@ int	send_to_server(char *format, ...)
 	char	buf[WAYTOBIG];
 
 	va_start(msg, format);
-	printf("send_to_server : ");
-	printf(format, msg);
-	printf("\n");
 	vsprintf(buf, format, msg);
 	va_end(msg);
+	printf("send_to_server : %s\n", buf);
 	return(send_to_socket(currentbot->server_sock, "%s", buf));
 }
+
 int	change_server(int serverno)
 {
 	char	reason[MAXLEN];
