@@ -21,6 +21,8 @@
 #include <strings.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
+#include <locale.h>
 
 #include "config.h"
 #include "ctcp.h"
@@ -36,15 +38,16 @@ struct
 	char	*name;
 	void	(*function)(char *from, char *to, char *rest);
 } ctcp_commands[] = {
-	{ "FINGER",	ctcp_finger 	},
-	{ "VERSION",	ctcp_version 	},
-	{ "CLIENTINFO",	ctcp_clientinfo },
-	{ "ACTION",	ctcp_ignore 	},
-	{ "ZIRCON",	ctcp_ignore 	},
-	{ "PING",	ctcp_ping 	},
-	{ "SOURCE",	ctcp_source 	},
-	{ "DCC",	ctcp_dcc 	},
-	{ NULL,		null(void(*)) 	}
+	{ "FINGER",		ctcp_finger			},
+	{ "VERSION",	ctcp_version		},
+	{ "CLIENTINFO",	ctcp_clientinfo		},
+	{ "ACTION",		ctcp_ignore			},
+	{ "ZIRCON",		ctcp_ignore			},
+	{ "PING",		ctcp_ping			},
+	{ "SOURCE",		ctcp_source			},
+	{ "DCC",		ctcp_dcc			},
+	{ "TIME",		ctcp_time			},
+	{ NULL,			null(void(*))		}
 };
 
 void 	on_ctcp(char *from, char *to, char *ctcp_msg)
@@ -82,6 +85,7 @@ void	ctcp_version( char *from, char *to, char *rest )
 
 	nick = getnick(from);
 
+	//TODO : fonction de quoting + fix description
 	send_ctcp_reply( nick, "VERSION I'm %s version %s.", 
 					 currentbot->nick, VERSION );
 	return;
@@ -94,7 +98,7 @@ void	ctcp_clientinfo( char *from, char *to, char *rest )
 	nick = getnick( from );
 
 	send_ctcp_reply( nick, "CLIENTINFO I understand these CTCP-commands:" );
-	send_ctcp_reply( nick, "CLIENTINFO VERSION, FINGER, ACTION, CLIENTINFO PING SOURCE DCC" );
+	send_ctcp_reply( nick, "CLIENTINFO, VERSION, FINGER, ACTION, PING, SOURCE, DCC, TIME" );
 /*         send_ctcp_reply( nick, "CLIENTINFO (btw, I'm %s, not a client :)", */
 /*                          currentbot->nick ); */
         return;
@@ -111,7 +115,7 @@ void	ctcp_ping( char *from, char *to, char *rest )
 
 	nick = getnick( from );
 
-	send_ctcp_reply( nick, "PING" );
+	send_ctcp_reply( nick, "PING %s", rest);
 	return;
 }
 
@@ -126,6 +130,25 @@ void	ctcp_source( char *from, char *to, char *rest )
 	send_ctcp_reply( nick, "SOURCE http://code.google.com/p/patrocle/" );
 /* 	send_ctcp_reply( nick, "SOURCE %s is based on VladBot, written by VladDrac (irvdwijk@cs.vu.nl)", currentbot->nick ); */
 	return; 
+}
+
+void	ctcp_time( char *from, char *to, char *rest )
+{
+	char	*nick, *oldlocale;
+	char	buf[MAXLEN];
+	time_t	now;
+	struct tm *tmp;
+	
+	nick = getnick( from );
+	now = time(NULL);
+	tmp = localtime(&now);
+	if(tmp){
+		oldlocale = setlocale(LC_TIME, "C");
+		if(strftime(buf, sizeof(buf), "%a, %d %b %Y %H:%M:%S %z", tmp))
+			send_ctcp_reply( nick, "TIME %s", buf);
+		setlocale(LC_TIME, oldlocale);
+	}
+	return;
 }
 
 void	ctcp_ignore( char *from, char *to, char *rest )

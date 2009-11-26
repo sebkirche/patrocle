@@ -28,6 +28,7 @@ void	ctcp_dcc( char *from, char *to, char *rest );
 void	ctcp_ping( char *from, char *to, char *rest );
 void	ctcp_source( char *from, char *to, char *rest );
 void	ctcp_ignore( char *from, char *to, char *rest );
+void	ctcp_time( char *from, char *to, char *rest );
 void	ctcp_unknown( char *from, char *to, char *ctcp_command );
 
 #endif
