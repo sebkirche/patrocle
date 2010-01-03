@@ -462,7 +462,7 @@ int	connect_to_server()
  */
 {
 #ifdef DBUG
-	debug(NOTICE, "connect_to_server(): Connecting to port %d of server %s",
+	debug(LVL_NOTICE, "connect_to_server(): Connecting to port %d of server %s",
 		  currentbot->serverlist[currentbot->current_server].port, 
 		  currentbot->serverlist[currentbot->current_server].name);
 #endif
@@ -561,7 +561,7 @@ void	try_reconnect()
 			 not(botlist[i]->server_ok)))){
 			currentbot = botlist[i];
 #ifdef DBUG
-			debug(ERROR, "try_reconnect(): Server %s not\
+			debug(LVL_ERROR, "try_reconnect(): Server %s not\
  responding, closing connection",
 				  currentbot->serverlist[currentbot->
 										 current_server].name);
@@ -595,7 +595,7 @@ void	reset_botstate()
 		if(botlist[i])
 			if(time(NULL)-botlist[i]->lastreset > RESETINTERVAL){
 #ifdef DBUG
-				debug(NOTICE, "Resetting botstate");
+				debug(LVL_NOTICE, "Resetting botstate");
 #endif
 				currentbot = botlist[i];
 				currentbot->lastreset = time(NULL);
@@ -627,7 +627,7 @@ void	parse_server_input( fd_set *read_fds )
 					parseline( line );
 				else{
 #ifdef DBUG
-					debug(ERROR, "parse_server_input(): Server read FAILED!");
+					debug(LVL_ERROR, "parse_server_input(): Server read FAILED!");
 #endif
 					close(currentbot->server_sock);
 					currentbot->server_sock = -1;
@@ -677,7 +677,7 @@ void	send_pings()
 				if(time(NULL) - currentbot->lastping/*send*/ > 
 				   PINGSENDINTERVAL){
 #ifdef DBUG
-					debug(NOTICE, 
+					debug(LVL_NOTICE, 
 						  "send_pings(): Sending ping to server %s[%s]",
 						  currentbot->serverlist[currentbot->current_server].realname,
 	         	            currentbot->serverlist[currentbot->current_server].name);
@@ -698,7 +698,7 @@ void	pong_received(char *nick, char *server)
 {
 	currentbot->server_ok = TRUE;
 #ifdef DBUG
-	debug(NOTICE, "pong_received(): server %s[%s] ok",
+	debug(LVL_NOTICE, "pong_received(): server %s[%s] ok",
 		  currentbot->serverlist[currentbot->current_server].realname,
 		  currentbot->serverlist[currentbot->current_server].name);
 #endif

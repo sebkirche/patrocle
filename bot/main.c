@@ -192,12 +192,12 @@ int start_bots()
 		switch(select(NFDBITS, &rd, 0, 0, &timer)){
 			case 0:
 #ifdef DBUG
-				global_dbg(NOTICE, "SELECT: timeout");
+				global_dbg(LVL_NOTICE, "SELECT: timeout");
 				break;
 #endif
 			case -1:
 #ifdef DBUG
-				global_dbg(ERROR, "SELECT: error");
+				global_dbg(LVL_ERROR, "SELECT: error");
 #endif
 				break;
 			default:
@@ -219,7 +219,8 @@ int main(int argc, char *argv[])
   	printf("%s %s (c) 2009 Sébastien Kirche\n", myname, VERSION);
 	printf("Initial version by VladDrac\n");
 	printf("Portions for simulated AI by François Parmentier\n");
-  	printf("For more info: e-mail sebastien.kirche@free.fr or see http://sebastien.kirche.free.fr/patrocle/\n");
+	printf("Lua integration by Sébastien Kirche\n");
+  	printf("For more info: e-mail sebastien.kircheATfree.fr or see http://sebastien.kirche.free.fr/patrocle/\n");
 
   	while(argc > 1 && argv[1][0] == '-'){
 		argc--;

@@ -21,10 +21,6 @@
 
 #include "vladbot.h"
 
-#define	QUIET	0
-#define ERROR	1
-#define NOTICE	2
-
 void	set_debug(char *s);
 void	create_bot(char *s);
 void	create_userlist(char *s);

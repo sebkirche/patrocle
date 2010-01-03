@@ -173,7 +173,7 @@ void	output_dir(char *from, char *path, char *list[], int n)
 	for(i=0; i<n; i++){
 		if(rr_stat(make_dir(path, list[i], real_path), &buf) == -1){
 #ifdef DBUG
-			debug(ERROR, "output_dir(): Could not stat file %s!", list[i]);
+			debug(LVL_ERROR, "output_dir(): Could not stat file %s!", list[i]);
 #endif
 			continue;		/* should not happen! */
 		}

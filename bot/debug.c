@@ -24,7 +24,7 @@
 #include "debug.h"
 
 extern	botinfo *currentbot;
-int	dbuglevel = QUIET;
+int	loglevel = LVL_QUIET;
 
 void	debug(int lvl, char *format, ...)
 {
@@ -32,7 +32,7 @@ void	debug(int lvl, char *format, ...)
 	va_list	msg;
 	char	buf[WAYTOBIG];
 
-	if(lvl > dbuglevel)
+	if(lvl > loglevel)
 		return;
 	va_start(msg, format);
 	vsprintf(buf, format, msg);
@@ -47,7 +47,7 @@ void	global_dbg(int lvl, char *format, ...)
 	va_list	msg;
 	char	buf[WAYTOBIG];
 
-	if(lvl > dbuglevel)
+	if(lvl > loglevel)
 		return;
 	va_start(msg, format);
 	vsprintf(buf, format, msg);
@@ -59,9 +59,9 @@ void	global_dbg(int lvl, char *format, ...)
 int	set_debuglvl(int newlvl)
 {
 #ifdef DBUG
-	if((newlvl < QUIET) || (newlvl > NOTICE))
+	if((newlvl < LVL_QUIET) || (newlvl > MAX_LVL))
 		return 0;
-	dbuglevel = newlvl;
+	loglevel = newlvl;
 	return 1;
 #else
 	return 0;

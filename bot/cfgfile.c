@@ -50,13 +50,13 @@ struct
 	void(*function)(char *s);
 } config_cmds[] = {
 	/* Table with commands used to configure */
-	{ "SET",		set_var		},
-	{ "DEBUG",		get_globaldebug	},
-	{ "CREATE",		create_bot      },
-	{ "BOT",		create_bot	},
-	{ "LISTSET",	create_userlist	},
-	{ "WITH",		set_default     },
-	{ NULL,			(void(*)())(NULL) }
+	{ "SET",		set_var				},
+	{ "DEBUG",	get_globaldebug		},
+	{ "CREATE",	create_bot			},
+	{ "BOT",		create_bot			},
+	{ "LISTSET",	create_userlist		},
+	{ "WITH",	set_default			},
+	{ NULL,		(void(*)())(NULL)	}
 };
 
 struct
@@ -67,25 +67,25 @@ struct
 } definition_cmds[] ={
 	/* for bots AND for userlists */
 	/* list definitions */
-	{ "USERLIST",	FALSE,	set_listuser	},
-	{ "PROTLIST",	FALSE,	set_listprot	},
-	{ "SHITLIST",	FALSE,	set_listshit	},
-	{ "RELLIST",	FALSE,  set_listrel     },
+	{ "USERLIST",	FALSE,	set_listuser			},
+	{ "PROTLIST",	FALSE,	set_listprot			},
+	{ "SHITLIST",	FALSE,	set_listshit			},
+	{ "RELLIST",		FALSE,  set_listrel			},
 	/* Bot definitions */
-	{ "NICK",		TRUE,	set_nick	},
-	{ "LOGIN",		TRUE,	set_login       },
-	{ "NAME",		TRUE,	set_name        },
-	{ "SERVER",		TRUE,	add_server      },
-	{ "CHANNEL",	TRUE,	add_to_channellist     },
-	{ "UPLOAD",		TRUE,	set_uploaddir	},
-	{ "DOWNLOAD",	TRUE,	set_downloaddir	},
-	{ "INDEX",		TRUE,	set_indexfile	},
-	{ "HELP",		TRUE,	set_helpfile	},
-	{ "LISTSET",	TRUE,	set_listset	},
-	{ "STIM",		TRUE,   set_stimfile    },
-	{ "REPS",		TRUE,   set_repfile     },
-	{ "BOTSLIST",	TRUE,   set_botfile     },
-	{ NULL,			0,		(void(*)())(NULL) }
+	{ "NICK",		TRUE,	set_nick				},
+	{ "LOGIN",		TRUE,	set_login			},
+	{ "NAME",		TRUE,	set_name				},
+	{ "SERVER",		TRUE,	add_server			},
+	{ "CHANNEL",		TRUE,	add_to_channellist	},
+	{ "UPLOAD",		TRUE,	set_uploaddir		},
+	{ "DOWNLOAD",	TRUE,	set_downloaddir		},
+	{ "INDEX",		TRUE,	set_indexfile		},
+	{ "HELP",		TRUE,	set_helpfile			},
+	{ "LISTSET",		TRUE,	set_listset			},
+	{ "STIM",		TRUE,	set_stimfile			},
+	{ "REPS",		TRUE,	set_repfile			},
+	{ "BOTSLIST",	TRUE,	set_botfile			},
+	{ NULL,			0,		(void(*)())(NULL)	}
 };
 
 struct
@@ -93,15 +93,14 @@ struct
 	char	*name;
 	void(*function)();
 } setting_cmds[] ={	
-	{ "IDLETIMEOUT",	get_idletimeout 	},
-	{ "WAITTIMEOUT",	get_waittimeout 	},
+	{ "IDLETIMEOUT",		get_idletimeout	 	},
+	{ "WAITTIMEOUT",		get_waittimeout 		},
 	{ "MAXUPLOADSIZE",	get_maxuploadsize 	},
 	{ "NOTEFILE",		get_notefile 		},
-	{ "DEBUG",		get_globaldebug		},
+	{ "DEBUG",			get_globaldebug		},
 	{ "MAINTAINER",		get_maintainer		},
-	{ NULL,         	(void(*)())(NULL) 	}
+	{ NULL,         		(void(*)())(NULL) 	}
 };
-
 
 extern	int	number_of_bots;
 extern	int	find_channel(botinfo *bot, char *channel);
@@ -119,7 +118,7 @@ extern	char	*botmaintainer;
 static	botinfo		*defaultbot = NULL;
 static	listinfo	*defaultset = NULL;
 static	int	linenum = 0;
-static	int	dbg_lvl = QUIET;
+static	int	dbg_lvl = LVL_QUIET;
 
 extern lua_State *L;
 char	*configfile = CFGFILE;
@@ -186,10 +185,10 @@ void	get_globaldebug()
 	if(get_globalnum("debug")){
 		value = lua_tonumber(L, -1);
 		lua_pop(L, 1);
-		if(value < QUIET || value > NOTICE)
-			cfg_debug(ERROR, "%%DEBUG expects 0 <= argument <= 2!");
+		if(value < LVL_QUIET || value > LVL_NOTICE)
+			cfg_debug(LVL_ERROR, "%%DEBUG expects 0 <= argument <= 2!");
 		else{
-			cfg_debug(NOTICE, "DEBUG set to %d", value);
+			cfg_debug(LVL_NOTICE, "DEBUG set to %d", value);
 			dbg_lvl = value;
 		}
 	}
@@ -199,17 +198,17 @@ void	get_globaldebug()
 void	create_bot(char *botname)
 {
 	if(listset_created(botname)){
-		cfg_debug(ERROR, "There is already a listset called \"%s\"", botname);
+		cfg_debug(LVL_ERROR, "There is already a listset called \"%s\"", botname);
 		return;
 	}
 	if(bot_created(botname)){
-		cfg_debug(ERROR, "\"%s\" is already created!", botname);
+		cfg_debug(LVL_ERROR, "\"%s\" is already created!", botname);
 		return;
 	}
 	if(!add_bot(botname))
-		cfg_debug(ERROR, "Too many bots created!");
+		cfg_debug(LVL_ERROR, "Too many bots created!");
 	else
-		cfg_debug(NOTICE, "CREATE: bot \"%s\"", botname);
+		cfg_debug(LVL_NOTICE, "CREATE: bot \"%s\"", botname);
 }
 
 // Create a userlist.
@@ -220,35 +219,35 @@ void	create_userlist(char *s)
 	if(readident(&s, listname))
 	{
 		if(bot_created(listname)){
-			cfg_debug(ERROR, "There is already a bot called \"%s\"", listname);
+			cfg_debug(LVL_ERROR, "There is already a bot called \"%s\"", listname);
 			return;
 		}
 		if(listset_created(listname)){
-			cfg_debug(ERROR, "\"%s\" is already created!", listname);
+			cfg_debug(LVL_ERROR, "\"%s\" is already created!", listname);
 			return;
 		}
 		if(!add_listset(listname))
-			cfg_debug(ERROR, "Too many listsets created!");
+			cfg_debug(LVL_ERROR, "Too many listsets created!");
 		else
-			cfg_debug(NOTICE, "LISTSET: listset \"%s\"", listname);
+			cfg_debug(LVL_NOTICE, "LISTSET: listset \"%s\"", listname);
 	}
 	else
-		cfg_debug(ERROR, "%%LISTSET requires an identifier-argument!");
+		cfg_debug(LVL_ERROR, "%%LISTSET requires an identifier-argument!");
 }
 
 // Set default bot/listset
 void	set_default(char *botname)
 {
 	if(bot_created(botname)){
-		cfg_debug(NOTICE, "DEFAULT: bot \"%s\"", botname);
+		cfg_debug(LVL_NOTICE, "DEFAULT: bot \"%s\"", botname);
 		defaultbot = bot_created(botname);
 	}
 	else if(listset_created(botname)){
-		cfg_debug(NOTICE, "DEFAULT: listset \"%s\"", botname);
+		cfg_debug(LVL_NOTICE, "DEFAULT: listset \"%s\"", botname);
 		defaultset = listset_created(botname);
 	}
 	else
-		cfg_debug(ERROR, "\"%s\" is not created!", botname);
+		cfg_debug(LVL_ERROR, "\"%s\" is not created!", botname);
 }
 
 /* settings/definitions */
@@ -259,12 +258,12 @@ void	set_listprot(listinfo *list, char *listname)
 	char	*path;
 
 	if(not(path = expand_twiddle(listname))){
-		cfg_debug(ERROR, "Error in pathname \"%s\"!", listname);
+		cfg_debug(LVL_ERROR, "Error in pathname \"%s\"!", listname);
 		path = "";
 	}
 	free(list->protfile);
 	mstrcpy(&list->protfile, path);
-	cfg_debug(NOTICE, "Setting protlist for %s to \"%s\"",
+	cfg_debug(LVL_NOTICE, "Setting protlist for %s to \"%s\"",
 			  list->listname, path);
 	return;
 }
@@ -275,12 +274,12 @@ void	set_listshit(listinfo *list, char *listname)
 	char	*path;
 	
 	if(not(path = expand_twiddle(listname))){
-		cfg_debug(ERROR, "Error in pathname \"%s\"!", listname);
+		cfg_debug(LVL_ERROR, "Error in pathname \"%s\"!", listname);
 		path = "";
 	}
 	free(list->shitfile);
 	mstrcpy(&list->shitfile, path);
-	cfg_debug(NOTICE, "Setting shitlist for %s to \"%s\"",
+	cfg_debug(LVL_NOTICE, "Setting shitlist for %s to \"%s\"",
 			  list->listname, path);
 	return;
 }
@@ -291,12 +290,12 @@ void	set_listuser(listinfo *list, char *listname)
 	char	*path;
 	
 	if(not(path = expand_twiddle(listname))){
-		cfg_debug(ERROR, "Error in pathname \"%s\"!", listname);
+		cfg_debug(LVL_ERROR, "Error in pathname \"%s\"!", listname);
 		path = "";
 	}		
 	free(list->opperfile);
 	mstrcpy(&list->opperfile, path);
-	cfg_debug(NOTICE, "Setting userlist for %s to \"%s\"",
+	cfg_debug(LVL_NOTICE, "Setting userlist for %s to \"%s\"",
 		  list->listname, path);
 	return;
 }
@@ -308,12 +307,12 @@ void    set_listrel(listinfo *list, char *listname)
   char *path;
 
   if(not(path = expand_twiddle(listname))){
-      cfg_debug(ERROR, "Error in pathname \"%s\"!", listname);
+      cfg_debug(LVL_ERROR, "Error in pathname \"%s\"!", listname);
       path = "";
   }
   free(list->relfile);
   mstrcpy(&list->relfile, path);
-  cfg_debug(NOTICE, "Setting userlist for %s to \"%s\"",
+  cfg_debug(LVL_NOTICE, "Setting userlist for %s to \"%s\"",
 			list->listname, path);
   return;
 }
@@ -326,14 +325,14 @@ void	set_listset(botinfo *bot, char *s)
 	if(readident(&s, listname)){
 		if(listset_created(listname)){
 			bot->lists = listset_created(listname);
-			cfg_debug(NOTICE, "Setting lists for %s to \"%s\"",
+			cfg_debug(LVL_NOTICE, "Setting lists for %s to \"%s\"",
 					  bot->botname, listname);
 		}
 		else
-			cfg_debug(ERROR, "No listset \"%s\"!", listname);
+			cfg_debug(LVL_ERROR, "No listset \"%s\"!", listname);
 	}
 	else
-		cfg_debug(ERROR, "%s listset expects a identifier-argument!",
+		cfg_debug(LVL_ERROR, "%s listset expects a identifier-argument!",
 				  bot->botname);
 }
 
@@ -341,10 +340,10 @@ void	set_listset(botinfo *bot, char *s)
 void	set_nick(botinfo *bot, char *nickname)
 {
 	if(!isnick(nickname)){
-		cfg_debug(ERROR, "Illegal nickname \"%s\"!", nickname);
+		cfg_debug(LVL_ERROR, "Illegal nickname \"%s\"!", nickname);
 		return;
 	}
-	cfg_debug(NOTICE, "Setting nick for %s to \"%s\"", 
+	cfg_debug(LVL_NOTICE, "Setting nick for %s to \"%s\"", 
 			  bot->botname, nickname);
 	strcpy(bot->nick, nickname);
 	strcpy(bot->realnick, nickname);
@@ -353,7 +352,7 @@ void	set_nick(botinfo *bot, char *nickname)
 // Set the loginname for bot.
 void	set_login(botinfo *bot, char *loginname)
 {
-	cfg_debug(NOTICE, "Setting login for %s to \"%s\"", 
+	cfg_debug(LVL_NOTICE, "Setting login for %s to \"%s\"", 
 			  bot->botname, loginname);
 	strcpy(bot->login, loginname);
 }
@@ -361,7 +360,7 @@ void	set_login(botinfo *bot, char *loginname)
 // Set the name for bot.
 void	set_name(botinfo *bot, char *realname)
 {  
-	cfg_debug(NOTICE, "Setting name for %s to \"%s\"", 
+	cfg_debug(LVL_NOTICE, "Setting name for %s to \"%s\"", 
 			  bot->botname, realname);
 	free(bot->name);
 	mstrcpy(&bot->name, realname);
@@ -376,15 +375,15 @@ void	add_server(botinfo *bot, char *servername)
 	port = 6667;
 		
 	if(find_server(bot, servername, port))
-		cfg_debug(ERROR, "Server \"%s\" port %d already in list!", 
+		cfg_debug(LVL_ERROR, "Server \"%s\" port %d already in list!", 
 				  servername, port);
 	else
 		if(add_server_to_bot(bot, servername, port))
-			cfg_debug(NOTICE, 
+			cfg_debug(LVL_NOTICE, 
 					  "Server \"%s\" with port %d added to \"%s\"",
 					  servername, port, bot->botname);
 		else
-			cfg_debug(ERROR, "Serverlist full!");
+			cfg_debug(LVL_ERROR, "Serverlist full!");
 }
 
 // Adds a channel to bot's channellist.
@@ -426,13 +425,13 @@ void	add_to_channellist(botinfo *bot)
 		strncpy(encoding, "utf-8", sizeof(encoding)-1);
 	
 	if(find_channel(bot, channelname))
-		cfg_debug(ERROR, "Channel \"%s\" already in list!", channelname);
+		cfg_debug(LVL_ERROR, "Channel \"%s\" already in list!", channelname);
 	else
 		if(add_channel_to_bot(bot, channelname, topic, mode, encoding))
-			cfg_debug(NOTICE, "Channel \"%s\" \"%s\" \"%s\" \"%s\" added to %s", 
+			cfg_debug(LVL_NOTICE, "Channel \"%s\" \"%s\" \"%s\" \"%s\" added to %s", 
 					  channelname, mode, topic, encoding, bot->botname);
 		else
-			cfg_debug(ERROR, "Channellist full!");
+			cfg_debug(LVL_ERROR, "Channellist full!");
 }
 
 // Sets the uploaddir for bot.
@@ -441,10 +440,10 @@ void	set_uploaddir(botinfo *bot, char *upload)
 	char	*path;
 	
 	if(not(path = expand_twiddle(upload))){
-		cfg_debug(ERROR, "Error in pat	hname \"%s\"!", upload);
+		cfg_debug(LVL_ERROR, "Error in pat	hname \"%s\"!", upload);
 		path = "";
 	}         
-	cfg_debug(NOTICE, "Setting upload for %s to \"%s\"", 
+	cfg_debug(LVL_NOTICE, "Setting upload for %s to \"%s\"", 
 			  bot->botname, path);
 	free(bot->uploaddir);
 	mstrcpy(&bot->uploaddir, path);
@@ -456,10 +455,10 @@ void	set_downloaddir(botinfo *bot, char *download)
 	char	*path;
 
 	if(not(path = expand_twiddle(download))){
-		cfg_debug(ERROR, "Error in pathname \"%s\"!", download);
+		cfg_debug(LVL_ERROR, "Error in pathname \"%s\"!", download);
 		path = "";
 	}         
-	cfg_debug(NOTICE, "Setting download for %s to \"%s\"",
+	cfg_debug(LVL_NOTICE, "Setting download for %s to \"%s\"",
 			  bot->botname, path);
 	free(bot->downloaddir);
 	mstrcpy(&bot->downloaddir, path);
@@ -471,10 +470,10 @@ void	set_indexfile(botinfo *bot, char *index)
 	char	*path;
 
 	if(not(path = expand_twiddle(index))){
-		cfg_debug(ERROR, "Error in pathname \"%s\"!", index);
+		cfg_debug(LVL_ERROR, "Error in pathname \"%s\"!", index);
 		path = "";
 	}         
-	cfg_debug(NOTICE, "Setting indexfile for %s to \"%s\"",
+	cfg_debug(LVL_NOTICE, "Setting indexfile for %s to \"%s\"",
 			  bot->botname, path);
 	free(bot->indexfile);
 	mstrcpy(&bot->indexfile, path);
@@ -486,10 +485,10 @@ void    set_helpfile(botinfo *bot, char *help)
 	char	*path;
 	
 	if(not(path = expand_twiddle(help))){
-		cfg_debug(ERROR, "Error in pathname \"%s\"!", help);
+		cfg_debug(LVL_ERROR, "Error in pathname \"%s\"!", help);
 		path = "";
 	}         
-	cfg_debug(NOTICE, "Setting helpfile for %s to \"%s\"",
+	cfg_debug(LVL_NOTICE, "Setting helpfile for %s to \"%s\"",
 			  bot->botname, path);
 	free(bot->helpfile);
 	mstrcpy(&bot->helpfile, path);
@@ -501,10 +500,10 @@ void    set_stimfile(botinfo *bot, char *stim)
 	char	*path;
 	
 	if(not(path = expand_twiddle(stim))){
-		cfg_debug(ERROR, "Error in pathname \"%s\"!", stim);
+		cfg_debug(LVL_ERROR, "Error in pathname \"%s\"!", stim);
 		path = "";
 	}         
-	cfg_debug(NOTICE, "Setting stimfile for %s to \"%s\"",
+	cfg_debug(LVL_NOTICE, "Setting stimfile for %s to \"%s\"",
 			  bot->botname, path);
 	free(bot->stimfile);
 	mstrcpy(&bot->stimfile, path);
@@ -517,10 +516,10 @@ void    set_repfile(botinfo *bot, char *rep)
 	char	*path;
 	
 	if(not(path = expand_twiddle(rep))){
-		cfg_debug(ERROR, "Error in pathname \"%s\"!", rep);
+		cfg_debug(LVL_ERROR, "Error in pathname \"%s\"!", rep);
 		path = "";
 	}         
-	cfg_debug(NOTICE, "Setting repfile for %s to \"%s\"",
+	cfg_debug(LVL_NOTICE, "Setting repfile for %s to \"%s\"",
 			  bot->botname, path);
 	free(bot->repfile);
 	mstrcpy(&bot->repfile, path);
@@ -532,10 +531,10 @@ void    set_botfile(botinfo *bot, char *Bot)
 	char *path;
 
     if(not(path = expand_twiddle(Bot))) {
-		cfg_debug(ERROR, "Error in pathname \"%s\"!", Bot);
+		cfg_debug(LVL_ERROR, "Error in pathname \"%s\"!", Bot);
 		path = "";
     }
-    cfg_debug(NOTICE, "Setting botfile for %s to \"%s\"",
+    cfg_debug(LVL_NOTICE, "Setting botfile for %s to \"%s\"",
 			  bot->botname, path);
     free(bot->botfile);
     mstrcpy(&bot->botfile, path);
@@ -554,11 +553,11 @@ void	get_notefile()
 		memset(nfile, 0, sizeof(nfile));
 		strncpy(nfile, lua_tostring(L, -1), MAXLEN - 1);
 		if(not(path = expand_twiddle(nfile))){
-			cfg_debug(ERROR, "Error in pathname \"%s\"!", nfile);
+			cfg_debug(LVL_ERROR, "Error in pathname \"%s\"!", nfile);
 			path = "";
 		}		
 		else{
-			cfg_debug(NOTICE, "Setting notefile to \"%s\"", path);
+			cfg_debug(LVL_NOTICE, "Setting notefile to \"%s\"", path);
 			mstrcpy(&notefile, path);
 		}
 		lua_pop(L, 1);
@@ -572,7 +571,7 @@ void	get_idletimeout()
 	if(get_globalnum("idletimeout")){
 		idletimeout = lua_tonumber(L, -1);
 		lua_pop(L, 1);
-		cfg_debug(NOTICE, "Setting idletimeout to %d", idletimeout);
+		cfg_debug(LVL_NOTICE, "Setting idletimeout to %d", idletimeout);
 	}
 	else{
 		idletimeout = DCC_IDLETIMEOUT;
@@ -585,7 +584,7 @@ void	get_waittimeout()
 	if(get_globalnum("waittimeout")){
 		waittimeout = lua_tonumber(L, -1);
 		lua_pop(L, 1);
-		cfg_debug(NOTICE, "Setting waittimeout to %d", waittimeout);
+		cfg_debug(LVL_NOTICE, "Setting waittimeout to %d", waittimeout);
 	}
 	else{
 		waittimeout = DCC_WAITTIMEOUT;
@@ -598,7 +597,7 @@ void	get_maxuploadsize()
 	if(get_globalnum("maxuploadsize")){
 		maxuploadsize = lua_tonumber(L, -1);
 		lua_pop(L, 1);
-		cfg_debug(NOTICE, "Setting maxuploadsize to %d", maxuploadsize);
+		cfg_debug(LVL_NOTICE, "Setting maxuploadsize to %d", maxuploadsize);
 	}
 	else{
 		maxuploadsize = DCC_MAXFILESIZE;
@@ -612,12 +611,12 @@ void	set_globaldebug(char *s)
 
 	if(readint(&s, &value)){
 		if(set_debuglvl(value))
-			cfg_debug(NOTICE, "Setting debug to %d", value);
+			cfg_debug(LVL_NOTICE, "Setting debug to %d", value);
 		else
-			cfg_debug(ERROR, "debug expects a number 0..2 (integer)!");
+			cfg_debug(LVL_ERROR, "debug expects a number 0..2 (integer)!");
 	}
 	else
-		cfg_debug(ERROR, "debug expects a number 0..2(integer)!");
+		cfg_debug(LVL_ERROR, "debug expects a number 0..2(integer)!");
 }
 
 // Sets the name of the botmaintainer
@@ -631,7 +630,7 @@ void	get_maintainer()
 		strncpy(name, lua_tostring(L, -1), MAXLEN - 1);
 		mstrcpy(&botmaintainer, name);		
 		lua_pop(L, 1);
-		cfg_debug(NOTICE, "Setting maintainer to \"%s\"", botmaintainer);
+		cfg_debug(LVL_NOTICE, "Setting maintainer to \"%s\"", botmaintainer);
 	}
 }
 
@@ -642,7 +641,7 @@ void	set_var(char *s)
 	char    command[MAXLEN];;
 
 	if(not(readident(&s, command))){
-		cfg_debug(ERROR, "Setting expected after %%SET");
+		cfg_debug(LVL_ERROR, "Setting expected after %%SET");
 		return;
 	}
 	for(i=0; setting_cmds[i].name; i++)
@@ -651,7 +650,7 @@ void	set_var(char *s)
 			setting_cmds[i].function(s);
 			return;
 		}	
-	cfg_debug(ERROR, "Unknown setting %s", command);
+	cfg_debug(LVL_ERROR, "Unknown setting %s", command);
 }
 
 void	parsecommand(char *s)
@@ -668,7 +667,7 @@ void	parsecommand(char *s)
 			config_cmds[i].function(s);
 			return;
 		}
-	cfg_debug(ERROR, "ERROR: unknow command %%%s", command);
+	cfg_debug(LVL_ERROR, "ERROR: unknow command %%%s", command);
 	return;
 }
 
@@ -694,7 +693,7 @@ void	parsedef(char *s)
 	if((defbot = bot_created(firsttok)) || 
 	   (deflist = listset_created(firsttok))){
 		if(not(readident(&s, command))){
-			cfg_debug(ERROR, "Definition expected!");
+			cfg_debug(LVL_ERROR, "Definition expected!");
 			return;
 		}
 		skipspc(&s);
@@ -702,7 +701,7 @@ void	parsedef(char *s)
 			if(STRCASEEQUAL(definition_cmds[i].name, command)){
 				if(definition_cmds[i].bot_def){
 					if(defbot == NULL){
-						cfg_debug(ERROR, "No default bot set!");
+						cfg_debug(LVL_ERROR, "No default bot set!");
 						return;
 					}
 					else
@@ -710,7 +709,7 @@ void	parsedef(char *s)
 				}
 				else{
 					if(deflist == NULL){
-						cfg_debug(ERROR, "No default list set!");
+						cfg_debug(LVL_ERROR, "No default list set!");
 						return;
 					}
 					else
@@ -718,11 +717,11 @@ void	parsedef(char *s)
 				}
 				return;
 			}
-		cfg_debug(ERROR, "Unknown definition %s", command);
+		cfg_debug(LVL_ERROR, "Unknown definition %s", command);
 	}
 	else{
 		if(!defaultbot && !defaultset){
-			cfg_debug(ERROR, "ERROR: No default bot/listset set!");
+			cfg_debug(LVL_ERROR, "ERROR: No default bot/listset set!");
 			return;
 		}	
 		strcpy(command, firsttok);
@@ -731,21 +730,21 @@ void	parsedef(char *s)
 				skipspc(&s);
 				if(definition_cmds[i].bot_def){	
 					if(defaultbot == NULL){
-						cfg_debug(ERROR, "No default bot set!");
+						cfg_debug(LVL_ERROR, "No default bot set!");
 						return;
 					}
 					definition_cmds[i].function(defaultbot, s);
 				}
 				else{
 					if(defaultset == NULL){
-						cfg_debug(ERROR, "No default list set!");
+						cfg_debug(LVL_ERROR, "No default list set!");
 						return;
 					}
 					definition_cmds[i].function(defaultset, s);
 				}
 				return;
 			}
-		cfg_debug(ERROR, "Unknown definition %s", command);
+		cfg_debug(LVL_ERROR, "Unknown definition %s", command);
 	}
 }
 
@@ -755,13 +754,13 @@ void	parsecfg(char *s)
 	skipspc(&s);
 	switch(*s){
 		case '%':
-			cfg_debug(NOTICE, ">> %s", s);
+			cfg_debug(LVL_NOTICE, ">> %s", s);
 			parsecommand(s);
 			break;
 		case '#':
 			break;
 		default:
-			cfg_debug(NOTICE, " > %s", s);
+			cfg_debug(LVL_NOTICE, " > %s", s);
 			parsedef(s);
 			break;
 	}
@@ -1009,7 +1008,7 @@ void	readcfg()
 	defaultbot = NULL;
 	defaultset = NULL;
 	linenum = 0;
-	dbg_lvl = QUIET;
+	dbg_lvl = LVL_QUIET;
 
 	error = luaL_dofile(L, configfile);
 	if(error){

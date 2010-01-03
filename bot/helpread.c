@@ -31,7 +31,7 @@ char	*topic;
 
 	f=fopen("help.bot", "r");
 	assert(f);
-	if (f)
+	if(f)
 	{
 		if(!find_topic( f, topic ))
 			printf("No help available for \"%s\"\n", topic);

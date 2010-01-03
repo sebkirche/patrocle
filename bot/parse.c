@@ -205,7 +205,7 @@ void	parse_001(char *from, char *rest)
  * serverlist!). All we have to do is look at "from"
  */
 {
-	debug(NOTICE, "Current server calls himself %s", from);
+	debug(LVL_NOTICE, "Current server calls himself %s", from);
 	free(currentbot->serverlist[currentbot->current_server].realname);
 	mstrcpy(&currentbot->serverlist[currentbot->current_server].realname,
 			from);  
@@ -255,7 +255,7 @@ void	parse_352( char *from, char *rest )
 				break;
 			default:
 #ifdef DBUG
-				debug(ERROR, "parse_352: unknown mode %c", *mode);
+				debug(LVL_ERROR, "parse_352: unknown mode %c", *mode);
 #endif
 				break;
 		}
@@ -349,7 +349,7 @@ void 	parseline(char *line)
 	KILLRETURN(line);
 
 #ifdef DBUG
-	debug(NOTICE, "parseline(\"%s\")", line);
+	debug(LVL_NOTICE, "parseline(\"%s\")", line);
 #endif 
 
 	if( *line == ':' ){

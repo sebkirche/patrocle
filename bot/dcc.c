@@ -117,7 +117,7 @@ int	do_dcc(DCC_list *Client)
 	char				 filebuf[MAXLEN];
 
 #ifdef DBUG
-	debug(NOTICE, "Entered do_dcc( .. )");
+	debug(LVL_NOTICE, "Entered do_dcc( .. )");
 #endif
 	Type = dcc_types[Client->flags&DCC_TYPES];
 
@@ -284,7 +284,7 @@ void	register_dcc_offer(char *from, char *type, char *description,
 	DCC_list	*Client;
 
 #ifdef DBUG
-	debug(NOTICE, "Entered register_dcc_offer( %s, %s, %s, %s, %s, %s );",
+	debug(LVL_NOTICE, "Entered register_dcc_offer( %s, %s, %s, %s, %s, %s );",
 		  from, type, description, inetaddr, port, size );
 #endif
 	if((Client = (DCC_list *)malloc(sizeof(*Client))) == NULL)
@@ -311,7 +311,7 @@ void	register_dcc_offer(char *from, char *type, char *description,
 	else
 		free(Client);
 #ifdef DBUG
-	debug(NOTICE, "Exiting register_dcc_offer() correctly");
+	debug(LVL_NOTICE, "Exiting register_dcc_offer() correctly");
 #endif
 }
 
@@ -347,7 +347,7 @@ void	process_incoming_chat(DCC_list *Client)
 			Client->lasttime = time(NULL);
 			Client->bytes_read += bytesread;
 #ifdef DBUG
-			debug(NOTICE, "=%s= %s", Client->user, buf);
+			debug(LVL_NOTICE, "=%s= %s", Client->user, buf);
 #endif
 			on_msg(Client->user, currentbot->nick, buf);	
 			return;
@@ -536,13 +536,13 @@ int	send_chat(const char *to, const char *text)
 										  text)){
 			case -1:
 #ifdef DBUG
-				debug(ERROR, "DCC write failed!");
+				debug(LVL_ERROR, "DCC write failed!");
 #endif
 				delete_client(has_dcc);
 				return(FALSE);
 			case 0:
 #ifdef DBUG
-				debug(NOTICE, "DCC write = 0");
+				debug(LVL_NOTICE, "DCC write = 0");
 #endif
 				break;
 			default:

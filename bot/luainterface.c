@@ -45,6 +45,7 @@
 #include "vladbot.h"
 #include "phrase.h"
 
+extern int loglevel;
 extern short logging;
 extern	botinfo	*currentbot;
 extern char *botmaintainer;
@@ -500,6 +501,9 @@ void register_cstuff()
 	lua_setglobal(L, "CONFIANCE_LVL");
 	lua_pushnumber(L, DEFAUT_LVL);
 	lua_setglobal(L, "DEFAUT_LVL");
+	lua_pushnumber(L, loglevel);
+	lua_setglobal(L, "LogLevel");
+	
 
 	//interface functions
 	lua_register(L, "is_channel", c2l_ischannel);

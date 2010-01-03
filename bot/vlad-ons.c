@@ -897,7 +897,7 @@ void	on_mode(char *from, char *rest)
 	char **RepPos, **RepNeg;
 
 #ifdef DBUG
-	debug(NOTICE, "on_mode(\"%s\", \"%s\")", from, rest);
+	debug(LVL_NOTICE, "on_mode(\"%s\", \"%s\")", from, rest);
 #endif
 
 	channel = get_token(&rest, " ");
@@ -1105,7 +1105,7 @@ void	on_mode(char *from, char *rest)
 			break;
 		default:
 #ifdef DBUG
-			debug(ERROR, "on_mode(): unknown mode %c", *chanchars);
+			debug(LVL_ERROR, "on_mode(): unknown mode %c", *chanchars);
 #endif
 			break;
 		}
@@ -3506,12 +3506,15 @@ int ChaineEstDans(const char *aFouiller, const char *aChercher) {
   char *c;
   static int DernierNumPhrase = -1;
 
+/* normalement c'est fait en amont
+ 
   char *Init = "éèêëÉÈÊËçÇàâäåÀÂùûÙÛôöÔÖîïÎÏ";    //TODO: revoir la comparaison avec iconv
   char *Remp = "eeeeEEEEcCaaaaAAuuUUooOOiiII";
-
+*/
   AFouiller = strdup(aFouiller);
   AChercher = strdup(aChercher);
-  for(p = AFouiller; *p; p++) {
+/*
+ for(p = AFouiller; *p; p++) {
     c = strchr(Init, *p);
     if(c) *p = Remp[c-Init];
     *p = tolower(toascii(*p));
@@ -3521,7 +3524,8 @@ int ChaineEstDans(const char *aFouiller, const char *aChercher) {
     if(c) *p = Remp[c-Init];
     *p = tolower(toascii(*p));
   }
-
+*/
+	
   if(DernierNumPhrase != GNumPhrase) {
     GuillemetsO = strchr(AFouiller, '\"');
     if(GuillemetsO) {
@@ -3532,7 +3536,7 @@ int ChaineEstDans(const char *aFouiller, const char *aChercher) {
     DernierNumPhrase = GNumPhrase;
   }
 
-  if((p = strstr(AFouiller, AChercher))
+  if((p = strcasestr(AFouiller, AChercher))
       && !(p > GuillemetsO
 	   && p < GuillemetsF)) {
     if(AFouiller) free(AFouiller);
