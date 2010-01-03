@@ -225,7 +225,7 @@ int	send_to_user(const char *to, const char *format, ...)
 	}
 #ifdef DBUG
 	else
-		debug(NOTICE, "%s", buf);
+		debug(LVL_NOTICE, "%s", buf);
 #endif
 	return TRUE;
 }

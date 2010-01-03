@@ -497,6 +497,15 @@ Triggers = {
 	{{"!join", {"join", function (from,to,msg) return not(is_channel(to)) end}},
 	 "FUNCTION_JOIN"},
 
+	{{"été", "^pété"},
+	 "ETE_ACCENT"},
+
+	{{"évidence"},
+	"EVIDENCE"},
+
+	{{"Évidence"},
+	"EVIDENCE_MAJ"},
+
 --[[ TODO
   if (FONCTION_APPRENDS || FONCTION_FUCK || FONCTION_SAY ||
       ChaineEstDans (msg, "!active") ||
@@ -1614,7 +1623,7 @@ function TraiteMessage(from, to, message, nbphrases)
 		 if stimcount == 0 then
 			send_to_user(from, "Il n'y a pas de stimulus.");
 		 else
-			--ForceDCC(from, to, msg);
+			--ForceDCC(from, to, msg); TODO : ForceDCC
 			for i=1,stimcount do
 			   send_to_user(from, string.format("Stimulus num. %d (%s):", i, tostring(TableDesStimuli.is_active(i))));
 			   send_to_user(from, string.format("%s\t\"%s\"", TableDesStimuli.get_name(i), TableDesStimuli.get(i)));
@@ -1627,7 +1636,7 @@ function TraiteMessage(from, to, message, nbphrases)
 
 	  --Achille
 	  if Flags.ACHILLE and Flags.QUESTION and (Flags.NOM or not isChannel) then
-		 Repondre(from, to,
+		 repondre(from, to,
 				  1, {"Achille ? Je l'ai bien connu, %s.", "J'étais Achille dans une release antérieure, %s.", "Je suis la réincarnation d'Achille, %s.", "Achille est un frère pour moi, %s"},
 				  1, {"Achille ? Que lui veux-tu, %s ?", "Je ne connais aucun Achille, %s.", "Achille , Jamais entendu parler."})
 	  end

@@ -145,7 +145,7 @@ int	send_to_socket( int sock, char *format, ... )
     vsprintf(bigbuf, format, msg);
 
 #ifdef DBUG
-    debug(NOTICE, "send_to_socket(): \"%s\"", bigbuf);
+    debug(LVL_NOTICE, "send_to_socket(): \"%s\"", bigbuf);
 #endif
     strcat(bigbuf, "\n");
     

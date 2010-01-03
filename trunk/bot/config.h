@@ -169,7 +169,7 @@
 /* Standard stuff ---------------------------------------------------
    don't change anything below here
 */
-#define VERSION		"2.1sk-lua1"
+#define VERSION		"2.1sk-lua2"
 
 #define MAXLEN		255
 #define WAYTOBIG    1024

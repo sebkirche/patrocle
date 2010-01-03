@@ -19,9 +19,10 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
-#define	QUIET	0
-#define ERROR	1
-#define NOTICE	2
+#define	LVL_QUIET	0
+#define LVL_ERROR	1
+#define LVL_NOTICE	2
+#define MAX_LVL LVL_NOTICE
 
 void	debug(int lvl, char *format, ...);
 void	global_dbg(int lvl, char *format, ...);
