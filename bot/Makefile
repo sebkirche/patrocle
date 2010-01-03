@@ -13,7 +13,7 @@
 
 #for compiling with my iMac ia64 
 CFLAGS = -arch x86_64 -g -Wall -I/usr/include #-I/opt/local/include
-LDFLAGS = -arch x86_64 -L/usr/lib #-L/opt/local/lib 
+LDFLAGS = -arch x86_64 -L/usr/lib #-L/opt/local/lib DYLD_INSERT_LIBRARIES=/usr/lib/libMallocDebug.A.dylib
 
 CC = gcc
 RM = rm -f
@@ -41,7 +41,7 @@ DEFINES =
 #INCLUDES = -I/usr/ucbinclude -L/usr/ucblib
 #LIBS = -lucb -lsocket -lnsl
 # seki: nouvelle ligne pour linux 2.6
-LIBS = -lc -liconv -llua
+LIBS = -lc -liconv -llua 
 
 INSTALL_DIR = ..
 INSTALL_NAME = patrocle
@@ -61,7 +61,7 @@ SOURCES = main.c vladbot.c cfgfile.c parse.c vlad-ons.c file.c misc.c send.c \
 
 all: bot help Makefile
 
-.c.o: ; ${CC} ${CFLAGS} ${DEFINES} -c $<
+.c.o: ; ${CC} ${CFLAGS} ${DEFINES} -c `pwd`/$<
 hr_ftext.o: ; ${CC} ${CFLAGS} ${DEFINES} ${INCLUDES} -DSTAND_ALONE -c -o hr_ftext.o ftext.c
 
 # Enlever le "purify" de la ligne suivante s'il y en a un
