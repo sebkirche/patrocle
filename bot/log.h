@@ -21,6 +21,13 @@
 #ifndef _LOG_H_
 #define _LOG_H_
 
+#define	LVL_QUIET	0
+#define LVL_ERROR	1
+#define LVL_NOTICE	2
+#define LVL_DEBUG	3
+#define MAX_LVL LVL_DEBUG
+
+extern int loglevel;
 extern	void 	botlog(const char *logfile,const char *logfmt, ...);
 extern	void 	globallog( char *logfile, char *logfmt, ...);
 

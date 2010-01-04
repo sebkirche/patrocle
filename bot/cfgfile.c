@@ -38,6 +38,7 @@
 
 #include "cfgfile.h"
 #include "debug.h"
+#include "log.h"
 #include "misc.h"
 #include "parsing.h"
 #include "vladbot.h"
@@ -118,7 +119,7 @@ extern	char	*botmaintainer;
 static	botinfo		*defaultbot = NULL;
 static	listinfo	*defaultset = NULL;
 static	int	linenum = 0;
-static	int	dbg_lvl = LVL_QUIET;
+//static	int	dbg_lvl = LVL_QUIET;
 
 extern lua_State *L;
 char	*configfile = CFGFILE;
@@ -132,11 +133,15 @@ static	void	cfg_debug(int lvl, char *form, ...)
 	va_list	msg;
 	char	buf[MAXLEN];
 
-	if(lvl>dbg_lvl)
+/*	if(lvl>dbg_lvl)
 		return;
+ */
 	va_start(msg, form);
 	vsprintf(buf, form, msg);
-	printf("[%d] %s\n", linenum, buf);
+#ifdef DBUG
+	debug(lvl, "%s", buf);
+#endif
+	//printf("[%d] %s\n", linenum, buf);
 	va_end(msg);
 }
 
@@ -178,7 +183,7 @@ int get_globalstr(char *name)
 }
 
 
-// Sets the debuglevel for the parser.
+// Sets the debuglevel for the bot.
 void	get_globaldebug()
 {
 	int	value;
@@ -189,7 +194,8 @@ void	get_globaldebug()
 			cfg_debug(LVL_ERROR, "%%DEBUG expects 0 <= argument <= 2!");
 		else{
 			cfg_debug(LVL_NOTICE, "DEBUG set to %d", value);
-			dbg_lvl = value;
+			//dbg_lvl = value;
+			loglevel = value;
 		}
 	}
 }
@@ -1008,7 +1014,7 @@ void	readcfg()
 	defaultbot = NULL;
 	defaultset = NULL;
 	linenum = 0;
-	dbg_lvl = LVL_QUIET;
+	//dbg_lvl = LVL_QUIET;
 
 	error = luaL_dofile(L, configfile);
 	if(error){

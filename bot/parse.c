@@ -135,6 +135,9 @@ void	parse_join(char *from, char *rest)
 void	parse_part(char *from, char *rest)
 {
 	strtok(rest, " \0");
+#ifdef DBUG
+	debug(LVL_NOTICE," user %s left %s", getnick(from), rest);
+#endif
 	remove_user_from_channel(rest, getnick(from));
 }
 
@@ -349,7 +352,7 @@ void 	parseline(char *line)
 	KILLRETURN(line);
 
 #ifdef DBUG
-	debug(LVL_NOTICE, "parseline(\"%s\")", line);
+	debug(LVL_DEBUG, "parseline(\"%s\")", line);
 #endif 
 
 	if( *line == ':' ){

@@ -22,9 +22,9 @@
 #include "vladbot.h"
 #include "config.h"
 #include "debug.h"
+#include "log.h"
 
 extern	botinfo *currentbot;
-int	loglevel = LVL_QUIET;
 
 void	debug(int lvl, char *format, ...)
 {
@@ -36,7 +36,7 @@ void	debug(int lvl, char *format, ...)
 		return;
 	va_start(msg, format);
 	vsprintf(buf, format, msg);
-	printf("[%s] %s\n", currentbot->botname, buf);
+	printf("[%s] %s\n", currentbot?currentbot->botname:"-*-", buf);
 	va_end(msg);
 #endif
 }	

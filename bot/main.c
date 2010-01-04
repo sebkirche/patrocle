@@ -192,7 +192,7 @@ int start_bots()
 		switch(select(NFDBITS, &rd, 0, 0, &timer)){
 			case 0:
 #ifdef DBUG
-				global_dbg(LVL_NOTICE, "SELECT: timeout");
+				global_dbg(LVL_DEBUG, "SELECT: timeout");
 				break;
 #endif
 			case -1:

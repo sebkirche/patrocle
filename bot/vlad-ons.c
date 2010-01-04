@@ -771,6 +771,10 @@ void 	on_join(char *who, char *channel)
 	return;
   }
 
+#ifdef DBUG
+	debug(LVL_NOTICE, "%s (%s) joined %s", getnick(who), who, channel);
+#endif
+
   if(shitlevel(who) == 100)
     {
       char **RepPos, **RepNeg;

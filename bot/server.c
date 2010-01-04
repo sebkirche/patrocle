@@ -32,6 +32,7 @@
 
 #include "config.h"
 #include "debug.h"
+#include "log.h"
 #include "vladbot.h"
 
 #ifdef NEXT
@@ -144,9 +145,9 @@ int	send_to_socket( int sock, char *format, ... )
     va_start(msg, format);
     vsprintf(bigbuf, format, msg);
 
-#ifdef DBUG
-    debug(LVL_NOTICE, "send_to_socket(): \"%s\"", bigbuf);
-#endif
+//#ifdef DBUG
+//    debug(LVL_DEBUG, "send_to_socket(): \"%s\"", bigbuf);
+//#endif
     strcat(bigbuf, "\n");
     
     bigbuf[WAYTOBIG-1] = '\0';         /* make sure it ends with 0 */
