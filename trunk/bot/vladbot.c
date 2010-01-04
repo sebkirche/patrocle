@@ -43,6 +43,7 @@
 #include "config.h"
 #include "dcc.h"
 #include "debug.h"
+#include "log.h"
 #include "file.h"
 #include "misc.h"
 #include "parse.h"
@@ -514,7 +515,8 @@ int	send_to_server(char *format, ...)
 	va_start(msg, format);
 	vsprintf(buf, format, msg);
 	va_end(msg);
-	printf("send_to_server : %s\n", buf);
+	debug(LVL_DEBUG, "send_to_server(): \"%s\"", buf);
+	//printf("send_to_server : %s\n", buf);
 	return(send_to_socket(currentbot->server_sock, "%s", buf));
 }
 
@@ -595,7 +597,7 @@ void	reset_botstate()
 		if(botlist[i])
 			if(time(NULL)-botlist[i]->lastreset > RESETINTERVAL){
 #ifdef DBUG
-				debug(LVL_NOTICE, "Resetting botstate");
+				debug(LVL_DEBUG, "Resetting botstate");
 #endif
 				currentbot = botlist[i];
 				currentbot->lastreset = time(NULL);

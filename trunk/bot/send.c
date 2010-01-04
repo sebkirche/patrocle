@@ -27,6 +27,7 @@
 #include "dcc.h"
 #include "send.h"
 #include "debug.h"
+#include "log.h"
 #include "config.h"
 
 //FIXME : weird, but fixes a link problem with my OSX

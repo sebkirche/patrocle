@@ -28,8 +28,11 @@
 #include "vladbot.h"
 #include "config.h"
 #include "log.h"
+#include "debug.h"
 
 extern	botinfo	*currentbot;
+
+int	loglevel = LVL_QUIET;
 
 void 	botlog(const char *logfile,const char *logfmt, ...)
 {
@@ -48,6 +51,9 @@ void 	botlog(const char *logfile,const char *logfmt, ...)
 		return;
 	va_start(msg, logfmt);
 	vsprintf(buf, logfmt, msg);
+#ifdef DBUG
+	debug(LVL_DEBUG, "%s", buf);
+#endif
 	fprintf(flog, "[%s] %s: %s\n", currentbot->botname, time_string, buf);
 	va_end(msg);
 	fclose(flog);
@@ -70,6 +76,9 @@ void 	globallog( char *logfile, char *logfmt, ...)
 		return;
 	va_start(msg, logfmt);
 	vsprintf(buf, logfmt, msg);
+#ifdef DBUG
+	global_dbg(LVL_DEBUG, "%s", buf);
+#endif
 	fprintf(flog, "[-GLOBAL-] %s: %s\n", time_string, buf);
 	va_end(msg);
 	fclose(flog);
