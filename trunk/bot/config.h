@@ -62,12 +62,27 @@
 #define DCC_WAITTIMEOUT 90
 #define DCC_MAXFILESIZE 5000 	/* 5 megs */
 #define AUTO_DCC
-#define AUTO_OPLVL	70	
-#define SYMPA_LVL       10
-#define CONFIANCE_LVL   20
+
+
+/* LEVELS -------------------------------------------------------------*/
+
+/* user / operator levels */
+#define USERLVL_ANONYMOUS	0
+#define USERLVL_REMOTE		50		/* user can drive the bot in remote (topic, say, ...) and teach stimuli */
+#define USERLVL_MODLIST		100		/* user can modify user/rel/stim/rep lists */
+#define USERLVL_MODLISTPOW	110		/* same as previous, with shit list and  more power : op, ban, ... */
+#define USERLVL_POWERUSER	125		/* forget all stims, prot list, logging, bot management, mass op/ban/kick */
+#define USERLVL_BOTOWNER	150		/* fork, reload config/logic, kill bot */
+
+/* relation levels */
 #define DEFAUT_LVL      5       /* Default rel level. Let's be
                                    optimistic... */
-#define HOURS_BETWEEN_SALUTES 8
+#define SYMPA_LVL		10
+#define CONFIDENCE_LVL	20
+#define REMOTE_LVL		50
+#define AUTO_OPLVL		70	
+
+#define HOURS_BETWEEN_SALUTES 8 /* minimum delay between 2 contacts for an automatic salute */
 
 /* The command prefix character -------------------------------------
    The prefixchar is only needed for public commands

@@ -68,15 +68,15 @@ extern	long	uptime;
 extern	char	*botmaintainer;
 extern  short   logging;
 extern  char    CommandChar;
-int GNumPhrase = 0;
+extern char	*months[];
 
 /* external parseroutines ("prefix commands")	*/
 extern	void	parse_note(char *from, char *to, char *s);
 extern	void	parse_global(char *from, char *to, char *rest);
-
-extern char	*months[];
-
 extern void	sig_alrm();
+
+int GNumPhrase = 0;	/* counter for the number of processed reactions */
+
 command_tbl on_msg_commands[] =
 
 /* Any command which produces more than 2 lines output can be 
@@ -84,108 +84,108 @@ command_tbl on_msg_commands[] =
 
 /*  Command	function   userlvl    shitlvl   rellvl      forcedcc */
 	{
-		{ "HELP",		show_help,		0,		100,	-100,			TRUE  },		
-		{ "APPRENDS",	do_apprends,    0,      100,	CONFIANCE_LVL,	FALSE },		
-		{ "DESACTIVE",	do_desactive,   0,      100,    CONFIANCE_LVL,	FALSE },		
-		{ "ACTIVE",		do_active,      0,      100,    CONFIANCE_LVL,	FALSE },		
-		{ "FUCK",		do_fuck,        0,      0,      SYMPA_LVL,		FALSE },		
-		{ "WHOAMI",		show_whoami,  	0,		100,	-100,			FALSE },		
-		{ "INFO",		show_info,		0,		100,	-50,			FALSE },		
-		{ "TIME",		show_time,		0,		100,	-10,			FALSE },		
-		/* { "NRELADD", do_nreladd,     0,      0,      -500,			FALSE },		*/
-		{ "LISTDCC",	do_listdcc,		0,		100,	0,				TRUE  },		
-		{ "CHAT",		do_chat,		0,		100,	0,				FALSE },		
-		/* { "SEND",	do_send,		0,		100,	FALSE },		*/
+		{ "HELP",		show_help,		USERLVL_ANONYMOUS,		100,	-100,			TRUE  },		
+		{ "APPRENDS",	do_apprends,    USERLVL_ANONYMOUS,      100,	CONFIDENCE_LVL,	FALSE },		
+		{ "DESACTIVE",	do_desactive,   USERLVL_ANONYMOUS,      100,    CONFIDENCE_LVL,	FALSE },		
+		{ "ACTIVE",		do_active,      USERLVL_ANONYMOUS,      100,    CONFIDENCE_LVL,	FALSE },		
+		{ "FUCK",		do_fuck,        USERLVL_ANONYMOUS,      0,      SYMPA_LVL,		FALSE },		
+		{ "WHOAMI",		show_whoami,  	USERLVL_ANONYMOUS,		100,	-100,			FALSE },		
+		{ "INFO",		show_info,		USERLVL_ANONYMOUS,		100,	-50,			FALSE },		
+		{ "TIME",		show_time,		USERLVL_ANONYMOUS,		100,	-10,			FALSE },		
+		/* { "NRELADD", do_nreladd,     USERLVL_ANONYMOUS,      0,      -500,			FALSE },		*/
+		{ "LISTDCC",	do_listdcc,		USERLVL_ANONYMOUS,		100,	0,				TRUE  },		
+		{ "CHAT",		do_chat,		USERLVL_ANONYMOUS,		100,	0,				FALSE },		
+		/* { "SEND",	do_send,		USERLVL_ANONYMOUS,		100,	FALSE },		*/
 		/* These two are just aliases for ftp-dcc		 */
-		/* { "GET",		do_send,		0,		100,	FALSE },		*/
-		/* { "MGET",	do_send,		0,		100,	FALSE },		*/
+		/* { "GET",		do_send,		USERLVL_ANONYMOUS,		100,	FALSE },		*/
+		/* { "MGET",	do_send,		USERLVL_ANONYMOUS,		100,	FALSE },		*/
 		/* Some more ftp-dcc functions				 */
-		/* { "LS",		show_dir,		0,		100,	TRUE  },		*/
-		/* { "PWD",		show_cwd,		0,		100,	FALSE },		*/
-		/* { "CD",		do_cd,			0,		100,	FALSE },		*/
-		/* { "QUEUE",	show_queue,		0,		100,	TRUE  },		*/
-		/* { "FILES",	do_flist,       0,      100,    TRUE  },		*/
-		/* { "FLIST",	do_flist,		0,		100,	TRUE  },		*/
+		/* { "LS",		show_dir,		USERLVL_ANONYMOUS,		100,	TRUE  },		*/
+		/* { "PWD",		show_cwd,		USERLVL_ANONYMOUS,		100,	FALSE },		*/
+		/* { "CD",		do_cd,			USERLVL_ANONYMOUS,		100,	FALSE },		*/
+		/* { "QUEUE",	show_queue,		USERLVL_ANONYMOUS,		100,	TRUE  },		*/
+		/* { "FILES",	do_flist,       USERLVL_ANONYMOUS,      100,    TRUE  },		*/
+		/* { "FLIST",	do_flist,		USERLVL_ANONYMOUS,		100,	TRUE  },		*/
 		/* userlevel and dcc are dealt with within NOTE 	*/
-		/* { "NOTE",	parse_note,		0,		100,	TRUE  },		*/
+		{ "NOTE",	parse_note,		USERLVL_ANONYMOUS,		100,	TRUE  },
 		/* userlevel and dcc are dealt with within GLOBAL 	*/
-		{ "GLOBAL",		parse_global,	0,		100,	CONFIANCE_LVL,	FALSE },		
-		{ "MYCMDS",		show_mycmds,    0,      100,    -10,			TRUE  },		
-		{ "STIMLIST",	do_stimlist,    50,     100,    SYMPA_LVL,		TRUE  },		
-		{ "REPLIST",	do_replist,     50,     100,    SYMPA_LVL,		TRUE  },		
-		{ "STIMDEL",	do_stimdel,     50,     0,      SYMPA_LVL,		FALSE },		
-		{ "REPDEL",		do_repdel,      50,     0,      SYMPA_LVL,		FALSE },		
-		{ "CMDSLVLS",	show_cmdlvls,   50,     100,    SYMPA_LVL,		TRUE  },		
-		{ "INVITE",		do_invite,		50,		0,		SYMPA_LVL,		FALSE },		
-		{ "NWHOIS",		show_nwhois,	50,		0,		SYMPA_LVL,		FALSE },		
-		{ "RELADD",		do_reladd,      50,     0,      SYMPA_LVL,		FALSE },		
-		{ "SAY",		do_say,			50,		0,		CONFIANCE_LVL,	FALSE },		
-		{ "ME",			do_me,          50,     0,      CONFIANCE_LVL,	FALSE },		
-		{ "TOPIC",		do_topic,       50,     0,      SYMPA_LVL,		FALSE },		
-		{ "SEEN",		do_seen,		0,		0,		SYMPA_LVL,		FALSE },		
-		{ "USERLIST",	show_userlist,	100,	100,	0,				TRUE  },		
-		{ "SHITLIST",	show_shitlist,	100,	100,	SYMPA_LVL,		TRUE  },		
-		{ "PROTLIST",	show_protlist,	100,	100,	CONFIANCE_LVL,	TRUE  },		
-		{ "RELLIST",	show_rellist,   100,    0,      CONFIANCE_LVL,	TRUE  },		
-		{ "OP",			do_op,			100,	0,		SYMPA_LVL,		FALSE },		
-		{ "DEOP",		do_deop,		100,	0,		SYMPA_LVL,		FALSE },		
-		{ "WHOIS",		show_whois,		100,	0,		SYMPA_LVL,		FALSE },		
-		{ "USERWRITE",	do_userwrite,	100,	0,		0,				FALSE },		
-		{ "RELWRITE",	do_relwrite,    100,    0,      0,				FALSE },		
-		{ "RELDEL",		do_reldel,      100,    0,      SYMPA_LVL,		FALSE },		
-		{ "SHOWUSERS",	do_showusers,	100,	0,		SYMPA_LVL,		TRUE  },		
-		{ "STIMWRITE",	do_stimwrite,   100,    0,      CONFIANCE_LVL,	FALSE },		
-		{ "REPWRITE",	do_repwrite,    100,    0,      CONFIANCE_LVL,	FALSE },		
-		{ "KICK",		do_kick,		100,	0,		SYMPA_LVL,		FALSE },		
-		{ "GIVEOP",		do_giveop,		110,	0,		CONFIANCE_LVL,	FALSE },		
-		{ "NUSERADD",	do_nuseradd,	110,	0,		SYMPA_LVL,		FALSE },		
-		{ "LOCWRITE",	do_locwrite,    110,    0,      SYMPA_LVL,		FALSE },		
-		{ "USERDEL",	do_userdel,		110,	0,		CONFIANCE_LVL,	FALSE },		
-		{ "NSHITADD",	do_nshitadd,	110,	0,		SYMPA_LVL,		FALSE },		
-		{ "SHITWRITE",	do_shitwrite,	110,	0,		SYMPA_LVL,		FALSE },		
-		{ "SHITDEL",	do_shitdel,		110,	0,		SYMPA_LVL,		FALSE },		
-		{ "PROTWRITE",	do_protwrite,   110,    0,		SYMPA_LVL,		FALSE },		
-		{ "PROTDEL",	do_protdel,     110,    0,		CONFIANCE_LVL,	FALSE },		
-		{ "BANUSER",	do_banuser,		110,	0,		CONFIANCE_LVL,	FALSE },		
-		{ "UNBAN",		do_unban,		110,	0,		SYMPA_LVL,		FALSE },		
-		{ "OPEN",		do_open,		110,	0,		CONFIANCE_LVL,	FALSE },		
-		{ "LEAVE",		do_leave,		110,	0,		SYMPA_LVL,		FALSE },		
-		{ "NICK",		do_nick,		110,	0,		SYMPA_LVL,		FALSE },		
-		{ "REPLOAD",	do_repload,     110,    0,      CONFIANCE_LVL,	FALSE },		
-		{ "USERADD",	do_useradd,		110,	0,		CONFIANCE_LVL,	FALSE },		
-		{ "LOGON",		do_logon,       110,    0,      CONFIANCE_LVL,	FALSE },		
-		{ "LOGOFF",		do_logoff,      110,    0,      CONFIANCE_LVL,	FALSE },		
-		{ "JOIN",		do_join,		115,	0,		CONFIANCE_LVL,	FALSE },		
-		{ "SHITADD",	do_shitadd,		115,	0,		CONFIANCE_LVL,	FALSE },		
-		{ "SHOWLOCS",	do_showlocs,    125,    0,      SYMPA_LVL,		TRUE  },		
-		{ "OUBLIE",		do_oublie,      125,    0,      CONFIANCE_LVL,	FALSE },		
-		{ "STIMLOAD",	do_stimload,    125,    0,      CONFIANCE_LVL,	FALSE },		
-		{ "PROTADD",	do_protadd,     125,    0,		CONFIANCE_LVL,	FALSE },		
-		{ "NPROTADD",	do_nprotadd,    125,    0,		SYMPA_LVL,		FALSE },		
-		{ "CHANNELS",	show_channels,	125,	0,		SYMPA_LVL,		FALSE },		
-		{ "MASSOP",		do_massop,		125,	0,		SYMPA_LVL,		FALSE },		
-		{ "MASSDEOP",	do_massdeop,	125,	0,		CONFIANCE_LVL,	FALSE },		
-		{ "MASSKICK",	do_masskick,	125,	0,		CONFIANCE_LVL,	FALSE },		
-		{ "MASSUNBAN",	do_massunban,	125,	0,		SYMPA_LVL,		FALSE },		
-		{ "SERVER",		do_server,		125,	0,		SYMPA_LVL,		FALSE },		
-		{ "MSGLOGON",	do_msglogon,    125,    0,      CONFIANCE_LVL,	FALSE },		
-		{ "MSGLOGOFF",	do_msglogoff,   125,    0,      CONFIANCE_LVL,	FALSE },		
-		{ "COMCHAR",	do_comchar,     125,    0,      CONFIANCE_LVL,	FALSE },		
-		{ "BOTLOAD",	do_botload,     125,    0,      CONFIANCE_LVL,	FALSE },		
-		{ "BOTLIST",	do_showbots,    125,    0,      SYMPA_LVL,		TRUE  },		
-		{ "BOTADD",		do_botadd,      125,    0,      CONFIANCE_LVL,	FALSE },		
-		{ "BOTDEL",		do_botdel,      125,    0,      CONFIANCE_LVL,	FALSE },		
-		{ "BOTWRITE",	do_botwrite,    125,    0,      SYMPA_LVL,		FALSE },		
+		{ "GLOBAL",		parse_global,	USERLVL_ANONYMOUS,		100,	CONFIDENCE_LVL,	FALSE },		
+		{ "MYCMDS",		show_mycmds,    USERLVL_ANONYMOUS,      100,    -10,			TRUE  },		
+		{ "STIMLIST",	do_stimlist,    USERLVL_REMOTE,     100,    SYMPA_LVL,		TRUE  },		
+		{ "REPLIST",	do_replist,     USERLVL_REMOTE,     100,    SYMPA_LVL,		TRUE  },		
+		{ "STIMDEL",	do_stimdel,     USERLVL_REMOTE,     0,      SYMPA_LVL,		FALSE },		
+		{ "REPDEL",		do_repdel,      USERLVL_REMOTE,     0,      SYMPA_LVL,		FALSE },		
+		{ "CMDSLVLS",	show_cmdlvls,   USERLVL_REMOTE,     100,    SYMPA_LVL,		TRUE  },		
+		{ "INVITE",		do_invite,		USERLVL_REMOTE,		0,		SYMPA_LVL,		FALSE },		
+		{ "NWHOIS",		show_nwhois,	USERLVL_REMOTE,		0,		SYMPA_LVL,		FALSE },		
+		{ "RELADD",		do_reladd,      USERLVL_REMOTE,     0,      SYMPA_LVL,		FALSE },		
+		{ "SAY",		do_say,			USERLVL_REMOTE,		0,		CONFIDENCE_LVL,	FALSE },		
+		{ "ME",			do_me,          USERLVL_REMOTE,     0,      CONFIDENCE_LVL,	FALSE },		
+		{ "TOPIC",		do_topic,       USERLVL_REMOTE,     0,      SYMPA_LVL,		FALSE },		
+		{ "SEEN",		do_seen,		USERLVL_ANONYMOUS,		0,		SYMPA_LVL,		FALSE },		
+		{ "USERLIST",	show_userlist,	USERLVL_MODLIST,	100,	0,				TRUE  },		
+		{ "SHITLIST",	show_shitlist,	USERLVL_MODLIST,	100,	SYMPA_LVL,		TRUE  },		
+		{ "PROTLIST",	show_protlist,	USERLVL_MODLIST,	100,	CONFIDENCE_LVL,	TRUE  },		
+		{ "RELLIST",	show_rellist,   USERLVL_MODLIST,    0,      CONFIDENCE_LVL,	TRUE  },		
+		{ "OP",			do_op,			USERLVL_MODLIST,	0,		SYMPA_LVL,		FALSE },		
+		{ "DEOP",		do_deop,		USERLVL_MODLIST,	0,		SYMPA_LVL,		FALSE },		
+		{ "WHOIS",		show_whois,		USERLVL_MODLIST,	0,		SYMPA_LVL,		FALSE },		
+		{ "USERWRITE",	do_userwrite,	USERLVL_MODLIST,	0,		0,				FALSE },		
+		{ "RELWRITE",	do_relwrite,    USERLVL_MODLIST,    0,      0,				FALSE },		
+		{ "RELDEL",		do_reldel,      USERLVL_MODLIST,    0,      SYMPA_LVL,		FALSE },		
+		{ "SHOWUSERS",	do_showusers,	USERLVL_MODLIST,	0,		SYMPA_LVL,		TRUE  },		
+		{ "STIMWRITE",	do_stimwrite,   USERLVL_MODLIST,    0,      CONFIDENCE_LVL,	FALSE },		
+		{ "REPWRITE",	do_repwrite,    USERLVL_MODLIST,    0,      CONFIDENCE_LVL,	FALSE },		
+		{ "KICK",		do_kick,		USERLVL_MODLIST,	0,		SYMPA_LVL,		FALSE },		
+		{ "GIVEOP",		do_giveop,		USERLVL_MODLISTPOW,	0,		CONFIDENCE_LVL,	FALSE },		
+		{ "NUSERADD",	do_nuseradd,	USERLVL_MODLISTPOW,	0,		SYMPA_LVL,		FALSE },		
+		{ "LOCWRITE",	do_locwrite,    USERLVL_MODLISTPOW,    0,      SYMPA_LVL,		FALSE },		
+		{ "USERDEL",	do_userdel,		USERLVL_MODLISTPOW,	0,		CONFIDENCE_LVL,	FALSE },		
+		{ "NSHITADD",	do_nshitadd,	USERLVL_MODLISTPOW,	0,		SYMPA_LVL,		FALSE },		
+		{ "SHITWRITE",	do_shitwrite,	USERLVL_MODLISTPOW,	0,		SYMPA_LVL,		FALSE },		
+		{ "SHITDEL",	do_shitdel,		USERLVL_MODLISTPOW,	0,		SYMPA_LVL,		FALSE },		
+		{ "PROTWRITE",	do_protwrite,   USERLVL_MODLISTPOW,    0,		SYMPA_LVL,		FALSE },		
+		{ "PROTDEL",	do_protdel,     USERLVL_MODLISTPOW,    0,		CONFIDENCE_LVL,	FALSE },		
+		{ "BANUSER",	do_banuser,		USERLVL_MODLISTPOW,	0,		CONFIDENCE_LVL,	FALSE },		
+		{ "UNBAN",		do_unban,		USERLVL_MODLISTPOW,	0,		SYMPA_LVL,		FALSE },		
+		{ "OPEN",		do_open,		USERLVL_MODLISTPOW,	0,		CONFIDENCE_LVL,	FALSE },		
+		{ "LEAVE",		do_leave,		USERLVL_MODLISTPOW,	0,		SYMPA_LVL,		FALSE },		
+		{ "NICK",		do_nick,		USERLVL_MODLISTPOW,	0,		SYMPA_LVL,		FALSE },		
+		{ "REPLOAD",	do_repload,     USERLVL_MODLISTPOW,    0,      CONFIDENCE_LVL,	FALSE },		
+		{ "USERADD",	do_useradd,		USERLVL_MODLISTPOW,	0,		CONFIDENCE_LVL,	FALSE },		
+		{ "LOGON",		do_logon,       USERLVL_MODLISTPOW,    0,      CONFIDENCE_LVL,	FALSE },		
+		{ "LOGOFF",		do_logoff,      USERLVL_MODLISTPOW,    0,      CONFIDENCE_LVL,	FALSE },		
+		{ "JOIN",		do_join,		USERLVL_MODLISTPOW,	0,		CONFIDENCE_LVL,	FALSE },		
+		{ "SHITADD",	do_shitadd,		USERLVL_MODLISTPOW,	0,		CONFIDENCE_LVL,	FALSE },		
+		{ "SHOWLOCS",	do_showlocs,    USERLVL_POWERUSER,    0,      SYMPA_LVL,		TRUE  },		
+		{ "OUBLIE",		do_oublie,      USERLVL_POWERUSER,    0,      CONFIDENCE_LVL,	FALSE },		
+		{ "STIMLOAD",	do_stimload,    USERLVL_POWERUSER,    0,      CONFIDENCE_LVL,	FALSE },		
+		{ "PROTADD",	do_protadd,     USERLVL_POWERUSER,    0,		CONFIDENCE_LVL,	FALSE },		
+		{ "NPROTADD",	do_nprotadd,    USERLVL_POWERUSER,    0,		SYMPA_LVL,		FALSE },		
+		{ "CHANNELS",	show_channels,	USERLVL_POWERUSER,	0,		SYMPA_LVL,		FALSE },		
+		{ "MASSOP",		do_massop,		USERLVL_POWERUSER,	0,		SYMPA_LVL,		FALSE },		
+		{ "MASSDEOP",	do_massdeop,	USERLVL_POWERUSER,	0,		CONFIDENCE_LVL,	FALSE },		
+		{ "MASSKICK",	do_masskick,	USERLVL_POWERUSER,	0,		CONFIDENCE_LVL,	FALSE },		
+		{ "MASSUNBAN",	do_massunban,	USERLVL_POWERUSER,	0,		SYMPA_LVL,		FALSE },		
+		{ "SERVER",		do_server,		USERLVL_POWERUSER,	0,		SYMPA_LVL,		FALSE },		
+		{ "MSGLOGON",	do_msglogon,    USERLVL_POWERUSER,    0,      CONFIDENCE_LVL,	FALSE },		
+		{ "MSGLOGOFF",	do_msglogoff,   USERLVL_POWERUSER,    0,      CONFIDENCE_LVL,	FALSE },		
+		{ "COMCHAR",	do_comchar,     USERLVL_POWERUSER,    0,      CONFIDENCE_LVL,	FALSE },		
+		{ "BOTLOAD",	do_botload,     USERLVL_POWERUSER,    0,      CONFIDENCE_LVL,	FALSE },		
+		{ "BOTLIST",	do_showbots,    USERLVL_POWERUSER,    0,      SYMPA_LVL,		TRUE  },		
+		{ "BOTADD",		do_botadd,      USERLVL_POWERUSER,    0,      CONFIDENCE_LVL,	FALSE },		
+		{ "BOTDEL",		do_botdel,      USERLVL_POWERUSER,    0,      CONFIDENCE_LVL,	FALSE },		
+		{ "BOTWRITE",	do_botwrite,    USERLVL_POWERUSER,    0,      SYMPA_LVL,		FALSE },		
 		/* Priviliged commands					*/	
-		{ "FORK",		do_fork,		150,	0,		-100,			FALSE },		
-		{ "REHASH",		do_rehash,		150,	0,		-100,			FALSE },		
-		{ "RELOADLOGIC",do_reloadlogic,	150,	0,		-100,			FALSE },		
-		{ "DO",			do_do,			150,	0,		-100,			FALSE },		
-		{ "DIE",		do_die,			150,	0,		-100,			FALSE },		
-		{ "DIEDIE",		do_die,			150,	0,		-100,			FALSE },		
-		{ "QUIT",		do_quit,		150,	0,		-100,			FALSE },		
+		{ "FORK",		do_fork,		USERLVL_BOTOWNER,	0,		-100,			FALSE },		
+		{ "REHASH",		do_rehash,		USERLVL_BOTOWNER,	0,		-100,			FALSE },		
+		{ "RELOADLOGIC",do_reloadlogic,	USERLVL_BOTOWNER,	0,		-100,			FALSE },		
+		{ "DO",			do_do,			USERLVL_BOTOWNER,	0,		-100,			FALSE },		
+		{ "DIE",		do_die,			USERLVL_BOTOWNER,	0,		-100,			FALSE },		
+		{ "DIEDIE",		do_die,			USERLVL_BOTOWNER,	0,		-100,			FALSE },		
+		{ "QUIT",		do_quit,		USERLVL_BOTOWNER,	0,		-100,			FALSE },		
 #ifndef WIN32
-		{ "ALARM",		do_alarm,		50,		0,		SYMPA_LVL,		FALSE },
+		{ "ALARM",		do_alarm,		USERLVL_REMOTE,		0,		SYMPA_LVL,		FALSE },
 #endif
 		/*
 		  :
@@ -868,15 +868,15 @@ void	on_mode(char *from, char *rest)
  * from = who did the modechange
  * rest = modestring, usually of form +mode-mode param1 .. paramN
  */
-#define REMOVEMODE(chr, prm) do{ strcat(unminmode, chr); \
-			         strcat(unminparams, prm); \
-			         strcat(unminparams, " "); \
-			     } while(0)
+#define REMOVEMODE(chr, prm) do{ strcat(unminmode, chr);	\
+		strcat(unminparams, prm);							\
+		strcat(unminparams, " ");							\
+	} while(0)
 
-#define ADDMODE(chr, prm)    do{ strcat(unplusmode, chr); \
-			         strcat(unplusparams, prm); \
-			         strcat(unplusparams, " "); \
-			     } while(0)
+#define ADDMODE(chr, prm)    do{ strcat(unplusmode, chr);	\
+		strcat(unplusparams, prm);							\
+		strcat(unplusparams, " ");							\
+	} while(0)
 {
     static  int NumPhrase = 0;
 	int     Numero;
@@ -911,219 +911,205 @@ void	on_mode(char *from, char *rest)
 	chanchars = get_token(&rest, " ");
 	params = rest;
 
-	while( *chanchars )
-	{
-		switch( *chanchars )
-		{
-		case '+':
-		case '-':
-			sign = *chanchars;
-			break;
-		case 'o':
-			nick = get_token(&params, " ");
-			if(sign == '+')
-			{
-				add_channelmode(channel, CHFL_CHANOP, nick);
+	while( *chanchars ){
+		switch( *chanchars ){
+			case '+':
+			case '-':
+				sign = *chanchars;
+				break;
+			case 'o':
+				nick = get_token(&params, " ");
+				if(sign == '+'){
+					add_channelmode(channel, CHFL_CHANOP, nick);
 #ifdef ONLY_OPS_FOR_REGISTRED
-				if(shitlevel(username(nick)) > 0 ||
-				   userlevel(username(nick)) == 0)
+					if(shitlevel(username(nick)) > 0 ||
+					   userlevel(username(nick)) == 0)
 #else
-				if(shitlevel(username(nick))>=50)
+					if(shitlevel(username(nick))>=50)
 #endif
-				{
-					REMOVEMODE("o", nick);
-					send_to_user(from, 
-#ifdef ONLY_OPS_FOR_REGISTRED
-						"Sorry, I can't allow this :)");
-#else
-						"%s is shitted! :P", nick);
-#endif
-					did_change=TRUE;
-				}
-			       /* Si c'est quelqu'un qu'on voulait opper */
-			       else if(STRCASEEQUAL(nick, currentbot->nick)&&
-					!is_bot(currentbot->botlist, from, channel))
-				 { /* Merci */
-				   RepPos = malloc(7 * sizeof(char *));
-				   RepPos[0] = strdup("Merci %s.");
-				   RepPos[1] = 0;
-				   RepPos[2] = strdup("C'est gentil, ça, %s.");
-				   RepPos[3] = 0;
-				   RepPos[4] = strdup("Tu as toute ma gratitude, %s!");
-				   RepPos[5] = strdup("C'est gentil de ta part, %s.");
-				   RepPos[6] = 0;
-
-				   RepNeg = malloc(3 * sizeof(char *));
-				   RepNeg[0] = strdup("Étonnant de ta part, %s!");
-				   RepNeg[1] = strdup("Venant de toi, ça m'étonne, %s!");
-				   RepNeg[2] = strdup("Je suppose que tu attends un peu de gratitude de ma part, %s.");
-				   Repondre(from, channel, +1, 7, RepPos, +2, 3, RepNeg);
-				 }
-			}
-			else
-			{
-			  if(STRCASEEQUAL(nick, currentbot->nick) &&
-			      !is_bot(currentbot->botlist, from, channel)) {
-			    RepPos = malloc(3 * sizeof(char *));
-			    RepPos[0] = strdup("Je suis déçu %s.");
-			    RepPos[1] = strdup("C'est pas gentil, ça, %s.");
-			    RepPos[2] = strdup("S'il-te-plaît, %s, redonne-moi les droits!");
-					
-			    RepNeg = malloc(3 * sizeof(char *));
-			    RepNeg[0] = strdup(""/*Espèce de charogne, %s!"*/);
-			    RepNeg[1] = strdup("Pourquoi tu me déoppes %s?");
-			    RepNeg[2] = strdup("Ne recommence jamais ça!");
-			    Repondre(from, channel, -2, 3, RepPos, -10, 3, RepNeg);
-			    return;
-			  }
-			  
-				del_channelmode(channel, CHFL_CHANOP, nick);
-				if((protlevel(username(nick))>=100)&&
-				   (shitlevel(username(nick))==0))
-				{
-					ADDMODE("o", nick);
-					RepPos = malloc(3 * sizeof(char *));
-					RepPos[0] = strdup("Je protège cet utilisateur, désolé %s.");
-					RepPos[1] = strdup("Prière de ne pas recommencer, %s. Je ne le permets pas.");
-					RepPos[2] = strdup("Ne recommence pas tant que je suis chargé de protéger cet utilisateur, si tu veux rester en bon termes avec moi, %s.");
-					
-					RepNeg = malloc(3 * sizeof(char *));
-					RepNeg[0] = strdup("Et pis quoi encore %s? Tu te crois tout permis. Je ne veux pas!");
-					RepNeg[1] = strdup("Estime-toi heureux que je ne te kicke pas, %s! Je suis chargé de protéger cet utilisateur.");
-					RepNeg[2] = strdup("Pas question de déopper cet utilisateur!");
-					Repondre(from, channel, 0, 3, RepPos, -1, 3, RepNeg);
-/*
-					NumPhrase ++;
-					Numero = NumPhrase % 3;
-					switch(Numero) {
-					case 0:
-					  send_to_user(from, 
-								   "%s is protected!",
-								   nick);
-					  break;
-					case 1:
-					  send_to_user(from,
-								   "Pas question: je protège %s!",
-								   nick);
-					  break;
-					case 2:
-					  send_to_user(from,
-									"%s est sous ma protection.",
-									nick);
-					  break;
-					}
-*/
-					did_change=TRUE;
-				}	
-			}
-			break;
-		case 'v':
-			nick = get_token(&params, " ");
-			if(sign == '+')
-				add_channelmode(channel, CHFL_VOICE, nick);
-			else
-				del_channelmode(channel, CHFL_VOICE, nick);
-			break;
-		case 'b':
-			banstring = get_token(&params, " ");
-                        if(sign == '+')
-			{
-                                add_channelmode(channel, MODE_BAN, banstring);
-				if(find_highest(channel, banstring) >= 50)
-				{
-					REMOVEMODE("b", banstring);
-					did_change = TRUE;
-				}
-				
-			}
-                        else
-                                del_channelmode(channel, MODE_BAN, banstring);
-                        break;
-		case 'p':
-			if(sign == '+')
-				add_channelmode(channel, MODE_PRIVATE, "");
-			else
-				del_channelmode(channel, MODE_PRIVATE, "");
-			break;
-		case 's':
-			if(sign == '+')
-				add_channelmode(channel, MODE_SECRET, "");
-			else
-				del_channelmode(channel, MODE_SECRET, "");
-			break;
-		case 'm':
-			if(sign == '+')
-				add_channelmode(channel, MODE_MODERATED, "");
-			else
-				del_channelmode(channel, MODE_MODERATED, "");
-			break;
-		case 't':
-			if(sign == '+')
-				add_channelmode(channel, MODE_TOPICLIMIT, "");
-			else
-				del_channelmode(channel, MODE_TOPICLIMIT, "");
-			break;
-		case 'i':
-			if(sign == '+')
-				add_channelmode(channel, MODE_INVITEONLY, "");
-			else
-				del_channelmode(channel, MODE_INVITEONLY, "");
-			break;
-		case 'n':
-			if(sign == '+')
-				add_channelmode(channel, MODE_NOPRIVMSGS, "");
-			else
-				del_channelmode(channel, MODE_NOPRIVMSGS, "");
-			break;
-		case 'k':
-                       	key = get_token(&params, " ");
-			if(sign == '+')
-			{
-				char	*s;
-
-				add_channelmode(channel, MODE_KEY, 
-						key?key:"???");
-				/* try to unset bogus keys */
-				for(s = key; key && *s; s++)
-					if(*s < ' ')
 					{
-						REMOVEMODE("k", key);
-						did_change = TRUE;
-						send_to_user(from,
-						"No bogus keys pls");
-						break;
-					}
-			}
-			else
-				del_channelmode(channel, MODE_KEY, "");
-			break;
-		case 'l':
-			if(sign == '+')
-			{
-                        	limit = get_token(&params, " ");
-				add_channelmode(channel, MODE_LIMIT, 
-						limit?limit:"0");
-			}
-			else
-				del_channelmode(channel, MODE_LIMIT, "");
-			break;
-		default:
-#ifdef DBUG
-			debug(LVL_ERROR, "on_mode(): unknown mode %c", *chanchars);
+						REMOVEMODE("o", nick);
+						send_to_user(from, 
+#ifdef ONLY_OPS_FOR_REGISTRED
+									 "Sorry, I can't allow this :)");
+#else
+									 "%s is shitted! :P", nick);
 #endif
-			break;
+						did_change=TRUE;
+					}
+					/* Si c'est quelqu'un qu'on voulait opper */
+					else if(STRCASEEQUAL(nick, currentbot->nick)&&
+							!is_bot(currentbot->botlist, from, channel)){ /* Merci */
+						RepPos = malloc(7 * sizeof(char *));
+						RepPos[0] = strdup("Merci %s.");
+						RepPos[1] = 0;
+						RepPos[2] = strdup("C'est gentil, ça, %s.");
+						RepPos[3] = 0;
+						RepPos[4] = strdup("Tu as toute ma gratitude, %s!");
+						RepPos[5] = strdup("C'est gentil de ta part, %s.");
+						RepPos[6] = 0;
+							
+						RepNeg = malloc(3 * sizeof(char *));
+						RepNeg[0] = strdup("Étonnant de ta part, %s!");
+						RepNeg[1] = strdup("Venant de toi, ça m'étonne, %s!");
+						RepNeg[2] = strdup("Je suppose que tu attends un peu de gratitude de ma part, %s.");
+						Repondre(from, channel, +1, 7, RepPos, +2, 3, RepNeg);
+					}
+				}
+				else{
+					if(STRCASEEQUAL(nick, currentbot->nick) &&
+					   !is_bot(currentbot->botlist, from, channel)) {
+						RepPos = malloc(3 * sizeof(char *));
+						RepPos[0] = strdup("Je suis déçu %s.");
+						RepPos[1] = strdup("C'est pas gentil, ça, %s.");
+						RepPos[2] = strdup("S'il-te-plaît, %s, redonne-moi les droits!");
+						
+						RepNeg = malloc(3 * sizeof(char *));
+						RepNeg[0] = strdup(""/*Espèce de charogne, %s!"*/);
+						RepNeg[1] = strdup("Pourquoi tu me déoppes %s?");
+						RepNeg[2] = strdup("Ne recommence jamais ça!");
+						Repondre(from, channel, -2, 3, RepPos, -10, 3, RepNeg);
+						return;
+					}
+			
+					del_channelmode(channel, CHFL_CHANOP, nick);
+					if((protlevel(username(nick))>=100)&&
+					   (shitlevel(username(nick))==0)){
+						ADDMODE("o", nick);
+						RepPos = malloc(3 * sizeof(char *));
+						RepPos[0] = strdup("Je protège cet utilisateur, désolé %s.");
+						RepPos[1] = strdup("Prière de ne pas recommencer, %s. Je ne le permets pas.");
+						RepPos[2] = strdup("Ne recommence pas tant que je suis chargé de protéger cet utilisateur, si tu veux rester en bon termes avec moi, %s.");
+							
+						RepNeg = malloc(3 * sizeof(char *));
+						RepNeg[0] = strdup("Et pis quoi encore %s? Tu te crois tout permis. Je ne veux pas!");
+						RepNeg[1] = strdup("Estime-toi heureux que je ne te kicke pas, %s! Je suis chargé de protéger cet utilisateur.");
+						RepNeg[2] = strdup("Pas question de déopper cet utilisateur!");
+						Repondre(from, channel, 0, 3, RepPos, -1, 3, RepNeg);
+/*
+						NumPhrase ++;
+						Numero = NumPhrase % 3;
+						switch(Numero) {
+						case 0:
+						  send_to_user(from, 
+									   "%s is protected!",
+									   nick);
+						  break;
+						case 1:
+						  send_to_user(from,
+									   "Pas question: je protège %s!",
+									   nick);
+						  break;
+						case 2:
+						  send_to_user(from,
+										"%s est sous ma protection.",
+										nick);
+						  break;
+						}
+*/
+						did_change=TRUE;
+					}	
+				}
+				break;
+			case 'v':
+				nick = get_token(&params, " ");
+				if(sign == '+')
+					add_channelmode(channel, CHFL_VOICE, nick);
+				else
+					del_channelmode(channel, CHFL_VOICE, nick);
+				break;
+			case 'b':
+				banstring = get_token(&params, " ");
+				if(sign == '+'){
+					add_channelmode(channel, MODE_BAN, banstring);
+					if(find_highest(channel, banstring) >= 50){
+						REMOVEMODE("b", banstring);
+						did_change = TRUE;
+					}
+				}
+				else
+					del_channelmode(channel, MODE_BAN, banstring);
+				break;
+			case 'p':
+				if(sign == '+')
+					add_channelmode(channel, MODE_PRIVATE, "");
+				else
+					del_channelmode(channel, MODE_PRIVATE, "");
+				break;
+			case 's':
+				if(sign == '+')
+					add_channelmode(channel, MODE_SECRET, "");
+				else
+					del_channelmode(channel, MODE_SECRET, "");
+				break;
+			case 'm':
+				if(sign == '+')
+					add_channelmode(channel, MODE_MODERATED, "");
+				else
+					del_channelmode(channel, MODE_MODERATED, "");
+				break;
+			case 't':
+				if(sign == '+')
+					add_channelmode(channel, MODE_TOPICLIMIT, "");
+				else
+					del_channelmode(channel, MODE_TOPICLIMIT, "");
+				break;
+			case 'i':
+				if(sign == '+')
+					add_channelmode(channel, MODE_INVITEONLY, "");
+				else
+					del_channelmode(channel, MODE_INVITEONLY, "");
+				break;
+			case 'n':
+				if(sign == '+')
+					add_channelmode(channel, MODE_NOPRIVMSGS, "");
+				else
+					del_channelmode(channel, MODE_NOPRIVMSGS, "");
+				break;
+			case 'k':
+				key = get_token(&params, " ");
+				if(sign == '+'){
+					char	*s;
+
+					add_channelmode(channel, MODE_KEY, 
+									key?key:"???");
+					/* try to unset bogus keys */
+					for(s = key; key && *s; s++)
+						if(*s < ' '){
+							REMOVEMODE("k", key);
+							did_change = TRUE;
+							send_to_user(from,
+							"No bogus keys pls");
+							break;
+						}
+				}
+				else
+					del_channelmode(channel, MODE_KEY, "");
+				break;
+			case 'l':
+				if(sign == '+'){
+					limit = get_token(&params, " ");
+					add_channelmode(channel, MODE_LIMIT, 
+									limit?limit:"0");
+				}
+				else
+					del_channelmode(channel, MODE_LIMIT, "");
+				break;
+			default:
+#ifdef DBUG
+				debug(LVL_ERROR, "on_mode(): unknown mode %c", *chanchars);
+#endif
+				break;
 		}
 		chanchars++;
 	}
 	/* restore unwanted modechanges */
 	if(did_change)
-	  sendmode( channel, "+%s-%s %s %s", unplusmode, 
-			  unminmode, unplusparams, unminparams);
+		sendmode( channel, "+%s-%s %s %s", unplusmode, 
+				 unminmode, unplusparams, unminparams);
 }
 
-
-void	on_msg(char *from, char *to, char *msg_untranslated)
-{
+void	on_msg(char *from, char *to, char *msg_untranslated){
 	int	i;
 	char	msg_copy[BIG_BUFFER];	/* for session */
 	char	*command;
@@ -1172,7 +1158,7 @@ void	on_msg(char *from, char *to, char *msg_untranslated)
 	MAJDerniereActivite(Locuteur);
 
 #ifdef DBUG
-	printf("on_msg: from %s to %s msg : %s\n", from, to, msg);
+	debug(LVL_DEBUG, "on_msg: from %s to %s msg : %s\n", from, to, msg);
 #endif
 
 	strcpy(msg_copy, msg);
@@ -1264,19 +1250,16 @@ void	on_msg(char *from, char *to, char *msg_untranslated)
 /* 			     command, msg ? msg : ""); */
 }
 
-void	show_help(char *from, char *to, char *rest)
-{
+void	show_help(char *from, char *to, char *rest){
 	FILE	*f;
 	char	*s;
 
-	if((f=fopen(currentbot->helpfile, "r"))==NULL)
-	{
+	if((f=fopen(currentbot->helpfile, "r"))==NULL){
 		send_to_user(from, "Helpfile missing");
 		return;
 	}
 	
-	if(rest == NULL)
-	{
+	if(rest == NULL){
 		find_topic(f, "standard");
 		while((s=get_ftext(f)))
 			send_to_user(from, s);
@@ -1292,18 +1275,20 @@ void	show_help(char *from, char *to, char *rest)
 
 void	show_whoami(char *from, char *to, char *rest)
 {
+	/*
 #ifdef DBUG
 	printf("WHOAMI : You are %s. Your levels are:\n", from);
-	printf("-- User -+- Shit -+- Protect --+- Relation -+\n");
-	printf("    %3d  |   %3d  |      %3d   |       %3d  |\n",userlevel(from),
-		     shitlevel(from), protlevel(from), rellevel(from));
-#endif
+	printf("-- User -+- Shit -+- Protect -+- Relation -+\n");
+	printf("    %-3d  |   %-3d  |   %-3d   |    %-3d  |\n",userlevel(from),
+			shitlevel(from), protlevel(from), rellevel(from));
+#endif*/
+	debug(LVL_NOTICE, "WHOAMI %s (%s)", getnick(from), from);
 	send_to_user(from, "You are %s. Your levels are:", 
-		     from);
-	send_to_user(from, "-- User -+- Shit -+- Protect --+- Relation -+");
-	send_to_user(from, "    %3d  |   %3d  |      %3d   |       %3d  |",
-		     userlevel(from),
-		     shitlevel(from), protlevel(from), rellevel(from));
+				 from);
+	send_to_user(from, "-- User -+- Shit -+- Protect -+- Relation -+");
+	send_to_user(from, "    %3d  |   %3d  |   %3d   |   %3d  |",
+				 userlevel(from),
+				 shitlevel(from), protlevel(from), rellevel(from));
         return;
 }
 
@@ -1395,36 +1380,35 @@ void    show_cmdlvls(char *from, char *to, char *rest)
   
 }
 
-void	do_op(char *from, char *to, char *rest)
-{
+void	do_op(char *from, char *to, char *rest){
 	if(usermode(!STRCASEEQUAL(to, currentbot->nick) ? to : currentchannel(),  
-		    getnick(from))&MODE_CHANOP) {
-	  char **RepPos, **RepNeg;
-	  RepPos = malloc(3 * sizeof(char *));
-	  RepPos[0] = strdup("Tête en l'air va! Tu es déjà op, %s.");
-	  RepPos[1] = strdup("Tu aspires à devenir surop, %s? ;)");
-	  RepPos[2] = strdup("Mets tes lunettes, %s, tu es déjà opérateur du canal!");
-	  RepNeg = malloc(4 * sizeof(char *));
-	  RepNeg[0] = strdup("Ça te prend souvent, cette soif de pouvoir, %s?");
-	  RepNeg[1] = strdup("Calme-toi un peu, %s!");
-	  RepNeg[2] = strdup("Ça va pas, la tête? Je te signale que t'es déjà op, %s!");
-	  RepNeg[3] = strdup("Tu radotes, %s!");
-	  Repondre(from, to, 0, 3, RepPos, -1, 4, RepNeg);
-	} else if(userlevel(from) < 110) {
-	  char **RepPos, **RepNeg;
-	  RepPos = malloc(3 * sizeof(char *));
-	  RepPos[0] = strdup("Désolé, %s. Je n'oppe plus. Il vaut mieux utiliser !TOPIC, !KICK ou !BANUSER...");
-	  RepPos[1] = strdup("Pourquoi faire, %s? Utilise plutôt TOPIC, KICK ou BANUSER...");
-	  RepPos[2] = strdup("Je suis fatigué d'opper tout le monde! Utilise plutôt TOPIC, KICK ou BAN.");
-	  RepNeg = malloc(4 * sizeof(char *));
-	  RepNeg[0] = strdup("Ça te prend souvent, cette soif de pouvoir, %s?");
-	  RepNeg[1] = strdup("Calme-toi un peu, %s!");
-	  RepNeg[2] = strdup("Ça va pas, la tête? Pas à toi, %s!");
-	  RepNeg[3] = strdup("Quand tu seras plus raisonnable, %s!");
-	  Repondre(from, to, 0, 3, RepPos, -1, 4, RepNeg);
+				getnick(from)) & MODE_CHANOP) {
+		char **RepPos, **RepNeg;
+		RepPos = malloc(3 * sizeof(char *));
+		RepPos[0] = strdup("Tête en l'air va! Tu es déjà op, %s.");
+		RepPos[1] = strdup("Tu aspires à devenir surop, %s? ;)");
+		RepPos[2] = strdup("Mets tes lunettes, %s, tu es déjà opérateur du canal!");
+		RepNeg = malloc(4 * sizeof(char *));
+		RepNeg[0] = strdup("Ça te prend souvent, cette soif de pouvoir, %s?");
+		RepNeg[1] = strdup("Calme-toi un peu, %s!");
+		RepNeg[2] = strdup("Ça va pas, la tête? Je te signale que t'es déjà op, %s!");
+		RepNeg[3] = strdup("Tu radotes, %s!");
+		Repondre(from, to, 0, 3, RepPos, -1, 4, RepNeg);
+	} else if(userlevel(from) < USERLVL_MODLISTPOW) {
+		char **RepPos, **RepNeg;
+		RepPos = malloc(3 * sizeof(char *));
+		RepPos[0] = strdup("Désolé, %s. Je n'oppe plus. Il vaut mieux utiliser !TOPIC, !KICK ou !BANUSER...");
+		RepPos[1] = strdup("Pourquoi faire, %s? Utilise plutôt TOPIC, KICK ou BANUSER...");
+		RepPos[2] = strdup("Je suis fatigué d'opper tout le monde! Utilise plutôt TOPIC, KICK ou BAN.");
+		RepNeg = malloc(4 * sizeof(char *));
+		RepNeg[0] = strdup("Ça te prend souvent, cette soif de pouvoir, %s?");
+		RepNeg[1] = strdup("Calme-toi un peu, %s!");
+		RepNeg[2] = strdup("Ça va pas, la tête? Pas à toi, %s!");
+		RepNeg[3] = strdup("Quand tu seras plus raisonnable, %s!");
+		Repondre(from, to, 0, 3, RepPos, -1, 4, RepNeg);
 	} else {
-	  giveop(!STRCASEEQUAL(to, currentbot->nick) ? to : currentchannel(),  
-		 getnick(from));
+		giveop(!STRCASEEQUAL(to, currentbot->nick) ? to : currentchannel(),  
+			   getnick(from));
 	}
 }
 
@@ -1454,27 +1438,23 @@ void	do_alarm(char *from, char *to, char *rest)
 }
 #endif
 
-void	do_giveop(char *from, char *to, char *rest)
-{
+void	do_giveop(char *from, char *to, char *rest){
 	int	i = 0;
 	char	nickname[MAXNICKLEN];
 	char	op[MAXLEN];
 
 	strcpy(op, "");
-	if(not(rest))
-	{
+	if(not(rest)){
 		sendreply("Who do you want me to op?");
 		return;
 	}
 	while(readnick(&rest, nickname))
 		if(username(nickname) != NULL && 
-		   shitlevel(username(nickname)) == 0)
-		{
+		   shitlevel(username(nickname)) == 0){
 			i++;
 			strcat(op, " ");
 			strcat(op, nickname);
-			if(i==3)
-			{
+			if(i==3){
 				sendmode(ischannel(to) ?to :currentchannel(), "+ooo %s", op);
 				i = 0;
 				strcpy(op, "");
@@ -1486,28 +1466,24 @@ void	do_giveop(char *from, char *to, char *rest)
 	  sendreply("J'ai un problème: je ne trouve pas ce nickname. Désolé.");
 }
 
-void	do_deop(char *from, char *to, char *rest)
-{
+void	do_deop(char *from, char *to, char *rest){
 	int	i = 0;
 	char	nickname[MAXNICKLEN];
 	char	deop[MAXLEN];
 
 	strcpy(deop, "");
-	if(not(rest))
-	{
+	if(not(rest)){
 		sendreply("Who do you want me to deop?");
 		return;
 	}
 	while(readnick(&rest, nickname))
 		if(username(nickname) != NULL &&
-		  (protlevel(username(nickname)) < 100 ||
-		   shitlevel(username(nickname)) > 0))
-		{
-		i++;
+		   (protlevel(username(nickname)) < 100 ||
+			shitlevel(username(nickname)) > 0)){
+			i++;
 			strcat(deop, " ");
 			strcat(deop, nickname);
-			if(i==3)
-			{
+			if(i==3){
 				sendmode(ischannel(to) ?to :currentchannel(), "-ooo %s", deop);
 				i = 0;
 				strcpy(deop, "");
@@ -1517,10 +1493,8 @@ void	do_deop(char *from, char *to, char *rest)
 		sendmode(ischannel(to) ?to :currentchannel(), "-ooo %s", deop);
 }
 
-void	do_invite(char *from, char *to, char *rest)
-{
-        if(rest)
-	{
+void	do_invite(char *from, char *to, char *rest){
+	if(rest){
 		if(!invite_to_channel(getnick(from), rest))	
 			send_to_user(from, "I'm not on channel %s", rest);
 	}
@@ -1528,37 +1502,32 @@ void	do_invite(char *from, char *to, char *rest)
 		invite_to_channel(from, currentchannel());
 }
 			
-void	do_open(char *from, char *to, char *rest)
-{
-        if(rest)
-        {
+void	do_open(char *from, char *to, char *rest){
+	if(rest){
 		if(!open_channel(rest))
 			send_to_user(from, "I could not open %s!", rest);
 		else
 			channel_unban(rest, from);
 	}
-	else if(ischannel(to))
-	{
-		if(!open_channel(to))
-			send_to_user(from, "I could not open %s!", to);
-		else
-			channel_unban(to, from);
-	}
 	else 
-	{
-		open_channel(currentchannel());
-		channel_unban(currentchannel(), from);
-	}
+		if(ischannel(to)){
+			if(!open_channel(to))
+				send_to_user(from, "I could not open %s!", to);
+			else
+				channel_unban(to, from);
+		}
+		else {
+			open_channel(currentchannel());
+			channel_unban(currentchannel(), from);
+		}
 }
 
-void    do_chat(char *from, char *to, char *rest)
-{
+void    do_chat(char *from, char *to, char *rest){
 	dcc_chat(from, rest);
 	sendnotice(getnick(from), "Please type: /dcc chat %s", currentbot->nick);
 }
 
-void    do_send(char *from, char *to, char *rest)
-{
+void    do_send(char *from, char *to, char *rest){
 	char	*pattern;
 	
 	if(rest)
@@ -1568,16 +1537,14 @@ void    do_send(char *from, char *to, char *rest)
 		send_to_user(from, "Please specify a filename (use !files)");
 }
 
-void	do_flist(char *from, char *to, char *rest)
-{
+void	do_flist(char *from, char *to, char *rest){
 	FILE	*ls_file;
 	char	indexfile[MAXLEN];
 	char	*s;
 	char	*p;
 
 	strcpy(indexfile, currentbot->indexfile );
-	if(rest)
-	{
+	if(rest){
 		for(p=rest; *p; p++) *p=tolower(toascii(*p));
 		sprintf(indexfile, "%s.%s", currentbot->indexfile, rest);
 		if((ls_file = openindex(from, indexfile)) == NULL)
@@ -1587,8 +1554,7 @@ void	do_flist(char *from, char *to, char *rest)
 		}
 	}
 	else
-		if((ls_file = openindex(from, currentbot->indexfile)) == NULL)
-		{
+		if((ls_file = openindex(from, currentbot->indexfile)) == NULL){
 			send_to_user(from, "No indexfile");
 			return;
 		}
@@ -1598,26 +1564,15 @@ void	do_flist(char *from, char *to, char *rest)
 	fclose(ls_file);
 }	
 
-void	do_say(char *from, char *to, char *rest)
-{
-	char Utfized[MAXLEN*2], *out = (char*)&Utfized;
-	size_t lin, lout;
-	CHAN_list *Channel_to;
-
+void	do_say(char *from, char *to, char *rest){
+	/* syntax : !say #chan some thing */
+	
 	if(rest && strlen(rest) > 1 && rest[0] == '#' && strchr(&rest[1],' ')) {
 		to = get_token(&rest, " ");
 	};
 	
 	if(rest) {
 		if(to && ischannel(to)) {
-			/*Channel_to = search_chan(to);
-			if(Channel_to->encoder != (iconv_t)-1){
-				//we have aniconv encoder defined, use it
-				lin = strlen(rest);
-				lout = sizeof(Utfized);
-				iconv(Channel_to->encoder,&rest, &lin, &out, &lout);
-				rest = Utfized;
-				}*/
 			if(is_log_on(to))
 				botlog(LOGFILE, "<%s#%s> %s", currentbot->botname, to, rest);
 			sendprivmsg(to, "%s", rest);
@@ -1626,106 +1581,104 @@ void	do_say(char *from, char *to, char *rest)
 			/*       if(	log) */
 			/* 	botlog(LOGFILE, "<%s#%s	> %s", currentbot->botname, currentchannel(), rest); */
 			
-			/*       sen	dprivmsg(currentchannel(), "%s", rest); */
-			send_to_user(from, "O	n what channel?");
+			/*       sendprivmsg(currentchannel(), "%s", rest); */
+			send_to_user(from, "On what channel?");
 		}
 		
 	} else
-		send_to_user(from, "I don't know what to say");
+		send_to_user(from, "I don't know what to say.");
 	return;
 }
 
-void    do_me(char *from, char *to, char *rest) 
-{
-  if(rest && strlen(rest) > 1 && rest[0] == '#' && strchr(&rest[1],' ')) {
-    to = get_token(&rest, " ");
-  };
+void    do_me(char *from, char *to, char *rest){
+	/* syntax : !me #chan some thing */
+	if(rest && strlen(rest) > 1 && rest[0] == '#' && strchr(&rest[1],' ')) {
+		to = get_token(&rest, " ");
+	};
   
-  if(rest) {
-    if(to && ischannel(to)) {
-      if(is_log_on(to))
-	botlog(LOGFILE, "*%s#%s* %s", currentbot->botname, to, rest);
-      sendaction(to, "%s", rest);
-    }
-    else {
-      send_to_user(from, "On what channel?");
-    }
-
-  } else
-    send_to_user(from, "I don't know what to do.");
-  return;
-}
-
-
-void do_topic(char *from, char *to, char *rest) 
-{
-  if(rest && strlen(rest) > 1 && rest[0] == '#' && strchr(&rest[1],' ')) {
-    to = get_token(&rest, " ");
-  };
-  
-  if(rest) {
-    if(to && ischannel(to)) {
-      sendtopic(to, rest);
-      botlog(LOGFILE, "*%s change le topic de %s en \"%s\" sur l'ordre de %s.", currentbot->botname, to, rest, getnick(from));
-    }
-    else {
-      send_to_user(from, "Dans quel canal?");
-    }
-
-  } else
-    send_to_user(from, "Quel sujet dois-je mettre?");
-  return;
-}
-
-void    do_replist(char *from, char *to, char *rest)
-{
-  int i;
-  if(TailleRep <= 0)
-    send_to_user(from, "Il n'y a aucune réponse.");
-  else {
-    if(rest) {
-      SKIPSPC(rest);
-
-      if(rest[0]) {
-
-	for(i=0; i < TailleRep; i++) {
-	  if(!fnmatch(rest, TableDesReponses[i]->NomStimulus, FNM_CASEFOLD)) {
-	    send_to_user(from, "Réponse numero %d:", i+1);
-	    send_to_user(from, "%s\t\"%s\"",
-			  TableDesReponses[i]->NomStimulus,
-			  TableDesReponses[i]->Reponse, GetNick(from));
-	    send_to_user(from, "%s\t%s", TableDesReponses[i]->Auteur,
-			  TableDesReponses[i]->Canal);
-	  }
-	} 
-
-      } else {
-	for(i=0; i < TailleRep; i++) {
-	  send_to_user(from, "Réponse numero %d:", i+1);
-	  send_to_user(from, "%s\t\"%s\"",
-			TableDesReponses[i]->NomStimulus,
-			TableDesReponses[i]->Reponse, GetNick(from));
-	  send_to_user(from, "%s\t%s", TableDesReponses[i]->Auteur,
-			TableDesReponses[i]->Canal);
+	if(rest) {
+		if(to && ischannel(to)) {
+			if(is_log_on(to))
+				botlog(LOGFILE, "*%s#%s* %s", currentbot->botname, to, rest);
+			sendaction(to, "%s", rest);
+		}
+		else {
+			send_to_user(from, "On what channel?");
+		}
+		
 	}
-      }
-
-    }
-    else {
-      for(i=0; i<TailleRep; i++) {
-	send_to_user(from, "Réponse numero %d:", i+1);
-	send_to_user(from, "%s\t\"%s\"",
-		      TableDesReponses[i]->NomStimulus,
-		      TableDesReponses[i]->Reponse, GetNick(from));
-	send_to_user(from, "%s\t%s", TableDesReponses[i]->Auteur,
-		      TableDesReponses[i]->Canal);
-      }
-    }
-  }
+	else
+		send_to_user(from, "I don't know what to do.");
+	return;
 }
 
-void    do_stimlist(char *from, char *to, char *rest)
-{
+
+void do_topic(char *from, char *to, char *rest){
+	/* syntax : !topic #chan some thing */
+	if(rest && strlen(rest) > 1 && rest[0] == '#' && strchr(&rest[1],' ')) {
+		to = get_token(&rest, " ");
+	};
+  
+	if(rest) {
+		if(to && ischannel(to)) {
+			sendtopic(to, rest);
+			botlog(LOGFILE, "*%s change le topic de %s en \"%s\" sur l'ordre de %s.", currentbot->botname, to, rest, getnick(from));
+		}
+		else {
+			send_to_user(from, "Dans quel canal?");
+		}
+
+	} else
+		send_to_user(from, "Quel sujet dois-je mettre?");
+	return;
+}
+
+void    do_replist(char *from, char *to, char *rest){
+	int i;
+	if(TailleRep <= 0)
+		send_to_user(from, "Il n'y a aucune réponse.");
+	else {
+		if(rest) {
+			SKIPSPC(rest);
+			
+			if(rest[0]) {
+				
+				for(i=0; i < TailleRep; i++) {
+					if(!fnmatch(rest, TableDesReponses[i]->NomStimulus, FNM_CASEFOLD)) {
+						send_to_user(from, "Réponse numero %d:", i+1);
+						send_to_user(from, "%s\t\"%s\"",
+									 TableDesReponses[i]->NomStimulus,
+									 TableDesReponses[i]->Reponse, GetNick(from));
+						send_to_user(from, "%s\t%s", TableDesReponses[i]->Auteur,
+									 TableDesReponses[i]->Canal);
+					}
+				} 
+				
+			} else {
+				for(i=0; i < TailleRep; i++) {
+					send_to_user(from, "Réponse numero %d:", i+1);
+					send_to_user(from, "%s\t\"%s\"",
+								 TableDesReponses[i]->NomStimulus,
+								 TableDesReponses[i]->Reponse, GetNick(from));
+					send_to_user(from, "%s\t%s", TableDesReponses[i]->Auteur,
+								 TableDesReponses[i]->Canal);
+				}
+			}
+		}
+		else {
+			for(i=0; i<TailleRep; i++) {
+				send_to_user(from, "Réponse numero %d:", i+1);
+				send_to_user(from, "%s\t\"%s\"",
+							 TableDesReponses[i]->NomStimulus,
+							 TableDesReponses[i]->Reponse, GetNick(from));
+				send_to_user(from, "%s\t%s", TableDesReponses[i]->Auteur,
+							 TableDesReponses[i]->Canal);
+			}
+		}
+	}
+}
+
+void    do_stimlist(char *from, char *to, char *rest){
 	int i;
 
 	if(TailleStim <= 0)
@@ -1733,7 +1686,7 @@ void    do_stimlist(char *from, char *to, char *rest)
 	else {
 		if(rest) {
 			SKIPSPC(rest);
-
+			
 			if(rest[0]) {
 
 				for(i=0; i < TailleStim; i++) {
@@ -1757,7 +1710,6 @@ void    do_stimlist(char *from, char *to, char *rest)
 								  TableDesStimuli[i]->Actif?"actif":"inactif");
 				}
 			}
-			
 		}
 		else {
 			for(i=0; i<TailleStim; i++) {
@@ -1773,128 +1725,123 @@ void    do_stimlist(char *from, char *to, char *rest)
 }
 
 void    do_repdel(char *from, char *to, char *rest) {
-  if(rest) {
-   int numero = atoi(rest);
+	if(rest) {
+		int numero = atoi(rest);
 
-   if(numero) {
-     if(numero > TailleRep || numero < 0) {
-       char **Phrase;
-       Phrase = malloc(3 * sizeof(char *));
+		if(numero) {
+			if(numero > TailleRep || numero < 0) {
+				char **Phrase;
+				Phrase = malloc(3 * sizeof(char *));
      
-       Phrase[0] = strdup("Il faut me donner un vrai numéro de réponse, %s.");
-       Phrase[1] = strdup("Ce n'est pas un vrai numéro de réponse ça, %s. Pour l'avoir, utiliser REPLIST");
-       Phrase[2] = strdup("Qu'est-ce que c'est que ça? Il ne me faut que le numéro de la réponse à détruire, %s, d'accord?");
-       Repondre(from, to, 0, 3, Phrase, 0, 0, 0);
-       return;
-     }
-     if(rellevel(from) >= rellevel(TableDesReponses[numero]->Auteur)) {
-	    send_to_user(from, "Réponse à détruire: \"%s\".", TableDesReponses[numero]->Reponse);
-
-       if(SupprimeRep(numero))
-	 send_to_user(from, "La réponse numéro %d a été supprimée de la liste des réponses.", numero);
-       else
-	 send_to_user(from, "Je n'ai pas réussi à supprimer la réponse numéro %d.", numero);
-     } else {
-       char **Phrase;
-       Phrase = malloc(3 * sizeof(char *));
+				Phrase[0] = strdup("Il faut me donner un vrai numéro de réponse, %s.");
+				Phrase[1] = strdup("Ce n'est pas un vrai numéro de réponse ça, %s. Pour l'avoir, utiliser REPLIST");
+				Phrase[2] = strdup("Qu'est-ce que c'est que ça? Il ne me faut que le numéro de la réponse à détruire, %s, d'accord?");
+				Repondre(from, to, 0, 3, Phrase, 0, 0, 0);
+				return;
+			}
+			if(rellevel(from) >= rellevel(TableDesReponses[numero]->Auteur)) {
+				send_to_user(from, "Réponse à détruire: \"%s\".", TableDesReponses[numero]->Reponse);
+				
+				if(SupprimeRep(numero))
+					send_to_user(from, "La réponse numéro %d a été supprimée de la liste des réponses.", numero);
+				else
+					send_to_user(from, "Je n'ai pas réussi à supprimer la réponse numéro %d.", numero);
+			} else {
+				char **Phrase;
+				Phrase = malloc(3 * sizeof(char *));
      
-       Phrase[0] = strdup("Je fais plus confiance à l'auteur de la réponse qu'à toi %s. Dommage.");
-       Phrase[1] = strdup("Demande à quelqu'un en qui j'ai encore plus confiance, %s. Je ne suis pas sûr que l'auteur apprécierait qu'on détruise cette réponse.");
-       Phrase[2] = strdup("Pourquoi devrais-je détruire cette réponse, %s? Son auteur m'est encore plus sympathique que toi.");
-       Repondre(from, to, 0, 3, Phrase, 0, 0, 0);
-     }
-   } else {
-     char **Phrase;
-     Phrase = malloc(3 * sizeof(char *));
+				Phrase[0] = strdup("Je fais plus confiance à l'auteur de la réponse qu'à toi %s. Dommage.");
+				Phrase[1] = strdup("Demande à quelqu'un en qui j'ai encore plus confiance, %s. Je ne suis pas sûr que l'auteur apprécierait qu'on détruise cette réponse.");
+				Phrase[2] = strdup("Pourquoi devrais-je détruire cette réponse, %s? Son auteur m'est encore plus sympathique que toi.");
+				Repondre(from, to, 0, 3, Phrase, 0, 0, 0);
+			}
+		} else {
+			char **Phrase;
+			Phrase = malloc(3 * sizeof(char *));
      
-     Phrase[0] = strdup("Il faut me donner un numéro de réponse pour que je puisse le détruire, %s. Et rien d'autre.");
-     Phrase[1] = strdup("Ce n'est pas un numéro de réponse ça, %s. Pour l'avoir, utiliser REPLIST");
-     Phrase[2] = strdup("Qu'est-ce que c'est que ça? Il ne me faut que le numéro de la réponse à détruire, hmmm?");
-     Repondre(from, to, 0, 3, Phrase, 0, 0, 0);
-   }
-  } else {
-    char **Phrase;
-    Phrase = malloc(3 * sizeof(char *));
-    
-    Phrase[0] = strdup("Il faut me donner un numéro de réponse pour que je puisse la détruire, %s. (Utiliser REPLIST).");
-    Phrase[1] = strdup("Il manque le numéro de la réponse, %s. Regarde REPLIST.");
-    Phrase[2] = strdup("Et le numéro de la réponse à détruire, %s, hmmm?");
-    Repondre(from, to, 0, 3, Phrase, 0, 0, 0);
-  }
+			Phrase[0] = strdup("Il faut me donner un numéro de réponse pour que je puisse le détruire, %s. Et rien d'autre.");
+			Phrase[1] = strdup("Ce n'est pas un numéro de réponse ça, %s. Pour l'avoir, utiliser REPLIST");
+			Phrase[2] = strdup("Qu'est-ce que c'est que ça? Il ne me faut que le numéro de la réponse à détruire, hmmm?");
+			Repondre(from, to, 0, 3, Phrase, 0, 0, 0);
+		}
+	} else {
+		char **Phrase;
+		Phrase = malloc(3 * sizeof(char *));
+		
+		Phrase[0] = strdup("Il faut me donner un numéro de réponse pour que je puisse la détruire, %s. (Utiliser REPLIST).");
+		Phrase[1] = strdup("Il manque le numéro de la réponse, %s. Regarde REPLIST.");
+		Phrase[2] = strdup("Et le numéro de la réponse à détruire, %s, hmmm?");
+		Repondre(from, to, 0, 3, Phrase, 0, 0, 0);
+	}
 }
 
 void    do_stimdel(char *from, char *to, char *rest) {
-  if(rest) {
-   int numero = atoi(rest);
+	if(rest) {
+		int numero = atoi(rest);
 
-   if(numero) {
-     if(numero > TailleStim || numero < 0) {
-       char **Phrase;
-       Phrase = malloc(3 * sizeof(char *));
+		if(numero) {
+			if(numero > TailleStim || numero < 0) {
+				char **Phrase;
+				Phrase = malloc(3 * sizeof(char *));
      
-       Phrase[0] = strdup("Il faut me donner un vrai numéro de stimulus, %s.");
-       Phrase[1] = strdup("Ce n'est pas un vrai numéro de stimulus ça, %s. Pour l'avoir, utilise STIMLIST");
-       Phrase[2] = strdup("Qu'est-ce que c'est que ça? Il ne me faut que le numéro du stimulus à détruire, %s, d'accord?");
-       Repondre(from, to, 0, 3, Phrase, 0, 0, 0);
-       return;
-     }
+				Phrase[0] = strdup("Il faut me donner un vrai numéro de stimulus, %s.");
+				Phrase[1] = strdup("Ce n'est pas un vrai numéro de stimulus ça, %s. Pour l'avoir, utilise STIMLIST");
+				Phrase[2] = strdup("Qu'est-ce que c'est que ça? Il ne me faut que le numéro du stimulus à détruire, %s, d'accord?");
+				Repondre(from, to, 0, 3, Phrase, 0, 0, 0);
+				return;
+			}
 
-     if(rellevel(from) >= rellevel(TableDesStimuli[numero]->Auteur)) {
-
-	    send_to_user(from, "Stimulus à détruire: \"%s\".", TableDesStimuli[numero]->Stimulus);
-	    
-       if(SupprimeStim(numero))
-	 send_to_user(from, "Le stimulus numéro %d a été supprimé de la liste des stimuli.", numero);
-       else
-	 send_to_user(from, "Je n'ai pas réussi à supprimer le stimulus numéro %d.", numero);
-     } else {
-       char **Phrase;
-       Phrase = malloc(3 * sizeof(char *));
+			if(rellevel(from) >= rellevel(TableDesStimuli[numero]->Auteur)) {
+				send_to_user(from, "Stimulus à détruire: \"%s\".", TableDesStimuli[numero]->Stimulus);
+				
+				if(SupprimeStim(numero))
+					send_to_user(from, "Le stimulus numéro %d a été supprimé de la liste des stimuli.", numero);
+				else
+					send_to_user(from, "Je n'ai pas réussi à supprimer le stimulus numéro %d.", numero);
+			} else {
+				char **Phrase;
+				Phrase = malloc(3 * sizeof(char *));
+				
+				Phrase[0] = strdup("Je fais plus confiance à l'auteur du stimulus qu'à toi %s. Dommage.");
+				Phrase[1] = strdup("Demande à quelqu'un en qui j'ai encore plus confiance, %s. Je ne suis pas sûr que l'auteur apprécierait qu'on détruise ce stimulus.");
+				Phrase[2] = strdup("Pourquoi devrais-je détruire ce stimulus, %s? Son auteur m'est encore plus sympathique que toi.");
+				Repondre(from, to, 0, 3, Phrase, 0, 0, 0);
+			}
+		} else {
+			char **Phrase;
+			Phrase = malloc(3 * sizeof(char *));
      
-       Phrase[0] = strdup("Je fais plus confiance à l'auteur du stimulus qu'à toi %s. Dommage.");
-       Phrase[1] = strdup("Demande à quelqu'un en qui j'ai encore plus confiance, %s. Je ne suis pas sûr que l'auteur apprécierait qu'on détruise ce stimulus.");
-       Phrase[2] = strdup("Pourquoi devrais-je détruire ce stimulus, %s? Son auteur m'est encore plus sympathique que toi.");
-       Repondre(from, to, 0, 3, Phrase, 0, 0, 0);
-     }
-   } else {
-     char **Phrase;
-     Phrase = malloc(3 * sizeof(char *));
-     
-     Phrase[0] = strdup("Il faut me donner un numéro de stimulus pour que je puisse le détruire, %s. Et rien d'autre.");
-     Phrase[1] = strdup("Ce n'est pas un numéro de stimulus ça, %s. Pour l'avoir, utilise STIMLIST");
-     Phrase[2] = strdup("Qu'est-ce que c'est que ça? Il ne me faut que le numéro du stimulus à détruire, hmmm?");
-     Repondre(from, to, 0, 3, Phrase, 0, 0, 0);
-   }
-  } else {
-    char **Phrase;
-    Phrase = malloc(3 * sizeof(char *));
-    
-    Phrase[0] = strdup("Il faut me donner un numéro de stimulus pour que je puisse le détruire, %s. (Utiliser STIMLIST).");
-    Phrase[1] = strdup("Il manque le numéro du stimulus, %s. Regarde STIMLIST.");
-    Phrase[2] = strdup("Et le numéro du stimulus à détruire, %s, hmmm?");
-    Repondre(from, to, 0, 3, Phrase, 0, 0, 0);
-  }
+			Phrase[0] = strdup("Il faut me donner un numéro de stimulus pour que je puisse le détruire, %s. Et rien d'autre.");
+			Phrase[1] = strdup("Ce n'est pas un numéro de stimulus ça, %s. Pour l'avoir, utilise STIMLIST");
+			Phrase[2] = strdup("Qu'est-ce que c'est que ça? Il ne me faut que le numéro du stimulus à détruire, hmmm?");
+			Repondre(from, to, 0, 3, Phrase, 0, 0, 0);
+		}
+	} else {
+		char **Phrase;
+		Phrase = malloc(3 * sizeof(char *));
+		
+		Phrase[0] = strdup("Il faut me donner un numéro de stimulus pour que je puisse le détruire, %s. (Utiliser STIMLIST).");
+		Phrase[1] = strdup("Il manque le numéro du stimulus, %s. Regarde STIMLIST.");
+		Phrase[2] = strdup("Et le numéro du stimulus à détruire, %s, hmmm?");
+		Repondre(from, to, 0, 3, Phrase, 0, 0, 0);
+	}
 }
 
 
-void	do_do(char *from, char *to, char *rest)
-{
+void	do_do(char *from, char *to, char *rest){
 	if(rest)
-            send_to_server(rest);
-        else
-            send_to_user(from, "What do you want me to do?");
-        return;
+		send_to_server(rest);
+	else
+		send_to_user(from, "What do you want me to do?");
+	return;
 }
 
-void	show_channels(char *from, char *to, char *rest)
-{
-        show_channellist(from);
-        return;
+void	show_channels(char *from, char *to, char *rest){
+	show_channellist(from);
+	return;
 }
 
-
-void	do_join(char *from, char *to, char *rest)
-{
+void	do_join(char *from, char *to, char *rest){
 	char *chan = NULL;
 	if(rest)
 		chan = get_token(&rest, " ");
@@ -1909,42 +1856,37 @@ void	do_join(char *from, char *to, char *rest)
 	return;
 }
 
-void	do_leave(char *from, char *to, char *rest)
-{
+void	do_leave(char *from, char *to, char *rest){
 	if(rest)
-            	leave_channel(rest); 
-        else
+		leave_channel(rest); 
+	else
 		if(STRCASEEQUAL(currentbot->nick, to))
 			leave_channel(currentchannel());
 		else
 			leave_channel(to);
-        return;
+	return;
 }
  
-void	do_nick(char *from, char *to, char *rest)
-{
-	if(rest)
-        {
-		if(!isnick(rest))
-		{
+void	do_nick(char *from, char *to, char *rest){
+	if(rest){
+		if(!isnick(rest)){
 			send_to_user(from, "Illegal nickname %s", rest);
 			return;
 		}	
-            	strncpy(currentbot->nick, rest, NICKLEN);
-            	strncpy(currentbot->realnick, rest, NICKLEN);
-            	sendnick(currentbot->nick); 
-        }
-        else
-            	send_to_user(from, "You need to tell me what nick to use");
-        return;
+		strncpy(currentbot->nick, rest, NICKLEN);
+		strncpy(currentbot->realnick, rest, NICKLEN);
+		sendnick(currentbot->nick); 
+	}
+	else
+		send_to_user(from, "You need to tell me what nick to use");
+	return;
 }
 
-void	do_die(char *from, char *to, char *rest)
-{
+void	do_die(char *from, char *to, char *rest){
 	if( rest != NULL )
-            	signoff( from, rest );
-        else
-            	signoff( from, "Bye bye!" );
+		signoff( from, rest );
+	else
+		signoff( from, "Bye bye!" );
 	if(number_of_bots == 0){
 		shutdown_lua();
 		cleanupcfg();
@@ -1952,82 +1894,74 @@ void	do_die(char *from, char *to, char *rest)
 	}
 }
 
-void	do_quit(char *from, char *to, char *rest)
-{
+void	do_quit(char *from, char *to, char *rest){
 	quit_all_bots(from, "Quiting all bots.");
-	/* A remettre si vous utilisez les notes */
-/* 	dump_notelist(); */
+	dump_notelist();
 	shutdown_lua();
 	exit(0);
 }
 
-void    do_logon(char *from, char *to, char *rest) 
-{
-  CHAN_list* Canal;
-/*   log = TRUE; */
+void    do_logon(char *from, char *to, char *rest){
+	CHAN_list* Canal;
+	/*   log = TRUE; */
   
-  SKIPSPC(rest);
-
-  if(rest)
-    to = rest;
-
-  if(to && ischannel(to) && (Canal = search_chan(to))) {
-    Canal->log = TRUE;
-    send_to_user(from, "Log on %s", to);
-  } else {
-    send_to_user(from, "%s: canal inconnu", to);
-  }
+	SKIPSPC(rest);
+	
+	if(rest)
+		to = rest;
+	
+	if(to && ischannel(to) && (Canal = search_chan(to))) {
+		Canal->log = TRUE;
+		send_to_user(from, "Log on %s", to);
+	} else {
+		send_to_user(from, "%s: canal inconnu", to);
+	}
 }
 
-void    do_logoff(char *from, char *to, char *rest) 
-{
-  CHAN_list* Canal;
-/*   log = FALSE; */
+void    do_logoff(char *from, char *to, char *rest){
+	CHAN_list* Canal;
+	/*   log = FALSE; */
   
-  SKIPSPC(rest);
+	SKIPSPC(rest);
+	
+	if(rest)
+		to = rest;
 
-  if(rest)
-    to = rest;
-
-  if(to && ischannel(to) && (Canal = search_chan(to))) {
-    Canal->log = FALSE;
-    send_to_user(from, "Log off %s", to);
-  }  else {
-    send_to_user(from, "%s: canal inconnu", to);
-  }
+	if(to && ischannel(to) && (Canal = search_chan(to))) {
+		Canal->log = FALSE;
+		send_to_user(from, "Log off %s", to);
+	}  else {
+		send_to_user(from, "%s: canal inconnu", to);
+	}
 }
 
-void    do_msglogon(char *from, char *to, char *rest) 
-{
-  logging = TRUE;
-  send_to_user(from, "Msg log on");
+void    do_msglogon(char *from, char *to, char *rest){
+	logging = TRUE;
+	send_to_user(from, "Msg log on");
 }
 
-void    do_msglogoff(char *from, char *to, char *rest) 
-{
+void    do_msglogoff(char *from, char *to, char *rest){
   logging = FALSE;
   send_to_user(from, "Msg log off");
 }
 
-void    do_comchar(char *from, char *to, char *rest) 
-{
-  if(rest) {
-    SKIPSPC(rest);
-
-    if(rest) {
-      CommandChar = rest[0];
-      sendreply("Le nouveau caractère de commande est '%c'.", CommandChar);
-    }
-    else {
-      sendreply("Quel doit être le nouveau caractère de commande?");
-    }
-  }
-  else
-    sendreply("Le caractère de commande actuel est '%c'", CommandChar);
+void    do_comchar(char *from, char *to, char *rest){
+	if(rest) {
+		SKIPSPC(rest);
+		
+		if(rest) {
+			CommandChar = rest[0];
+			sendreply("Le nouveau caractère de commande est '%c'.", CommandChar);
+		}
+		else {
+			sendreply("Quel doit être le nouveau caractère de commande?");
+		}
+	}
+	else
+		sendreply("Le caractère de commande actuel est '%c'", CommandChar);
 }
 
-void    show_whois(char *from, char *to, char *rest)
-{
+void    show_whois(char *from, char *to, char *rest){
 	char *nuh;
 
 	if(rest == NULL){
@@ -2052,8 +1986,7 @@ void    show_whois(char *from, char *to, char *rest)
 	return;
 }
 
-void	show_nwhois(char *from, char *to, char *rest)
-{
+void	show_nwhois(char *from, char *to, char *rest){
 	char	*nuh;
 
 	if( rest == NULL ){
@@ -2076,8 +2009,7 @@ void	show_nwhois(char *from, char *to, char *rest)
 	send_to_user(from, "End of nwhois-----------------------------+");
 }
 
-void	do_nuseradd(char *from, char *to, char *rest)
-{
+void	do_nuseradd(char *from, char *to, char *rest){
 	char	*newuser;
 	char	*newlevel;
 	char	*nuh;		/* nick!@user@host */
@@ -2095,15 +2027,13 @@ void	do_nuseradd(char *from, char *to, char *rest)
 		return;
 	}
 
-
 	if(atoi(newlevel) < 0)
 		send_to_user(from, "level should be >= 0!");
 	else if(atoi(newlevel) >= userlevel(from))
 		send_to_user( from, "Sorry bro, can't do that!" );
 	else if(userlevel(from) < userlevel(nuh))
 		send_to_user(from, "Sorry, %s has a higher level", newuser);
-	else
-	{
+	else{
 		char	*nick;
 		char	*user;
 		char	*host;
@@ -2125,209 +2055,182 @@ void	do_nuseradd(char *from, char *to, char *rest)
 	return;
 }
 
-
-void	do_useradd(char *from, char *to, char *rest)
-{
+void	do_useradd(char *from, char *to, char *rest){
 	char	*newuser;
 	char	*newlevel;
 
-        if((newuser = get_token(&rest, " ")) == NULL)
-	{
-             	send_to_user( from, "Who do you want me to add?" );
+	if((newuser = get_token(&rest, " ")) == NULL){
+		send_to_user( from, "Who do you want me to add?" );
 		return;
 	}
-        if((newlevel = rest) == NULL)
-	{
-                send_to_user( from, "What level should %s have?", newuser );
+	if((newlevel = rest) == NULL){
+		send_to_user( from, "What level should %s have?", newuser );
 		return;
 	}
-        if(atoi(newlevel) < 0)
+	if(atoi(newlevel) < 0)
 		send_to_user(from, "level should be >= 0!");
 	else if(atoi( newlevel) >= userlevel(from))
 		send_to_user(from, "Sorry bro, can't do that!");
 	else if(userlevel(from) < userlevel(newuser))
 		send_to_user(from, "Sorry, %s has a higher level", newuser);
-	else
-	{
-               	send_to_user( from, "User %s added with access %d", 
-			      newuser, atoi(newlevel));
-               	add_to_levellist(currentbot->lists->opperlist, newuser, atoi(newlevel));
+	else{
+		send_to_user( from, "User %s added with access %d", 
+					  newuser, atoi(newlevel));
+		add_to_levellist(currentbot->lists->opperlist, newuser, atoi(newlevel));
 	}
-        return;
+	return;
 }                   
 
-void    do_userwrite(char *from, char *to, char *rest)
-{
-        if(!write_lvllist(currentbot->lists->opperlist, 
-            currentbot->lists->opperfile))
-                send_to_user(from, "Userlist could not be written to file %s", 
-                              currentbot->lists->opperfile);
-        else
-                send_to_user(from, "Userlist written to file %s", 
-                              currentbot->lists->opperfile);
-}
-
-void    do_locwrite(char *from, char *to, char *rest)
-{
-        if(!SauveLocuteurs(currentbot->lists->ListeLocuteurs, 
-			   currentbot->lists->locuteurfile))
-	  send_to_user(from, "Locuteurs list could not be written to file %s", 
-		       currentbot->lists->locuteurfile);
-        else
-	  send_to_user(from, "Loclist written to file %s", 
-		       currentbot->lists->locuteurfile);
-}
-
-void	do_userdel(char *from, char *to, char *rest)
-{
-        if(rest)
-        {
-            	if(userlevel(from) < userlevel(rest))
-			send_to_user(from, "%s has a higer level.. sorry",
-				     rest);
-            	else if(!remove_from_levellist(currentbot->lists->opperlist,
-						rest))
-                	send_to_user(from, "%s has no level!", rest);
-	    	else
-                	send_to_user(from, "User %s has been deleted", rest);
-        }
+void    do_userwrite(char *from, char *to, char *rest){
+	if(!write_lvllist(currentbot->lists->opperlist, 
+					  currentbot->lists->opperfile))
+		send_to_user(from, "Userlist could not be written to file %s", 
+					 currentbot->lists->opperfile);
 	else
-        	send_to_user(from, "Who do you want me to delete?");
-        return;
+		send_to_user(from, "Userlist written to file %s", 
+					 currentbot->lists->opperfile);
 }
 
-void	do_nshitadd(char *from, char *to, char *rest)
-{
+void    do_locwrite(char *from, char *to, char *rest){
+	if(!SauveLocuteurs(currentbot->lists->ListeLocuteurs, 
+					   currentbot->lists->locuteurfile))
+		send_to_user(from, "Locuteurs list could not be written to file %s", 
+					 currentbot->lists->locuteurfile);
+	else
+		send_to_user(from, "Loclist written to file %s", 
+					 currentbot->lists->locuteurfile);
+}
+
+void	do_userdel(char *from, char *to, char *rest){
+	if(rest){
+		if(userlevel(from) < userlevel(rest))
+			send_to_user(from, "%s has a higer level.. sorry",
+						 rest);
+		else if(!remove_from_levellist(currentbot->lists->opperlist,
+									   rest))
+			send_to_user(from, "%s has no level!", rest);
+		else
+			send_to_user(from, "User %s has been deleted", rest);
+	}
+	else
+		send_to_user(from, "Who do you want me to delete?");
+	return;
+}
+
+void	do_nshitadd(char *from, char *to, char *rest){
 	char	*newuser;
 	char	*newlevel;
 	char	*nuh;		/* nick!@user@host */
 
-        if((newuser = get_token(&rest, " ")) == NULL)
-	{
-             	send_to_user(from, "Who do you want me to add?");
+	if((newuser = get_token(&rest, " ")) == NULL){
+		send_to_user(from, "Who do you want me to add?");
 		return;
 	}
-	if((nuh=username(newuser))==NULL)
-	{
+	if((nuh=username(newuser))==NULL){
 		send_to_user(from, "%s is not on this channel!", newuser);
 		return;
 	}
-        if((newlevel = get_token(&rest, " ")) == NULL )
-	{
-                send_to_user(from, "What level should %s have?", newuser);
+	if((newlevel = get_token(&rest, " ")) == NULL ){
+		send_to_user(from, "What level should %s have?", newuser);
 		return;
 	}
 
-
-        if(atoi(newlevel) < 0)
+	if(atoi(newlevel) < 0)
 		send_to_user(from, "level should be >= 0!");
 	else if(atoi(newlevel) > userlevel(from))
 		send_to_user(from, "Sorry bro, can't do that!");
 	else if(userlevel(from) < userlevel(nuh))
-		/* This way, someone with level 100 can't shit someone with level 150 */
+		/* This way, someone with level 100 can't shit someone with level USERLVL_BOTOWNER */
 		send_to_user(from, "Sorry, %s has a higher level", newuser);
-	else
-	{
+	else{
 		char	*nick;
 		char	*user;
 		char	*host;
 		char	*domain;
 		char	userstr[MAXLEN];
-
+		
 		nick=get_token(&nuh, "!");
 		user=get_token(&nuh,"@");
-		if(*user == '~' || *user == '#') user++;
+		if(*user == '~' || *user == '#')
+			user++;
 		host=get_token(&nuh, ".");
 		domain=get_token(&nuh,"");
 
 		sprintf(userstr, "*!*%s@*%s", user, domain?domain:host);
-               	send_to_user(from, "User %s shitted with access %d as %s", 
-			     newuser, atoi(newlevel), userstr);
-               	add_to_levellist(currentbot->lists->shitlist, userstr, atoi(newlevel));
+		send_to_user(from, "User %s shitted with access %d as %s", 
+					 newuser, atoi(newlevel), userstr);
+		add_to_levellist(currentbot->lists->shitlist, userstr, atoi(newlevel));
 	}
-        return;
+	return;
 }                   
 
-void	do_shitadd(char *from, char *to, char *rest)
-{
+void	do_shitadd(char *from, char *to, char *rest){
 	char	*newuser;
 	char	*newlevel;
 
-        if((newuser = get_token(&rest, " ")) == NULL)
-	{
-             	send_to_user(from, "Who do you want me to add?");
+	if((newuser = get_token(&rest, " ")) == NULL){
+		send_to_user(from, "Who do you want me to add?");
 		return;
 	}
-        if((newlevel = rest) == NULL)
-	{
-                send_to_user(from, "What level should %s have?", newuser);
+	if((newlevel = rest) == NULL){
+		send_to_user(from, "What level should %s have?", newuser);
 		return;
 	}
-        if(atoi(newlevel) < 0)
-                send_to_user(from, "level should be >= 0!");
-        else  
-        {
-                send_to_user(from, "User %s shitted with access %d", newuser, 
+	if(atoi(newlevel) < 0)
+		send_to_user(from, "level should be >= 0!");
+	else{
+		send_to_user(from, "User %s shitted with access %d", newuser, 
 		             atoi(newlevel));
-                add_to_levellist(currentbot->lists->shitlist, newuser, atoi(newlevel));
-        } 
-        return;
+		add_to_levellist(currentbot->lists->shitlist, newuser, atoi(newlevel));
+	} 
+	return;
 }                   
 
-void	do_shitwrite(char *from, char *to, char *rest)
-{
+void	do_shitwrite(char *from, char *to, char *rest){
 	if(!write_lvllist(currentbot->lists->shitlist, 
-                          currentbot->lists->shitfile))
+					  currentbot->lists->shitfile))
 		send_to_user(from, "Shitlist could not be written to file %s", 
-                             currentbot->lists->shitfile);
+					 currentbot->lists->shitfile);
 	else
 		send_to_user(from, "Shitlist written to file %s", 
-                             currentbot->lists->shitfile);
+					 currentbot->lists->shitfile);
 }
 
-void	do_shitdel(char *from, char *to, char *rest)
-{
-	if(rest)
-        {
-            	if(!remove_from_levellist(currentbot->lists->shitlist, rest))
-	      		send_to_user(from, "%s is not shitted!", rest);
-            	else
-                	send_to_user(from, "User %s has been deleted", rest);
-        }
+void	do_shitdel(char *from, char *to, char *rest){
+	if(rest){
+		if(!remove_from_levellist(currentbot->lists->shitlist, rest))
+			send_to_user(from, "%s is not shitted!", rest);
+		else
+			send_to_user(from, "User %s has been deleted", rest);
+	}
 	else
-        	send_to_user(from, "Who do you want me to delete?");
-        return;
+		send_to_user(from, "Who do you want me to delete?");
+	return;
 }
 
-void	do_nprotadd(char *from, char *to, char *rest)
-{
+void	do_nprotadd(char *from, char *to, char *rest){
 	char	*newuser;
 	char	*newlevel;
 	char	*nuh;		/* nick!@user@host */
 
-        if((newuser = get_token(&rest, " ")) == NULL)
-	{
-             	send_to_user(from, "Who do you want me to add?");
+	if((newuser = get_token(&rest, " ")) == NULL){
+		send_to_user(from, "Who do you want me to add?");
 		return;
 	}
-	if((nuh=username(newuser))==NULL)
-	{
+	if((nuh=username(newuser))==NULL){
 		send_to_user(from, "%s is not on this channel!", newuser);
 		return;
 	}
-        if((newlevel = get_token(&rest, " ")) == NULL)
-	{
-                send_to_user(from, "What level should %s have?", newuser);
+	if((newlevel = get_token(&rest, " ")) == NULL){
+		send_to_user(from, "What level should %s have?", newuser);
 		return;
 	}
 
-
-        if(atoi(newlevel) < 0)
+	if(atoi(newlevel) < 0)
 		send_to_user(from, "level should be >= 0!");
 	else if(atoi(newlevel) > 100)
 		send_to_user(from, "yeah, right! You're shitted.");
-	else
-	{
+	else{
 		char	*nick;
 		char	*user;
 		char	*host;
@@ -2336,91 +2239,81 @@ void	do_nprotadd(char *from, char *to, char *rest)
 
 		nick=get_token(&nuh, "!");
 		user=get_token(&nuh,"@");
-		if(*user == '~' || *user == '#') user++;
+		if(*user == '~' || *user == '#')
+			user++;
 		host=get_token(&nuh, ".");
 		domain=get_token(&nuh,"");
 
 		sprintf(userstr, "*!*%s@*%s", user, domain?domain:host);
-               	send_to_user(from, "User %s protected with access %d as %s", 
-			     newuser, atoi(newlevel), userstr);
-               	add_to_levellist(currentbot->lists->protlist, userstr, atoi(newlevel));
+		send_to_user(from, "User %s protected with access %d as %s", 
+					 newuser, atoi(newlevel), userstr);
+		add_to_levellist(currentbot->lists->protlist, userstr, atoi(newlevel));
 	}
-        return;
+	return;
 }                   
 
-void    do_protadd(char *from, char *to, char *rest)
-{
-        char    *newuser;
-        char    *newlevel;
-
-        if((newuser = get_token(&rest, " ")) == NULL)
-	{
-             	send_to_user(from, "Who do you want me to add?");
+void    do_protadd(char *from, char *to, char *rest){
+	char    *newuser;
+	char    *newlevel;
+	
+	if((newuser = get_token(&rest, " ")) == NULL){
+		send_to_user(from, "Who do you want me to add?");
 		return;
 	}
-        if((newlevel = rest) == NULL )
-	{
-                send_to_user(from, "What level should %s have?", newuser);
+	if((newlevel = rest) == NULL ){
+		send_to_user(from, "What level should %s have?", newuser);
 		return;
 	}
-        if(atoi(newlevel) < 0)
-                send_to_user(from, "level should be >= 0!");
-        else  
-        {
-                send_to_user(from, "User %s protected with access %d", newuser,
-                             atoi(newlevel));
-                add_to_levellist(currentbot->lists->protlist, newuser, atoi(newlevel));
-        }
-        return;
+	if(atoi(newlevel) < 0)
+		send_to_user(from, "level should be >= 0!");
+	else{
+		send_to_user(from, "User %s protected with access %d", newuser,
+					 atoi(newlevel));
+		add_to_levellist(currentbot->lists->protlist, newuser, atoi(newlevel));
+	}
+	return;
 }
 
-void    do_protwrite(char *from, char *to, char *rest)
-{
-        if(!write_lvllist(currentbot->lists->protlist, 
-                          currentbot->lists->protfile))
-                send_to_user(from, "Protlist could not be written to file %s", 
-                             currentbot->lists->protfile);
-        else
-                send_to_user(from, "Protlist written to file %s", 
-                             currentbot->lists->protfile);
-}
-
-void    do_protdel(char *from, char *to, char *rest)
-{
-        if(rest)
-        {
-            	if(!remove_from_levellist(currentbot->lists->protlist, rest))
-           		send_to_user(from, "%s is not protected!", rest);
-            	else
-                	send_to_user(from, "User %s has been deleted", rest);
-        }
+void    do_protwrite(char *from, char *to, char *rest){
+	if(!write_lvllist(currentbot->lists->protlist, 
+					  currentbot->lists->protfile))
+		send_to_user(from, "Protlist could not be written to file %s", 
+					 currentbot->lists->protfile);
 	else
-        	send_to_user(from, "Who do you want me to delete?");
-        return;
+		send_to_user(from, "Protlist written to file %s", 
+					 currentbot->lists->protfile);
 }
 
-void    do_nreladd(char *from, char *to, char *rest)
-{
-  char *newrel;
-  char *newlevel;
-  char *nuh;		/* nick!@user@host */
+void    do_protdel(char *from, char *to, char *rest){
+	if(rest){
+		if(!remove_from_levellist(currentbot->lists->protlist, rest))
+			send_to_user(from, "%s is not protected!", rest);
+		else
+			send_to_user(from, "User %s has been deleted", rest);
+	}
+	else
+		send_to_user(from, "Who do you want me to delete?");
+	return;
+}
 
-  if((newrel = get_token(&rest, " ")) == NULL)
-    {
-      send_to_user( from, "Who do you want me to add or modify?" );
-      return;
+void    do_nreladd(char *from, char *to, char *rest){
+	char *newrel;
+	char *newlevel;
+	char *nuh;		/* nick!@user@host */
+
+	if((newrel = get_token(&rest, " ")) == NULL){
+		send_to_user( from, "Who do you want me to add or modify?" );
+		return;
     }
-  if((nuh=username(newrel))==NULL)
-    {
-      send_to_user(from, "%s is not on this channel!", newrel);
-      return;
+	if((nuh=username(newrel))==NULL){
+		send_to_user(from, "%s is not on this channel!", newrel);
+		return;
     }
-  if((newlevel = get_token(&rest, " ")) == NULL)
-    {
+  if((newlevel = get_token(&rest, " ")) == NULL){
       send_to_user( from, "What level should %s have?", newrel );
       return;
-    }
-
+  }
+  
   {
     char	*nick;
     char	*user;
@@ -2461,238 +2354,229 @@ void    do_nreladd(char *from, char *to, char *rest)
     userstr = NickUserStr(from);
 
 #ifdef DBUG
-      fprintf(stderr, "userstr:'%s', nuh:'%s', from:'%s', newrel:'%s'\n", userstr, nuh, from, newrel);
+	fprintf(stderr, "userstr:'%s', nuh:'%s', from:'%s', newrel:'%s'\n", userstr, nuh, from, newrel);
 #endif DBUG
 
     inewlevel = atoi(newlevel);
     ioldlevel = rellevel(rest);
     /* Si le demandeur est maitre du bot */
-    if(userlevel(from) > 125) {
+    if(userlevel(from) > USERLVL_POWERUSER) {
 #ifdef DBUG
-      fprintf(stderr, "Demandeur maître du bot\n");
+		fprintf(stderr, "Demandeur maître du bot\n");
 #endif DBUG
       /* Si l'utilisateur n'existe pas encore */
-      if(!exist_userhost(currentbot->lists->rellist, newrel)) {
-	send_to_user( from, "Rel %s added with access %d as %s", 
-		      newrel, inewlevel, nuh );
-	add_to_levellist( currentbot->lists->rellist, 
-			  nuh, inewlevel );
-      }
-      else {
-	send_to_user( from, "Rel %s access changed to %d", 
-		      newrel, inewlevel );
-	add_to_levellist( currentbot->lists->rellist, nuh, inewlevel );
-      }
+		if(!exist_userhost(currentbot->lists->rellist, newrel)) {
+			send_to_user( from, "Rel %s added with access %d as %s", 
+						  newrel, inewlevel, nuh );
+			add_to_levellist( currentbot->lists->rellist, 
+							  nuh, inewlevel );
+		}
+		else {
+			send_to_user( from, "Rel %s access changed to %d", 
+						  newrel, inewlevel );
+			add_to_levellist( currentbot->lists->rellist, nuh, inewlevel );
+		}
     }
     /* Si le demandeur n'est pas maitre du bot */
     else {
 #ifdef DBUG
-      fprintf(stderr, "Demandeur NON maître du bot: %s\n", from);
+		fprintf(stderr, "Demandeur NON maître du bot: %s\n", from);
 #endif DBUG
-      /* Si le niveau demande est superieur au niveau actuel */
-      if(inewlevel >= ioldlevel) {
+		/* Si le niveau demande est superieur au niveau actuel */
+		if(inewlevel >= ioldlevel) {
 #ifdef DBUG
-      fprintf(stderr, "Niveau demandé: %d, Niveau actuel: %d\n", inewlevel, ioldlevel);
+			fprintf(stderr, "Niveau demandé: %d, Niveau actuel: %d\n", inewlevel, ioldlevel);
 #endif DBUG
-	/* Si le demandeur est la cible */
-	if(!fnmatch( nuh, from, FNM_CASEFOLD )) {
+			/* Si le demandeur est la cible */
+			if(!fnmatch( nuh, from, FNM_CASEFOLD )) {
 #ifdef DBUG
-      fprintf(stderr, "Cible: %s = Demandeur: %s\n", nuh, from);
+				fprintf(stderr, "Cible: %s = Demandeur: %s\n", nuh, from);
 #endif DBUG
-	  /* - */
-	  /* Si l'utilisateur n'existe pas encore */
-	  if(!exist_userhost(currentbot->lists->rellist, newrel)) {
-	    send_to_user( from, "Rel %s added with access %d as %s", 
-			  from, ioldlevel - (inewlevel - ioldlevel), userstr );
-	    add_to_levellist( currentbot->lists->rellist, 
-			      NickUserStr(from),
-			      ioldlevel - ( inewlevel - ioldlevel) );
-	  }
-	  else {
-	    send_to_user( from, "Rel %s access changed to %d", 
-			  from, ioldlevel - (inewlevel-ioldlevel) );
-	    add_to_levellist( currentbot->lists->rellist, NickUserStr(from),
-			      ioldlevel-(inewlevel-ioldlevel) );
-	  }
-	}
-	/* Si le demandeur n'est pas la cible */
-	else {
+				/* - */
+				/* Si l'utilisateur n'existe pas encore */
+				if(!exist_userhost(currentbot->lists->rellist, newrel)) {
+					send_to_user( from, "Rel %s added with access %d as %s", 
+								  from, ioldlevel - (inewlevel - ioldlevel), userstr );
+					add_to_levellist( currentbot->lists->rellist, 
+									  NickUserStr(from),
+									  ioldlevel - ( inewlevel - ioldlevel) );
+				}
+				else {
+					send_to_user( from, "Rel %s access changed to %d", 
+								  from, ioldlevel - (inewlevel-ioldlevel) );
+					add_to_levellist( currentbot->lists->rellist, NickUserStr(from),
+									  ioldlevel-(inewlevel-ioldlevel) );
+				}
+			}
+			/* Si le demandeur n'est pas la cible */
+			else {
 #ifdef DBUG
-      fprintf(stderr, "Cible: %s != Demandeur: %s\n", userstr, from);
+				fprintf(stderr, "Cible: %s != Demandeur: %s\n", userstr, from);
 #endif DBUG
-	  /* Si le demandeur est sympathique */
-	  if(rellevel(from) >= SYMPA_LVL) {
-	    /* Si la cible n'est pas antipathique */
-	    if(ioldlevel >= 0) {
-	      /* +1 */
-	      /* Si l'utilisateur n'existe pas encore */
-	      if(!exist_userhost(currentbot->lists->rellist, newrel)) {
-		send_to_user( from, "Rel %s added with access %d as %s", 
-			      newrel, ioldlevel+1, userstr );
-		add_to_levellist( currentbot->lists->rellist, 
-				  userstr, ioldlevel+1 );
-	      }
-	      else {
-		send_to_user( from, "Rel %s access changed to %d", 
-			      newrel, ioldlevel+1 );
-		add_to_levellist( currentbot->lists->rellist, newrel, ioldlevel+1 );
-	      }
-	    }
-	  }
-	  /* Si le demandeur n'est pas sympathique */
-	  else {
-	    /* Demandeur -, cible -1 */
-	    
-	  }
-	}
-      }
-      /* Si le niveau demande est inferieur au niveau actuel */
-      else {
-	/* Si le demandeur est la cible */
-	if(!fnmatch( userstr, from, FNM_CASEFOLD )) {
-	  /* OK */
-	}
-	/* Si le demandeur n'est pas la cible */
-	else {
-	  /* Si le demandeur est sympathique */
-	  if(rellevel(from) >= SYMPA_LVL) {
-	    /* Si la cible est plus sympathique */
-	    if(rellevel(from) <= ioldlevel) {
-	      /* non */
-	    }
-	    /* Si le demandeur a un niveau superieur a celui de sa cible */
-	    else {
-	      /* OK */
-	    }
-	  }
-	  /* Si le demandeur n'est pas sympathique */
-	  else {
-	    if(ioldlevel >= 0) {
-	      /* Demandeur -, kick(demandeur) */
-	    }
-	    else {
-	      /* Demandeur - */
-	    }
-	  }
-	}
-      }
+				/* Si le demandeur est sympathique */
+				if(rellevel(from) >= SYMPA_LVL) {
+					/* Si la cible n'est pas antipathique */
+					if(ioldlevel >= 0) {
+						/* +1 */
+						/* Si l'utilisateur n'existe pas encore */
+						if(!exist_userhost(currentbot->lists->rellist, newrel)) {
+							send_to_user( from, "Rel %s added with access %d as %s", 
+										  newrel, ioldlevel+1, userstr );
+							add_to_levellist( currentbot->lists->rellist, 
+											  userstr, ioldlevel+1 );
+						}
+						else {
+							send_to_user( from, "Rel %s access changed to %d", 
+										  newrel, ioldlevel+1 );
+							add_to_levellist( currentbot->lists->rellist, newrel, ioldlevel+1 );
+						}
+					}
+				}
+				/* Si le demandeur n'est pas sympathique */
+				else {
+					/* Demandeur -, cible -1 */
+					
+				}
+			}
+		}
+		/* Si le niveau demande est inferieur au niveau actuel */
+		else {
+			/* Si le demandeur est la cible */
+			if(!fnmatch( userstr, from, FNM_CASEFOLD )) {
+				/* OK */
+			}
+			/* Si le demandeur n'est pas la cible */
+			else {
+				/* Si le demandeur est sympathique */
+				if(rellevel(from) >= SYMPA_LVL) {
+					/* Si la cible est plus sympathique */
+					if(rellevel(from) <= ioldlevel) {
+						/* non */
+					}
+					/* Si le demandeur a un niveau superieur a celui de sa cible */
+					else {
+						/* OK */
+					}
+				}
+				/* Si le demandeur n'est pas sympathique */
+				else {
+					if(ioldlevel >= 0) {
+						/* Demandeur -, kick(demandeur) */
+					}
+					else {
+						/* Demandeur - */
+					}
+				}
+			}
+		}
     }
 
     if(userstr)
-      free(userstr);
+		free(userstr);
   }
   return;
 }
 
-void    do_reladd(char *from, char *to, char *rest) 
-{
-  char *newrel;
-  char *newlevel;
+void    do_reladd(char *from, char *to, char *rest){
+	char *newrel;
+	char *newlevel;
 
-  if((newrel = get_token(&rest, " ")) == NULL)
-    {
-      send_to_user( from, "Who do you want me to add?" );
-      return;
+	if((newrel = get_token(&rest, " ")) == NULL){
+		send_to_user( from, "Who do you want me to add?" );
+		return;
     }
-  if((newlevel = rest) == NULL)
-    {
-      send_to_user( from, "What level should %s have?", newrel );
-      return;
+	if((newlevel = rest) == NULL){
+		send_to_user( from, "What level should %s have?", newrel );
+		return;
     }
-  if(atoi( newlevel) > rellevel(from))
-    send_to_user(from, "Sorry bro, can't do that!");
-  else if(rellevel(from) < rellevel(newrel))
-    send_to_user(from, "Sorry, %s has a higher level", newrel);
-  else if(atoi(newlevel)-rellevel(newrel) < -SYMPA_LVL)
-    send_to_user(from, "C'est pas gentil ça, %s!", newrel);
-  else
-    {
-      send_to_user( from, "Rel %s added with access %d", 
-		    newrel, atoi(newlevel));
-      add_to_levellist(currentbot->lists->rellist, newrel, atoi(newlevel));
+	if(atoi( newlevel) > rellevel(from))
+		send_to_user(from, "Sorry bro, can't do that!");
+	else if(rellevel(from) < rellevel(newrel))
+		send_to_user(from, "Sorry, %s has a higher level", newrel);
+	else if(atoi(newlevel)-rellevel(newrel) < -SYMPA_LVL)
+		send_to_user(from, "C'est pas gentil ça, %s!", newrel);
+	else{
+		send_to_user( from, "Rel %s added with access %d", 
+					  newrel, atoi(newlevel));
+		add_to_levellist(currentbot->lists->rellist, newrel, atoi(newlevel));
     }
-  return;
+	return;
 }
 
-void    do_reldel(char *from, char *to, char *rest)
-{
-  char **RepPos, **RepNeg;
+void    do_reldel(char *from, char *to, char *rest){
+	char **RepPos, **RepNeg;
   
-  if(rest) {
-    if(rellevel(from) < rellevel(rest)) {
-      RepPos = malloc(sizeof(char *) * 3);
-
-      RepPos[0] = strdup("Désolé, ton niveau est inférieur.");
-      RepPos[1] = strdup("Il faut avoir un niveau supérieur à celui qu'on veut détruire, %s.");
-      RepPos[2] = strdup("C'est impossible, je t'aime moins que lui, %s.");
-
-      RepNeg = malloc(1 * sizeof(char *));
-
-      RepNeg[0] = strdup("Non. Je te l'inderdis, %s.");
-
-      Repondre(from, to, -1, 3, RepPos, -2, 1, RepNeg);
-    }
-    else if(!remove_from_levellist(currentbot->lists->rellist, rest)) {
-      char Phrase[MAXLEN];
+	if(rest) {
+		if(rellevel(from) < rellevel(rest)) {
+			RepPos = malloc(sizeof(char *) * 3);
+			RepPos[0] = strdup("Désolé, ton niveau est inférieur.");
+			RepPos[1] = strdup("Il faut avoir un niveau supérieur à celui qu'on veut détruire, %s.");
+			RepPos[2] = strdup("C'est impossible, je t'aime moins que lui, %s.");
+			
+			RepNeg = malloc(1 * sizeof(char *));
+			RepNeg[0] = strdup("Non. Je te l'inderdis, %s.");
+			
+			Repondre(from, to, -1, 3, RepPos, -2, 1, RepNeg);
+		}
+		else if(!remove_from_levellist(currentbot->lists->rellist, rest)) {
+			char Phrase[MAXLEN];
       
-      RepPos = malloc(3 * sizeof(char *));
+			RepPos = malloc(3 * sizeof(char *));
 
-      sprintf(Phrase, "%s n'est pas dans la liste de mes connaissances.", rest);
-      RepPos[0] = strdup(Phrase);
-      sprintf(Phrase, "Je ne connais pas \"%s\".", rest);
-      RepPos[1] = strdup(Phrase);
-      RepPos[2] = strdup("Impossible, %s, je ne l'ai pas dans ma liste!");
+			sprintf(Phrase, "%s n'est pas dans la liste de mes connaissances.", rest);
+			RepPos[0] = strdup(Phrase);
+			sprintf(Phrase, "Je ne connais pas \"%s\".", rest);
+			RepPos[1] = strdup(Phrase);
+			RepPos[2] = strdup("Impossible, %s, je ne l'ai pas dans ma liste!");
 
-      RepNeg = malloc(1 * sizeof(char *));
-      RepNeg[0] = strdup("Même si je le pouvais, %s, je ne le ferais pas. Mais c'est impossible: je n'ai pas trouvé ce nom dans ma liste.");
+			RepNeg = malloc(1 * sizeof(char *));
+			RepNeg[0] = strdup("Même si je le pouvais, %s, je ne le ferais pas. Mais c'est impossible: je n'ai pas trouvé ce nom dans ma liste.");
 
-      Repondre(from, to, 0, 3, RepPos, -1, 1, RepNeg);
-    }
-    else {
-      char Phrase[MAXLEN];
-
-      RepPos = malloc(3 * sizeof(char *));
-      sprintf(Phrase, "%s a été détruit de ma liste de relation.", rest);
-      RepPos[0] = strdup(Phrase);
-      sprintf(Phrase, "J'ai effacé \"%s\" de mes connaissances.", rest);
-      RepPos[1] = strdup(Phrase);
-      sprintf(Phrase, "J'oublie que j'ai déjà parlé à \"%s\"", rest);
-      RepPos[2] = strdup(Phrase);
-
-      RepNeg = malloc(1 * sizeof(char *));
-      RepNeg[0] = strdup("Par quel sortilège es-tu parvenu à me faire faire ça, %s?");
-
-      Repondre(from, to, 0, 3, RepPos, -1, 1, RepNeg);
-    }
-  }
-  else {
-    RepPos = malloc(3 * sizeof(char *));
-    RepPos[0] = strdup("C'est bien gentil, %s, mais j'aimerais savoir qui je dois oublier.");
-    RepPos[1] = strdup("Étourdi, va, %s: il faut me donner un nom complet à oublier!");
-    RepPos[2] = strdup("C'est bien mon petit %s, ça: il oublie de me dire qui il faut oublier!");
-
-    RepNeg = malloc(1 * sizeof(char *));
-    RepNeg[0] = strdup("Ça m'étonne pas de toi, %s: tu ne sais pas qu'il faut dire qui je dois oublier?");
+			Repondre(from, to, 0, 3, RepPos, -1, 1, RepNeg);
+		}
+		else {
+			char Phrase[MAXLEN];
+			
+			RepPos = malloc(3 * sizeof(char *));
+			sprintf(Phrase, "%s a été détruit de ma liste de relation.", rest);
+			RepPos[0] = strdup(Phrase);
+			sprintf(Phrase, "J'ai effacé \"%s\" de mes connaissances.", rest);
+			RepPos[1] = strdup(Phrase);
+			sprintf(Phrase, "J'oublie que j'ai déjà parlé à \"%s\"", rest);
+			RepPos[2] = strdup(Phrase);
+			
+			RepNeg = malloc(1 * sizeof(char *));
+			RepNeg[0] = strdup("Par quel sortilège es-tu parvenu à me faire faire ça, %s?");
+	  
+			Repondre(from, to, 0, 3, RepPos, -1, 1, RepNeg);
+		}
+	}
+	else {
+		RepPos = malloc(3 * sizeof(char *));
+		RepPos[0] = strdup("C'est bien gentil, %s, mais j'aimerais savoir qui je dois oublier.");
+		RepPos[1] = strdup("Étourdi, va, %s: il faut me donner un nom complet à oublier!");
+		RepPos[2] = strdup("C'est bien mon petit %s, ça: il oublie de me dire qui il faut oublier!");
+		
+		RepNeg = malloc(1 * sizeof(char *));
+		RepNeg[0] = strdup("Ça m'étonne pas de toi, %s: tu ne sais pas qu'il faut dire qui je dois oublier?");
     
-    Repondre(from, to, 0, 3, RepPos, 0, 1, RepNeg);
-  }
-  return;
+		Repondre(from, to, 0, 3, RepPos, 0, 1, RepNeg);
+	}
+	return;
 }
 
 
-void    do_relwrite(char *from, char *to, char *rest)
-{
-  if(!write_lvllist(currentbot->lists->rellist,
-		      currentbot->lists->relfile))
-    send_to_user(from, "Rellist could not be written to file %s", 
-		 currentbot->lists->relfile);
-  else
-    send_to_user(from, "Rellist written to file %s", 
-                             currentbot->lists->relfile);
+void    do_relwrite(char *from, char *to, char *rest){
+	if(!write_lvllist(currentbot->lists->rellist,
+					  currentbot->lists->relfile))
+		send_to_user(from, "Rellist could not be written to file %s", 
+					 currentbot->lists->relfile);
+	else
+		send_to_user(from, "Rellist written to file %s", 
+					 currentbot->lists->relfile);
 }
 
-void	do_banuser(char *from, char *to, char *rest)
-{
+void	do_banuser(char *from, char *to, char *rest){
 	char	*user_2b_banned;
 	char	*channel;
 
@@ -2710,88 +2594,80 @@ void	do_banuser(char *from, char *to, char *rest)
 		send_to_user( from, "No." );
 }
 
-void	do_showusers(char *from, char *to, char *rest)
-{
-        char    *channel;
-
+void	do_showusers(char *from, char *to, char *rest){
+	char    *channel;
+	
 	if( (channel = strtok( rest, " " )) == NULL )
 		show_users_on_channel( from, currentchannel());
 	else
 		show_users_on_channel( from, channel );
 }
 
-void    do_showbots(char *from, char *to, char *rest) 
-{
-  char *channel;
+void    do_showbots(char *from, char *to, char *rest){
+	char *channel;
   
-  if((channel = strtok(rest, " ")) == NULL)
-    show_botlist(currentbot->botlist, to, from, to);
-  else
-    show_botlist(currentbot->botlist, channel, from, to);
+	if((channel = strtok(rest, " ")) == NULL)
+		show_botlist(currentbot->botlist, to, from, to);
+	else
+		show_botlist(currentbot->botlist, channel, from, to);
 }
 
-void    do_botadd(char *from, char *to, char *rest) 
-{
-  char *newbot;
-  char *newchannel;
+void    do_botadd(char *from, char *to, char *rest){
+	char *newbot;
+	char *newchannel;
   
-  if((newbot = get_token(&rest, " ")) == NULL) {
-    send_to_user(from, "Quel bot faut-il ajouter ?");
-    return;
-  }
+	if((newbot = get_token(&rest, " ")) == NULL) {
+		send_to_user(from, "Quel bot faut-il ajouter ?");
+		return;
+	}
 
-  if((newchannel = rest) == NULL) {
-    send_to_user(from, "Dans quel(s) canal(-aux) faut il mettre %s?", newbot);
-    return;
-  }
+	if((newchannel = rest) == NULL) {
+		send_to_user(from, "Dans quel(s) canal(-aux) faut il mettre %s?", newbot);
+		return;
+	}
   
-  add_to_botlist(currentbot->botlist, newbot, newchannel);
-  send_to_user(from, "Voilà qui est fait : %s est ajouté dans %s.", newbot, newchannel);
+	add_to_botlist(currentbot->botlist, newbot, newchannel);
+	send_to_user(from, "Voilà qui est fait : %s est ajouté dans %s.", newbot, newchannel);
 }
 
-void    do_showlocs(char *from, char *to, char *rest)
-{
-  MontreLocuteurs(currentbot->lists->ListeLocuteurs, from, rest);
+void    do_showlocs(char *from, char *to, char *rest){
+	MontreLocuteurs(currentbot->lists->ListeLocuteurs, from, rest);
 }
 
-void	do_massop(char *from, char *to, char *rest)
-{
+void	do_massop(char *from, char *to, char *rest){
 	char	*op_pattern;
 
-        if( ( op_pattern = strtok( rest, " " ) ) == NULL )
-             send_to_user( from, "Please specify a pattern" );
-        else
-            channel_massop( ischannel( to ) ? to : currentchannel(), 
-			    op_pattern );    
-        return;
+	if( ( op_pattern = strtok( rest, " " ) ) == NULL )
+		send_to_user( from, "Please specify a pattern" );
+	else
+		channel_massop( ischannel( to ) ? to : currentchannel(), 
+						op_pattern );    
+	return;
 }
 
-void    do_massdeop(char *from, char *to, char *rest)
-{
-        char    *op_pattern;
+void    do_massdeop(char *from, char *to, char *rest){
+	char    *op_pattern;
  
-        if( ( op_pattern = strtok( rest, " " ) ) == NULL )
-            send_to_user( from, "Please specify a pattern" );
-        else
-            channel_massdeop( ischannel( to ) ? to : currentchannel(), 
-			      op_pattern );
-        return;
+	if( ( op_pattern = strtok( rest, " " ) ) == NULL )
+		send_to_user( from, "Please specify a pattern" );
+	else
+		channel_massdeop( ischannel( to ) ? to : currentchannel(), 
+						  op_pattern );
+	return;
 }
 
-void	do_masskick(char *from, char *to, char *rest)
-{
-        char    *op_pattern;
+void	do_masskick(char *from, char *to, char *rest){
+	char    *op_pattern;
 
-        if( ( op_pattern = strtok( rest, " " ) ) == NULL )
-            send_to_user( from, "Please specify a pattern" );
-        else
-            channel_masskick( ischannel( to ) ? to : currentchannel(), 
-			      op_pattern );
-        return;
+	if( ( op_pattern = strtok( rest, " " ) ) == NULL )
+		send_to_user( from, "Please specify a pattern" );
+	else
+		channel_masskick( ischannel( to ) ? to : currentchannel(), 
+						  op_pattern );
+	return;
 }
 
-void	do_massunban(char *from, char *to, char *rest)
-{
+void	do_massunban(char *from, char *to, char *rest){
 	char	*channel;
 
 	if((channel = strtok(rest, " "))==NULL)
@@ -2800,8 +2676,7 @@ void	do_massunban(char *from, char *to, char *rest)
 		channel_massunban(channel);
 }
 	
-void	do_server(char *from, char *to, char *rest)
-{
+void	do_server(char *from, char *to, char *rest){
 	int	serv;
 
 	if(rest)
@@ -2816,13 +2691,11 @@ void	do_server(char *from, char *to, char *rest)
 		sendreply("Change to which server?");
 }
 
-void	show_dir(char *from, char *to, char *rest)
-{
+void	show_dir(char *from, char *to, char *rest){
 	char	*pattern;
 
 	if(rest)
-		while((pattern = get_token(&rest, " ")))
-		{
+		while((pattern = get_token(&rest, " "))){
 			if(*rest != '-')
 				do_ls(from, pattern);
 		}
@@ -2830,30 +2703,24 @@ void	show_dir(char *from, char *to, char *rest)
 		do_ls(from, "");
 }
 
-void	show_cwd(char *from, char *to, char *rest)
-{
+void	show_cwd(char *from, char *to, char *rest){
 	pwd(from);
 }
 
-void	do_cd(char *from, char *to, char *rest)
-{
+void	do_cd(char *from, char *to, char *rest){
 	do_chdir(from, rest?rest:"/");
 }
 
-void    show_queue( char *from, char *rest, char *to )
-{
+void    show_queue( char *from, char *rest, char *to ){
 	do_showqueue();
 }
 
-void	do_fork(char *from, char *to, char *rest)
-{
+void	do_fork(char *from, char *to, char *rest){
 	char	*nick;
 	char	*login;
 
-	if(rest && (nick=get_token(&rest, " ")))
-	{
-		if(!isnick(nick))
-		{
+	if(rest && (nick=get_token(&rest, " "))){
+		if(!isnick(nick)){
 			send_to_user(from, "Illegal nick %s", nick);
 			return;
 		}
@@ -2866,18 +2733,16 @@ void	do_fork(char *from, char *to, char *rest)
 		send_to_user(from, "Pls specify nick");
 }
 
-void	do_unban(char *from, char *to, char *rest)
-{
-	        char    *channel;
+void	do_unban(char *from, char *to, char *rest){
+	char    *channel;
 
-        if((channel = strtok(rest, " "))==NULL)
-                channel_unban(currentchannel(), from);
+	if((channel = strtok(rest, " "))==NULL)
+		channel_unban(currentchannel(), from);
 	else
 		channel_unban(channel, from);
 }
 
-void	do_kick(char *from, char *to, char *rest)
-{
+void	do_kick(char *from, char *to, char *rest){
 	char	*nuh;
 	char    *Phrase;
 	char    *nom;
@@ -2896,84 +2761,76 @@ void	do_kick(char *from, char *to, char *rest)
 	nom = get_token(&Rest, " ");
 
 	if(nom && ((nuh = username(nom)) != NULL))
-	  if((protlevel(nuh)>=50)&&
-	     (shitlevel(nuh)==0)) {
-	    send_to_user(from, "%s est protégé!", GetNick(nuh));
-	  } else if(ischannel(to)) {
-	    sprintf(Phrase, "%s a demandé ce kick.", GetNick(from));
-	    sendkick(to, rest, Phrase);
-	  } else {
-	    sprintf(Phrase, "%s a demandé ce kick", GetNick(from));
-	    sendkick(currentchannel(), rest, Phrase);
-	  }
+		if((protlevel(nuh)>=50)&&
+		   (shitlevel(nuh)==0)) {
+			send_to_user(from, "%s est protégé!", GetNick(nuh));
+		} else if(ischannel(to)) {
+			sprintf(Phrase, "%s a demandé ce kick.", GetNick(from));
+			sendkick(to, rest, Phrase);
+		} else {
+			sprintf(Phrase, "%s a demandé ce kick", GetNick(from));
+			sendkick(currentchannel(), rest, Phrase);
+		}
 	else
-	  send_to_user(from, "Qui!?!");
+		send_to_user(from, "Qui!?!");
 
 	free(Phrase);
 	free(ALiberer);
 }
 
-void	do_listdcc(char *from, char *to, char *rest)
-{
+void	do_listdcc(char *from, char *to, char *rest){
 	show_dcclist( from );
 }
 
-void	do_rehash(char *from, char *to, char *rest)
-{
+void	do_rehash(char *from, char *to, char *rest){
 	rehash = TRUE;
 }
 
-void	do_reloadlogic(char *from, char *to, char *rest)
-{
+void	do_reloadlogic(char *from, char *to, char *rest){
 	char *msg = NULL;
 	load_lualogic(&msg);
 	if(msg){
 		sendnotice(getnick(from), "Erreur lors du rechargement de la logique : %s", msg);
 		free(msg);
 	}
-
 }
 
-void 	giveop(char *channel, char *nicks )
-{
+void 	giveop(char *channel, char *nicks ){
     	sendmode(channel, "+ooo %s", nicks);
 }
 
-int 	userlevel(const char *from)
-{
+int 	userlevel(const char *from){
 	if(from)
 		return(get_level(currentbot->lists->opperlist, from));
 	else
 		return 0;
 }
 
-int 	shitlevel(const char *from)
-{
+int 	shitlevel(const char *from){
 	if(from)
 		return(get_level(currentbot->lists->shitlist, from));
 	else
 		return 0;
 }
 
-int     protlevel(const char *from)
-{
+int     protlevel(const char *from){
 	if(from)
 		return(get_level(currentbot->lists->protlist, from));
 	else
 		return 0;
 }
 
-int     rellevel(const char *from)
-{
-  int intermediaire;
-  int succes = FALSE;
-  if(from) {
-    intermediaire = get_level_neg(currentbot->lists->rellist, from, &succes);
-    if(!succes)
-      return DEFAUT_LVL; /* Valeur par defaut */
-    else return(intermediaire);
-  } else
-    return 0;
+int     rellevel(const char *from){
+	int intermediaire;
+	int succes = FALSE;
+
+	if(from) {
+		intermediaire = get_level_neg(currentbot->lists->rellist, from, &succes);
+		if(!succes)
+			return DEFAUT_LVL; /* Valeur par defaut */
+		else return(intermediaire);
+	} else
+		return 0;
 }
 
 void	ban_user(char *who, char *channel)
@@ -2992,10 +2849,10 @@ void	ban_user(char *who, char *channel)
 
 	if(*user == '#' || *user == '~')
 		user++;
-	if(not(*user) || (*user == '*'))/* faking login			*/
-	{			/* we can't ban this user on his login,	*/
-		             	/* and banning the nick isn't 'nuff, so	*/
-				/* ban the entire site!			*/
+	if(not(*user) || (*user == '*')){/* faking login			*/
+		/* we can't ban this user on his login,	*/
+		/* and banning the nick isn't 'nuff, so	*/
+		/* ban the entire site!			*/
 		if(not(strchr(usr, '.')))
 			sendmode(channel, "+bb %s!*@* *!*@*%s", nick, usr);
 		else
@@ -3006,8 +2863,7 @@ void	ban_user(char *who, char *channel)
 	sendmode(channel, "+bb %s!*@* *!*%s@*", nick, user);
 }
 
-void	signoff(char *from, char *reason)
-{
+void	signoff(char *from, char *reason){
 	char	*fromcpy;
 
 	mstrcpy(&fromcpy, from);	/* something hoses, dunno what */
@@ -3019,9 +2875,8 @@ void	signoff(char *from, char *reason)
 		    send_to_user(fromcpy, "Could not save responses.");
 		LibereStimuli();
 		LibereReponses();
-/* 		A remettre si vous utilisez les notes */
-/* 		send_to_user(fromcpy, "Dumping notes"); */
-/* 		dump_notelist(); */
+ 		send_to_user(fromcpy, "Dumping notes");
+		dump_notelist();
 	}
 	send_to_user(fromcpy, "Saving lists...");
 	if(!write_lvllist(currentbot->lists->opperlist, 
@@ -3049,147 +2904,144 @@ void	signoff(char *from, char *reason)
 }
 
 void	do_apprends(char *from, char *to, char *rest) {
-  static int DEJAPASSE = 0;
+	static int DEJAPASSE = 0;
 
-  char chaine[MAXLEN];
-  char repinter[MAXLEN];
-  char *Stimulus = 0;
-  char *NomStimulus = 0;
-  char *Reponse = 0;
-  char *Canal = 0;
-  char *rest_init = 0;
-  char *pointeur_init = 0;
-  char *inter;
+	char chaine[MAXLEN];
+	char repinter[MAXLEN];
+	char *Stimulus = 0;
+	char *NomStimulus = 0;
+	char *Reponse = 0;
+	char *Canal = 0;
+	char *rest_init = 0;
+	char *pointeur_init = 0;
+	char *inter;
 
-  if(rest) 
-    rest_init = strdup(rest);
+	if(rest) 
+		rest_init = strdup(rest);
 
-  pointeur_init = rest_init;
+	pointeur_init = rest_init;
   
-  /* C'est un stimulus */
-  if(rest && rest[0] == '\"') {
-    if(strchr(&rest[1], '\"')) {
+	/* C'est un stimulus */
+	if(rest && rest[0] == '\"') {
+		if(strchr(&rest[1], '\"')) {
       
-      Stimulus = get_token(&rest, "\"");
-      if(rest) {
+			Stimulus = get_token(&rest, "\"");
+			if(rest) {
 	
-	NomStimulus = get_token(&rest, " ");
+				NomStimulus = get_token(&rest, " ");
 
-	if(NomStimulus) {
+				if(NomStimulus) {
 	  
-	  sprintf(chaine, "Stimulus: \"%s\", Nom: %s", Stimulus, NomStimulus);
-	  send_to_user(from, chaine);
-	}
-	else send_to_user(from, "Il manque le nom du stimulus correspondant");
+					sprintf(chaine, "Stimulus: \"%s\", Nom: %s", Stimulus, NomStimulus);
+					send_to_user(from, chaine);
+				}
+				else send_to_user(from, "Il manque le nom du stimulus correspondant");
 	
-      }
-      else send_to_user(from, "Manque le stimulus à apprendre");
-    }
-    else send_to_user(from, "Il manque un guillemet");
+			}
+			else send_to_user(from, "Manque le stimulus à apprendre");
+		}
+		else send_to_user(from, "Il manque un guillemet");
     
-  }
-  else {
-    if(rest && strchr(&rest[1], '\"')){
-      
-      NomStimulus = get_token(&rest_init, " ");
-      if(rest_init) {
-	Reponse = get_token(&rest_init, "\"");
-
-	if(Reponse) {
-	  
-	  if(rest_init && strchr(rest_init, '#')) {
-	    Canal = strchr(rest_init, '#');
-	    inter = strchr(Canal, '\n');
-	    if(inter)
-	      *inter = '\0';
-	  } else
-	    Canal = to;
-	  
-	  sprintf(repinter, Reponse, getnick(from), getnick(from), getnick(from), getnick(from), getnick(from));
-	  sprintf(chaine, "Nom: %s, Réponse: \"%s\"", NomStimulus, repinter /*, getnick(from)*/);
-	  send_to_user(from, chaine);
-	  send_to_user(from, "Canal: %s", Canal);
 	}
-	else send_to_user(from, "Il n'y a même pas de Réponse.");
+	else {
+		if(rest && strchr(&rest[1], '\"')){
+			
+			NomStimulus = get_token(&rest_init, " ");
+			if(rest_init) {
+				Reponse = get_token(&rest_init, "\"");
+				
+				if(Reponse) {
+	  
+					if(rest_init && strchr(rest_init, '#')) {
+						Canal = strchr(rest_init, '#');
+						inter = strchr(Canal, '\n');
+						if(inter)
+							*inter = '\0';
+					} else
+						Canal = to;
+					
+					sprintf(repinter, Reponse, getnick(from), getnick(from), getnick(from), getnick(from), getnick(from));
+					sprintf(chaine, "Nom: %s, Réponse: \"%s\"", NomStimulus, repinter /*, getnick(from)*/);
+					send_to_user(from, chaine);
+					send_to_user(from, "Canal: %s", Canal);
+				}
+				else send_to_user(from, "Il n'y a même pas de Réponse.");
 	
-      }
-      else send_to_user(from, "Manque le nom stimulus à apprendre.");
-    }
-    else if(rest) send_to_user(from, "Il manque l'espace séparant le nom du stimulus de la réponse.");
-  }
+			}
+			else send_to_user(from, "Manque le nom stimulus à apprendre.");
+		}
+		else if(rest) send_to_user(from, "Il manque l'espace séparant le nom du stimulus de la réponse.");
+	}
 
-  if(NomStimulus && Stimulus) {
-    if(strlen(Stimulus) > 3) {
-      if(AjouteStimulus(from, to, Stimulus, NomStimulus))
-	send_to_user(from, "Stimulus %s appris.", NomStimulus);
-    }
-    else send_to_user(from, "Stimulus trop court!");
-  }
+	if(NomStimulus && Stimulus) {
+		if(strlen(Stimulus) > 3) {
+			if(AjouteStimulus(from, to, Stimulus, NomStimulus))
+				send_to_user(from, "Stimulus %s appris.", NomStimulus);
+		}
+		else send_to_user(from, "Stimulus trop court!");
+	}
   
   
-  if(NomStimulus && Reponse) {
-    if(AjouteReponse(from, (Canal?Canal:to), Reponse, NomStimulus))
-      send_to_user(from, "Réponse apprise.");
-  }
+	if(NomStimulus && Reponse) {
+		if(AjouteReponse(from, (Canal?Canal:to), Reponse, NomStimulus))
+			send_to_user(from, "Réponse apprise.");
+	}
   
-  if(pointeur_init)
-    free(pointeur_init);
-
+	if(pointeur_init)
+		free(pointeur_init);
 }
 
-void    do_oublie(char *from, char *to, char *rest) 
-{
+void    do_oublie(char *from, char *to, char *rest){
   int i;
   
   if(!rest || !strlen(rest)) {
-    for(i=0; i <TailleStim; i++) {
+	  for(i=0; i <TailleStim; i++) {
+		  
+		  free(TableDesStimuli[i]->NomStimulus);
+		  TableDesStimuli[i]->NomStimulus = 0;
       
-      free(TableDesStimuli[i]->NomStimulus);
-      TableDesStimuli[i]->NomStimulus = 0;
-      
-      free(TableDesStimuli[i]->Stimulus);
-      TableDesStimuli[i]->Stimulus = 0;
-      
-      free(TableDesStimuli[i]->Auteur);
-      TableDesStimuli[i]->Auteur = 0;
-    }
+		  free(TableDesStimuli[i]->Stimulus);
+		  TableDesStimuli[i]->Stimulus = 0;
+		  
+		  free(TableDesStimuli[i]->Auteur);
+		  TableDesStimuli[i]->Auteur = 0;
+	  }
     
-    for(i=0; i<TailleRep; i++) {
-      free(TableDesReponses[i]->Reponse);
-      TableDesReponses[i]->Reponse = 0;
+	  for(i=0; i<TailleRep; i++) {
+		  free(TableDesReponses[i]->Reponse);
+		  TableDesReponses[i]->Reponse = 0;
+		  
+		  free(TableDesReponses[i]->NomStimulus);
+		  TableDesReponses[i]->NomStimulus = 0;
       
-      free(TableDesReponses[i]->NomStimulus);
-      TableDesReponses[i]->NomStimulus = 0;
-      
-      free(TableDesReponses[i]->Auteur);
-      TableDesReponses[i]->Auteur = 0;
+		  free(TableDesReponses[i]->Auteur);
+		  TableDesReponses[i]->Auteur = 0;
 
-      free(TableDesReponses[i]->Canal);
-      TableDesReponses[i]->Canal = 0;
-    }
+		  free(TableDesReponses[i]->Canal);
+		  TableDesReponses[i]->Canal = 0;
+	  }
     
-    if(TailleStim) {
-      free(TableDesStimuli);
-      TailleStim = 0;
-      TableDesStimuli = 0;
-    }
+	  if(TailleStim) {
+		  free(TableDesStimuli);
+		  TailleStim = 0;
+		  TableDesStimuli = 0;
+	  }
+	  
+	  if(TailleRep) {
+		  free(TableDesReponses);
+		  TailleRep = 0;
+		  TableDesReponses = 0;
+	  }
     
-    if(TailleRep) {
-      free(TableDesReponses);
-      TailleRep = 0;
-      TableDesReponses = 0;
-    }
-    
-    send_to_user(from, "Tous les stimuli et réponses appris sont oubliés!");
+	  send_to_user(from, "Tous les stimuli et réponses appris sont oubliés!");
   }
   else {
-    send_to_user(from, "Attention: !oublie me fait oublier tous les stimuli et les réponses que je connais! Mieux vaut utiliser !desactive.");
+	  send_to_user(from, "Attention: !oublie me fait oublier tous les stimuli et les réponses que je connais! Mieux vaut utiliser !desactive.");
   }
   
 }
 
-void    do_desactive(char *from, char *to, char *rest) 
-{
+void    do_desactive(char *from, char *to, char *rest){
 	int i;
 	int desactivation = FALSE;
 
@@ -3199,7 +3051,7 @@ void    do_desactive(char *from, char *to, char *rest)
     
 		for(i = 0; i < TailleStim; i++) {
 			if(strcmp(TableDesStimuli[i]->NomStimulus, rest)== 0 ||
-				strcmp(TableDesStimuli[i]->Auteur, rest) == 0){
+			   strcmp(TableDesStimuli[i]->Auteur, rest) == 0){
 				if(rellevel(from)+SYMPA_LVL >= rellevel(TableDesStimuli[i]->Auteur)) {
 					send_to_user(from, "Stimulus numéro %d désactivé.", i);
 					TableDesStimuli[i]->Actif = FALSE;
@@ -3207,9 +3059,9 @@ void    do_desactive(char *from, char *to, char *rest)
 				}
 				else
 					send_to_user(from,
-								  "Niveau de relation insuffisant, il faudrait %d, qui est le niveau de %s.",
-								  rellevel(TableDesStimuli[i]->Auteur),
-								  getnick(TableDesStimuli[i]->Auteur));
+								 "Niveau de relation insuffisant, il faudrait %d, qui est le niveau de %s.",
+								 rellevel(TableDesStimuli[i]->Auteur),
+								 getnick(TableDesStimuli[i]->Auteur));
 			}
 		}
 	} else
@@ -3219,223 +3071,211 @@ void    do_desactive(char *from, char *to, char *rest)
 		send_to_user(from, "Je n'ai désactivé aucun stimulus.");
 }
 
-void    do_active(char *from, char *to, char *rest) 
-{
+void    do_active(char *from, char *to, char *rest){
     int i;
     
     if(rest) {
 	   
-	   SKIPSPC(rest);
+		SKIPSPC(rest);
 	   
-	   for(i = 0; i < TailleStim; i++) {
-		   if(strcmp(TableDesStimuli[i]->NomStimulus,rest)==0 ||
+		for(i = 0; i < TailleStim; i++) {
+			if(strcmp(TableDesStimuli[i]->NomStimulus,rest)==0 ||
 			   strcmp(TableDesStimuli[i]->Auteur, rest) == 0){
-			   if(rellevel(from) >= rellevel(TableDesStimuli[i]->Auteur)) {
-				   send_to_user(from, "Stimulus numéro %d réactivé.", i);
-				   TableDesStimuli[i]->Actif = TRUE;
-			   } else
-				   send_to_user(from,
+				if(rellevel(from) >= rellevel(TableDesStimuli[i]->Auteur)) {
+					send_to_user(from, "Stimulus numéro %d réactivé.", i);
+					TableDesStimuli[i]->Actif = TRUE;
+				} else
+					send_to_user(from,
 								 "Niveau de relation insuffisant, il faudrait %d.",
 								 rellevel(TableDesStimuli[i]->Auteur));
-		   }
-	   }
+			}
+		}
     } else
 		send_to_user(from, "Je veux bien, moi, mais activer quel stimulus?");
 }
 
-void    do_stimwrite(char *from, char *to, char *rest) 
-{
-  if(rest) {
-    SKIPSPC(rest);
+void    do_stimwrite(char *from, char *to, char *rest){
+	if(rest) {
+		SKIPSPC(rest);
 
-    if(SauveStimuli(rest))
-      send_to_user(from, "%d stimuli sauvegardés", TailleStim);
-    else
-      send_to_user(from, "Impossible de sauvegarder les stimuli!");
-  }
-  else {
-    if(SauveStimuli(currentbot->stimfile))
-      send_to_user(from, "%d stimuli sauvegardés dans %s.",
-		    TailleStim,
-		    currentbot->stimfile);
-  }
+		if(SauveStimuli(rest))
+			send_to_user(from, "%d stimuli sauvegardés", TailleStim);
+		else
+			send_to_user(from, "Impossible de sauvegarder les stimuli!");
+	}
+	else {
+		if(SauveStimuli(currentbot->stimfile))
+			send_to_user(from, "%d stimuli sauvegardés dans %s.",
+						 TailleStim,
+						 currentbot->stimfile);
+	}
 }
 
-void    do_stimload(char *from, char *to, char *rest) 
-{
-  if(rest) {
-    SKIPSPC(rest);
+void    do_stimload(char *from, char *to, char *rest){
+	if(rest) {
+		SKIPSPC(rest);
     
-    if(ChargeStimuli(rest))
-      send_to_user(from, "%d stimuli chargés.", TailleStim);
-    else
-      send_to_user(from, "Impossible de charger les stimuli!");
-  }
-  else {
-    if(ChargeStimuli(currentbot->stimfile))
-      send_to_user(from, "%d stimuli de %s chargés.",
-		    TailleStim,
-		    (currentbot->stimfile));
-  }
-    
+		if(ChargeStimuli(rest))
+			send_to_user(from, "%d stimuli chargés.", TailleStim);
+		else
+			send_to_user(from, "Impossible de charger les stimuli!");
+	}
+	else {
+		if(ChargeStimuli(currentbot->stimfile))
+			send_to_user(from, "%d stimuli de %s chargés.",
+						 TailleStim,
+						 (currentbot->stimfile));
+	}
 }
 
 
-void do_repload(char *from, char *to, char *rest) 
-{
-  if(rest) {
-    SKIPSPC(rest);
+void do_repload(char *from, char *to, char *rest){
+	if(rest) {
+		SKIPSPC(rest);
     
-    if(ChargeReponses(rest))
-      send_to_user(from, "%d réponses chargées", TailleRep);
-    else
-      send_to_user(from, "Impossible de charger les réponses!");
-  }
-  else {
-    if(ChargeReponses(currentbot->repfile))
-      send_to_user(from, "%d réponses chargées dans %s.",
-		    TailleRep,
-		    currentbot->repfile);
-  }
+		if(ChargeReponses(rest))
+			send_to_user(from, "%d réponses chargées", TailleRep);
+		else
+			send_to_user(from, "Impossible de charger les réponses!");
+	}
+	else {
+		if(ChargeReponses(currentbot->repfile))
+			send_to_user(from, "%d réponses chargées dans %s.",
+						 TailleRep,
+						 currentbot->repfile);
+	}
 }
 
 
 void    do_repwrite(char *from, char *to, char *rest) {
   
-  if(rest) {
-    SKIPSPC(rest);
-    if(SauveReponses(rest))
-      send_to_user(from, "%d réponses sauvegardées", TailleRep);
-    else
-      send_to_user(from, "Impossible de créer le fichier!");
-  }
-  else 
-     if(SauveReponses(currentbot->repfile))
-      send_to_user(from, "%d réponses de %s sauvegardées.",
-		    TailleRep,
-		    (currentbot->repfile));
+	if(rest) {
+		SKIPSPC(rest);
+		if(SauveReponses(rest))
+			send_to_user(from, "%d réponses sauvegardées", TailleRep);
+		else
+			send_to_user(from, "Impossible de créer le fichier!");
+	}
+	else 
+		if(SauveReponses(currentbot->repfile))
+			send_to_user(from, "%d réponses de %s sauvegardées.",
+						 TailleRep,
+						 (currentbot->repfile));
 }
 
-void do_botload(char *from, char *to, char *rest) 
-{
-  if(rest) {
-    SKIPSPC(rest);
+void do_botload(char *from, char *to, char *rest){
+	if(rest) {
+		SKIPSPC(rest);
     
-    if(readbotdatabase(rest, currentbot->botlist))
-      send_to_user(from, "bots chargés depuis %s", rest);
-    else
-      send_to_user(from, "Impossible de charger les bots depuis %s!", rest);
-  }
-  else {
-    if(readbotdatabase(currentbot->botfile, currentbot->botlist))
-      send_to_user(from, "bots chargés depuis %s.",
-		    currentbot->botfile);
-  }
+		if(readbotdatabase(rest, currentbot->botlist))
+			send_to_user(from, "bots chargés depuis %s", rest);
+		else
+			send_to_user(from, "Impossible de charger les bots depuis %s!", rest);
+	}
+	else {
+		if(readbotdatabase(currentbot->botfile, currentbot->botlist))
+			send_to_user(from, "bots chargés depuis %s.",
+						 currentbot->botfile);
+	}
 }
 
 void do_botwrite(char *from, char *to, char *rest) {
-  if(rest) {
-    SKIPSPC(rest);
-    
-    if(write_botlist(currentbot->botlist, rest))
-      send_to_user(from, "bots sauvegardés dans %s.", rest);
-    else
-      send_to_user(from, "Impossible de sauvegarder les bots dans %s!", rest);
-  } else {
-    if(write_botlist(currentbot->botlist, currentbot->botfile))
-      send_to_user(from, "bots sauvegardés dans %s.", currentbot->botfile);
-  }
+	if(rest) {
+		SKIPSPC(rest);
+		
+		if(write_botlist(currentbot->botlist, rest))
+			send_to_user(from, "bots sauvegardés dans %s.", rest);
+		else
+			send_to_user(from, "Impossible de sauvegarder les bots dans %s!", rest);
+	} else {
+		if(write_botlist(currentbot->botlist, currentbot->botfile))
+			send_to_user(from, "bots sauvegardés dans %s.", currentbot->botfile);
+	}
 }
 
 void do_botdel(char *from, char *to, char *rest) {
-  if(rest) {
-   int numero = atoi(rest);
-
-   if(numero) {
-     if(remove_bot(currentbot->botlist, numero))
-       send_to_user(from, "Le bot numéro %d a été supprimé de la liste des bots.", numero);
-     else
-       send_to_user(from, "Je n'ai pas réussi à supprimer le bot numéro %d.", numero);
-   } else {
-     char **Phrase;
-    Phrase = malloc(3 * sizeof(char *));
-    
-    Phrase[0] = strdup("Il faut me donner un numéro de bot pour que je puisse le détruire, %s. Et rien d'autre.");
-    Phrase[1] = strdup("Ce n'est pas un numéro de bot, %s.");
-    Phrase[2] = strdup("Qu'est-ce que c'est que ça? Il ne me faut que le numéro du bot à détruire, hmmm?");
-    Repondre(from, to, 0, 3, Phrase, 0, 0, 0);
-   }
-  } else {
-    char **Phrase;
-    Phrase = malloc(3 * sizeof(char *));
-    
-    Phrase[0] = strdup("Il faut me donner un numéro de bot pour que je puisse le détruire, %s.");
-    Phrase[1] = strdup("Il manque le numéro de bot, %s.");
-    Phrase[2] = strdup("Et le numéro du bot à détruire, hmmm?");
-    Repondre(from, to, 0, 3, Phrase, 0, 0, 0);
-  }
+	if(rest) {
+		int numero = atoi(rest);
+		
+		if(numero) {
+			if(remove_bot(currentbot->botlist, numero))
+				send_to_user(from, "Le bot numéro %d a été supprimé de la liste des bots.", numero);
+			else
+				send_to_user(from, "Je n'ai pas réussi à supprimer le bot numéro %d.", numero);
+		} else {
+			char **Phrase;
+			Phrase = malloc(3 * sizeof(char *));
+			Phrase[0] = strdup("Il faut me donner un numéro de bot pour que je puisse le détruire, %s. Et rien d'autre.");
+			Phrase[1] = strdup("Ce n'est pas un numéro de bot, %s.");
+			Phrase[2] = strdup("Qu'est-ce que c'est que ça? Il ne me faut que le numéro du bot à détruire, hmmm?");
+			Repondre(from, to, 0, 3, Phrase, 0, 0, 0);
+		}
+	} else {
+		char **Phrase;
+		Phrase = malloc(3 * sizeof(char *));
+		Phrase[0] = strdup("Il faut me donner un numéro de bot pour que je puisse le détruire, %s.");
+		Phrase[1] = strdup("Il manque le numéro de bot, %s.");
+		Phrase[2] = strdup("Et le numéro du bot à détruire, hmmm?");
+		Repondre(from, to, 0, 3, Phrase, 0, 0, 0);
+	}
 }
 
 void    do_fuck(char *from, char *to, char *who) {
-  char **Phrase;
-  char ch[MAXLEN];
-
-  if(who) {
+	char **Phrase;
+	char ch[MAXLEN];
+	
+	if(who) {
     
-    Phrase = malloc(3 * sizeof(char *));
-    sprintf(ch, "%s: %s voudrait que je t'encule! Il est mal élevé, hein?", who, GetNick(from));
-    Phrase[0] = strdup(ch);
-    sprintf(ch, "Pourquoi tu veux que je sodomise %s, c'est pas gentil %s!", who, GetNick(from));
-    Phrase[1] = strdup(ch);
-    Phrase[2] = strdup("Je réprouve la sodomie, %s.");
-    Repondre(from, to, -1, 3, Phrase, 0, 0, 0);
-  }
-  else {
-    Phrase =  malloc(3 * sizeof(char *));
+		Phrase = malloc(3 * sizeof(char *));
+		sprintf(ch, "%s: %s voudrait que je t'encule! Il est mal élevé, hein?", who, GetNick(from));
+		Phrase[0] = strdup(ch);
+		sprintf(ch, "Pourquoi tu veux que je sodomise %s, c'est pas gentil %s!", who, GetNick(from));
+		Phrase[1] = strdup(ch);
+		Phrase[2] = strdup("Je réprouve la sodomie, %s.");
+		Repondre(from, to, -1, 3, Phrase, 0, 0, 0);
+	}
+	else {
+		Phrase =  malloc(3 * sizeof(char *));
+		Phrase[0] = strdup("Qui veux-tu que je sodomise, %s?");
+		Phrase[1] = strdup("Ça te prends souvent de donner des commandes sans argument, %s?");
+		Phrase[2] = strdup("Qui, %s?");
 
-    Phrase[0] = strdup("Qui veux-tu que je sodomise, %s?");
-    Phrase[1] = strdup("Ça te prends souvent de donner des commandes sans argument, %s?");
-    Phrase[2] = strdup("Qui, %s?");
-
-    Repondre(from, to, -1, 3, Phrase, 0, 0, 0);
-  }
-  
+		Repondre(from, to, -1, 3, Phrase, 0, 0, 0);
+	}
 }
 
 void  do_ident(char *from, char *canal, char *pass) {
-  FILE *fp;
-  char usrhost[MAXLEN];
-  char password[MAXLEN];
-  char s[MAXLEN];
-  char *p;
-  int found = FALSE;
-  locuteur *Locuteur = 0;
-  char *NUS = NickUserStr(from);
+	FILE *fp;
+	char usrhost[MAXLEN];
+	char password[MAXLEN];
+	char s[MAXLEN];
+	char *p;
+	int found = FALSE;
+	locuteur *Locuteur = 0;
+	char *NUS = NickUserStr(from);
 
-  if((fp = fopen("pass", "r")) == NULL) {
-    printf("Fichier \"pass\" non trouve, j'arrete.\n");
-    exit(0);
-  }
+	if((fp = fopen("pass", "r")) == NULL) {
+		printf("Fichier \"pass\" non trouve, j'arrete.\n");
+		exit(0);
+	}
 
+	while((p=fgets(s, MAXLEN, fp)) && !found ) {
+		sscanf(s, "%s %s", usrhost, password);
+		if(!fnmatch(usrhost, from, FNM_CASEFOLD)) 
+			found = TRUE;
+	}
 
-  while((p=fgets(s, MAXLEN, fp)) && !found ) {
-    sscanf(s, "%s %s", usrhost, password);
-    if(!fnmatch(usrhost, from, FNM_CASEFOLD)) 
-      found = TRUE;
-  }
+	if(found) {
+		Locuteur = LocuteurExiste(currentbot->lists->ListeLocuteurs, from);
+		if(!Locuteur)
+			Locuteur = AjouteLocuteur(currentbot->lists->ListeLocuteurs,
+									  NUS);
 
-  if(found) {
-    Locuteur = LocuteurExiste(currentbot->lists->ListeLocuteurs, from);
-    if(!Locuteur)
-      Locuteur = AjouteLocuteur(currentbot->lists->ListeLocuteurs,
-				 NUS);
+	}
 
-  }
-
-  fclose(fp);
-  if(NUS)
-    free(NUS);
-
+	fclose(fp);
+	if(NUS)
+		free(NUS);
 }
 
 void do_seen(char *from, char *to, char *rest) {
@@ -3502,61 +3342,60 @@ void do_seen(char *from, char *to, char *rest) {
 }
 
 int ChaineEstDans(const char *aFouiller, const char *aChercher) {
-  char *AFouiller;
-  char *AChercher;
-  char *p;
-  char *GuillemetsO = 0;
-  char *GuillemetsF = 0;
-  char *c;
-  static int DernierNumPhrase = -1;
+	char *AFouiller;
+	char *AChercher;
+	char *p;
+	char *GuillemetsO = 0;
+	char *GuillemetsF = 0;
+	char *c;
+	static int DernierNumPhrase = -1;
 
-/* normalement c'est fait en amont
+	/* normalement c'est fait en amont
  
-  char *Init = "éèêëÉÈÊËçÇàâäåÀÂùûÙÛôöÔÖîïÎÏ";    //TODO: revoir la comparaison avec iconv
-  char *Remp = "eeeeEEEEcCaaaaAAuuUUooOOiiII";
-*/
-  AFouiller = strdup(aFouiller);
-  AChercher = strdup(aChercher);
-/*
- for(p = AFouiller; *p; p++) {
-    c = strchr(Init, *p);
-    if(c) *p = Remp[c-Init];
-    *p = tolower(toascii(*p));
-  }
-  for(p = AChercher; *p; p++) {
-     c = strchr(Init, *p);
-    if(c) *p = Remp[c-Init];
-    *p = tolower(toascii(*p));
-  }
-*/
+   char *Init = "éèêëÉÈÊËçÇàâäåÀÂùûÙÛôöÔÖîïÎÏ";    //TODO: revoir la comparaison avec iconv
+   char *Remp = "eeeeEEEEcCaaaaAAuuUUooOOiiII";
+	*/
+	AFouiller = strdup(aFouiller);
+	AChercher = strdup(aChercher);
+	/*	
+		for(p = AFouiller; *p; p++) {	
+		c = strchr(Init, *p);	
+		if(c) *p = Remp[c-Init];	
+		*p = tolower(toascii(*p));	
+		}	
+		for(p = AChercher; *p; p++) {	
+		c = strchr(Init, *p);	
+		if(c) *p = Remp[c-Init];	
+		*p = tolower(toascii(*p));	
+		}	
+	*/
 	
-  if(DernierNumPhrase != GNumPhrase) {
-    GuillemetsO = strchr(AFouiller, '\"');
-    if(GuillemetsO) {
-      GuillemetsF = strchr(GuillemetsO+1, '\"');
-      if(!GuillemetsF)
-	GuillemetsF = strchr(GuillemetsO, '\0');
-    }
-    DernierNumPhrase = GNumPhrase;
-  }
-
-  if((p = strcasestr(AFouiller, AChercher))
-      && !(p > GuillemetsO
-	   && p < GuillemetsF)) {
-    if(AFouiller) free(AFouiller);
-    if(AChercher) free(AChercher);
-    return TRUE;
-  }
-  else {
-    if(AFouiller) free(AFouiller);
-    if(AChercher) free(AChercher);
-    return FALSE;
-  }
+	if(DernierNumPhrase != GNumPhrase) {
+		GuillemetsO = strchr(AFouiller, '\"');
+		if(GuillemetsO) {
+			GuillemetsF = strchr(GuillemetsO+1, '\"');
+			if(!GuillemetsF)
+				GuillemetsF = strchr(GuillemetsO, '\0');
+		}
+		DernierNumPhrase = GNumPhrase;
+	}
+	
+	if((p = strcasestr(AFouiller, AChercher))
+	   && !(p > GuillemetsO
+			&& p < GuillemetsF)) {
+		if(AFouiller) free(AFouiller);
+		if(AChercher) free(AChercher);
+		return TRUE;
+	}
+	else {
+		if(AFouiller) free(AFouiller);
+		if(AChercher) free(AChercher);
+		return FALSE;
+	}
   
 } /* int ChaineEstDans() */
 
-void    Traite(char *from, char *to, char *msg)
-{
+void    Traite(char *from, char *to, char *msg){
   char *Trouve;
   static int Autorisation = TRUE;
   static int Jour = 0;

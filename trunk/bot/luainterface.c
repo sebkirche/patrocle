@@ -497,7 +497,7 @@ void register_cstuff()
 	lua_setglobal(L, "AUTO_OPLVL");
 	lua_pushnumber(L, SYMPA_LVL);
 	lua_setglobal(L, "SYMPA_LVL");
-	lua_pushnumber(L, CONFIANCE_LVL);
+	lua_pushnumber(L, CONFIDENCE_LVL);
 	lua_setglobal(L, "CONFIANCE_LVL");
 	lua_pushnumber(L, DEFAUT_LVL);
 	lua_setglobal(L, "DEFAUT_LVL");

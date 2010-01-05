@@ -73,8 +73,7 @@ struct
 	{ NULL,		null(void(*)())	}
 };
 
-void	parse_note(char *from, char *to, char *s)
-{
+void	parse_note(char *from, char *to, char *s){
 	int	i;
 	char	*command;
 
@@ -208,18 +207,15 @@ notelist	*find_unfinished(char *from)
    function
 */
 
-void	note_dump(char *from, char *rest)
-{
+void	note_dump(char *from, char *rest){
 	if(dump_notelist())
 		sendreply("Notes written to disk");
 	else
 		sendreply("Could not save the notes!");
 }
 
-void	note_create(char *from, char *s)
-{
-	char	*to,
-		*subject;
+void	note_create(char *from, char *s){
+	char	*to, *subject;
 
 	if(s && (to = get_token(&s, " "))){
 		subject = s;
@@ -234,8 +230,7 @@ void	note_create(char *from, char *s)
 		sendreply("To whom do you want to send this note?");
 }
 
-void	note_delete(char *from, char *s)
-{
+void	note_delete(char *from, char *s){
 	int	id;
 
 	if(s && readint(&s, &id))
@@ -244,8 +239,7 @@ void	note_delete(char *from, char *s)
 		sendreply("Note id expected");
 }
 
-void	note_show(char *from, char *s)
-{
+void	note_show(char *from, char *s){
 	int	id;
 
 	if(s && readint(&s, &id))
@@ -254,16 +248,14 @@ void	note_show(char *from, char *s)
 		sendreply("Note id expected");
 }
 
-void	note_view(char *from, char *s)
-{
+void	note_view(char *from, char *s){
 	if(find_unfinished(from))
 		view_note(from);
 	else
 		sendreply("You haven't created a note");
 }
 
-void	note_addline(char *from, char *s)
-{
+void	note_addline(char *from, char *s){
 	notelist	*tmp;
 	
 	if((tmp = find_unfinished(from))){
@@ -285,8 +277,7 @@ void	note_addline(char *from, char *s)
 		sendreply("You haven't created a note");
 }
 
-void	note_delline(char *from, char *s)
-{
+void	note_delline(char *from, char *s){
 	notelist	*tmp;
 	int	line;
 	int	i;
@@ -315,8 +306,7 @@ void	note_delline(char *from, char *s)
 		sendreply("You haven't created a note");
 }
 
-void	note_replaceline(char *from, char *s)
-{
+void	note_replaceline(char *from, char *s){
 	notelist	*tmp;
 	int	line;
 
@@ -338,8 +328,7 @@ void	note_replaceline(char *from, char *s)
 		sendreply("You haven't created a note");
 }
 
-void	note_list(char *from, char *s)
-{
+void	note_list(char *from, char *s){
 	notelist	*tmp;
 	int		num_notes = 0;
 
@@ -357,8 +346,7 @@ void	note_list(char *from, char *s)
 		sendreply("No notes for you right now");
 }
 
-void	note_send(char *from, char *s)
-{
+void	note_send(char *from, char *s){
 	notelist	*tmp;
 
 	if((tmp = find_unfinished(from))){
@@ -372,8 +360,7 @@ void	note_send(char *from, char *s)
 
 /* functions that actually do something :) */
 
-void	create_note(char *from, char *to, char *subject)
-{
+void	create_note(char *from, char *to, char *subject){
 	notelist	*newnote;
 
 	newnote = (notelist*)malloc(sizeof(*newnote));
@@ -405,8 +392,7 @@ void	create_note(char *from, char *to, char *subject)
 	return;
 }	
 
-void	freenote(notelist *note)
-{
+void	freenote(notelist *note){
 	int	i;
 
 	free(note->received_by);
@@ -418,16 +404,15 @@ void	freenote(notelist *note)
 	free(note);
 }
 
-void	del_note(char *from, int note_id)
-{
+void	del_note(char *from, int note_id){
 	notelist	*tmp;
 
 	for(tmp=noteshead; tmp; tmp=tmp->next)
 		if(tmp->note_id == note_id){
 			if(!fnmatch(tmp->to, from, FNM_CASEFOLD)  ||
-			   (userlevel(from) >= 125) ||
-			/* user is allowed to delete his own note if it's not
-			   finished */
+			   (userlevel(from) >= USERLVL_POWERUSER) ||
+			   /* user is allowed to delete his own note if it's not
+				  finished */
 			   (STRCASEEQUAL(tmp->from, from) && !tmp->finished)){
 
 				sendreply("Note %d deleted", note_id);
@@ -467,8 +452,7 @@ void	del_note(char *from, int note_id)
 	return;
 }
 
-void	show_note(char *from, int note_id)
-{
+void	show_note(char *from, int note_id){
 	notelist	*tmp;
 
 	for(tmp=notestail; tmp; tmp=tmp->prev)
