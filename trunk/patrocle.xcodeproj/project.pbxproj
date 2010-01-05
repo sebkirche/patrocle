@@ -77,7 +77,7 @@
 		BE3EC722105D123D00B6853F /* vladbot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vladbot.h; sourceTree = "<group>"; };
 		BE3EC724105D123D00B6853F /* bot.list */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bot.list; sourceTree = "<group>"; };
 		BE3EC725105D123D00B6853F /* bot.list.ori */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bot.list.ori; sourceTree = "<group>"; };
-		BE3EC726105D123D00B6853F /* bot.log */ = {isa = PBXFileReference; fileEncoding = 2147484175; lastKnownFileType = text; path = bot.log; sourceTree = "<group>"; };
+		BE3EC726105D123D00B6853F /* bot.log */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bot.log; sourceTree = "<group>"; };
 		BE3EC736105D123D00B6853F /* Citations.reps */ = {isa = PBXFileReference; fileEncoding = 2147484175; lastKnownFileType = text; path = Citations.reps; sourceTree = "<group>"; };
 		BE3EC737105D123D00B6853F /* Citations.reps.ori */ = {isa = PBXFileReference; fileEncoding = 2147484175; lastKnownFileType = text; path = Citations.reps.ori; sourceTree = "<group>"; };
 		BE3EC738105D123D00B6853F /* Citations.stim */ = {isa = PBXFileReference; fileEncoding = 2147484175; lastKnownFileType = text; path = Citations.stim; sourceTree = "<group>"; };
@@ -254,7 +254,7 @@
 /* Begin PBXLegacyTarget section */
 		D28A88AD04BDD90700651E21 /* patrocle */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION)";
+			buildArgumentsString = "";
 			buildConfigurationList = 1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "patrocle" */;
 			buildPhases = (
 			);
@@ -325,9 +325,10 @@
 		1DEB919508733D9F0010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.5;
 			};
