@@ -297,7 +297,7 @@ void	note_delline(char *from, char *s){
 			}
 			free(tmp->msg[i]);
 			tmp->msg[i] = NULL;
-			sendreply("Line %d deleted", line);
+			sendreply("Line %d deleted", line);//FIXME: line is 1 too low
 		}
 		else
 			sendreply("There is no line %d!", line);
@@ -501,6 +501,20 @@ void	view_note(char *from)
 		/* Should not happen (note_view should check) */
 		sendreply("You haven't created a note");
 	return;
+}
+
+int	note_exist(char *from)
+/* look if there is a note for the given user and return the count */
+{
+	notelist	*tmp;
+	int		num_notes = 0;
+	
+	for(tmp=notestail; tmp; tmp=tmp->prev)
+		if((!fnmatch(tmp->to, from, FNM_CASEFOLD)||
+			STRCASEEQUAL(tmp->to, PUBLICADDR)) && tmp->finished){
+			num_notes++;
+		}
+	return num_notes;
 }
 
 // Local variables:
