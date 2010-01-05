@@ -33,6 +33,8 @@
 #define KILLRETURN(q)	if(*(q+strlen(q)-1)=='\r') *(q+strlen(q)-1)='\0'; else {};
 
 /* str(case)cmp's returnvalues are kinda misleading */
+/* BTW : as it is not obvious, strcasecmp is CASE INSENSITIVE */
+/*       while strcmp is CASE SENSITIVE                       */
 #define STRCASEEQUAL(s1, s2)	(strcasecmp((s1), (s2)) == 0)
 #define STREQUAL(s1, s2)	(strcmp((s1), (s2)) == 0)
 

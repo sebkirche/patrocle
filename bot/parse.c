@@ -136,7 +136,7 @@ void	parse_part(char *from, char *rest)
 {
 	strtok(rest, " \0");
 #ifdef DBUG
-	debug(LVL_NOTICE," user %s left %s", getnick(from), rest);
+	debug(LVL_NOTICE,"%s (%s) left %s", getnick(from), from, rest);
 #endif
 	remove_user_from_channel(rest, getnick(from));
 }

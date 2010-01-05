@@ -717,8 +717,8 @@ struct
 } global_cmds[] = {	
 	{ "LIST",	global_list,	0,	TRUE	},
 	{ "INFO",	global_list,	0,	TRUE	},
-	{ "DIE",	global_die,	150,	FALSE	},
-	{ "DEBUG",	global_debug,	150,	FALSE	},
+	{ "DIE",	global_die,	USERLVL_BOTOWNER,	FALSE	},
+	{ "DEBUG",	global_debug,	USERLVL_BOTOWNER,	FALSE	},
 	{ NULL,		null(void(*)())	}
 };
 
@@ -779,10 +779,10 @@ void	global_debug(char *from, char *rest)
 {
 #ifdef DBUG
 	if(!rest){
-		send_to_user(from, "Pls specify a level between 0 and 2");
+		send_to_user(from, "Pls specify a level between 0 and %d", MAX_LVL);
 		return;
 	}
-	if(userlevel(from)>=150)
+	if(userlevel(from)>=USERLVL_BOTOWNER)
 		if(set_debuglvl(atoi(rest)))
 			send_to_user(from, "Debug set to debuglevel %d", atoi(rest));
 		else
@@ -798,7 +798,7 @@ void	global_die(char *from, char *rest)
 {
 	botinfo	*bot;
 
-	if(userlevel(from) >= 150)
+	if(userlevel(from) >= USERLVL_BOTOWNER)
 		if(rest){
 			if((bot = bot_created(rest))){
 				currentbot = bot;
