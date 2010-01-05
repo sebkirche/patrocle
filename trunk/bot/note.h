@@ -63,6 +63,7 @@ void	freenote(notelist *note);
 void	del_note(char *from, int note_id);
 void	show_note(char *from,	int note_id);
 void	view_note(char *from);
+int		note_exist(char *from);
 
 #endif /* NOTE_H */
 

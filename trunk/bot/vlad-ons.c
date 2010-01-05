@@ -84,33 +84,33 @@ command_tbl on_msg_commands[] =
 
 /*  Command	function   userlvl    shitlvl   rellvl      forcedcc */
 	{
-		{ "HELP",		show_help,		USERLVL_ANONYMOUS,		100,	-100,			TRUE  },		
-		{ "APPRENDS",	do_apprends,    USERLVL_ANONYMOUS,      100,	CONFIDENCE_LVL,	FALSE },		
-		{ "DESACTIVE",	do_desactive,   USERLVL_ANONYMOUS,      100,    CONFIDENCE_LVL,	FALSE },		
-		{ "ACTIVE",		do_active,      USERLVL_ANONYMOUS,      100,    CONFIDENCE_LVL,	FALSE },		
-		{ "FUCK",		do_fuck,        USERLVL_ANONYMOUS,      0,      SYMPA_LVL,		FALSE },		
-		{ "WHOAMI",		show_whoami,  	USERLVL_ANONYMOUS,		100,	-100,			FALSE },		
-		{ "INFO",		show_info,		USERLVL_ANONYMOUS,		100,	-50,			FALSE },		
-		{ "TIME",		show_time,		USERLVL_ANONYMOUS,		100,	-10,			FALSE },		
-		/* { "NRELADD", do_nreladd,     USERLVL_ANONYMOUS,      0,      -500,			FALSE },		*/
-		{ "LISTDCC",	do_listdcc,		USERLVL_ANONYMOUS,		100,	0,				TRUE  },		
-		{ "CHAT",		do_chat,		USERLVL_ANONYMOUS,		100,	0,				FALSE },		
-		/* { "SEND",	do_send,		USERLVL_ANONYMOUS,		100,	FALSE },		*/
+		{ "HELP",		show_help,		USERLVL_ANONYMOUS,	100,	-100,			TRUE  },		
+		{ "APPRENDS",	do_apprends,    USERLVL_ANONYMOUS,  100,	CONFIDENCE_LVL,	FALSE },		
+		{ "DESACTIVE",	do_desactive,   USERLVL_ANONYMOUS,  100,    CONFIDENCE_LVL,	FALSE },		
+		{ "ACTIVE",		do_active,      USERLVL_ANONYMOUS,  100,    CONFIDENCE_LVL,	FALSE },		
+		{ "FUCK",		do_fuck,        USERLVL_ANONYMOUS,  0,      SYMPA_LVL,		FALSE },		
+		{ "WHOAMI",		show_whoami,  	USERLVL_ANONYMOUS,	100,	-100,			FALSE },		
+		{ "INFO",		show_info,		USERLVL_ANONYMOUS,	100,	-50,			FALSE },		
+		{ "TIME",		show_time,		USERLVL_ANONYMOUS,	100,	-10,			FALSE },		
+		/* { "NRELADD", do_nreladd,     USERLVL_ANONYMOUS,  0,      -500,			FALSE },		*/
+		{ "LISTDCC",	do_listdcc,		USERLVL_ANONYMOUS,	100,	0,				TRUE  },		
+		{ "CHAT",		do_chat,		USERLVL_ANONYMOUS,	100,	0,				FALSE },		
+		/* { "SEND",	do_send,		USERLVL_ANONYMOUS,	100,	-10,			FALSE },		*/
 		/* These two are just aliases for ftp-dcc		 */
-		/* { "GET",		do_send,		USERLVL_ANONYMOUS,		100,	FALSE },		*/
-		/* { "MGET",	do_send,		USERLVL_ANONYMOUS,		100,	FALSE },		*/
+		/* { "GET",		do_send,		USERLVL_ANONYMOUS,	100,	-10,			FALSE },		*/
+		/* { "MGET",	do_send,		USERLVL_ANONYMOUS,	100,	-10,			FALSE },		*/
 		/* Some more ftp-dcc functions				 */
-		/* { "LS",		show_dir,		USERLVL_ANONYMOUS,		100,	TRUE  },		*/
-		/* { "PWD",		show_cwd,		USERLVL_ANONYMOUS,		100,	FALSE },		*/
-		/* { "CD",		do_cd,			USERLVL_ANONYMOUS,		100,	FALSE },		*/
-		/* { "QUEUE",	show_queue,		USERLVL_ANONYMOUS,		100,	TRUE  },		*/
-		/* { "FILES",	do_flist,       USERLVL_ANONYMOUS,      100,    TRUE  },		*/
-		/* { "FLIST",	do_flist,		USERLVL_ANONYMOUS,		100,	TRUE  },		*/
+		/* { "LS",		show_dir,		USERLVL_ANONYMOUS,	100,	-10,			TRUE  },		*/
+		/* { "PWD",		show_cwd,		USERLVL_ANONYMOUS,	100,	-10,			FALSE },		*/
+		/* { "CD",		do_cd,			USERLVL_ANONYMOUS,	100,	-10,			FALSE },		*/
+		/* { "QUEUE",	show_queue,		USERLVL_ANONYMOUS,	100,	-10,			TRUE  },		*/
+		/* { "FILES",	do_flist,       USERLVL_ANONYMOUS,  100,    -10,			TRUE  },		*/
+		/* { "FLIST",	do_flist,		USERLVL_ANONYMOUS,	100,	-10,			TRUE  },		*/
 		/* userlevel and dcc are dealt with within NOTE 	*/
-		{ "NOTE",	parse_note,		USERLVL_ANONYMOUS,		100,	TRUE  },
+		{ "NOTE",		parse_note,		USERLVL_ANONYMOUS,	100,	-10,			TRUE  },
 		/* userlevel and dcc are dealt with within GLOBAL 	*/
-		{ "GLOBAL",		parse_global,	USERLVL_ANONYMOUS,		100,	CONFIDENCE_LVL,	FALSE },		
-		{ "MYCMDS",		show_mycmds,    USERLVL_ANONYMOUS,      100,    -10,			TRUE  },		
+		{ "GLOBAL",		parse_global,	USERLVL_ANONYMOUS,	100,	CONFIDENCE_LVL,	FALSE },		
+		{ "MYCMDS",		show_mycmds,    USERLVL_ANONYMOUS,  100,    -10,			TRUE  },		
 		{ "STIMLIST",	do_stimlist,    USERLVL_REMOTE,     100,    SYMPA_LVL,		TRUE  },		
 		{ "REPLIST",	do_replist,     USERLVL_REMOTE,     100,    SYMPA_LVL,		TRUE  },		
 		{ "STIMDEL",	do_stimdel,     USERLVL_REMOTE,     0,      SYMPA_LVL,		FALSE },		
@@ -122,7 +122,7 @@ command_tbl on_msg_commands[] =
 		{ "SAY",		do_say,			USERLVL_REMOTE,		0,		CONFIDENCE_LVL,	FALSE },		
 		{ "ME",			do_me,          USERLVL_REMOTE,     0,      CONFIDENCE_LVL,	FALSE },		
 		{ "TOPIC",		do_topic,       USERLVL_REMOTE,     0,      SYMPA_LVL,		FALSE },		
-		{ "SEEN",		do_seen,		USERLVL_ANONYMOUS,		0,		SYMPA_LVL,		FALSE },		
+		{ "SEEN",		do_seen,		USERLVL_ANONYMOUS,	0,		SYMPA_LVL,		FALSE },		
 		{ "USERLIST",	show_userlist,	USERLVL_MODLIST,	100,	0,				TRUE  },		
 		{ "SHITLIST",	show_shitlist,	USERLVL_MODLIST,	100,	SYMPA_LVL,		TRUE  },		
 		{ "PROTLIST",	show_protlist,	USERLVL_MODLIST,	100,	CONFIDENCE_LVL,	TRUE  },		
@@ -139,43 +139,43 @@ command_tbl on_msg_commands[] =
 		{ "KICK",		do_kick,		USERLVL_MODLIST,	0,		SYMPA_LVL,		FALSE },		
 		{ "GIVEOP",		do_giveop,		USERLVL_MODLISTPOW,	0,		CONFIDENCE_LVL,	FALSE },		
 		{ "NUSERADD",	do_nuseradd,	USERLVL_MODLISTPOW,	0,		SYMPA_LVL,		FALSE },		
-		{ "LOCWRITE",	do_locwrite,    USERLVL_MODLISTPOW,    0,      SYMPA_LVL,		FALSE },		
+		{ "LOCWRITE",	do_locwrite,    USERLVL_MODLISTPOW, 0,      SYMPA_LVL,		FALSE },		
 		{ "USERDEL",	do_userdel,		USERLVL_MODLISTPOW,	0,		CONFIDENCE_LVL,	FALSE },		
 		{ "NSHITADD",	do_nshitadd,	USERLVL_MODLISTPOW,	0,		SYMPA_LVL,		FALSE },		
 		{ "SHITWRITE",	do_shitwrite,	USERLVL_MODLISTPOW,	0,		SYMPA_LVL,		FALSE },		
 		{ "SHITDEL",	do_shitdel,		USERLVL_MODLISTPOW,	0,		SYMPA_LVL,		FALSE },		
-		{ "PROTWRITE",	do_protwrite,   USERLVL_MODLISTPOW,    0,		SYMPA_LVL,		FALSE },		
-		{ "PROTDEL",	do_protdel,     USERLVL_MODLISTPOW,    0,		CONFIDENCE_LVL,	FALSE },		
+		{ "PROTWRITE",	do_protwrite,   USERLVL_MODLISTPOW, 0,		SYMPA_LVL,		FALSE },		
+		{ "PROTDEL",	do_protdel,     USERLVL_MODLISTPOW, 0,		CONFIDENCE_LVL,	FALSE },		
 		{ "BANUSER",	do_banuser,		USERLVL_MODLISTPOW,	0,		CONFIDENCE_LVL,	FALSE },		
 		{ "UNBAN",		do_unban,		USERLVL_MODLISTPOW,	0,		SYMPA_LVL,		FALSE },		
 		{ "OPEN",		do_open,		USERLVL_MODLISTPOW,	0,		CONFIDENCE_LVL,	FALSE },		
 		{ "LEAVE",		do_leave,		USERLVL_MODLISTPOW,	0,		SYMPA_LVL,		FALSE },		
 		{ "NICK",		do_nick,		USERLVL_MODLISTPOW,	0,		SYMPA_LVL,		FALSE },		
-		{ "REPLOAD",	do_repload,     USERLVL_MODLISTPOW,    0,      CONFIDENCE_LVL,	FALSE },		
+		{ "REPLOAD",	do_repload,     USERLVL_MODLISTPOW, 0,      CONFIDENCE_LVL,	FALSE },		
 		{ "USERADD",	do_useradd,		USERLVL_MODLISTPOW,	0,		CONFIDENCE_LVL,	FALSE },		
-		{ "LOGON",		do_logon,       USERLVL_MODLISTPOW,    0,      CONFIDENCE_LVL,	FALSE },		
-		{ "LOGOFF",		do_logoff,      USERLVL_MODLISTPOW,    0,      CONFIDENCE_LVL,	FALSE },		
+		{ "LOGON",		do_logon,       USERLVL_MODLISTPOW, 0,      CONFIDENCE_LVL,	FALSE },		
+		{ "LOGOFF",		do_logoff,      USERLVL_MODLISTPOW, 0,      CONFIDENCE_LVL,	FALSE },		
 		{ "JOIN",		do_join,		USERLVL_MODLISTPOW,	0,		CONFIDENCE_LVL,	FALSE },		
 		{ "SHITADD",	do_shitadd,		USERLVL_MODLISTPOW,	0,		CONFIDENCE_LVL,	FALSE },		
-		{ "SHOWLOCS",	do_showlocs,    USERLVL_POWERUSER,    0,      SYMPA_LVL,		TRUE  },		
-		{ "OUBLIE",		do_oublie,      USERLVL_POWERUSER,    0,      CONFIDENCE_LVL,	FALSE },		
-		{ "STIMLOAD",	do_stimload,    USERLVL_POWERUSER,    0,      CONFIDENCE_LVL,	FALSE },		
-		{ "PROTADD",	do_protadd,     USERLVL_POWERUSER,    0,		CONFIDENCE_LVL,	FALSE },		
-		{ "NPROTADD",	do_nprotadd,    USERLVL_POWERUSER,    0,		SYMPA_LVL,		FALSE },		
+		{ "SHOWLOCS",	do_showlocs,    USERLVL_POWERUSER,  0,      SYMPA_LVL,		TRUE  },		
+		{ "OUBLIE",		do_oublie,      USERLVL_POWERUSER,  0,      CONFIDENCE_LVL,	FALSE },		
+		{ "STIMLOAD",	do_stimload,    USERLVL_POWERUSER,  0,      CONFIDENCE_LVL,	FALSE },		
+		{ "PROTADD",	do_protadd,     USERLVL_POWERUSER,  0,		CONFIDENCE_LVL,	FALSE },		
+		{ "NPROTADD",	do_nprotadd,    USERLVL_POWERUSER,  0,		SYMPA_LVL,		FALSE },		
 		{ "CHANNELS",	show_channels,	USERLVL_POWERUSER,	0,		SYMPA_LVL,		FALSE },		
 		{ "MASSOP",		do_massop,		USERLVL_POWERUSER,	0,		SYMPA_LVL,		FALSE },		
 		{ "MASSDEOP",	do_massdeop,	USERLVL_POWERUSER,	0,		CONFIDENCE_LVL,	FALSE },		
 		{ "MASSKICK",	do_masskick,	USERLVL_POWERUSER,	0,		CONFIDENCE_LVL,	FALSE },		
 		{ "MASSUNBAN",	do_massunban,	USERLVL_POWERUSER,	0,		SYMPA_LVL,		FALSE },		
 		{ "SERVER",		do_server,		USERLVL_POWERUSER,	0,		SYMPA_LVL,		FALSE },		
-		{ "MSGLOGON",	do_msglogon,    USERLVL_POWERUSER,    0,      CONFIDENCE_LVL,	FALSE },		
-		{ "MSGLOGOFF",	do_msglogoff,   USERLVL_POWERUSER,    0,      CONFIDENCE_LVL,	FALSE },		
-		{ "COMCHAR",	do_comchar,     USERLVL_POWERUSER,    0,      CONFIDENCE_LVL,	FALSE },		
-		{ "BOTLOAD",	do_botload,     USERLVL_POWERUSER,    0,      CONFIDENCE_LVL,	FALSE },		
-		{ "BOTLIST",	do_showbots,    USERLVL_POWERUSER,    0,      SYMPA_LVL,		TRUE  },		
-		{ "BOTADD",		do_botadd,      USERLVL_POWERUSER,    0,      CONFIDENCE_LVL,	FALSE },		
-		{ "BOTDEL",		do_botdel,      USERLVL_POWERUSER,    0,      CONFIDENCE_LVL,	FALSE },		
-		{ "BOTWRITE",	do_botwrite,    USERLVL_POWERUSER,    0,      SYMPA_LVL,		FALSE },		
+		{ "MSGLOGON",	do_msglogon,    USERLVL_POWERUSER,  0,      CONFIDENCE_LVL,	FALSE },		
+		{ "MSGLOGOFF",	do_msglogoff,   USERLVL_POWERUSER,  0,      CONFIDENCE_LVL,	FALSE },		
+		{ "COMCHAR",	do_comchar,     USERLVL_POWERUSER,  0,      CONFIDENCE_LVL,	FALSE },		
+		{ "BOTLOAD",	do_botload,     USERLVL_POWERUSER,  0,      CONFIDENCE_LVL,	FALSE },		
+		{ "BOTLIST",	do_showbots,    USERLVL_POWERUSER,  0,      SYMPA_LVL,		TRUE  },		
+		{ "BOTADD",		do_botadd,      USERLVL_POWERUSER,  0,      CONFIDENCE_LVL,	FALSE },		
+		{ "BOTDEL",		do_botdel,      USERLVL_POWERUSER,  0,      CONFIDENCE_LVL,	FALSE },		
+		{ "BOTWRITE",	do_botwrite,    USERLVL_POWERUSER,  0,      SYMPA_LVL,		FALSE },		
 		/* Priviliged commands					*/	
 		{ "FORK",		do_fork,		USERLVL_BOTOWNER,	0,		-100,			FALSE },		
 		{ "REHASH",		do_rehash,		USERLVL_BOTOWNER,	0,		-100,			FALSE },		
@@ -746,121 +746,127 @@ void	on_kick(char *from, char *channel, char *nick, char *reason)
 
 void 	on_join(char *who, char *channel)
 {
-  static int NumPhrase = -1;
-  int Num;
-  int HeureCourante;
-  locuteur *Locuteur;
-  char **Reponse, **Reponse2;
-  char *NUS = NickUserStr(who);
-  char *pNUS = NUS;
+	static int NumPhrase = -1;
+	int Num;
+	int HeureCourante;
+	int pendingNotes;
+	locuteur *Locuteur;
+	char **Reponse, **Reponse2;
+	char *NUS = NickUserStr(who);
+	char *pNUS = NUS;
   
-  /* si c'est moi, je ne fais rien (je ne peux rien faire d'autre que
-     dire bonjour...) */
+	/* si c'est moi, je ne fais rien (je ne peux rien faire d'autre que
+	   dire bonjour...) */
   //  if(strcmp(NUS,currentbot->botname)==0) {
-  if(strcmp(get_token(&pNUS,"!"),currentbot->nick)==0) {
-	Reponse = malloc(6*sizeof(char *));
-	Reponse[0] = strdup("Bonjour à tous!");
-	Reponse[1] = strdup("Bonjour, c'est moi, %s.");
-	Reponse[2] = strdup(" La foule: «Ah, enfin!» :)");
-	Reponse[3] = strdup("Merci de m'accueillir avec bienveillance!");
-	Reponse[4] = strdup("Heureux de vous voir.");
-	Reponse[5] = strdup("Bonjour, ça va?");
-	Repondre(who, channel, +0, 6, Reponse, +0, 0, 0);
-	if(NUS)
-	  free(NUS);
-	return;
-  }
+	if(strcmp(get_token(&pNUS,"!"),currentbot->nick)==0) {
+		Reponse = malloc(6*sizeof(char *));
+		Reponse[0] = strdup("Bonjour à tous!");
+		Reponse[1] = strdup("Bonjour, c'est moi, %s.");
+		Reponse[2] = strdup(" La foule: «Ah, enfin!» :)");
+		Reponse[3] = strdup("Merci de m'accueillir avec bienveillance!");
+		Reponse[4] = strdup("Heureux de vous voir.");
+		Reponse[5] = strdup("Bonjour, ça va?");
+		Repondre(who, channel, +0, 6, Reponse, +0, 0, 0);
+		if(NUS)
+			free(NUS);
+		return;
+	}
 
 #ifdef DBUG
 	debug(LVL_NOTICE, "%s (%s) joined %s", getnick(who), who, channel);
 #endif
 
-  if(shitlevel(who) == 100)
-    {
-      char **RepPos, **RepNeg;
+	if(shitlevel(who) == 100){
+		char **RepPos, **RepNeg;
+		
+		ban_user(who, channel);
       
-      ban_user(who, channel);
-      
-      RepPos = malloc(3*sizeof(char *));
-      RepPos[0] = strdup("Tu n'as plus rien à faire ici, %s.");
-      RepPos[1] = strdup("Il m'est interdit de t'admettre en ces lieux, %s.");
-      RepPos[2] = strdup("Fais-toi enlever de ma liste noire, %s.");
-      RepNeg = malloc(3*sizeof(char *));
-      RepNeg[0] = strdup("Reste dehors, %s!");
-      RepNeg[1] = strdup("On ne veut plus de toi ici, %s!");
-      RepNeg[2] = strdup("Dégage, %s!");
-      KickerKicker(who, channel, 0, 3, RepPos, 0, 3, RepNeg);
-      if(NUS)
-	free(NUS);
-      return;
+		RepPos = malloc(3*sizeof(char *));
+		RepPos[0] = strdup("Tu n'as plus rien à faire ici, %s.");
+		RepPos[1] = strdup("Il m'est interdit de t'admettre en ces lieux, %s.");
+		RepPos[2] = strdup("Fais-toi enlever de ma liste noire, %s.");
+		RepNeg = malloc(3*sizeof(char *));
+		RepNeg[0] = strdup("Reste dehors, %s!");
+		RepNeg[1] = strdup("On ne veut plus de toi ici, %s!");
+		RepNeg[2] = strdup("Dégage, %s!");
+		KickerKicker(who, channel, 0, 3, RepPos, 0, 3, RepNeg);
+		if(NUS)
+			free(NUS);
+		return;
     }
 
-  if(userlevel(who) >= AUTO_OPLVL && shitlevel(who) == 0 && 
-     is_bot(currentbot->botlist, channel, who)) {
-    giveop(channel, getnick(who));
-    if(NUS)
-      free(NUS);
-    return;
-  }
+	if(userlevel(who) >= AUTO_OPLVL && shitlevel(who) == 0 && 
+	   is_bot(currentbot->botlist, channel, who)) {
+		giveop(channel, getnick(who));
+		if(NUS)
+			free(NUS);
+		return;
+	}
 
-  Locuteur = LocuteurExiste(currentbot->lists->ListeLocuteurs, who);
-  if(!Locuteur)
-    Locuteur = AjouteLocuteur(currentbot->lists->ListeLocuteurs,
-			       NUS);
+	Locuteur = LocuteurExiste(currentbot->lists->ListeLocuteurs, who);
+	if(!Locuteur)
+		Locuteur = AjouteLocuteur(currentbot->lists->ListeLocuteurs,
+								  NUS);
   
-  HeureCourante = time2hours(time(NULL));
+	HeureCourante = time2hours(time(NULL));
   
-  if(rellevel(who) > SYMPA_LVL &&
-	 !is_bot(currentbot->botlist, channel, who)) {
-    NumPhrase++;
-    /* Si ca fait plus de 8 heures qu'on n'a pas entendu le locuteur */
-    if(HeureCourante-Locuteur->DernierContact > 8) {
-      Reponse = malloc(6*sizeof(char *));
-      Reponse[0] = strdup("Salut %s.");
-      Reponse[1] = strdup("Bienvenue à toi, %s.");
-      Reponse[2] = strdup("Enfin de retour, %s! :)");
-      Reponse[3] = strdup("Super! %s est arrivé!");
-      Reponse[4] = strdup("Heureux de te voir, %s!");
-      Reponse[5] = strdup("Bonjour %s.");
+	if(rellevel(who) > SYMPA_LVL &&
+	   !is_bot(currentbot->botlist, channel, who)) {
+		NumPhrase++;
+		/* Si ca fait plus de HOURS_BETWEEN_SALUTES heures qu'on n'a pas entendu le locuteur */
+		if(HeureCourante-Locuteur->DernierContact > HOURS_BETWEEN_SALUTES) {
+			Reponse = malloc(6*sizeof(char *));
+			Reponse[0] = strdup("Salut %s.");
+			Reponse[1] = strdup("Bienvenue à toi, %s.");
+			Reponse[2] = strdup("Enfin de retour, %s! :)");
+			Reponse[3] = strdup("Super! %s est arrivé!");
+			Reponse[4] = strdup("Heureux de te voir, %s!");
+			Reponse[5] = strdup("Bonjour %s.");
       
-      Repondre(who, channel, +0, 6, Reponse, +0, 0, 0);
-      if(!LocuteurExiste(currentbot->lists->ListeLocuteurs, who))
-	Locuteur = AjouteLocuteur(currentbot->lists->ListeLocuteurs,
-				   NUS);
-      Locuteur->Bonjours = 1;
-    } else {
-      Reponse = malloc(8*sizeof(char *));
-      Reponse[0] = strdup("re %s.");
-      Reponse[1] = 0;
-      Reponse[2] = strdup("Areuh %s.");
-      Reponse[3] = 0;
-      Reponse[4] = strdup("Bon retour parmi nous, %s!");
-      Reponse[5] = strdup("Tiens! Revoila %s. :)");
-      Reponse[6] = strdup("Super! %s est de retour!");
-      Reponse[7] = 0;
+			Repondre(who, channel, +0, 6, Reponse, +0, 0, 0);
+			if(!LocuteurExiste(currentbot->lists->ListeLocuteurs, who))
+				Locuteur = AjouteLocuteur(currentbot->lists->ListeLocuteurs,
+										  NUS);
+			Locuteur->Bonjours = 1;
+		} else {
+			Reponse = malloc(8*sizeof(char *));
+			Reponse[0] = strdup("re %s.");
+			Reponse[1] = 0;
+			Reponse[2] = strdup("Areuh %s.");
+			Reponse[3] = 0;
+			Reponse[4] = strdup("Bon retour parmi nous, %s!");
+			Reponse[5] = strdup("Tiens! Revoila %s. :)");
+			Reponse[6] = strdup("Super! %s est de retour!");
+			Reponse[7] = 0;
       
-      Repondre(who, channel, +0, 8, Reponse, +0, 0, 0);
-    }
-  } else if(rellevel(who) < -SYMPA_LVL
-		   && HeureCourante - Locuteur->DernierContact > 8
-		   && !is_bot(currentbot->botlist, channel, who)) {
-    Reponse2 = malloc(7*sizeof(char *));
-    Reponse2[0] = strdup("%s: Grrrr");
-    Reponse2[1] = strdup("T'ose encore revenir ici, %s? T'es gonflé!");
-    Reponse2[2] = strdup("Oh! Non! %s! :[");
-    Reponse2[3] = strdup("Zut! %s est arrivé!");
-    Reponse2[4] = strdup("Encore toi, %s! :(");
-    Reponse2[5] = strdup("Je ne te souhaite pas le bonjour %s.");
-    Reponse2[6] = strdup("T'as intérêt à t'excuser, %s.");
+			Repondre(who, channel, +0, 8, Reponse, +0, 0, 0);
+		}
+	} else if(rellevel(who) < -SYMPA_LVL
+			  && HeureCourante - Locuteur->DernierContact > 8
+			  && !is_bot(currentbot->botlist, channel, who)) {
+		Reponse2 = malloc(7*sizeof(char *));
+		Reponse2[0] = strdup("%s: Grrrr");
+		Reponse2[1] = strdup("T'ose encore revenir ici, %s? T'es gonflé!");
+		Reponse2[2] = strdup("Oh! Non! %s! :[");
+		Reponse2[3] = strdup("Zut! %s est arrivé!");
+		Reponse2[4] = strdup("Encore toi, %s! :(");
+		Reponse2[5] = strdup("Je ne te souhaite pas le bonjour %s.");
+		Reponse2[6] = strdup("T'as intérêt à t'excuser, %s.");
     
-    Repondre(who, channel, +0, 0, 0, +0, 7, Reponse2);
-    if(!LocuteurExiste(currentbot->lists->ListeLocuteurs, who))
-      Locuteur = AjouteLocuteur(currentbot->lists->ListeLocuteurs,
-				 NUS);
-    Locuteur->Bonjours = 1;
-  }
-  if(NUS)
-    free(NUS);
+		Repondre(who, channel, +0, 0, 0, +0, 7, Reponse2);
+		if(!LocuteurExiste(currentbot->lists->ListeLocuteurs, who))
+			Locuteur = AjouteLocuteur(currentbot->lists->ListeLocuteurs,
+									  NUS);
+		Locuteur->Bonjours = 1;
+	}
+	
+	if((pendingNotes = note_exist(who))){
+		send_to_user(who, "Vous avez %d messages en attente.", pendingNotes);
+		send_to_user(who, "Pour la liste des messages : /msg %s note list", currentbot->nick);
+	}
+	
+	if(NUS)
+		free(NUS);
 }
 
 void	on_mode(char *from, char *rest)
