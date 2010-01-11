@@ -184,7 +184,7 @@
 /* Standard stuff ---------------------------------------------------
    don't change anything below here
 */
-#define VERSION		"2.1sk-lua2"
+#define VERSION		"2.2-lua"
 
 #define MAXLEN		255
 #define WAYTOBIG    1024
