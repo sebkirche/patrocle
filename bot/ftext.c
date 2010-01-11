@@ -81,11 +81,14 @@ void	translate_escape(char *s, char c)
 			strcat(s, "\002");
 			break;
 		case 'u':
-			strcat(s, "\031");
+			strcat(s, "\037");//031
 			break;
 		case 'i':
-			strcat(s, "\022");
+			strcat(s, "\026");//022
 			break;
+		//case 'r':
+		//	strcat(s, "\022");
+		//	break;
 		case 'n':
 #ifdef STAND_ALONE
 			strcat(s, "(botname)");
@@ -192,6 +195,9 @@ char	*get_ftext(FILE *ffile )
 				break;	
 			case '#':
 				skipcomment(ffile);
+				break;
+			case '\t':
+				strcat(ftext, "      ");//FIXME: better way / replacing code ?
 				break;
 			case '\n':
 				return(ftext);
