@@ -252,17 +252,31 @@
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
-		D28A88AD04BDD90700651E21 /* patrocle */ = {
+		BE34C1E210FBD6E60049004E /* help viewer */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "";
-			buildConfigurationList = 1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "patrocle" */;
+			buildArgumentsString = help;
+			buildConfigurationList = BE34C1E310FBD6E60049004E /* Build configuration list for PBXLegacyTarget "help viewer" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
 			buildWorkingDirectory = bot;
 			dependencies = (
 			);
-			name = patrocle;
+			name = "help viewer";
+			passBuildSettingsInEnvironment = 1;
+			productName = patrocle;
+		};
+		D28A88AD04BDD90700651E21 /* bot */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = bot;
+			buildConfigurationList = 1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "bot" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = bot;
+			dependencies = (
+			);
+			name = bot;
 			passBuildSettingsInEnvironment = 1;
 			productName = patrocle;
 		};
@@ -278,7 +292,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D28A88AD04BDD90700651E21 /* patrocle */,
+				D28A88AD04BDD90700651E21 /* bot */,
+				BE34C1E210FBD6E60049004E /* help viewer */,
 			);
 		};
 /* End PBXProject section */
@@ -334,10 +349,36 @@
 			};
 			name = Release;
 		};
+		BE34C1E410FBD6E60049004E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = patrocle;
+			};
+			name = Debug;
+		};
+		BE34C1E510FBD6E60049004E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = patrocle;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "patrocle" */ = {
+		1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "bot" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB919008733D9F0010E9CD /* Debug */,
@@ -351,6 +392,15 @@
 			buildConfigurations = (
 				1DEB919408733D9F0010E9CD /* Debug */,
 				1DEB919508733D9F0010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BE34C1E310FBD6E60049004E /* Build configuration list for PBXLegacyTarget "help viewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE34C1E410FBD6E60049004E /* Debug */,
+				BE34C1E510FBD6E60049004E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

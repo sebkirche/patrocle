@@ -680,7 +680,7 @@ void	send_pings()
 				   PINGSENDINTERVAL){
 #ifdef DBUG
 					debug(LVL_NOTICE, 
-						  "send_pings(): Sending ping to server %s[%s]",
+						  "send_ping(): Sending ping to server %s[%s]",
 						  currentbot->serverlist[currentbot->current_server].realname,
 	         	            currentbot->serverlist[currentbot->current_server].name);
 #endif
