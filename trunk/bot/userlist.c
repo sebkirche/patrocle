@@ -189,7 +189,7 @@ void cancel_level(USERLVL_list **l_list, int level)
 	}
 }
 
-int	write_lvllist(USERLVL_list **l_list, char *filename)
+int	write_lvllist(USERLVL_list **l_list, char *filename, sort_type sort)
 {
 	USERLVL_list	* dummy;
 	time_t	T;
@@ -198,7 +198,7 @@ int	write_lvllist(USERLVL_list **l_list, char *filename)
 	if ((list_file = fopen(filename, "w")) == NULL)
 		return (FALSE);
 
-	*l_list = sort_list(*l_list);
+	sort_list(l_list, sort);
 	
 	T = time((time_t *) NULL);
 
@@ -210,7 +210,7 @@ int	write_lvllist(USERLVL_list **l_list, char *filename)
 
 	for (dummy = *l_list; dummy; dummy = dummy->next)
 		fprintf(list_file,
-		         " %40s %d\n", dummy->userhost, dummy->access);
+		         " %45s %d\n", dummy->userhost, dummy->access);
 
 	fprintf(list_file, "# End of %s\n", filename);
 	fclose(list_file);
@@ -218,11 +218,14 @@ int	write_lvllist(USERLVL_list **l_list, char *filename)
 	return (TRUE);
 }
 
-/* implementation of a list sort, from "Mergesort For Linked Lists"
-	by Simon Tatham
-	http://www.chiark.greenend.org.uk/~sgtatham/algorithms/listsort.html
+/* implementation of a linked list sort, 
+   from "Mergesort For Linked Lists" by Simon Tatham
+   http://www.chiark.greenend.org.uk/~sgtatham/algorithms/listsort.html
+ 
+   the sort consist of a elt_cmp() to compare 2 elements
+   and sort_list() that sort the list
 */
-int cmp(USERLVL_list *a, USERLVL_list *b)
+int elt_cmp(USERLVL_list *a, USERLVL_list *b)
 {
 	/*
 	 * Compare two list elements
@@ -240,40 +243,23 @@ int cmp(USERLVL_list *a, USERLVL_list *b)
 	return ret;
 }
 
-USERLVL_list *sort_list(USERLVL_list *list)
+void sort_list(USERLVL_list **list, sort_type sort)
 {
 	/*
 	 * Sort of a user list
-	 *
-	 * Notice that it returns the new head of the list. 
-	 * (It has to, because the head will not
-	 * generally be the same element after the sort.) So unlike sorting
-	 * an array, where you can do
-	 * 
-	 *     sort(myarray);
-	 * 
-	 * you now have to do
-	 * 
-	 *     list = listsort(mylist);
 	 */
-	
-	//TODO: do not return the new head, sort in place by working on a USERLVL_list**
 	
 	USERLVL_list *p, *q, *e, *tail;
-	int insize, nmerges, psize, qsize, i;
+	int insize, nmerges, psize, qsize, i, cmp;
 	
-	/*
-	 * Silly special case: if `list' was passed in as NULL, return
-	 * NULL immediately.
-	 */
-	if (!list)
-		return NULL;
+	if (!list || !*list)
+		return;
 	
 	insize = 1;
 	
 	while (1) {
-		p = list;
-		list = NULL;
+		p = *list;
+		*list = NULL;
 		tail = NULL;
 		
 		nmerges = 0;  /* count number of merges we do in this pass */
@@ -307,24 +293,27 @@ USERLVL_list *sort_list(USERLVL_list *list)
 					e = p;
 					p = p->next;
 					psize--;
-				} else if (cmp(p, q) <= 0) {
-					/* First element of p is lower (or same);
-					 * e must come from p. */
-					e = p;
-					p = p->next;
-					psize--;
 				} else {
-					/* First element of q is lower; e must come from q. */
-					e = q;
-					q = q->next;
-					qsize--;
+					cmp = elt_cmp(p, q);
+					if ((cmp <= 0 && sort == SORT_ASC) || (cmp >= 0 && sort == SORT_DESC)) {
+						/* First element of p is lower (or same);
+						 * e must come from p. */
+						e = p;
+						p = p->next;
+						psize--;
+					} else {
+						/* First element of q is lower; e must come from q. */
+						e = q;
+						q = q->next;
+						qsize--;
+					}
 				}
 				
 				/* add the next element to the merged list */
 				if (tail) {
 					tail->next = e;
 				} else {
-					list = e;
+					*list = e;
 				}
 				tail = e;
 			}
@@ -336,7 +325,7 @@ USERLVL_list *sort_list(USERLVL_list *list)
 		
 		/* If we have done only one merge, we're finished. */
 		if (nmerges <= 1)   /* allow for nmerges==0, the empty list case */
-			return list;
+			return;
 		
 		/* Otherwise repeat, merging lists twice the size */
 		insize *= 2;
