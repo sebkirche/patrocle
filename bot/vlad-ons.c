@@ -107,7 +107,7 @@ command_tbl on_msg_commands[] =
 		/* { "FILES",	do_flist,       USERLVL_ANONYMOUS,  100,    -10,			TRUE  },		*/
 		/* { "FLIST",	do_flist,		USERLVL_ANONYMOUS,	100,	-10,			TRUE  },		*/
 		/* userlevel and dcc are dealt with within NOTE 	*/
-		{ "NOTE",		parse_note,		USERLVL_ANONYMOUS,	100,	-10,			TRUE  },
+		{ "NOTE",		parse_note,		USERLVL_ANONYMOUS,	100,	-10,			FALSE /*FIXME: should be TRUE*/  },
 		/* userlevel and dcc are dealt with within GLOBAL 	*/
 		{ "GLOBAL",		parse_global,	USERLVL_ANONYMOUS,	100,	CONFIDENCE_LVL,	FALSE },		
 		{ "MYCMDS",		show_mycmds,    USERLVL_ANONYMOUS,  100,    -10,			TRUE  },		
@@ -810,7 +810,7 @@ void 	on_join(char *who, char *channel)
   
 	HeureCourante = time2hours(time(NULL));
   
-	if(rellevel(who) > SYMPA_LVL &&
+	if(rellevel(who) >= SYMPA_LVL &&
 	   !is_bot(currentbot->botlist, channel, who)) {
 		NumPhrase++;
 		/* Si ca fait plus de HOURS_BETWEEN_SALUTES heures qu'on n'a pas entendu le locuteur */
@@ -2089,7 +2089,8 @@ void	do_useradd(char *from, char *to, char *rest){
 
 void    do_userwrite(char *from, char *to, char *rest){
 	if(!write_lvllist(currentbot->lists->opperlist, 
-					  currentbot->lists->opperfile))
+					  currentbot->lists->opperfile,
+					  SORT_DESC))
 		send_to_user(from, "Userlist could not be written to file %s", 
 					 currentbot->lists->opperfile);
 	else
@@ -2194,7 +2195,8 @@ void	do_shitadd(char *from, char *to, char *rest){
 
 void	do_shitwrite(char *from, char *to, char *rest){
 	if(!write_lvllist(currentbot->lists->shitlist, 
-					  currentbot->lists->shitfile))
+					  currentbot->lists->shitfile,
+					  SORT_DESC))
 		send_to_user(from, "Shitlist could not be written to file %s", 
 					 currentbot->lists->shitfile);
 	else
@@ -2282,7 +2284,8 @@ void    do_protadd(char *from, char *to, char *rest){
 
 void    do_protwrite(char *from, char *to, char *rest){
 	if(!write_lvllist(currentbot->lists->protlist, 
-					  currentbot->lists->protfile))
+					  currentbot->lists->protfile,
+					  SORT_DESC))
 		send_to_user(from, "Protlist could not be written to file %s", 
 					 currentbot->lists->protfile);
 	else
@@ -2574,7 +2577,8 @@ void    do_reldel(char *from, char *to, char *rest){
 
 void    do_relwrite(char *from, char *to, char *rest){
 	if(!write_lvllist(currentbot->lists->rellist,
-					  currentbot->lists->relfile))
+					  currentbot->lists->relfile,
+					  SORT_DESC))
 		send_to_user(from, "Rellist could not be written to file %s", 
 					 currentbot->lists->relfile);
 	else
@@ -2886,16 +2890,20 @@ void	signoff(char *from, char *reason){
 	}
 	send_to_user(fromcpy, "Saving lists...");
 	if(!write_lvllist(currentbot->lists->opperlist, 
-					  currentbot->lists->opperfile))
+					  currentbot->lists->opperfile,
+					  SORT_DESC))
 		send_to_user(fromcpy, "Could not save opperlist");
 	if(!write_lvllist(currentbot->lists->shitlist, 
-					  currentbot->lists->shitfile))
+					  currentbot->lists->shitfile,
+					  SORT_DESC))
 		send_to_user(fromcpy, "Could not save shitlist");
 	if(!write_lvllist(currentbot->lists->protlist, 
-					  currentbot->lists->protfile))
+					  currentbot->lists->protfile,
+					  SORT_DESC))
 		send_to_user( fromcpy, "Could not save protlist");
 	if(!write_lvllist(currentbot->lists->rellist, 
-					  currentbot->lists->relfile))
+					  currentbot->lists->relfile,
+					  SORT_DESC))
 		send_to_user( fromcpy, "Could not save rellist");
 	if(!SauveLocuteurs(currentbot->lists->ListeLocuteurs,
 						 currentbot->lists->locuteurfile))
