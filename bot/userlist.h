@@ -39,6 +39,7 @@ void			add_to_level(USERLVL_list **l_list, const char *userhost, int humeur );
 void			show_lvllist( USERLVL_list **l_list, char *from, char *userhost );
 void			cancel_level( USERLVL_list **l_list, int level );
 int				write_lvllist( USERLVL_list **l_list, char *filename );
+USERLVL_list *sort_list(USERLVL_list *list);
 
 #endif /* USERLIST_H */
 
