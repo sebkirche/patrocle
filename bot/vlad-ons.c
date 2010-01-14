@@ -2,7 +2,7 @@
  vlad-ons.c - kinda like /on ^.. in ircII
  Copyright (C) 1993, 1994 VladDrac (irvdwijk@cs.vu.nl)
  Copyright (C) 1996, 1997, 1998 François Parmentier
- Copyright (C) 2009 Sébastien Kirche 
+ Copyright (C) 2009, 2010 Sébastien Kirche 
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -66,6 +66,7 @@ extern	int	number_of_bots;
 extern	int	rehash;
 extern	long	uptime;
 extern	char	*botmaintainer;
+extern	char	*botmaintainername;
 extern  short   logging;
 extern  char    CommandChar;
 extern char	*months[];
@@ -662,7 +663,6 @@ void    KickerKicker(char *from, char *to,
 
 void	on_kick(char *from, char *channel, char *nick, char *reason)
 {
-  locuteur *Locuteur;
   char **RepPos, **RepNeg;
   /*
    * If user A kicks user B then kick user A if B was protected
@@ -747,7 +747,6 @@ void	on_kick(char *from, char *channel, char *nick, char *reason)
 void 	on_join(char *who, char *channel)
 {
 	static int NumPhrase = -1;
-	int Num;
 	int HeureCourante;
 	int pendingNotes;
 	locuteur *Locuteur;
@@ -884,8 +883,8 @@ void	on_mode(char *from, char *rest)
 		strcat(unplusparams, " ");							\
 	} while(0)
 {
-    static  int NumPhrase = 0;
-	int     Numero;
+    /*static  int NumPhrase = 0;
+	int     Numero;*/
 	int	did_change=FALSE;	/* If we have to change anything */
 	char	*channel;
 
@@ -1300,11 +1299,11 @@ void	show_whoami(char *from, char *to, char *rest)
 
 void	show_info(char *from, char *to, char *rest)
 {
-	sendreply("I am VladBot version %s (%s)", VERSION, currentbot->botname);
+	sendreply("I am modified VladBot version %s (%s)", VERSION, currentbot->botname);
 	sendreply("Started: %-20.20s", time2str(currentbot->uptime));
 	sendreply("Up: %s", idle2str(time(NULL)-currentbot->uptime));
 	if(botmaintainer)
-		sendreply("This bot is maintained by %s", botmaintainer);
+		sendreply("This bot is maintained by %s <%s>", botmaintainername?botmaintainername:"", botmaintainer);
         return;
 }
 
@@ -1968,7 +1967,7 @@ void    do_comchar(char *from, char *to, char *rest){
 }
 
 void    show_whois(char *from, char *to, char *rest){
-	char *nuh;
+	//char *nuh;
 
 	if(rest == NULL){
 		send_to_user(from, "Please specify a user");
@@ -2324,13 +2323,14 @@ void    do_nreladd(char *from, char *to, char *rest){
   }
   
   {
-    char	*nick;
+	  
+    /*char	*nick;
     char	*user;
     char	*host;
-    char	*domain;
+    char	*domain;*/
     char	*userstr;
-    char i;
-    int numbers = FALSE;
+    /*char i;
+    int numbers = FALSE;*/
     int inewlevel;
     int ioldlevel;
     /*
@@ -2918,7 +2918,6 @@ void	signoff(char *from, char *reason){
 }
 
 void	do_apprends(char *from, char *to, char *rest) {
-	static int DEJAPASSE = 0;
 
 	char chaine[MAXLEN];
 	char repinter[MAXLEN];
@@ -3361,7 +3360,7 @@ int ChaineEstDans(const char *aFouiller, const char *aChercher) {
 	char *p;
 	char *GuillemetsO = 0;
 	char *GuillemetsF = 0;
-	char *c;
+	//char *c;
 	static int DernierNumPhrase = -1;
 
 	/* normalement c'est fait en amont
@@ -3420,127 +3419,36 @@ void    Traite(char *from, char *to, char *msg){
   int j;
   int NbRep = 0;
   int Num;
-  int Numero;
-  int Humeur;
-  int Nouveau;
   int NOM        = FALSE;
-  int BONJOUR    = FALSE;
-  int SALUT      = FALSE;
-  int JE_RESTE = FALSE;
-  int CAVA       = FALSE;
-  int AUREVOIR   = FALSE;
-  int JE_M_EN_VAIS = FALSE;
   int MERCI      = FALSE;
   int BONNE_ANNEE= FALSE;
-  int INJURE     = FALSE;
-  int PARLER     = FALSE;
-  int ENGLISH    = FALSE;
-  int FRENCH     = FALSE;
-  int SWEDISH    = FALSE;
   int COMPLIMENT = FALSE;
-  int BEBE       = FALSE;
-  int TOUTSEUL   = FALSE;
-  int HABITE     = FALSE;
-  int NANCY      = FALSE;
-  int FRANCE     = FALSE;
-  int PARENTS    = FALSE;
   int QUEL_ENDROIT = FALSE; /* ou ? where? */
-  int ENNUI      = FALSE;
-  int REVEILLE_TOI = FALSE;
-  int DORMIR     = FALSE;
-  int QUELQUUN   = FALSE;
   int ILYA       = FALSE; /* Il y a, est la, there, ici */
-  int CALME      = FALSE;
-  int TAISTOI    = FALSE;
-  int LANGUE     = FALSE;
-  int BONSOIR    = FALSE;
-  int BONAPP     = FALSE;
-  int VAIS_MANGER = FALSE;
-  int ENERVEMENT = FALSE;
-  int LORIA      = FALSE;
-  int ABOIRE     = FALSE;
-  int REPONDRE   = FALSE;
   int LISTE_STIMULI = FALSE;
   int TESTE_STIMULI = FALSE;
   int LISTE_REPONSES = FALSE;
-  int EXCUSE     = FALSE;
   int MOI        = FALSE;
-  int DACCORD    = FALSE;
-  int PASVRAI    = FALSE;
   int NEGATION   = FALSE;
   int ES_TU      = FALSE;
-  int UN_BOT     = FALSE;
-  int UN_MEC     = FALSE;
-  int HUMAIN     = FALSE;
-  int MORT       = FALSE;
-  int MALADE     = FALSE;
-  int FOU        = FALSE; 
-  int UNE_FILLE  = FALSE;
-  int HEURE      = FALSE;
-  int AGE        = FALSE;
   int AS_TU      = FALSE;
-  int PENSER     = FALSE;
-  int ECOUTER    = FALSE;
-  int MUSIQUE    = FALSE;
-  int AMI         = FALSE;
-  int COPINE      = FALSE;
-  int FAIM        = FALSE;
-  int SOIF        = FALSE;
-  int BIERE       = FALSE;
   int BIENVENUE   = FALSE; /* Aussi Bon retour */
-  int PIRATE      = FALSE;
-  int WAREZ       = FALSE;
-  int STP         = FALSE;
-  int GRAND       = FALSE;
-  int LIBRE       = FALSE;
-  int CE_SOIR     = FALSE;
   int AIMES_TU    = FALSE;
   int M_AIMES_TU  = FALSE;
-  int CONNAIS_TU  = FALSE;
   int SOURIRE     = FALSE;
-  int FAIS_TU     = FALSE;
-  int CAFE        = FALSE;
   int MOUARF      = FALSE; /* Joli chien-chien */
   int CLINDOEIL   = FALSE;
   int ETTOI = FALSE; /* Et toi? */
-  int EXTRAITSTJOHNPERSE = FALSE;
-  int PRESENT = FALSE;
-  int SOURD = FALSE;
-  int RIENCOMPRIS = FALSE;
-  int POURQUOI = FALSE;
   int QUESTION = FALSE; /* es-tu as-tu est-ce-que est-il comment pourquoi suis-je ais-tu ? */
-  int CROIS_TU = FALSE;
-  int FATIGUE = FALSE;
   int SOUHAIT = FALSE; /* Positif: Porte-toi bien */
-  int ROSE = FALSE; /*  @>---,--`-- @>---,---`--- -> Thutmosis*/
-  int JALOUX = FALSE;
-  int INDILILI = FALSE; /* indiii indiii lilililililililililililili */
   int QUI = FALSE; /* Qui es-tu? */
   int JESUIS = FALSE;
-  int TU_ES = FALSE;
-  int FONCTION_SAY = FALSE;
-  int FONCTION_FUCK = FALSE;
   int FONCTION = FALSE;
-  int TU_FAIS = FALSE;
-  int TALON = FALSE; /* Jeux de mots Achille Talon -> BD */
-  int QUEST_CE = FALSE;
-  int QUOI = FALSE;
-  int C_EST = FALSE;
-  int ROT = FALSE;
-  int REPONDS = FALSE;
-  int JE_T_AIME = FALSE;
   int VEUX = FALSE; /* Ouin. Je VEUX que tu ... , j'ORDONNE*/
-  int CRIN = FALSE; /* Centre de Recherche en Informatique de Nancy */
   int VIVE = FALSE; /* Viva! Rules rulezz */
-  int WINTEL = FALSE;
-  int AMIGA = FALSE;
   int FRONT_NATIONAL = FALSE; /* Argh! */
-  int GROS_MOT = FALSE;
-  int CONTRE = FALSE;
-  int TU_BOUDES = FALSE;
   int SACRE = FALSE;
   int QUI_EST = FALSE;
-  int TON_MAITRE = FALSE;
   int TU_AS = FALSE;
   int RAISON = FALSE;
   int SAIS_TU = FALSE;
@@ -3552,9 +3460,6 @@ void    Traite(char *from, char *to, char *msg){
   int TRICHEUR = FALSE;
   int MAUVAIS_JOUEUR = FALSE;
   int PLEURER = FALSE;
-  int MODESTE = FALSE;
-  int CONTENT = FALSE;
-  int JE_TE_DETESTE = FALSE;
   int ACHILLE = FALSE;
   char *NUS = NickUserStr(from);
 

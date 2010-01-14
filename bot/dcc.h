@@ -2,7 +2,7 @@
  dcc.h - an effort to implement dcc (at least chat) in VladBot
  Copyright (C) 1993 VladDrac (irvdwijk@cs.vu.nl)
  Copyright (C) 1996, 1997 François Parmentier
- Copyright (C) 2009 Sébastien Kirche 
+ Copyright (C) 2009, 2010 Sébastien Kirche 
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -69,7 +69,7 @@ typedef	struct DCC_struct
 	long	starttime;
 } DCC_list;
 
-DCC_list	*search_list(char *name, char *user, unsigned int type);
+DCC_list	*search_list(const char *name, const char *user, unsigned int type);
 int		do_dcc( DCC_list *Client );
 void	reply_dcc( char *from, char *to, char *rest );
 void	show_dcclist( char *from );
@@ -81,7 +81,7 @@ void    register_dcc_offer( char *from, char *type, char *description,
 								char *inetaddr, char *port, char *size );
 void	parse_dcc( fd_set *read_fds );
 void	process_dcc( char *from, char *rest );
-void	dcc_chat( char *from, char *rest );
+void	dcc_chat( const char *from, const char *rest );
 int		send_chat(const char *to,const char *text );
 void	dcc_sendfile( char *from, char *rest );
 void	dccset_fds(fd_set *rds, fd_set *wds);
