@@ -1,7 +1,7 @@
 /*
  cfgfile.c - Simple parser for configfile
  Copyright (C) 1993, 1994 VladDrac (irvdwijk@cs.vu.nl)
- Copyright (C) 2009 Sébastien Kirche 
+ Copyright (C) 2009, 2010 Sébastien Kirche 
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -115,6 +115,7 @@ extern	int	waittimeout;
 extern	int	maxuploadsize;
 extern	char	*notefile;
 extern	char	*botmaintainer;
+extern	char	*botmaintainername;
 
 static	botinfo		*defaultbot = NULL;
 static	listinfo	*defaultset = NULL;
@@ -629,7 +630,7 @@ void	set_globaldebug(char *s)
 void	get_maintainer()
 {
 	char	name[MAXLEN];
-	if(get_globalstr("maintainer")){
+	if(get_globalstr("maintainer_addr")){
 		if(botmaintainer)
 			free(botmaintainer);
 		memset(name, 0, sizeof(name));
@@ -638,6 +639,16 @@ void	get_maintainer()
 		lua_pop(L, 1);
 		cfg_debug(LVL_NOTICE, "Setting maintainer to \"%s\"", botmaintainer);
 	}
+	if(get_globalstr("maintainer_name")){
+		if(botmaintainername)
+			free(botmaintainername);
+		memset(name, 0, sizeof(name));
+		strncpy(name, lua_tostring(L, -1), MAXLEN - 1);
+		mstrcpy(&botmaintainername, name);		
+		lua_pop(L, 1);
+		cfg_debug(LVL_NOTICE, "Setting maintainer name to \"%s\"", botmaintainername);
+	}
+	
 }
 
 // Assigns value to variable.

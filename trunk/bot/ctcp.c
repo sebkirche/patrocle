@@ -2,7 +2,7 @@
  ctcp.c - deals with most of the ctcp stuff (except for DCC).
  Copyright (C) 1993 VladDrac (irvdwijk@cs.vu.nl)
  Copyright (C) 1996, 1997 François Parmentier
- Copyright (C) 2009 Sébastien Kirche 
+ Copyright (C) 2009, 2010 Sébastien Kirche 
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by

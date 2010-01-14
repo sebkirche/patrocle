@@ -2,7 +2,7 @@
  VladBot  - servicebot for IRC.
  Copyright (C) 1993, 1994 VladDrac (irvdwijk@cs.vu.nl)
  Copyright (C) 1996, 1997, 1998 François Parmentier (H_I)
- Copyright (C) 2009 Sébastien Kirche 
+ Copyright (C) 2009, 2010 Sébastien Kirche 
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -68,6 +68,7 @@ extern  short   logging;
 
 long	uptime;
 char	*botmaintainer = NULL;
+char	*botmaintainername = NULL;
 static	botinfo		*botlist[MAXBOTS];
 static	listinfo	*listset[MAXBOTS];
 botinfo 	*currentbot;

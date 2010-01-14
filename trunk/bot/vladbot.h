@@ -2,7 +2,7 @@
  VladBot  - servicebot for IRC.
  Copyright (C) 1993, 1994 VladDrac (irvdwijk@cs.vu.nl)
  Copyright (C) 1996, 1997, 1998 François Parmentier (H_I)
- Copyright (C) 2009 Sébastien Kirche 
+ Copyright (C) 2009, 2010 Sébastien Kirche 
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -109,8 +109,7 @@ struct	botstruct
 	BOT_list **botlist;
 };
 
-
-typedef struct botstruct	botinfo;	
+typedef struct botstruct	botinfo;
 
 int	find_channel(botinfo *bot, char *channel);
 int	add_channel_to_bot(botinfo *bot, char *channel, char *topic, char *mode, char *encoding);

@@ -1,6 +1,6 @@
 /*
  luainterface.h - Interface between the bot and lua
- Copyright (C) 2009 Sébastien Kirche 
+ Copyright (C) 2009, 2010 Sébastien Kirche 
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by

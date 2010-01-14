@@ -2,7 +2,7 @@
  dcc.c - an effort to implement dcc (at least chat) in VladBot
  Copyright (C) 1993 VladDrac (irvdwijk@cs.vu.nl)
  Copyright (C) 1996, 1997 François Parmentier
- Copyright (C) 2009 Sébastien Kirche 
+ Copyright (C) 2009, 2010 Sébastien Kirche 
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -90,7 +90,7 @@ void	dccset_fds(fd_set *rds, fd_set *wds)
 			FD_SET(Client->read, rds);
 }
 
-DCC_list	*search_list(char *name, char *user, unsigned int type)
+DCC_list	*search_list(const char *name, const char *user, unsigned int type)
 {
 	DCC_list	*Client;
 
@@ -497,7 +497,7 @@ void	process_dcc(char *from, char *rest)
 		}
 }
 
-void	dcc_chat(char *from, char *rest)
+void	dcc_chat(const char *from, const char *rest)
 {
 	DCC_list	*Client;
 
