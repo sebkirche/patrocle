@@ -1,7 +1,7 @@
 /*
 userlist.c - implementation of userlists
 Copyright (C) 1993, 1994 VladDrac (irvdwijk@cs.vu.nl)
-Copyright (C) 2009 Sébastien Kirche 
+Copyright (C) 2009, 2010 Sébastien Kirche 
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -225,20 +225,28 @@ int	write_lvllist(USERLVL_list **l_list, char *filename, sort_type sort)
    the sort consist of a elt_cmp() to compare 2 elements
    and sort_list() that sort the list
 */
-int elt_cmp(USERLVL_list *a, USERLVL_list *b)
+int elt_cmp(USERLVL_list *a, USERLVL_list *b, sort_type sort)
 {
 	/*
 	 * Compare two list elements
+	 *
+	 * This is a 2-stages comparison :
+	 * 1) compare the user level
+	 * 2) if the levels are equal, compare the user ident
+	 *    but keep the alphabetical order 
 	 */
 
 	int ret;
 	
-	// first compare the userlevel
 	ret = a->access - b->access;
 	
-	// if levels are equal, compare the user names
-	if (!ret)
-		ret = strcasecmp(a->userhost, b->userhost);//TODO: compare the nicknames ?
+	if (!ret){
+		if (sort == SORT_ASC)
+			//TODO: compare the nicknames ?
+			ret = strcasecmp(a->userhost, b->userhost);
+		else
+			ret = strcasecmp(b->userhost, a->userhost);
+	}
 	
 	return ret;
 }
@@ -294,7 +302,7 @@ void sort_list(USERLVL_list **list, sort_type sort)
 					p = p->next;
 					psize--;
 				} else {
-					cmp = elt_cmp(p, q);
+					cmp = elt_cmp(p, q, sort);
 					if ((cmp <= 0 && sort == SORT_ASC) || (cmp >= 0 && sort == SORT_DESC)) {
 						/* First element of p is lower (or same);
 						 * e must come from p. */
