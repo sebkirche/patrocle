@@ -109,7 +109,7 @@ int	do_dcc(DCC_list *Client)
 	struct	in_addr		 party, MyHostAddr;
 	struct	hostent		*hp;
 	char				 localhost[64];
-	int					 size;
+	unsigned int		 size;//socklen_t
 	unsigned long		 my_ip;
 	unsigned long		 TempLong;
 	char				*Descr;
@@ -317,10 +317,10 @@ void	register_dcc_offer(char *from, char *type, char *description,
 
 void	process_incoming_chat(DCC_list *Client)
 {
-	char		buf[BIG_BUFFER];
-	struct  sockaddr_in     remaddr;
-	int		size;
-	int		bytesread;	
+	char buf[BIG_BUFFER];
+	struct sockaddr_in remaddr;
+	unsigned int size; //socklen_t
+	int	bytesread;	
 	
 	if(Client->flags&DCC_WAIT) {
 		size = sizeof(struct sockaddr_in);
@@ -388,7 +388,7 @@ void	process_outgoing_file(DCC_list *Client)
 	char	tmp[BIG_BUFFER+1];
 	int	bytesrecvd;
 	int	bytesread;
-	int	size;
+	unsigned int size; //socklen_t
 
 	if(Client->flags & DCC_WAIT){
 		size = sizeof(struct sockaddr_in);
