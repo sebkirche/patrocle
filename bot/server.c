@@ -49,6 +49,7 @@ int connect_by_number(int service, char *host)
     char    buf[100];
     struct  sockaddr_in server;
     struct  hostent *hp = 0;
+	unsigned int size; //actually socklen_t
     
     if(service == -2){
 	server=(*(struct sockaddr_in *) host);
@@ -103,8 +104,8 @@ int connect_by_number(int service, char *host)
 	    close(s);
 	    return -4;
 	}
-	service = sizeof(localaddr);
-	getsockname(s, (struct  sockaddr *) &localaddr, &service);
+	size = sizeof(localaddr);
+	getsockname(s, (struct  sockaddr *) &localaddr, &size);
 	return(s);
     }
     if(connect(s, (struct sockaddr *) & server, sizeof(server)) < 0){
