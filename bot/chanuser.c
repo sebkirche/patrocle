@@ -27,7 +27,7 @@
 
 static	char	buffer[MAXLEN];
 
-USER_list	*search_user( USER_list **u_list, char *nick )
+USER_list	*search_user( USER_list **u_list, const char *nick )
 {
 	USER_list	*User;
 
