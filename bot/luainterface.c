@@ -270,7 +270,28 @@ int c2l_sendnotice(lua_State *L)
 	return 1;
 }
 
-//lu wrapper to the C Repondre()
+//lua wrapper for the bot commands
+int c2l_callbotfunc(lua_State *L)
+{
+	const char *from = luaL_checkstring(L, 1);
+	const char *to = luaL_checkstring(L, 2);
+	char *args = luaL_checkstring(L, 3);
+	char *command;
+	int i;
+	
+	command = get_token(&args, ",: ");
+	if(command){
+		//TODO : factoriser ce qui est fait dans on_msg pour les tests de niveaux
+		for(i = 0; on_msg_commands[i].name != NULL; i++){
+			if(STRCASEEQUAL(on_msg_commands[i].name, command)){
+				on_msg_commands[i].function(from, to, *args?args:NULL);
+			}
+		}
+	}
+	return 0;
+}
+
+//lua wrapper to the C Repondre()
 int c2l_repondre(lua_State *L)
 {
 	int i;
@@ -531,6 +552,7 @@ void register_cstuff()
 	lua_register(L, "kicker_repondre", c2l_kickerrepondre);
 	lua_register(L, "botlog", c2l_botlog);
 	lua_register(L, "time2hours", c2l_time2hours);
+	lua_register(L, "call_bot_func", c2l_callbotfunc);
 	
 	expose_stimlist();
 }
