@@ -31,11 +31,11 @@
 #include "config.h"
 
 //FIXME : weird, but fixes a link problem with my OSX
-#ifdef __APPLE__
-#define iconv_open iconv_open
-#define iconv iconv
-#define iconv_close iconv_close
-#endif
+//#ifdef __APPLE__
+//#define iconv_open iconv_open
+//#define iconv iconv
+//#define iconv_close iconv_close
+//#endif
 
 extern	int	send_to_server(char *format, ...);
 extern	int 	send_chat(const char *to, const char *text);
@@ -56,7 +56,7 @@ int	sendprivmsg(const char *sendto, const char *format, ...)
 	size_t lin, lout;
 	
 	va_start(msg, format);
-	vsprintf(buf, format, msg);
+	vsnprintf(buf, sizeof(buf), format, msg);
 	va_end(msg);
 	//et factoriser ce bloc aussi
 	Channel_to = search_chan(sendto);
@@ -81,7 +81,7 @@ int sendaction(const char *sendto, const char *format, ...)
 	size_t lin, lout;
   
 	va_start(msg, format);
-	vsprintf(buf, format, msg);
+	vsnprintf(buf, sizeof(buf), format, msg);
 	va_end(msg);
 	Channel_to = search_chan(sendto);
 	if(Channel_to && (Channel_to->encoder != (iconv_t)-1)){
@@ -106,7 +106,7 @@ int	sendnotice(const char *sendto, const char *format, ...)
 	size_t lin, lout;
 
 	va_start(msg, format);
-	vsprintf(buf, format, msg);
+	vsnprintf(buf, sizeof(buf), format, msg);
 	va_end(msg);
 	Channel_to = search_chan(sendto);
 	if(Channel_to && (Channel_to->encoder != (iconv_t)-1)){
@@ -168,7 +168,7 @@ int	sendmode(const char *to, const char *format, ...)
 	va_list	msg;
 
 	va_start(msg, format);
-	vsprintf(buf, format, msg);
+	vsnprintf(buf, sizeof(buf), format, msg);
 	va_end(msg);
 	return( send_to_server( "MODE %s %s", to, buf ) );
 }
@@ -184,7 +184,7 @@ int	send_ctcp_reply(const char *to, const char *format, ...)
 	va_list	msg;
 
 	va_start(msg, format);
-	vsprintf(buf, format, msg);
+	vsnprintf(buf, sizeof(buf), format, msg);
 	va_end(msg);
     	return( send_to_server("NOTICE %s :\001%s\001", to, buf));
 }
@@ -195,7 +195,7 @@ int	send_ctcp(const char *to, const char *format, ...)
 	va_list	msg;
 
 	va_start(msg, format);
-	vsprintf(buf, format, msg);
+	vsnprintf(buf, sizeof(buf), format, msg);
 	va_end(msg);
 	return(send_to_server( "PRIVMSG %s :\001%s\001", to, buf));
 }
@@ -216,7 +216,7 @@ int	send_to_user(const char *to, const char *format, ...)
 	va_list	msg;
 
 	va_start(msg, format);
-	vsprintf(buf, format, msg);
+	vsnprintf(buf, sizeof(buf), format, msg);
 	va_end(msg);
 	if(to){
 		if(!send_chat(to, buf))
