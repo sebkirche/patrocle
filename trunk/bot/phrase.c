@@ -347,7 +347,6 @@ void LibereStimuli()
 
 void LibereReponses() 
 {
-	rep_tbl *Courant, *Suivant;
 	int i;
 	
 	for(i = 0; i < TailleRep; i++) 

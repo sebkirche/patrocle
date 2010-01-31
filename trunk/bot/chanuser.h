@@ -35,7 +35,7 @@ typedef struct	USER_struct
 #define CHFL_VOICE	0x0002
 #define CHFL_BAN	0x0004	/* do we need this? */
 
-USER_list	*search_user( USER_list **u_list, char *nick );
+USER_list	*search_user( USER_list **u_list, const char *nick );
 void		add_user( USER_list **u_list, char *nick, 
 					  char *user, char *host );
 int			delete_user( USER_list **u_list, char *nick );
