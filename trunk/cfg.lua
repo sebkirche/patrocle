@@ -1,9 +1,10 @@
 -- -*- coding: utf-8 -*-
 
 debug = 2
-maintainer = "seki!sebastien.kirche@free.fr"
+maintainer_addr = "sebastien.kirche@free.fr"
 maintainer_name = "seki"
 --notefile = path_to_notefile
+helpfile = "bot/help.bot"
 --idletimeout = 42
 --waittimeout = 42
 --maxuploadsize = 1024
@@ -25,7 +26,7 @@ Bots = {
       login = "patrocle",			--login name for the server
       channels = {
 		--{name = "#emacsfr", mode = "", topic = "", encoding = "UTF-8"},
-		 {name = "#seki", mode = "",topic = "",	encoding = "iso-8859-1"},
+		{name = "#seki", mode = "",topic = "",	encoding = "iso-8859-1"},
 		 {name = "#patrocle", mode = "",topic = "Bienvenue chez Patrocle, le bot parlant",	encoding = "utf-8"}
       },
       servers = {"irc.freenode.org"},
