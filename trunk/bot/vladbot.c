@@ -55,11 +55,11 @@
 #include "vladbot.h"
 
 //FIXME : weird, but fixes a link problem with my OSX
-#ifdef __APPLE__
-#define iconv_open iconv_open
-#define iconv iconv
-#define iconv_close iconv_close
-#endif
+//#ifdef __APPLE__
+//#define iconv_open iconv_open
+//#define iconv iconv
+//#define iconv_close iconv_close
+//#endif
 
 extern	void	signoff(char *from, char *reason);
 extern	int	userlevel(char *);
