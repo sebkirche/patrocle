@@ -36,6 +36,8 @@ typedef	struct
 	int			 forcedcc;		/* If true,		command requires DCC */
 } command_tbl;
 
+extern command_tbl on_msg_commands[];
+
 void	on_msg( char *from, char *to, char *next );
 void 	on_mode( char *from, char *rest );
 void	on_kick(char *from, char *channel, char *nick, char *reason);

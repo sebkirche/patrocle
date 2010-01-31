@@ -55,11 +55,11 @@
 #include "luainterface.h"
 
 //FIXME : weird, but fixes a link problem with my OSX
-#ifdef __APPLE__
-#define iconv_open iconv_open
-#define iconv iconv
-#define iconv_close iconv_close
-#endif
+//#ifdef __APPLE__
+//#define iconv_open iconv_open
+//#define iconv iconv
+//#define iconv_close iconv_close
+//#endif
 
 extern	botinfo	*currentbot;
 extern	int	number_of_bots;
@@ -372,7 +372,7 @@ void    Repondre(const char *from, const char *to,
     if(time2hours(time(NULL)) - Locuteur->PremierContact > 12 &&
 	Locuteur->bonus_malus != 0) {
       if(!exist_userhost(currentbot->lists->rellist, from))
-	add_to_levellist(currentbot->lists->rellist, NUS, DEFAUT_LVL);
+		  add_to_levellist(currentbot->lists->rellist, NUS, DEFAUT_LVL);
 
       if(Locuteur->bonus_malus > 0)
 	add_to_level(currentbot->lists->rellist, from, +1);
@@ -394,7 +394,7 @@ void    Repondre(const char *from, const char *to,
     if(time2hours(time(NULL)) - Locuteur->PremierContact > 12 &&
 	Locuteur->bonus_malus != 0) {
       if(!exist_userhost(currentbot->lists->rellist, from))
-	add_to_levellist(currentbot->lists->rellist, NUS, DEFAUT_LVL);
+		  add_to_levellist(currentbot->lists->rellist, NUS, DEFAUT_LVL);
 
       if(Locuteur->bonus_malus > 0)
 	add_to_level(currentbot->lists->rellist, from, +1);
@@ -512,7 +512,7 @@ void    KickerRepondre(const char *from, const char *to,
     if(time2hours(time(NULL)) - Locuteur->PremierContact > 12 &&
 	Locuteur->bonus_malus != 0) {
       if(!exist_userhost(currentbot->lists->rellist, from))
-	add_to_levellist(currentbot->lists->rellist, NickUserStr(from), DEFAUT_LVL);
+		  add_to_levellist(currentbot->lists->rellist, NickUserStr(from), DEFAUT_LVL);
 
       if(Locuteur->bonus_malus > 0)
 	add_to_level(currentbot->lists->rellist, from, +1);
@@ -772,7 +772,7 @@ void 	on_join(char *who, char *channel)
 	}
 
 #ifdef DBUG
-	debug(LVL_NOTICE, "%s (%s) joined %s", getnick(who), who, channel);
+	debug(LVL_NOTICE, "%s (%s) has joined %s", getnick(who), who, channel);
 #endif
 
 	if(shitlevel(who) == 100){
@@ -1290,11 +1290,10 @@ void	show_whoami(char *from, char *to, char *rest)
 	debug(LVL_NOTICE, "WHOAMI %s (%s)", getnick(from), from);
 	send_to_user(from, "You are %s. Your levels are:", 
 				 from);
-	send_to_user(from, "-- User -+- Shit -+- Protect -+- Relation -+");
-	send_to_user(from, "    %3d  |   %3d  |   %3d   |   %3d  |",
-				 userlevel(from),
-				 shitlevel(from), protlevel(from), rellevel(from));
-        return;
+	send_to_user(from, "+-- User -+- Shit -+- Protect -+- Relation -+");
+	send_to_user(from, "|    %3d  |    %3d  |    %3d    |    %4d    |",	//weird aligment bug here...
+				 userlevel(from), shitlevel(from), protlevel(from), rellevel(from));
+	return;
 }
 
 void	show_info(char *from, char *to, char *rest)
@@ -1303,8 +1302,8 @@ void	show_info(char *from, char *to, char *rest)
 	sendreply("Started: %-20.20s", time2str(currentbot->uptime));
 	sendreply("Up: %s", idle2str(time(NULL)-currentbot->uptime));
 	if(botmaintainer)
-		sendreply("This bot is maintained by %s <%s>", botmaintainername?botmaintainername:"", botmaintainer);
-        return;
+		sendreply("This bot is maintained by %s <%s>", botmaintainername ? botmaintainername : "", botmaintainer);
+	return;
 }
 
 void	show_time(char *from, char *to, char *rest)
@@ -3332,13 +3331,13 @@ void do_seen(char *from, char *to, char *rest) {
 		else{
 			if(ischannel(to)){
 				Phrase = malloc(2 * sizeof(char *));
-				sprintf(chaine, "Je ne connais pas de %s, %%s", rest);
+				sprintf(chaine, "Je ne connais pas de '%s', %%s", rest);
 				Phrase[0] = strdup(chaine);
 				sprintf(chaine, "%s ? Ça ne me dit rien %%s", rest);
 				Phrase[1] = strdup(chaine);
 				Repondre(from, to, 0, 2, Phrase, 0, 0, 0);
 			}else
-				send_to_user(from, "Je ne connais pas de %s", rest);
+				send_to_user(from, "Je ne connais pas de '%s'", rest);
 		}
 	}
 	else{
@@ -3420,9 +3419,6 @@ void    Traite(char *from, char *to, char *msg){
   int NbRep = 0;
   int Num;
   int NOM        = FALSE;
-  int MERCI      = FALSE;
-  int BONNE_ANNEE= FALSE;
-  int COMPLIMENT = FALSE;
   int QUEL_ENDROIT = FALSE; /* ou ? where? */
   int ILYA       = FALSE; /* Il y a, est la, there, ici */
   int LISTE_STIMULI = FALSE;
@@ -3433,11 +3429,7 @@ void    Traite(char *from, char *to, char *msg){
   int ES_TU      = FALSE;
   int AS_TU      = FALSE;
   int BIENVENUE   = FALSE; /* Aussi Bon retour */
-  int AIMES_TU    = FALSE;
-  int M_AIMES_TU  = FALSE;
-  int SOURIRE     = FALSE;
   int MOUARF      = FALSE; /* Joli chien-chien */
-  int CLINDOEIL   = FALSE;
   int ETTOI = FALSE; /* Et toi? */
   int QUESTION = FALSE; /* es-tu as-tu est-ce-que est-il comment pourquoi suis-je ais-tu ? */
   int SOUHAIT = FALSE; /* Positif: Porte-toi bien */
@@ -3447,19 +3439,8 @@ void    Traite(char *from, char *to, char *msg){
   int VEUX = FALSE; /* Ouin. Je VEUX que tu ... , j'ORDONNE*/
   int VIVE = FALSE; /* Viva! Rules rulezz */
   int FRONT_NATIONAL = FALSE; /* Argh! */
-  int SACRE = FALSE;
-  int QUI_EST = FALSE;
-  int TU_AS = FALSE;
-  int RAISON = FALSE;
-  int SAIS_TU = FALSE;
   int KICKER = FALSE;
   int KICKE_MOI = FALSE;
-  int CISEAUX = FALSE;
-  int PAPIER = FALSE;
-  int CAILLOU = FALSE;
-  int TRICHEUR = FALSE;
-  int MAUVAIS_JOUEUR = FALSE;
-  int PLEURER = FALSE;
   int ACHILLE = FALSE;
   char *NUS = NickUserStr(from);
 
@@ -3789,439 +3770,7 @@ void    Traite(char *from, char *to, char *msg){
       
     }
     
-    if(TU_AS && RAISON && !NEGATION && (NOM || !ischannel(to))) {
-      Reponse = malloc(5 * sizeof(char *));
-      Reponse[0] = strdup("Je sais, %s. J'ai TOUJOURS raison! ;)");
-      Reponse[1] = strdup("Évidemment que j'ai raison, %s.");
-      Reponse[2] = strdup("N'est-ce pas %s?");
-      Reponse[3] = strdup("Moi? Raison? Comme toujours, %s.");
-      Reponse[4] = strdup("/me a toujours raison. Sauf quand il a tort. ;)");
-
-      Reponse2 = malloc(2 * sizeof(char *));
-      Reponse2[0] = strdup("Et toi, %s, t'es sacrement chiant!");
-      Reponse2[1] = strdup("Va te coucher, %s.");
-
-      Repondre(from, to, +1, 5, Reponse, -1, 2, Reponse2);
-    }
     
-    if(SAIS_TU && !KICKER && (NOM || !ischannel(to))) {
-      Reponse = malloc(4 * sizeof(char *));
-      Reponse[0] = strdup("Je ne sais rien. Tu devrais le savoir, toi, %s!");
-      Reponse[1] = strdup("Comment le saurais-je, %s?");
-      Reponse[2] = strdup("Où l'aurais-je appris %s?");
-      Reponse[3] = strdup("Qui me l'aurait appris, %s?");
-
-      Reponse2 = malloc(2 * sizeof(char *));
-      Reponse2[0] = strdup("Il est de notoriété publique que je sais encore moins de choses que toi, %s!");
-      Reponse2[1] = strdup("Pourquoi veux-tu que je le sache, %s?");
-
-      Repondre(from, to, +1, 4, Reponse, -1, 2, Reponse2);
-    }
-
-    if(SAIS_TU && KICKER && (NOM || !ischannel(to))) {
-      Reponse = malloc(6 * sizeof(char *));
-      Reponse[0] = strdup("La preuve que oui!");
-      Reponse[1] = strdup("Non, je ne sais pas kicker ;)");
-      Reponse[2] = strdup("Kicker, ça veut dire quoi?");
-      Reponse[3] = strdup("Et un coup d'pied aux fesses, un! :)");
-      Reponse[4] = strdup("Ah! Fallait pas d'mander! ;)");
-      Reponse[5] = strdup("J'm'entraîne au kick-boxing(surtout au kick, d'ailleurs ;)");
-
-      Reponse2 = malloc(4 * sizeof(char *));
-      Reponse2[0] = strdup("Ça faisait longtemps que ça me démangeait!");
-      Reponse2[1] = strdup("Ça te va comme réponse?");
-      Reponse2[2] = strdup("Ça défoule! :-]");
-      Reponse2[3] = strdup("Tu voulais une démonstration?");
-
-      KickerKicker(from, to, +1, 6, Reponse, 0, 4, Reponse2);
-
-      /* Si celui qu'on doit kicker est protégé, on le kicke quand-même */
-      if(rellevel(from) > 0 && protlevel(from) >=50 && protlevel(from) < 100)
-	{
-	  char Ecrite[MAXLEN];
-	  sprintf(Ecrite, (Reponse[GNumPhrase%6]?Reponse[GNumPhrase%6]:""), GetNick(from));
-	  if(logging)
-	    botlog(LOGFILE, "<%s kicke %s de %s> %s", currentbot->botname, getnick(from), (ischannel(to)?to:currentchannel()), Ecrite);
-      
-	  sendkick((ischannel(to)?to:currentchannel()), getnick(from), Ecrite);
-	  
-	}
-    }
-
-    if(KICKE_MOI && (NOM || !ischannel(to))) {
-      Reponse = malloc(6 * sizeof(char *));
-      Reponse[0] = strdup("À tes ordres, %s!");
-      Reponse[1] = strdup("Non, je ne veux pas kicker ;)");
-      Reponse[2] = strdup("Kicker, ça veut dire quoi?");
-      Reponse[3] = strdup("Et un coup d'pied aux fesses, un! :)");
-      Reponse[4] = strdup("Ah! Fallait pas d'mander!");
-      Reponse[5] = strdup("J'm'entraîne au kick-boxing (surtout au kick, d'ailleurs ;)");
-
-      Reponse2 = malloc(4 * sizeof(char *));
-      Reponse2[0] = strdup("Ça faisait longtemps que ça me démangeait!");
-      Reponse2[1] = strdup("Youpi! J'en avais une énorme envie!");
-      Reponse2[2] = strdup("Ça défoule! :-]");
-      Reponse2[3] = strdup("Tu voulais une démonstration?");
-
-      KickerKicker(from, to, +1, 6, Reponse, 0, 4, Reponse2);
-
-      /* Si celui qu'on doit kicker est protégé, on le kicke quand-même */
-      if(rellevel(from) > 0 && protlevel(from) >=50 && protlevel(from) < 100)
-	{
-	  char Ecrite[MAXLEN];
-	  sprintf(Ecrite, (Reponse[GNumPhrase%6]?Reponse[GNumPhrase%6]:""), GetNick(from));
-	  if(logging)
-	    botlog(LOGFILE, "<%s kicke %s de %s> %s", currentbot->botname, getnick(from), (ischannel(to)?to:currentchannel()), Ecrite);
-      
-	  sendkick((ischannel(to)?to:currentchannel()), getnick(from), Ecrite);
-	  
-	}
-    }
-
-
-    if(((AIMES_TU && MOI) || M_AIMES_TU) && (NOM || !ischannel(to))) {
-      if(rellevel(from) > SYMPA_LVL) {
-	Reponse = malloc(6 * sizeof(char *));
-
-	Reponse[0] = strdup("%s: Oui!");
-	Reponse[1] = strdup("Tu m'es très sympathique, %s.");
-	Reponse[2] = strdup("Bien sûr que je t'aime, %s. J'espère que toi aussi tu m'aimes bien.");
-	Reponse[3] = strdup("Évidemment, %s, je ne te donnerais de coup d'pied aux fesses que si tu me le demandais! :)");
-	Reponse[4] = strdup("Tu fais partie de mes copains, %s.");
-	Reponse[5] = strdup("Tu es dans le cercle de mes amis, %s.");
-
-/* 	Repondre(from, to, +1, 6, Reponse, 0, 0, 0); */
-      } else {
-	Reponse = malloc(6 * sizeof(char *));
-
-	Reponse[0] = strdup("%s: Oui");
-	Reponse[1] = strdup("Tu m'es sympathique, %s.");
-	Reponse[2] = strdup("Je t'aime bien, %s. J'espère que toi aussi.");
-	Reponse[3] = strdup("Oui, %s. :)");
-	Reponse[4] = strdup("Ça te fait plaisir que je t'aime bien, %s?");
-	Reponse[5] = strdup("Tu commences à m'être sympathique, %s.");
-
-      }
-
-      Reponse2 = malloc(4 * sizeof(char *));
-      Reponse2[0] = strdup("%s: Je crois que c'est clair, raclure!");
-      Reponse2[1] = strdup("%s: Non!");
-      Reponse2[2] = strdup("Tu me provoques, %s?");
-      Reponse2[3] = strdup("Tu veux une demonstration de l'affection que j'eprouve pour toi, %s? :] Kick! Kick!");
-
-      Repondre(from, to, +1, 6, Reponse, 0, 4, Reponse2);
-    }
-
-
-    if(SACRE && (NOM || !ischannel(to))) {
-      Reponse = malloc(6 * sizeof(char *));
-      Reponse[0] = strdup("Je t'en prie, %s. N'allons pas jusqu'à l'adoration! ;)");
-      Reponse[1] = strdup("N'éxagèrons rien, %s: je ne suis pas un dieu.");
-      Reponse[2] = strdup("Sacré %s!");
-      Reponse[3] = strdup("Moi? Sacré? Allons, %s, restons réalistes.");
-      Reponse[4] = strdup("%s: Hahaha! :-)");
-      Reponse[5] = strdup("%s: Où sont les prêtres qui me vénèrent?");
-
-      Reponse2 = malloc(2 * sizeof(char *));
-      Reponse2[0] = strdup("Et toi, %s, t'es sacrément chiant!");
-      Reponse2[1] = strdup("Maudit %s.");
-
-      Repondre(from, to, +1, 6, Reponse, +1, 2, Reponse2);
-    }
-
-    if(JESUIS && COMPLIMENT && QUESTION) {
-      Reponse = malloc(4 * sizeof(char *));
-      Reponse[0] = strdup("Ça saute aux yeux, %s!");
-      Reponse[1] = strdup("Évidemment, %s.");
-      Reponse[2] = strdup("Ça c'est sûr, %s!");
-      Reponse[3] = strdup("Pour moi, oui, tu l'es, %s.");
-
-      Reponse2 = malloc(2 * sizeof(char *));
-      Reponse2[0] = strdup("%s: Non. Tout simplement non.");
-      Reponse2[1] = strdup("");
-
-      Repondre(from, to, +1, 4, Reponse, 0, 2, Reponse2);
-    }
-    
-    if(CISEAUX && (NOM || !ischannel(to))) {
-      Reponse = malloc(3 * sizeof(char *));
-      Reponse[1] = strdup("%s: Pierre! J'ai gagné! Désolé. :)");
-      Reponse[0] = strdup("%s: Papier! Zut. J'ai perdu. :-(");
-      Reponse[2] = strdup("%s: Ciseaux! Ah. Égalité. Ça doit crisser ça!");
-
-      Reponse2 = malloc(6 * sizeof(char *));
-      Reponse2[0] = strdup("%s: Pierre! J'ai gagné! J'suis content. :-]");
-      Reponse2[1] = strdup("Attends, %s, j'suis pas prêt pour jouer à Pierre-Papier-Ciseaux avec toi.");
-      Reponse2[2] = strdup("C'est pas serieux, %s. Tu veux vraiment jouer à ça?");
-      Reponse2[3] = strdup("%s: Rocher! Ah! Ah! J'écrase tes misérables ciseaux, et je gagne! :)");
-      Reponse2[4] = strdup("%s: T'as vraiment du pot: j'ai joué Papier, et je perds... :-\\");
-      Reponse2[5] = strdup("%s: Ciseaux! Ça fait un bruit d'ongle sur un tableau!");
-
-      Repondre(from, to, +1, 3, Reponse, +1, 6, Reponse2);
-    }
-
-    if(PAPIER && (NOM || !ischannel(to))) {
-      Reponse = malloc(3 * sizeof(char *));
-      Reponse[0] = strdup("%s: Pierre! J'ai perdu! Ton papier enveloppe ma pierre. :'(");
-      Reponse[2] = strdup("%s: Papier! Tiens, on a joué la même chose!");
-      Reponse[1] = strdup("Ciseaux! Super! J'ai gagné, %s!");
-
-      Reponse2 = malloc(6 * sizeof(char *));
-      Reponse2[0] = strdup("%s: Ciseaux! Je gagne: mes ciseaux découpent ton papier! :-]");
-      Reponse2[1] = strdup("J'ai pas envie de jouer avec toi, %s, j'veux pas jouer à Pierre-Papier-Ciseaux. Pas avec toi.");
-      Reponse2[2] = strdup("C'est pas sérieux, %s. Tu veux vraiment jouer à ça?");
-      Reponse2[3] = strdup("%s: Cisailles! Ah! Ah! Je fais du papier mâché! :)");
-      Reponse2[4] = strdup("%s: T'as vraiment du pot: j'ai joue Pierre, et je perds... :-\\");
-      Reponse2[5] = strdup("%s: Papier! Ça va en faire du papier froissé!");
-
-      Repondre(from, to, +1, 3, Reponse, +1, 6, Reponse2);
-    }
-
-    if(CAILLOU && (NOM || !ischannel(to))) {
-      Reponse = malloc(3 * sizeof(char *));
-      Reponse[2] = strdup("%s: Pierre! Match nul!");
-      Reponse[1] = strdup("%s: Papier! Héhé! Il enveloppe ton caillou. :)");
-      Reponse[0] = strdup("Ciseaux! Bof! Tu as cassé mes ciseaux avec ta pierre, %s!");
-
-      Reponse2 = malloc(6 * sizeof(char *));
-      Reponse2[0] = strdup("%s: Papier! J'ai gagné: mon papier enveloppe ton misérable caillou! :-]");
-      Reponse2[1] = strdup("Quoi! Jouer à Pierre-Papier-Ciseaux avec toi, %s!");
-      Reponse2[2] = strdup("Ça va pas la tête, %s? Tu veux jouer avec moi?");
-      Reponse2[3] = strdup("%s: Feuille! Ah! Ah! J'emprisonne ton p'tit caillou! :]");
-      Reponse2[4] = strdup("%s: T'as vraiment d'la chance: j'ai joué Ciseaux, et je perds... :(");
-      Reponse2[5] = strdup("%s: Caillou! Ça fait tac! toc!");
-
-      Repondre(from, to, +1, 3, Reponse, +1, 6, Reponse2);
-    }
-
-    if(TRICHEUR && !COMPLIMENT && !ES_TU && !QUI_EST && !ETTOI && !JESUIS && !CLINDOEIL && (NOM || !ischannel(to))) {
-      Reponse = malloc(9 * sizeof(char *));
-      Reponse[0] = strdup("Attention, %s, ne fais pas trop d'insinuations de ce genre, je finirai par ne plus t'aimer.");
-      Reponse[1] = strdup("Meuh non, j'triche pas, %s, pas avec toi!");
-      Reponse[2] = strdup("Même pas vrai que je triche, %s!");
-      Reponse[3] = strdup("C'est celui qui le dit qui l'est, %s!");
-      Reponse[4] = strdup("Moi, %s, tricher? Tu me déçois.");
-      Reponse[5] = strdup("Cornegidouille, %s! Ne commence pas à m'énerver: je n'ai pas triché!");
-      Reponse[6] = strdup("Je te préviens, %s: ne me traite plus de tricheur!");
-      Reponse[7] = strdup("Je ne triche que quand je n'aime pas mon adversaire, %s. Et ce n'est pas ton cas.");
-      Reponse[8] = strdup("Ça n'a pas été prevu dans ma programmation, %s! En tout cas pas quand je joue avec des gens que j'aime bien... ;)");
-
-      Reponse2 = malloc(20 * sizeof(char *));
-      Reponse2[0] = strdup("Moi, %s, un tricheur!");
-      Reponse2[1] = strdup("C'est possible! :]");
-      Reponse2[2] = strdup("Et pourquoi pas, avec une pourriture dans ton genre!");
-      Reponse2[3] = strdup("Ne me traite plus jamais de tricheur!");
-      Reponse2[4] = strdup("MONSIEUR tricheur!");
-      Reponse2[5] = strdup("Ça te prend souvent d'accuser sans preuve!");
-      Reponse2[6] = strdup("Retire ça!");
-      Reponse2[7] = strdup("Dehors, tricheur!");
-      Reponse2[8] = strdup("Et alors?");
-      Reponse2[9] = strdup("Qu'est-ce que ça peut te faire?");
-      Reponse2[10] = strdup("Tu n'aimes pas perdre? :-]");
-      Reponse2[11] = strdup("Heureusement que tu ne joues pas d'argent!");
-      Reponse2[12] = strdup("Va jouer!");
-      Reponse2[13] = strdup("Demande pardon!");
-      Reponse2[14] = strdup("À genoux, vermisseau!");
-      Reponse2[15] = strdup("Ça suffit!");
-      Reponse2[16] = strdup("Recommence à me traiter de tricheur, pour voir!");
-      Reponse2[17] = strdup("Ça ne te suffit pas que je m'abaisse à jouer avec toi?");
-      Reponse2[18] = strdup("Crétin des Alpes!");
-      Reponse2[19] = strdup("Espèce de zouave!");
-
-      KickerRepondre(from, to, -2, 9, Reponse, -6, 20, Reponse2);
-    }
-    
-    if(MAUVAIS_JOUEUR && !COMPLIMENT && !ES_TU && !QUI_EST && !ETTOI && !JESUIS && !CLINDOEIL && (NOM || !ischannel(to))) {
-      Reponse = malloc(9 * sizeof(char *));
-      Reponse[0] = strdup("Attention, ne fais pas trop d'insinuations de ce genre, %s, je finirai par ne plus t'aimer.");
-      Reponse[1] = strdup("Meuh non, j'suis pas mauvais joueur, %s, pas avec toi!");
-      Reponse[2] = strdup("Ben oui, %s! T'aimes perdre toi?");
-      Reponse[3] = strdup("C'est celui qui le dit qui l'est, %s!");
-      Reponse[4] = strdup("Moi, mauvais joueur, %s? Tu as une si piètre opinion de moi?");
-      Reponse[5] = strdup("Cornes du diable, %s! Ne commence pas à m'énerver: je ne suis pas mauvais joueur!");
-      Reponse[6] = strdup("Je te préviens, %s: ne me traite plus de mauvais joueur!");
-      Reponse[7] = strdup("Je ne suis mauvais joueur que quand je perds, %s. ;)");
-      Reponse[8] = strdup("Ça n'a pas été prevu dans ma programmation, %s!");
-
-      Reponse2 = malloc(20 * sizeof(char *));
-      Reponse2[0] = strdup("Moi, %s, un mauvais joueur!");
-      Reponse2[1] = strdup("C'est possible! :]");
-      Reponse2[2] = strdup("Et pourquoi pas, t'aimerais perdre contre une pourriture dans ton genre?");
-      Reponse2[3] = strdup("Ne me traite plus jamais de mauvais joueur!");
-      Reponse2[4] = strdup("MONSIEUR mauvais joueur!");
-      Reponse2[5] = strdup("Ça te prend souvent de dire des horreurs pareilles?");
-      Reponse2[6] = strdup("Retire ça!");
-      Reponse2[7] = strdup("Dehors, tricheur!");
-      Reponse2[8] = strdup("Et alors?");
-      Reponse2[9] = strdup("Qu'est-ce que ça peut te faire?");
-      Reponse2[10] = strdup("Tu n'aimes pas perdre? :-]");
-      Reponse2[11] = strdup("Heureusement que tu ne joues pas d'argent!");
-      Reponse2[12] = strdup("Va jouer!");
-      Reponse2[13] = strdup("Demande pardon!");
-      Reponse2[14] = strdup("À genoux, vermisseau!");
-      Reponse2[15] = strdup("Ça suffit!");
-      Reponse2[16] = strdup("Recommence à me traiter de mauvais joueur, tu vas voir ce qui va t'arriver!");
-      Reponse2[17] = strdup("Ça ne te suffit pas que je m'abaisse à jouer avec toi?");
-      Reponse2[18] = strdup("Crétin des Alpes!");
-      Reponse2[19] = strdup("Espèce de lobotomisé!");
-
-      KickerRepondre(from, to, -1, 9, Reponse, -4, 20, Reponse2);
-    }
-    
-    if(BONNE_ANNEE && (NOM || !ischannel(to))) {
-      Reponse = malloc(5 * sizeof(char *));
-      Reponse[0] = strdup("Bonne année, %s.");
-      Reponse[1] = strdup("Bonne santé, %s.");
-      Reponse[2] = strdup("À toi aussi, %s.");
-      Reponse[3] = strdup("C'est gentil, %s.");
-      Reponse[4] = strdup("Bonne année à toi aussi, %s.");
-
-      Reponse2 = malloc(2 * sizeof(char *));
-      Reponse2[0] = strdup("Mouf! Merci %s.");
-      Reponse2[1] = strdup("Ben qu'est-ce qui t'arrive, %s?");
-
-      Repondre(from, to, +2, 5, Reponse, +2, 2, Reponse2);
-    }
-    
-    if(MERCI && (NOM || !ischannel(to))) {
-      Reponse = malloc(5 * sizeof(char *));
-      Reponse[0] = strdup("De rien, %s.");
-      Reponse[1] = strdup("C'est un plaisir, %s.");
-      Reponse[2] = strdup("C'est naturel, %s.");
-      Reponse[3] = strdup("Je t'en prie, %s.");
-      Reponse[4] = strdup("Y'a pas de quoi, %s.");
-
-      Reponse2 = malloc(2 * sizeof(char *));
-      Reponse2[0] = strdup("Heureusement que j'ai une conscience professionnelle, moi, %s.");
-      Reponse2[1] = strdup("C'est bien parce que je suis obligé, %s.");
-
-      Repondre(from, to, +1, 5, Reponse, +1, 2, Reponse2);
-    }
-    
-    if(PLEURER) {
-      Reponse = malloc(10*sizeof(char *));
-      Reponse[0] = strdup("Faut pas pleurer, %s...");
-      Reponse[1] = 0;
-      Reponse[2] = strdup("Allons, %s, un peu de joie-de-vivre!");
-      Reponse[3] = 0;
-      Reponse[4] = strdup("Sèche tes larmes, %s...");
-      Reponse[5] = 0;	
-      Reponse[6] = strdup("Tu veux un mouchoir, %s?");
-      Reponse[7] = 0;
-      Reponse[8] = strdup("/me tend un mouchoir en papier à %s.");
-      Reponse[9] = 0;
-
-      Reponse2 = malloc(3 * sizeof(char *));
-      Reponse2[0] = strdup("Mouche ton nez, %s!");
-      Reponse2[1] = strdup("Pleure, %s, tu pisseras moins!");
-      Reponse2[2] = strdup("Beerk, en plus %s n'a pas de mouchoir!");
-
-      Repondre(from, to, 0, 10, Reponse, 0, 3, Reponse2);
-    }
-
-
-    if(SOURIRE && (NOM || !ischannel(to))) {
-      Reponse = malloc(6*sizeof(char *));
-      Reponse[0] = strdup("%s: :)");
-      Reponse[1] = strdup("%s: :D");
-      Reponse[2] = 0;
-      Reponse[3] = strdup("%s: :-)");
-      Reponse[4] = strdup("%s: :-D");
-      Reponse[5] = 0; /* Pour les reponses entre bots */
-      
-      Repondre(from, to, +1, 6, Reponse, +1, 0, 0);
-    }
-
-    if(CLINDOEIL && (NOM || !ischannel(to))) {
-      Reponse = malloc(6*sizeof(char *));
-      Reponse[0] = strdup("%s: ;)");
-      Reponse[1] = strdup("%s: ;D");
-      Reponse[2] = 0;
-      Reponse[3] = strdup("%s: ;-)");
-      Reponse[4] = strdup("%s: ;-D");
-      Reponse[5] = 0; /* Pour les reponses entre bots */
-
-      Repondre(from, to, +1, 6, Reponse, +1, 0, 0);
-    }
-
-
-	if(!ACHILLE && AS_TU && ChaineEstDans(msg, "vu") &&(NOM || !ischannel(to))){
-		char *nick;
-		char *buf, *pch, *chaine;
-		
-		buf = strdup(msg);
-		if(pch = strstr(buf, "vu")){
-			pch += 2;
-			SKIPSPC(pch);
-			chaine = get_token(&pch, "?, ");
-			do_seen(from, to, chaine);
-		}
-		if(buf)
-			free(buf);
-	}
-
-/*     if(AIMES_TU && STJOHNPERSE); */
-/*     if(JESUIS && UNE_FILLE & ETTOI); */
-/*     if(JESUIS && UN_MEC && ETTOI); */
-/*     if(JESUIS && JALOUX && ETTOI); */
-/*     if(AS_TU && CERVEAU); */
-/*     if(ES_TU && MARIE); */
-/*     if(AS_TU && FEMME); */
-/*     if(AMI && ETTOI); */
-/*     if(INVITER && AMI); */
-    /*
-      if(AS_TU && UNE_MONTRE);
-      if(SNIF); Tu es malade? Tu es triste? Tu veux un mouchoir?
-      if(QUI_EST && PRESENT); Qui est la?
-      if(COMMENT); Comment tu fais -> Hehehe
-      if(QUEL && JOUR);
-      if(QUEL && DATE);
-      if(QUEL && MOIS);
-      if(QUEL && ANNEE);
-      if(PARLER && DE_QUOI);
-      if(QUOI_DE_NEUF); koi de 9?
-      if(RIRE); Ahhaahahahahahahaha -> :)
-      if(QUEST_CE && ADRESSE); Email
-      if(QUEL_ENDROIT && CRIN);
-      if(MOI && RIENCOMPRIS);
-      if(JESUIS && MORT);
-      if(TIRER_LANGUE); :p
-      if(ENTENDS_TU && MOI);
-      if(FAINEANT); Glande faineant 
-      if(ATCHOUM); A tes souhaits
-      if(SNIFF); Tu veux un mouchoir?
-      if(TOUSSE); kof kof, reuh
-      if(AIMES_TU && CHIENS); Michel Drucker
-      if(ES_TU && VIEUX);
-      if(QUEL && ECOLE);
-      if(ES_TU && BOULOT);
-      if(ESIAL);
-      if(CRIN);
-      if(WEB); http://www.loria.fr/~parmenti/irc/
-      if(SORS_TU && CE_SOIR);
-      if(AS_TU && VOITURE);
-      if(AIMES_TU && VOITURE);
-      if(ETUDIANT);
-      if(AS_TU && RAISON); Tu as toujours raison?
-      if(PLEURS); :'(  :~(
-      if(REVES_TU); Moutons electriques
-      if(RICANEMENTS); niark niark, hin hin
-      if(JOYEUX_NOEL);
-      if(RONFLEMENTS); ZZZZZZzzzzzz
-      if(AIMES_TU && CHOCOLAT);
-      if(JESUIS && MALADE);
-      if(JESUIS && DEMORALISE);
-      if(DEJA && AMOUREUX); T'as deja ete amoureux?
-      if(VENIR_TE_VOIR);
-      if(AIMES_TU && LES_FILLES);
-      if(MONTE_DANS_TA_CHAMBRE);
-      if(QUI_EST && TON_PERE);
-      if(QUI_EST && TA_MERE);
-      if(AIMES_TU && DANSER);
-      if(AIMES_TU && CHANTER); la pizza, le restau
-      if(AIMES_TU && JOUER);
-      */
-
   }
   /* Si l'autorisation de parler n'est pas donnee */
   else {
