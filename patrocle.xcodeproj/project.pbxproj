@@ -6,7 +6,47 @@
 	objectVersion = 45;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		BE34C54411127FBC0049004E /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE34C54311127FBC0049004E /* libiconv.dylib */; };
+		BE34C547111280970049004E /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE34C546111280960049004E /* liblua.a */; };
+		BE34C6661112C3A40049004E /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE34C54311127FBC0049004E /* libiconv.dylib */; };
+		BE34C6671112C3A40049004E /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE34C546111280960049004E /* liblua.a */; };
+		BE34C6F81112C4110049004E /* helpread.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC6F2105D123D00B6853F /* helpread.c */; };
+		BE34C6F91112C7880049004E /* botlist.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC6C3105D123D00B6853F /* botlist.c */; };
+		BE34C6FA1112C7930049004E /* cfgfile.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC6C6105D123D00B6853F /* cfgfile.c */; };
+		BE34C6FB1112C7940049004E /* channel.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC6C9105D123D00B6853F /* channel.c */; };
+		BE34C6FC1112C7950049004E /* chanuser.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC6CC105D123D00B6853F /* chanuser.c */; };
+		BE34C6FD1112C7960049004E /* ctcp.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC6D0105D123D00B6853F /* ctcp.c */; };
+		BE34C6FE1112C7970049004E /* dcc.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC6D3105D123D00B6853F /* dcc.c */; };
+		BE34C6FF1112C7980049004E /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC6D6105D123D00B6853F /* debug.c */; };
+		BE34C7001112C7990049004E /* file.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC6E4105D123D00B6853F /* file.c */; };
+		BE34C7011112C79A0049004E /* fnmatch.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC6E7105D123D00B6853F /* fnmatch.c */; };
+		BE34C7021112C79C0049004E /* ftext.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC6EA105D123D00B6853F /* ftext.c */; };
+		BE34C7031112C79F0049004E /* ftp_dcc.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC6ED105D123D00B6853F /* ftp_dcc.c */; };
+		BE34C7041112C7A00049004E /* locuteur.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC6F5105D123D00B6853F /* locuteur.c */; };
+		BE34C7051112C7A10049004E /* log.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC6F8105D123D00B6853F /* log.c */; };
+		BE34C7061112C7A20049004E /* luainterface.c in Sources */ = {isa = PBXBuildFile; fileRef = BEAA0B34105D65F4005665D4 /* luainterface.c */; };
+		BE34C7071112C7A30049004E /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC6FB105D123D00B6853F /* main.c */; };
+		BE34C7081112C7A40049004E /* misc.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC6FE105D123D00B6853F /* misc.c */; };
+		BE34C7091112C7A50049004E /* note.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC701105D123D00B6853F /* note.c */; };
+		BE34C70A1112C7A60049004E /* parse.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC704105D123D00B6853F /* parse.c */; };
+		BE34C70B1112C7A70049004E /* parsetime.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC707105D123D00B6853F /* parsetime.c */; };
+		BE34C70C1112C7A80049004E /* parsing.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC70A105D123D00B6853F /* parsing.c */; };
+		BE34C70D1112C7A90049004E /* phrase.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC70E105D123D00B6853F /* phrase.c */; };
+		BE34C70E1112C7AB0049004E /* send.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC711105D123D00B6853F /* send.c */; };
+		BE34C70F1112C7AC0049004E /* server.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC714105D123D00B6853F /* server.c */; };
+		BE34C7101112C7AD0049004E /* session.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC717105D123D00B6853F /* session.c */; };
+		BE34C7111112C7AE0049004E /* userlist.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC71A105D123D00B6853F /* userlist.c */; };
+		BE34C7121112C7AF0049004E /* vlad-ons.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC71D105D123D00B6853F /* vlad-ons.c */; };
+		BE34C7131112C7B20049004E /* vladbot.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC721105D123D00B6853F /* vladbot.c */; };
+		BE34C7331112C8870049004E /* ftext.c in Sources */ = {isa = PBXBuildFile; fileRef = BE3EC6EA105D123D00B6853F /* ftext.c */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		BE34C51F11127E0A0049004E /* patrocle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = patrocle; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE34C54311127FBC0049004E /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+		BE34C546111280960049004E /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = /opt/local/lib/liblua.a; sourceTree = "<absolute>"; };
+		BE34C66B1112C3A40049004E /* helpread */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = helpread; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE3EC6C1105D123D00B6853F /* .gdbtkinit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gdbtkinit; sourceTree = "<group>"; };
 		BE3EC6C2105D123D00B6853F /* .kdbgrc.achille */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .kdbgrc.achille; sourceTree = "<group>"; };
 		BE3EC6C3105D123D00B6853F /* botlist.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = botlist.c; sourceTree = "<group>"; };
@@ -107,11 +147,32 @@
 		BEAA0B41105D71E1005665D4 /* cfg.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cfg.lua; sourceTree = "<group>"; };
 		BEAA0B42105D71E1005665D4 /* gen_valgrind_excepts.sh */ = {isa = PBXFileReference; fileEncoding = 2147484175; lastKnownFileType = text.script.sh; path = gen_valgrind_excepts.sh; sourceTree = "<group>"; };
 		BEAA0B43105D71E1005665D4 /* misc.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = misc.lua; sourceTree = "<group>"; };
-		BEAA0B44105D71E1005665D4 /* reactions.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = reactions.lua; sourceTree = "<group>"; };
+		BEAA0B44105D71E1005665D4 /* reactions.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = reactions.lua; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.lua; };
 		BEAA0B45105D71E1005665D4 /* run_valgrind.sh */ = {isa = PBXFileReference; fileEncoding = 2147484175; lastKnownFileType = text.script.sh; path = run_valgrind.sh; sourceTree = "<group>"; };
 		BEAA0B76105D724F005665D4 /* valgrind.supp */ = {isa = PBXFileReference; fileEncoding = 2147484175; lastKnownFileType = text; path = valgrind.supp; sourceTree = "<group>"; };
 		BEDF3EBC105F10EF006D12C8 /* start_bot.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = start_bot.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BE34C51D11127E0A0049004E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE34C54411127FBC0049004E /* libiconv.dylib in Frameworks */,
+				BE34C547111280970049004E /* liblua.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE34C6651112C3A40049004E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE34C6661112C3A40049004E /* libiconv.dylib in Frameworks */,
+				BE34C6671112C3A40049004E /* liblua.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		08FB7794FE84155DC02AAC07 /* patrocle */ = {
@@ -152,8 +213,20 @@
 				BE3EC74F105D123D00B6853F /* stim.list.ori */,
 				BE3EC750105D123D00B6853F /* user.list */,
 				BEAA0B76105D724F005665D4 /* valgrind.supp */,
+				BE34C52011127E0A0049004E /* Products */,
+				BE34C54311127FBC0049004E /* libiconv.dylib */,
+				BE34C546111280960049004E /* liblua.a */,
 			);
 			name = patrocle;
+			sourceTree = "<group>";
+		};
+		BE34C52011127E0A0049004E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BE34C51F11127E0A0049004E /* patrocle */,
+				BE34C66B1112C3A40049004E /* helpread */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		BE3EC6C0105D123D00B6853F /* bot */ = {
@@ -161,6 +234,7 @@
 			children = (
 				BE3EC6C1105D123D00B6853F /* .gdbtkinit */,
 				BE3EC6C2105D123D00B6853F /* .kdbgrc.achille */,
+				BE3EC6D9105D123D00B6853F /* doc */,
 				BE3EC6C3105D123D00B6853F /* botlist.c */,
 				BE3EC6C4105D123D00B6853F /* botlist.h */,
 				BE3EC6C6105D123D00B6853F /* cfgfile.c */,
@@ -176,7 +250,6 @@
 				BE3EC6D4105D123D00B6853F /* dcc.h */,
 				BE3EC6D6105D123D00B6853F /* debug.c */,
 				BE3EC6D7105D123D00B6853F /* debug.h */,
-				BE3EC6D9105D123D00B6853F /* doc */,
 				BE3EC6E3105D123D00B6853F /* err.log */,
 				BE3EC6E4105D123D00B6853F /* file.c */,
 				BE3EC6E5105D123D00B6853F /* file.h */,
@@ -186,8 +259,8 @@
 				BE3EC6EB105D123D00B6853F /* ftext.h */,
 				BE3EC6ED105D123D00B6853F /* ftp_dcc.c */,
 				BE3EC6EE105D123D00B6853F /* ftp_dcc.h */,
-				BE3EC6F0105D123D00B6853F /* help.bot */,
 				BE3EC6F2105D123D00B6853F /* helpread.c */,
+				BE3EC6F0105D123D00B6853F /* help.bot */,
 				BE3EC6F5105D123D00B6853F /* locuteur.c */,
 				BE3EC6F6105D123D00B6853F /* locuteur.h */,
 				BE3EC6F8105D123D00B6853F /* log.c */,
@@ -252,35 +325,70 @@
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
-		BE34C1E210FBD6E60049004E /* help viewer */ = {
+		BE34C1E210FBD6E60049004E /* help viewer w makefile */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = help;
-			buildConfigurationList = BE34C1E310FBD6E60049004E /* Build configuration list for PBXLegacyTarget "help viewer" */;
+			buildConfigurationList = BE34C1E310FBD6E60049004E /* Build configuration list for PBXLegacyTarget "help viewer w makefile" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
 			buildWorkingDirectory = bot;
 			dependencies = (
 			);
-			name = "help viewer";
+			name = "help viewer w makefile";
 			passBuildSettingsInEnvironment = 1;
 			productName = patrocle;
 		};
-		D28A88AD04BDD90700651E21 /* bot */ = {
+		D28A88AD04BDD90700651E21 /* bot w makefile */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = bot;
-			buildConfigurationList = 1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "bot" */;
+			buildConfigurationList = 1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "bot w makefile" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
 			buildWorkingDirectory = bot;
 			dependencies = (
 			);
-			name = bot;
+			name = "bot w makefile";
 			passBuildSettingsInEnvironment = 1;
 			productName = patrocle;
 		};
 /* End PBXLegacyTarget section */
+
+/* Begin PBXNativeTarget section */
+		BE34C51E11127E0A0049004E /* bot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE34C52411127E0D0049004E /* Build configuration list for PBXNativeTarget "bot" */;
+			buildPhases = (
+				BE34C51C11127E0A0049004E /* Sources */,
+				BE34C51D11127E0A0049004E /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = bot;
+			productName = "bot binary";
+			productReference = BE34C51F11127E0A0049004E /* patrocle */;
+			productType = "com.apple.product-type.tool";
+		};
+		BE34C6481112C3A40049004E /* help viewer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE34C6681112C3A40049004E /* Build configuration list for PBXNativeTarget "help viewer" */;
+			buildPhases = (
+				BE34C6491112C3A40049004E /* Sources */,
+				BE34C6651112C3A40049004E /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "help viewer";
+			productName = "bot binary";
+			productReference = BE34C66B1112C3A40049004E /* helpread */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		08FB7793FE84155DC02AAC07 /* Project object */ = {
@@ -289,14 +397,63 @@
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
 			mainGroup = 08FB7794FE84155DC02AAC07 /* patrocle */;
+			productRefGroup = BE34C52011127E0A0049004E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D28A88AD04BDD90700651E21 /* bot */,
-				BE34C1E210FBD6E60049004E /* help viewer */,
+				D28A88AD04BDD90700651E21 /* bot w makefile */,
+				BE34C1E210FBD6E60049004E /* help viewer w makefile */,
+				BE34C51E11127E0A0049004E /* bot */,
+				BE34C6481112C3A40049004E /* help viewer */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BE34C51C11127E0A0049004E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE34C6F91112C7880049004E /* botlist.c in Sources */,
+				BE34C6FA1112C7930049004E /* cfgfile.c in Sources */,
+				BE34C6FB1112C7940049004E /* channel.c in Sources */,
+				BE34C6FC1112C7950049004E /* chanuser.c in Sources */,
+				BE34C6FD1112C7960049004E /* ctcp.c in Sources */,
+				BE34C6FE1112C7970049004E /* dcc.c in Sources */,
+				BE34C6FF1112C7980049004E /* debug.c in Sources */,
+				BE34C7001112C7990049004E /* file.c in Sources */,
+				BE34C7011112C79A0049004E /* fnmatch.c in Sources */,
+				BE34C7021112C79C0049004E /* ftext.c in Sources */,
+				BE34C7031112C79F0049004E /* ftp_dcc.c in Sources */,
+				BE34C7041112C7A00049004E /* locuteur.c in Sources */,
+				BE34C7051112C7A10049004E /* log.c in Sources */,
+				BE34C7061112C7A20049004E /* luainterface.c in Sources */,
+				BE34C7071112C7A30049004E /* main.c in Sources */,
+				BE34C7081112C7A40049004E /* misc.c in Sources */,
+				BE34C7091112C7A50049004E /* note.c in Sources */,
+				BE34C70A1112C7A60049004E /* parse.c in Sources */,
+				BE34C70B1112C7A70049004E /* parsetime.c in Sources */,
+				BE34C70C1112C7A80049004E /* parsing.c in Sources */,
+				BE34C70D1112C7A90049004E /* phrase.c in Sources */,
+				BE34C70E1112C7AB0049004E /* send.c in Sources */,
+				BE34C70F1112C7AC0049004E /* server.c in Sources */,
+				BE34C7101112C7AD0049004E /* session.c in Sources */,
+				BE34C7111112C7AE0049004E /* userlist.c in Sources */,
+				BE34C7121112C7AF0049004E /* vlad-ons.c in Sources */,
+				BE34C7131112C7B20049004E /* vladbot.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE34C6491112C3A40049004E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE34C6F81112C4110049004E /* helpread.c in Sources */,
+				BE34C7331112C8870049004E /* ftext.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
 		1DEB919008733D9F0010E9CD /* Debug */ = {
@@ -375,10 +532,102 @@
 			};
 			name = Release;
 		};
+		BE34C52211127E0C0049004E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GENERATE_PROFILING_CODE = YES;
+				HEADER_SEARCH_PATHS = /opt/local/include;
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
+				OBJROOT = "$(PROJECT_DIR)/tmp";
+				PREBINDING = NO;
+				PRODUCT_NAME = patrocle;
+				RUN_CLANG_STATIC_ANALYZER = NO;
+				SYMROOT = "$(PROJECT_DIR)/bot";
+			};
+			name = Debug;
+		};
+		BE34C52311127E0C0049004E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				HEADER_SEARCH_PATHS = /opt/local/include;
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
+				OBJROOT = "$(PROJECT_DIR)/tmp";
+				PREBINDING = NO;
+				PRODUCT_NAME = patrocle;
+				SYMROOT = "$(PROJECT_DIR)/bot";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		BE34C6691112C3A40049004E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = STAND_ALONE;
+				HEADER_SEARCH_PATHS = /opt/local/include;
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = helpread;
+				SYMROOT = bot;
+			};
+			name = Debug;
+		};
+		BE34C66A1112C3A40049004E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PREPROCESSOR_DEFINITIONS = STAND_ALONE;
+				HEADER_SEARCH_PATHS = /opt/local/include;
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = helpread;
+				SYMROOT = bot;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "bot" */ = {
+		1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "bot w makefile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB919008733D9F0010E9CD /* Debug */,
@@ -396,11 +645,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BE34C1E310FBD6E60049004E /* Build configuration list for PBXLegacyTarget "help viewer" */ = {
+		BE34C1E310FBD6E60049004E /* Build configuration list for PBXLegacyTarget "help viewer w makefile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BE34C1E410FBD6E60049004E /* Debug */,
 				BE34C1E510FBD6E60049004E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BE34C52411127E0D0049004E /* Build configuration list for PBXNativeTarget "bot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE34C52211127E0C0049004E /* Debug */,
+				BE34C52311127E0C0049004E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BE34C6681112C3A40049004E /* Build configuration list for PBXNativeTarget "help viewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE34C6691112C3A40049004E /* Debug */,
+				BE34C66A1112C3A40049004E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
