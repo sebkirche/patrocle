@@ -360,6 +360,11 @@ int	remove_user_from_channel( char *channel, char *nick )
 	  
 		sendmode(channel, Mode);
 		sendtopic(channel, Topic);
+
+		free(Topic);
+		free(Mode);
+		free(Encoding);
+		
 	}
 
 	return(TRUE);
@@ -397,6 +402,7 @@ void	remove_user( char *nick )
 		/* if the channel is left empty, we get the control */
 	    if(user_nb_on_channel(Channel) == 1
 			&& !(get_usermode(Channel->users)&MODE_CHANOP)) {
+			//strdup the strings because they will be freed in leave_channel/delete channel
 			Topic = strdup(Channel->topic);
 			Mode  = strdup(Channel->mod);
 			Name  = strdup(Channel->name);
@@ -405,6 +411,11 @@ void	remove_user( char *nick )
 			leave_channel(Name);
 			Destruction = 1;
 			join_channel(Name, Topic, Mode, Encoding, TRUE);
+			//free the strings (join_channel() has made its own copies
+			free(Topic);
+			free(Mode);
+			free(Name);
+			free(Encoding);
 	    }
 	}
 }

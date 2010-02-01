@@ -51,9 +51,9 @@ void	add_user( USER_list **u_list, char *nick,
 	  free(New_user);
 	  return;
 	}
-	strcpy(New_user->nick, nick );
-	mstrcpy(&New_user->user, user );
-	mstrcpy(&New_user->host, host );
+	strncpy(New_user->nick, nick, sizeof(New_user->nick));
+	mstrcpy(&New_user->user, user );	// do not forget to free
+	mstrcpy(&New_user->host, host );	// these 2 strings !!!
 	New_user->mode = 0;
 	New_user->next = *u_list;
 	*u_list = New_user;
@@ -73,7 +73,7 @@ int	delete_user( USER_list **u_list, char *nick )
 	for( old = u_list; *old; old = &(*old)->next )
 		if( *old == Dummy ){
 			*old = Dummy->next;
-			free( Dummy );
+			free_user(Dummy);
 			return(TRUE);
 		}
 	return(FALSE);
@@ -85,12 +85,24 @@ int	change_user_nick( USER_list **u_list,
 	USER_list	*Dummy;
 
 	if( (Dummy = search_user( u_list, oldnick )) != NULL ){
-		strcpy( Dummy->nick, newnick );
+		strncpy( Dummy->nick, newnick, sizeof(Dummy->nick));
 		return(TRUE);
 	}
 	return(FALSE);
 }
 
+void free_user(USER_list *item)
+/*
+ * Frees the memory of a USER_list item
+ */
+{
+	if(item){
+		free(item->user);
+		free(item->host);
+		free(item);
+	}
+
+}
 void	clear_all_users( USER_list **u_list )
 /*
  * Removes all entries in the list
@@ -100,10 +112,8 @@ void	clear_all_users( USER_list **u_list )
 	USER_list       *next;
 
 	for( old = u_list; *old; *old = next){
-		free((*old)->user);
-		free((*old)->host);
 		next = (*old)->next;
-		free( *old );
+		free_user(*old);
 	}
 }
 
