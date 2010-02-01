@@ -38,6 +38,7 @@ typedef struct	USER_struct
 USER_list	*search_user( USER_list **u_list, const char *nick );
 void		add_user( USER_list **u_list, char *nick, 
 					  char *user, char *host );
+void		free_user(USER_list *item);
 int			delete_user( USER_list **u_list, char *nick );
 USER_list	*next_user( USER_list *Old );
 int			change_user_nick( USER_list **u_list, char *oldnick, 
