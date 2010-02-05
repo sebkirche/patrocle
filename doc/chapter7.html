@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>RFC 1459</TITLE>
+<META NAME="author" CONTENT="Content: J. Oikarinen, D.Reed, HTML: Tatu J. Lund">
+<META NAME="keywords" CONTENT="rfc1459 irc internet relay chat protocol">
+<META NAME="description" CONTENT="HTML version of internet relay chat protocol (IRC) specification (RFC1459). Material for TUUG club seminary.">
+<LINK REV="made" HREF="mailto:f@tuug.org">
+</HEAD>
+
+<BODY BGCOLOR="#FFFFE8" TEXT="#7A0818">
+
+<MAP NAME="nav_map">
+<AREA SHAPE=RECT HREF="/irchelp/" COORDS="1,1,70,38" ALT="">
+<AREA SHAPE=RECT HREF="/irchelp/search_engine.cgi" COORDS="72,1,141,38" ALT="">
+<AREA SHAPE=RECT HREF="/irchelp/help.html" COORDS="143,1,212,38" ALT="">
+<AREA SHAPE=RECT HREF="/irchelp/mail.cgi" COORDS="214,1,283,38" ALT="">
+</MAP>
+
+
+<CENTER>
+<TABLE WIDTH=80%>
+<TR>
+<TD>
+
+<CENTER>
+<FONT SIZE=1>HTML layout by Tatu J. Lund Apr 1997</FONT>
+</CENTER>
+
+<TABLE WIDTH=100%>
+<TR>
+<TD ALIGN=LEFT>
+Network Working Group<BR>     
+Request for Comments: 1459
+</TD>
+<TD ALIGN=RIGHT>
+J. Oikarinen<BR>
+D. Reed<BR>
+May 1993
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE>
+
+
+<A NAME="c7"></A>
+<H1>7. Client and server authentication</H1>
+
+   <P>Clients and servers are both subject to the same level of
+   authentication.  For both, an IP number to hostname lookup (and
+   reverse check on this) is performed for all connections made to the
+   server.  Both connections are then subject to a password check (if
+   there is a password set for that connection).  These checks are
+   possible on all connections although the password check is only
+   commonly used with servers.</P>
+
+   <P>An additional check that is becoming of more and more common is that
+   of the username responsible for making the connection.  Finding the
+   username of the other end of the connection typically involves
+   connecting to an authentication server such as IDENT as described in
+   RFC 1413.</P>
+
+   <P>Given that without passwords it is not easy to reliably determine who
+   is on the other end of a network connection, use of passwords is
+   strongly recommended on inter-server connections in addition to any
+   other measures such as using an ident server.</P>
+
+<HR WIDTH=50% NOSHADE>
+
+<TABLE WIDTH=100% BORDER=0>
+<TR>
+<TD ALIGN=LEFT><A HREF="chapter6.html"><FONT SIZE=+3>&lt;</FONT></A></TD>
+<TD ALIGN=CENTER><A HREF="rfc.html"><FONT SIZE=+3>^</FONT></A></TD>
+<TD ALIGN=RIGHT><A HREF="chapter8.html"><FONT SIZE=+3>&gt;</FONT></A></TD>
+</TR>
+</TABLE>
+
+</TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<HR>
+<CENTER>
+<!-- navigation bar -->
+<IMG SRC="/irchelp/Pix/ihnavbar.gif" WIDTH=285 HEIGHT=40 BORDER=0 USEMAP="#nav_map"
+	ALT="-navigational bar-">
+<BR><SMALL>
+[ <A HREF="/irchelp/">go back</A>
+| <a href="/irchelp/search_engine.cgi">search</A>
+| <A HREF="/irchelp/help.html">help</A>
+| <A HREF="/irchelp/mail.cgi">send email</A> ]
+</SMALL>
+<P>
+</CENTER>
+
+<CENTER><SMALL>
+<A HREF="/irchelp/credit.html">all pages &copy; IRCHELP.ORG or original authors</A><BR>
+</SMALL></CENTER>
+
+</BODY>
+</HTML>

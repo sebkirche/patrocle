@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>RFC 1459</TITLE>
+<META NAME="author" CONTENT="Content: J. Oikarinen, D.Reed, HTML: Tatu J. Lund">
+<META NAME="keywords" CONTENT="rfc1459 irc internet relay chat protocol">
+<META NAME="description" CONTENT="HTML version of internet relay chat protocol (IRC) specification (RFC1459). Material for TUUG club seminary.">
+<LINK REV="made" HREF="mailto:f@tuug.org">
+</HEAD>
+
+<BODY BGCOLOR="#FFFFE8" TEXT="#7A0818">
+
+<MAP NAME="nav_map">
+<AREA SHAPE=RECT HREF="/irchelp/" COORDS="1,1,70,38" ALT="">
+<AREA SHAPE=RECT HREF="/irchelp/search_engine.cgi" COORDS="72,1,141,38" ALT="">
+<AREA SHAPE=RECT HREF="/irchelp/help.html" COORDS="143,1,212,38" ALT="">
+<AREA SHAPE=RECT HREF="/irchelp/mail.cgi" COORDS="214,1,283,38" ALT="">
+</MAP>
+
+<CENTER>
+<TABLE WIDTH=80%>
+<TR>
+<TD>
+
+<TABLE WIDTH=100%>
+<TR>
+<TD ALIGN=LEFT>
+Network Working Group<BR>     
+Request for Comments: 1459
+</TD>
+<TD ALIGN=RIGHT>
+J. Oikarinen<BR>
+D. Reed<BR>
+May 1993
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE>
+
+<CENTER>
+<FONT SIZE=1>HTML layout by Tatu J. Lund Apr 1997</FONT>
+</CENTER>
+
+<A NAME="c9"></A>
+<H1>9. Current problems</H1>
+
+   <P>There are a number of recognized problems with this protocol, all  of
+   which  hope to be solved sometime in the near future during its
+   rewrite.  Currently, work is underway to find working solutions to
+   these problems.</P>
+
+<A NAME="c9_1"></A>
+<H2>9.1 Scalability</H2>
+
+   <P>It is widely recognized that this protocol does not scale
+   sufficiently well when used in a large arena.  The main problem comes
+   from the requirement that all servers know about all other servers
+   and users and that information regarding them be updated as soon as
+   it changes.  It is also desirable to keep the number of servers low
+   so that the path length between any two points is kept minimal and
+   the spanning tree as strongly branched as possible.</P>
+
+<A NAME="c9_2"></A>
+<H2>9.2 Labels</H2>
+
+   <P>The current IRC protocol has 3 types of labels: the nickname, the
+   channel name and the server name.  Each of the three types has its
+   own domain and no duplicates are allowed inside that domain.
+   Currently, it is possible for users to pick the label for any of the
+   three, resulting in collisions.  It is widely recognized that this
+   needs reworking, with a plan for unique names for channels and nicks
+   that don't collide being desirable as well as a solution allowing a
+   cyclic tree.</P>
+
+<A NAME="c9_2_1"></A>
+<H3>9.2.1 Nicknames</H3>
+
+   <P>The idea of the nickname on IRC is very convenient for users to use
+   when talking to each other outside of a channel, but there is only a
+   finite nickname space and being what they are, its not uncommon for
+   several people to want to use the same nick.  If a nickname is chosen
+   by two people using this protocol, either one will not succeed or
+   both will removed by use of KILL (<A HREF="chapter4.html#c4_6_1">4.6.1</A>).</P>
+
+<A NAME="c9_2_2"></A>
+<H3>9.2.2 Channels</H3>
+
+   <P>The current channel layout requires that all servers know about all
+   channels, their inhabitants and properties.  Besides not scaling
+   well, the issue of privacy is also a concern.  A collision of
+   channels is treated as an inclusive event (both people who create the
+   new channel are considered to be members of it) rather than an
+   exclusive one such as used to solve nickname collisions.</P>
+
+<A NAME="c9_2_3"></A>
+<H3>9.2.3 Servers</H3>
+
+   <P>Although the number of servers is usually small relative to the
+   number of users and channels, they two currently required to be known
+   globally, either each one separately or hidden behind a mask.</P>
+
+<A NAME="c9_3"></A>
+<H3>9.3 Algorithms</H3>
+
+   <P>In some places within the server code, it has not  been  possible  to
+   avoid  N^2  algorithms  such  as  checking  the channel list of a set
+   of clients.</P>
+
+   <P>In current server versions, there are no database consistency checks,
+   each server assumes that a neighbouring server is correct.  This
+   opens the door to large problems if a connecting server is buggy or
+   otherwise tries to introduce contradictions to the existing net.</P>
+
+   <P>Currently, because of the lack of unique internal and global labels,
+   there are a multitude of race conditions that exist.  These race
+   conditions generally arise from the problem of it taking time for
+   messages to traverse and effect the IRC network.  Even by changing to
+   unique labels, there are problems with channel-related commands being
+   disrupted.</P>
+
+<HR WIDTH=50% NOSHADE>
+
+<TABLE WIDTH=100% BORDER=0>
+<TR>
+<TD ALIGN=LEFT><A HREF="chapter8.html"><FONT SIZE=+3>&lt;</FONT></A></TD>
+<TD ALIGN=CENTER><A HREF="rfc.html"><FONT SIZE=+3>^</FONT></A></TD>
+<TD ALIGN=RIGHT><A HREF="chapter10.html"><FONT SIZE=+3>&gt;</FONT></A></TD>
+</TR>
+</TABLE>
+
+</TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<HR>
+<CENTER>
+<!-- navigation bar -->
+<IMG SRC="/irchelp/Pix/ihnavbar.gif" WIDTH=285 HEIGHT=40 BORDER=0 USEMAP="#nav_map"
+	ALT="-navigational bar-">
+<BR><SMALL>
+[ <A HREF="/irchelp/">go back</A>
+| <a href="/irchelp/search_engine.cgi">search</A>
+| <A HREF="/irchelp/help.html">help</A>
+| <A HREF="/irchelp/mail.cgi">send email</A> ]
+</SMALL>
+<P>
+</CENTER>
+
+<CENTER><SMALL>
+<A HREF="/irchelp/credit.html">all pages &copy; IRCHELP.ORG or original authors</A><BR>
+</SMALL></CENTER>
+
+</BODY>
+</HTML>

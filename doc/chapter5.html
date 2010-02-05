@@ -1,0 +1,355 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>RFC 1459</TITLE>
+<META NAME="author" CONTENT="Content: J. Oikarinen, D.Reed, HTML: Tatu J. Lund">
+<META NAME="keywords" CONTENT="rfc1459 irc internet relay chat protocol">
+<META NAME="description" CONTENT="HTML version of internet relay chat protocol (IRC) specification (RFC1459). Material for TUUG club seminary.">
+<LINK REV="made" HREF="mailto:f@tuug.org">
+</HEAD>
+
+<BODY BGCOLOR="#FFFFE8" TEXT="#7A0818">
+
+<MAP NAME="nav_map">
+<AREA SHAPE=RECT HREF="/irchelp/" COORDS="1,1,70,38" ALT="">
+<AREA SHAPE=RECT HREF="/irchelp/search_engine.cgi" COORDS="72,1,141,38" ALT="">
+<AREA SHAPE=RECT HREF="/irchelp/help.html" COORDS="143,1,212,38" ALT="">
+<AREA SHAPE=RECT HREF="/irchelp/mail.cgi" COORDS="214,1,283,38" ALT="">
+</MAP>
+
+<CENTER>
+<TABLE WIDTH=80%>
+<TR>
+<TD>
+
+<CENTER>
+<FONT SIZE=1>HTML layout by Tatu J. Lund Apr 1997</FONT>
+</CENTER>
+
+<TABLE WIDTH=100%>
+<TR>
+<TD ALIGN=LEFT>
+Network Working Group<BR>     
+Request for Comments: 1459
+</TD>
+<TD ALIGN=RIGHT>
+J. Oikarinen<BR>
+D. Reed<BR>
+May 1993
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE>
+
+<A NAME="c5"></A>
+<H1>5. Optionals</H1>
+
+<P>This section describes OPTIONAL messages.  They are not required in a
+working server implementation of the protocol described herein.  In
+the absence of the option, an error reply message must be generated
+or an unknown command error.  If the message is destined for another
+server to answer then it must be passed on (elementary parsing
+required) The allocated numerics for this are listed with the
+messages below.</P>
+
+<A NAME="c5_1"></A>
+<H2>5.1 Away</H2>
+
+<TABLE BORDER=0>
+<TR><TH ALIGN=LEFT>   Command: </TH><TD>AWAY</TD></TR>
+<TR><TH ALIGN=LEFT>Parameters: </TH><TD>[message]</TD></TR>
+</TABLE>
+
+<P>With the AWAY message, clients can set an automatic reply string for
+any PRIVMSG commands directed at them (not to a channel they are on).
+The automatic reply is sent by the server to client sending the
+PRIVMSG command.  The only replying server is the one to which the
+sending client is connected to.</P>
+
+<P>The AWAY message is used either with one parameter (to set an AWAY
+message) or with no parameters (to remove the AWAY message).</P>
+
+<P>Numeric Replies:</P>
+
+        <CENTER>
+        <TABLE BORDER=0>
+        <TR><TD>RPL_UNAWAY                      </TD><TD>RPL_NOWAWAY</TD></TR>
+        </TABLE>
+        </CENTER>
+
+<P>Examples:</P>
+
+<PRE>
+AWAY :Gone to lunch.  Back in 5
+                      ; set away message to "Gone to lunch.
+                      Back in 5".
+
+:WiZ AWAY             ; unmark WiZ as being away.
+</PRE>
+
+
+<A NAME="c5_2"></A>
+<H2>5.2 Rehash message</H2>
+
+<TABLE BORDER=0>
+<TR><TH ALIGN=LEFT>   Command: </TH><TD>REHASH</TD></TR>
+<TR><TH ALIGN=LEFT>Parameters: </TH><TD>None</TD></TR>
+</TABLE>
+
+<P>The rehash message can be used by the operator to force the server to
+re-read and process its configuration file.</P>
+
+<P>Numeric Replies:</P>
+
+        <CENTER>
+        <TABLE BORDER=0>
+        <TR><TD>RPL_REHASHING                   </TD><TD>ERR_NOPRIVILEGES</TD></TR>
+        </TABLE>
+        </CENTER>
+
+<P>Examples:</P>
+
+<PRE>
+REHASH           ; message from client with operator
+                 status to server asking it to reread its
+                 configuration file.
+</PRE>
+
+<A NAME="c5_3"></A>
+<H2>5.3 Restart message</H2>
+
+<TABLE BORDER=0>
+<TR><TH ALIGN=LEFT>   Command: </TH><TD>RESTART</TD></TR>
+<TR><TH ALIGN=LEFT>Parameters: </TH><TD>None</TD></TR>
+</TABLE>
+
+<P>The restart message can only be used by an operator to force a server
+restart itself.  This message is optional since it may be viewed as a
+risk to allow arbitrary people to connect to a server as an operator
+and execute this command, causing (at least) a disruption to service.</P>
+
+<P>The RESTART command must always be fully processed by the server to
+which the sending client is connected and not be passed onto other
+connected servers.</P>
+
+<P>Numeric Replies:</P>
+
+        <CENTER>ERR_NOPRIVILEGES</CENTER>
+
+<P>Examples:</P>
+
+<PRE>
+RESTART             ; no parameters required.
+</PRE>
+
+<A NAME="c5_4"></A>
+<H2>5.4 Summon message</H2>
+
+<TABLE BORDER=0>
+<TR><TH ALIGN=LEFT>   Command: </TH><TD>SUMMON</TD></TR>
+<TR><TH ALIGN=LEFT>Parameters: </TH><TD>&lt;user&gt; [&lt;server&gt;]</TD></TR>
+</TABLE>
+
+<P>The SUMMON command can be used to give users who are on a host
+running an IRC server a message asking them to please join IRC.  This
+message is only sent if the target server (a) has SUMMON enabled, (b)
+the user is logged in and (c) the server process can write to the
+user's tty (or similar).</P>
+
+<P>If no &lt;server&gt; parameter is given it tries to summon &lt;user&gt; from the
+server the client is connected to is assumed as the target.</P>
+
+<P>If summon is not enabled in a server, it must return the
+ERR_SUMMONDISABLED numeric and pass the summon message onwards.</P>
+
+<P>Numeric Replies:</P>
+
+        <CENTER>
+        <TABLE BORDER=0>
+        <TR><TD>ERR_NORECIPIENT                 </TD><TD>ERR_FILEERROR</TD></TR>
+        <TR><TD>ERR_NOLOGIN                     </TD><TD>ERR_NOSUCHSERVER</TD></TR>
+        <TR><TD>RPL_SUMMONING                   </TD><TD></TD></TR>
+        </TABLE>
+        </CENTER>
+
+<P>Examples:</P>
+
+<PRE>
+SUMMON jto                 ; summon user jto on the server's host
+
+SUMMON jto tolsun.oulu.fi  ; summon user jto on the host which a
+                           server named "tolsun.oulu.fi" is
+                           running.
+</PRE>
+
+<A NAME="c5_5"></A>
+<H2>5.5 Users</H2>
+
+<TABLE BORDER=0>
+<TR><TH ALIGN=LEFT>   Command: </TH><TD>USERS</TD></TR>
+<TR><TH ALIGN=LEFT>Parameters: </TH><TD>[&lt;server&gt;]</TD></TR>
+</TABLE>
+
+<P>The USERS command returns a list of users logged into the server in a
+similar  format  to  who(1),  rusers(1)  and finger(1).  Some people
+may disable this command on their server for security related
+reasons.   If disabled, the correct numeric must be returned to
+indicate this.</P>
+
+<P>Numeric Replies:</P>
+
+        <CENTER>
+        <TABLE BORDER=0>
+        <TR><TD>ERR_NOSUCHSERVER                </TD><TD>ERR_FILEERROR</TD></TR>
+        <TR><TD>RPL_USERSSTART                  </TD><TD>RPL_USERS</TD></TR>
+        <TR><TD>RPL_NOUSERS                     </TD><TD>RPL_ENDOFUSERS</TD></TR>
+        <TR><TD>ERR_USERSDISABLED               </TD><TD></TD></TR>
+        </TABLE>
+        </CENTER>
+
+<P>Disabled Reply:</P>
+
+        <CENTER>ERR_USERSDISABLED</CENTER>
+
+<P>Examples:</P>
+
+<PRE>
+USERS eff.org              ; request a list of users logged in on
+                           server eff.org
+
+:John USERS tolsun.oulu.fi ; request from John for a list of users
+                           logged in on server tolsun.oulu.fi
+</PRE>
+
+<A NAME="c5_6"></A>
+<H2>5.6 Operwall message</H2>
+
+<TABLE BORDER=0>
+<TR><TH ALIGN=LEFT>   Command: </TH><TD>WALLOPS</TD></TR>
+<TR><TH ALIGN=LEFT>Parameters: </TH><TD>Text to be sent to all operators currently online</TD></TR>
+</TABLE>
+
+<P>Sends  a  message  to  all   operators   currently   online.    After
+implementing  WALLOPS  as  a user command it was found that it was
+often and commonly abused as a means of sending a message to a lot
+of  people (much  similar to WALL).  Due to this it is recommended
+that the current implementation of  WALLOPS  be  used  as  an
+example  by  allowing  and recognising only servers as the senders of
+WALLOPS.</P>
+
+<P>Numeric Replies:</P>
+
+        <CENTER>ERR_NEEDMOREPARAMS</CENTER>
+
+<P>Examples:</P>
+
+<PRE>
+:csd.bu.edu WALLOPS :Connect '*.uiuc.edu 6667' from Joshua
+                ; WALLOPS message from csd.bu.edu announcing a
+                CONNECT message it received and acted
+                upon from Joshua.
+</PRE>
+
+<A NAME="c5_7"></A>
+<H2>5.7 Userhost message</H2>
+
+<TABLE BORDER=0>
+<TR><TH ALIGN=LEFT>   Command: </TH><TD>USERHOST</TD></TR>
+<TR><TH ALIGN=LEFT>Parameters: </TH><TD>&lt;nickname&gt;{&lt;space&gt;&lt;nickname&gt;}</TD></TR>
+</TABLE>
+
+<P>The USERHOST command takes a list of up to 5 nicknames, each
+separated by a space character and returns a list of information
+about each nickname that it found.  The returned list has each reply
+separated by a space.</P>
+
+<P>Numeric Replies:</P>
+
+        <CENTER>
+        <TABLE BORDER=0>
+        <TR><TD>RPL_USERHOST                    </TD><TD>ERR_NEEDMOREPARAMS</TD></TR>
+        </TABLE>
+        </CENTER>
+
+<P>Examples:</P>
+
+<PRE>
+USERHOST Wiz Michael Marty p
+                    ;USERHOST request for information on
+                    nicks "Wiz", "Michael", "Marty" and "p"
+</PRE>
+
+<A NAME="c5_8"></A>
+<H2>5.8 Ison message</H2>
+
+<TABLE BORDER=0>
+<TR><TH ALIGN=LEFT>   Command: </TH><TD>ISON</TD></TR>
+<TR><TH ALIGN=LEFT>Parameters: </TH><TD>&lt;nickname&gt;{&lt;space&gt;&lt;nickname&gt;}</TD></TR>
+</TABLE>
+
+<P>The ISON command was implemented to provide  a  quick  and  efficient
+means  to get a response about whether a given nickname was currently
+on IRC. ISON only takes one (1) parameter: a space-separated list of
+nicks.  For  each  nickname in the list that is present, the server
+adds that to its reply string.  Thus the reply string may return
+empty (none  of  the given  nicks are present), an exact copy of the
+parameter string (all of them present) or as any other subset of the
+set of nicks  given  in  the parameter.  The only limit on the number
+of nicks that may be checked is that the combined length must not be
+too large as to cause the server to chop it off so it fits in 512
+characters.</P>
+
+<P>ISON is only be processed by the server local to the client sending
+the command and thus not passed onto other servers for further
+processing.</P>
+
+<P>Numeric Replies:</P>
+
+        <CENTER>
+        <TABLE BORDER=0>
+        <TR><TD>RPL_ISON                </TD><TD>ERR_NEEDMOREPARAMS</TD></TR>
+        </TABLE>
+        </CENTER>
+
+<P>Examples:</P>
+
+<PRE>
+ISON phone trillian WiZ jarlek Avalon Angel Monstah
+                     ; Sample ISON request for 7 nicks.
+</PRE>
+
+<HR WIDTH=50% NOSHADE>
+
+<TABLE WIDTH=100% BORDER=0>
+<TR>
+<TD ALIGN=LEFT><A HREF="chapter4.html"><FONT SIZE=+3>&lt;</FONT></A></TD>
+<TD ALIGN=CENTER><A HREF="rfc.html"><FONT SIZE=+3>^</FONT></A></TD>
+<TD ALIGN=RIGHT><A HREF="chapter6.html"><FONT SIZE=+3>&gt;</FONT></A></TD>
+</TR>
+</TABLE>
+
+</TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<HR>
+<CENTER>
+<!-- navigation bar -->
+<IMG SRC="/irchelp/Pix/ihnavbar.gif" WIDTH=285 HEIGHT=40 BORDER=0 USEMAP="#nav_map"
+	ALT="-navigational bar-">
+<BR><SMALL>
+[ <A HREF="/irchelp/">go back</A>
+| <a href="/irchelp/search_engine.cgi">search</A>
+| <A HREF="/irchelp/help.html">help</A>
+| <A HREF="/irchelp/mail.cgi">send email</A> ]
+</SMALL>
+<P>
+</CENTER>
+
+<CENTER><SMALL>
+<A HREF="/irchelp/credit.html">all pages &copy; IRCHELP.ORG or original authors</A><BR>
+</SMALL></CENTER>
+
+</BODY>
+</HTML>
