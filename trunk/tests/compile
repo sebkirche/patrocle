@@ -1,0 +1,1 @@
+gcc -arch x86_64 -g -DDBUG -Wall -o userlisttest userlisttest.c -I ../bot ../tmp/patrocle.build/Debug/bot.build/Objects-normal/x86_64/chanuser.o ../tmp/patrocle.build/Debug/bot.build/Objects-normal/x86_64/misc.o
