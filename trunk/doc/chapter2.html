@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>RFC 1459</TITLE>
+<META NAME="author" CONTENT="Content: J. Oikarinen, D.Reed, HTML: Tatu J. Lund">
+<META NAME="keywords" CONTENT="rfc1459 irc internet relay chat protocol">
+<META NAME="description" CONTENT="HTML version of internet relay chat protocol (IRC) specification (RFC1459). Material for TUUG club seminary.">
+<LINK REV="made" HREF="mailto:f@tuug.org">
+</HEAD>
+
+<BODY BGCOLOR="#FFFFE8" TEXT="#7A0818">
+
+<MAP NAME="nav_map">
+<AREA SHAPE=RECT HREF="/irchelp/" COORDS="1,1,70,38" ALT="">
+<AREA SHAPE=RECT HREF="/irchelp/search_engine.cgi" COORDS="72,1,141,38" ALT="">
+<AREA SHAPE=RECT HREF="/irchelp/help.html" COORDS="143,1,212,38" ALT="">
+<AREA SHAPE=RECT HREF="/irchelp/mail.cgi" COORDS="214,1,283,38" ALT="">
+</MAP>
+
+<CENTER>
+<TABLE WIDTH=80%>
+<TR>
+<TD>
+
+<CENTER>
+<FONT SIZE=1>HTML layout by Tatu J. Lund Apr 1997</FONT>
+</CENTER>
+
+<TABLE WIDTH=100%>
+<TR>
+<TD ALIGN=LEFT>
+Network Working Group<BR>     
+Request for Comments: 1459
+</TD>
+<TD ALIGN=RIGHT>
+J. Oikarinen<BR>
+D. Reed<BR>
+May 1993
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE>
+
+<A NAME="c2"></A>
+<H1>2. The IRC Specification</H1>
+
+<A NAME="c2_1"></A>
+<H2>2.1 Overview</H2>
+
+   <P>The protocol as described herein is for use both with server to
+   server and client to server connections.  There are, however, more
+   restrictions on client connections (which are considered to be
+   untrustworthy) than on server connections.</P>
+
+<A NAME="c2_2"></A>
+<H2>2.2 Character codes</H2>
+
+   <P>No specific character set is specified. The protocol is based on a a
+   set of codes which are composed of eight (8) bits, making up an
+   octet.  Each message may be composed of any number of these octets;
+   however, some octet values are used for control codes which act as
+   message delimiters.</P>
+
+   <P>Regardless of being an 8-bit protocol, the delimiters and keywords
+   are such that protocol is mostly usable from USASCII terminal and a
+   telnet connection.</P>
+
+   <P>Because of IRC's scandanavian origin, the characters {}| are
+   considered to be the lower case equivalents of the characters []\,
+   respectively. This is a critical issue when determining the
+   equivalence of two nicknames.</P>
+
+<A NAME="c2_3"></A>
+<H2>2.3 Messages</H2>
+
+   <P>Servers and clients send eachother messages which may or may not
+   generate a reply.  If the message contains a valid command, as
+   described in later sections, the client should expect a reply as
+   specified but it is not advised to wait forever for the reply; client
+   to server and server to server communication is essentially
+   asynchronous in nature.</P>
+
+   <P>Each IRC message may consist of up to three main parts: the prefix
+   (optional), the command, and the command parameters (of which there
+   may be up to 15).  The prefix, command, and all parameters are
+   separated by one (or more) ASCII space character(s) (0x20).</P>
+
+   <P>The presence of a prefix is indicated with a single leading ASCII
+   colon character (':', 0x3b), which must be the first character of the
+   message itself.  There must be no gap (whitespace) between the colon
+   and the prefix.  The prefix is used by servers to indicate the true
+   origin of the message.  If the prefix is missing from the message, it
+   is assumed to have originated from the connection from which it was
+   received.  Clients should not use prefix when sending a message from
+   themselves; if they use a prefix, the only valid prefix is the
+   registered nickname associated with the client.  If the source
+   identified by the prefix cannot be found from the server's internal
+   database, or if the source is registered from a different link than
+   from which the message arrived, the server must ignore the message
+   silently.</P>
+
+   <P>The command must either be a valid IRC command or a three (3) digit
+   number represented in ASCII text.</P>
+
+   <P>IRC messages are always lines of characters terminated with a CR-LF
+   (Carriage Return - Line Feed) pair, and these messages shall not
+   exceed 512 characters in length, counting all characters including
+   the trailing CR-LF. Thus, there are 510 characters maximum allowed
+   for the command and its parameters.  There is no provision for
+   continuation message lines.  See section 7 for more details about
+   current implementations.</P>
+
+<A NAME="c2_3_1"></A>
+<H3>2.3.1 Message format in 'pseudo' BNF</H3>
+
+   <P>The protocol messages must be extracted from the contiguous stream of
+   octets.  The current solution is to designate two characters, CR and
+   LF, as message separators.   Empty  messages  are  silently  ignored,
+   which permits  use  of  the  sequence  CR-LF  between  messages
+   without extra problems.</P>
+
+   <P>The extracted message is parsed into the components &lt;prefix&gt;,
+   &lt;command&gt; and list of parameters matched either by &lt;middle&gt; or
+   &lt;trailing&gt; components.</P>
+
+   <P>The BNF representation for this is:</P>
+
+<DL COMPACT>
+<DT>&lt;message&gt;  ::=</DT> <DD>[':' &lt;prefix&gt; &lt;SPACE&gt; ] &lt;command&gt; &lt;params&gt; &lt;crlf&gt;</DD>
+<DT>&lt;prefix&gt;   ::=</DT> <DD>&lt;servername&gt; | &lt;nick&gt; [ '!' &lt;user&gt; ] [ '@' &lt;host&gt; ]</DD>
+<DT>&lt;command&gt;  ::=</DT> <DD>&lt;letter&gt; { &lt;letter&gt; } | &lt;number&gt; &lt;number&gt; &lt;number&gt;</DD>
+<DT>&lt;SPACE&gt;    ::=</DT> <DD>' ' { ' ' }</DD>
+<DT>&lt;params&gt;   ::=</DT> <DD>&lt;SPACE&gt; [ ':' &lt;trailing&gt; | &lt;middle&gt; &lt;params&gt; ]</DD>
+
+<DT>&lt;middle&gt;   ::=</DT> <DD>&lt;Any *non-empty* sequence of octets not including SPACE or NUL or CR or LF, the first of which may not be ':'&gt;</DD>
+<DT>&lt;trailing&gt; ::=</DT> <DD>&lt;Any, possibly *empty*, sequence of octets not including  NUL or CR or LF&gt;</DD>
+
+<DT>&lt;crlf&gt;     ::=</DT> <DD>CR LF</DD>
+</DL>
+
+<P>NOTES:</P>
+
+  <OL TYPE=1 START=1 COMPACT>
+  <LI>  &lt;SPACE&gt; is consists only of SPACE character(s) (0x20).
+        Specially notice that TABULATION, and all other control
+        characters are considered NON-WHITE-SPACE.</LI>
+
+  <LI>  After extracting the parameter list, all parameters are equal,
+        whether matched by &lt;middle&gt; or &lt;trailing&gt;. &lt;Trailing&gt; is just
+        a syntactic trick to allow SPACE within parameter.</LI>
+
+  <LI>  The fact that CR and LF cannot appear in parameter strings is
+        just artifact of the message framing. This might change later.</LI>
+
+  <LI>  The NUL character is not special in message framing, and
+        basically could end up inside a parameter, but as it would
+        cause extra complexities in normal C string handling. Therefore
+        NUL is not allowed within messages.</LI>
+
+  <LI>  The last parameter may be an empty string.</LI>
+
+  <LI>  Use of the extended prefix (['!' &lt;user&gt; ] ['@' &lt;host&gt; ]) must
+        not be used in server to server communications and is only
+        intended for server to client messages in order to provide
+        clients with more useful information about who a message is
+        from without the need for additional queries.</LI>
+  </OL>
+
+   <P>Most protocol messages specify additional semantics and syntax for
+   the extracted parameter strings dictated by their position in the
+   list.  For example, many server commands will assume that the first
+   parameter after the command is the list of targets, which can be
+   described with:</P>
+
+   <DL COMPACT>
+   <DT>&lt;target&gt;     ::=</DT> <DD>&lt;to&gt; [ "," &lt;target&gt; ]</DD>
+   <DT>&lt;to&gt;         ::=</DT> <DD>&lt;channel&gt; | &lt;user&gt; '@' &lt;servername&gt; | &lt;nick&gt; | &lt;mask&gt;</DD>
+   <DT>&lt;channel&gt;    ::=</DT> <DD>('#' | '&') &lt;chstring&gt;</DD>
+   <DT>&lt;servername&gt; ::=</DT> <DD>&lt;host&gt;</DD>
+   <DT>&lt;host&gt;       ::=</DT> <DD>see RFC 952 [DNS:4] for details on allowed hostnames</DD>
+   <DT>&lt;nick&gt;       ::=</DT> <DD>&lt;letter&gt; { &lt;letter&gt; | &lt;number&gt; | &lt;special&gt; }</DD>
+   <DT>&lt;mask&gt;       ::=</DT> <DD>('#' | '$') &lt;chstring&gt;</DD>
+   <DT>&lt;chstring&gt;   ::=</DT> <DD>&lt;any 8bit code except SPACE, BELL, NUL, CR, LF and comma (',')&gt;</DD>
+   </DL>
+
+   <P>Other parameter syntaxes are:</P>
+
+   <DL COMPACT>
+   <DT>&lt;user&gt;       ::=</DT> <DD>&lt;nonwhite&gt; { &lt;nonwhite&gt; }</DD>
+   <DT>&lt;letter&gt;     ::=</DT> <DD>'a' ... 'z' | 'A' ... 'Z'</DD>
+   <DT>&lt;number&gt;     ::=</DT> <DD>'0' ... '9'</DD>
+   <DT>&lt;special&gt;    ::=</DT> <DD>'-' | '[' | ']' | '\' | '`' | '^' | '{' | '}'</DD>
+   <DT>&lt;nonwhite&gt;   ::=</DT> <DD>&lt;any 8bit code except SPACE (0x20), NUL (0x0), CR (0xd), and LF (0xa)&gt;</DD>
+   </DL>
+
+<A NAME="c2_4"></A>
+<H2>2.4 Numeric replies</H2>
+
+   <P>Most of the messages sent to the server generate a reply of some
+   sort.  The most common reply is the numeric reply, used for both
+   errors and normal replies.  The numeric reply must be sent as one
+   message consisting of the sender prefix, the three digit numeric, and
+   the target of the reply.  A numeric reply is not allowed to originate
+   from a client; any such messages received by a server are silently
+   dropped. In all other respects, a numeric reply is just like a normal
+   message, except that the keyword is made up of 3 numeric digits
+   rather than a string of letters.  A list of different replies is
+   supplied in <A HREF="chapter6.html">section 6</A>.</P>
+
+<HR WIDTH=50% NOSHADE>
+
+<TABLE WIDTH=100% BORDER=0>
+<TR>
+<TD ALIGN=LEFT><A HREF="chapter1.html"><FONT SIZE=+3>&lt;</FONT></A></TD>
+<TD ALIGN=CENTER><A HREF="rfc.html"><FONT SIZE=+3>^</FONT></A></TD>
+<TD ALIGN=RIGHT><A HREF="chapter3.html"><FONT SIZE=+3>&gt;</FONT></A></TD>
+</TR>
+</TABLE>
+
+</TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<HR>
+<CENTER>
+<!-- navigation bar -->
+<IMG SRC="/irchelp/Pix/ihnavbar.gif" WIDTH=285 HEIGHT=40 BORDER=0 USEMAP="#nav_map"
+	ALT="-navigational bar-">
+<BR><SMALL>
+[ <A HREF="/irchelp/">go back</A>
+| <a href="/irchelp/search_engine.cgi">search</A>
+| <A HREF="/irchelp/help.html">help</A>
+| <A HREF="/irchelp/mail.cgi">send email</A> ]
+</SMALL>
+<P>
+</CENTER>
+
+<CENTER><SMALL>
+<A HREF="/irchelp/credit.html">all pages &copy; IRCHELP.ORG or original authors</A><BR>
+</SMALL></CENTER>
+
+</BODY>
+</HTML>

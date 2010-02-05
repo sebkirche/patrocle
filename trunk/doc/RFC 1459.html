@@ -1,0 +1,273 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>RFC 1459</TITLE>
+<META NAME="author" CONTENT="Content: J. Oikarinen, D.Reed, HTML: Tatu J. Lund">
+<META NAME="keywords" CONTENT="rfc1459 irc internet relay chat protocol">
+<META NAME="description" CONTENT="HTML version of internet relay chat (IRC) protocol specification (RFC1459).">
+<LINK REV="made" HREF="mailto:f@tuug.org">
+</HEAD>
+
+<BODY BGCOLOR="#FFFFE8" TEXT="#7A0818">
+
+<MAP NAME="nav_map">
+<AREA SHAPE=RECT HREF="/irchelp/" COORDS="1,1,70,38" ALT="">
+<AREA SHAPE=RECT HREF="/irchelp/search_engine.cgi" COORDS="72,1,141,38" ALT="">
+<AREA SHAPE=RECT HREF="/irchelp/help.html" COORDS="143,1,212,38" ALT="">
+<AREA SHAPE=RECT HREF="/irchelp/mail.cgi" COORDS="214,1,283,38" ALT="">
+</MAP>
+
+
+<CENTER>
+<TABLE WIDTH=80%>
+<TR>
+<TD>
+
+
+<CENTER>
+<FONT SIZE=1>HTML layout by Tatu J. Lund Apr 1997</FONT>
+</CENTER>
+
+<TABLE WIDTH=100%>
+<TR>
+<TD ALIGN=LEFT>
+Network Working Group<BR>     
+Request for Comments: 1459
+</TD>
+<TD ALIGN=RIGHT>
+J. Oikarinen<BR>
+D. Reed<BR>
+May 1993
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE>
+
+<H1>Internet Relay Chat Protocol</H1>
+
+<P><B>Editor's Note</B>: This is the original RFC for IRC. <A HREF="http://www.tuug.utu.fi/~f/">Tatu J. Lund</A> translated the official text file <A HREF="../text/rfc1459.txt" TARGET="_top">RFC 1459</A> into this web version, which is mirrored with his permission. There are also <A HREF="index.html">other RFC documents</A> including specifications for CTCP, DCC, and the "new" IRC RFCs.</P>
+
+
+<H2>Status of This Memo</H2>
+
+<P>This memo defines an Experimental Protocol for the Internet
+community.  Discussion and suggestions for improvement are requested.
+Please refer to the current edition of the "IAB Official Protocol
+Standards" for the standardization state and status of this protocol.
+Distribution of this memo is unlimited.</P>
+
+<H2>Abstract</H2>
+
+<P>The IRC protocol was developed over the last 4 years since it was
+first implemented as a means for users on a BBS to chat amongst
+themselves.  Now it supports a world-wide network of servers and
+clients, and is stringing to cope with growth. Over the past 2 years,
+the average number of users connected to the main IRC network has
+grown by a factor of 10.</P>
+
+<P>The IRC protocol is a text-based protocol, with the simplest client
+being any socket program capable of connecting to the server.</P>
+
+<H2>Table of Contents</H2>
+
+   <MENU>
+   <A HREF="chapter1.html">1.INTRODUCTION</A>
+      <MENU>
+      <A HREF="chapter1.html#c1_1">1.1  Servers</A><BR>
+      <A HREF="chapter1.html#c1_2">1.2  Clients</A>
+         <MENU>
+         <A HREF="chapter1.html#c1_2_1">1.2.1 Operators</A> 
+         </MENU>
+      <A HREF="chapter1.html#c1_3">1.3 Channels</A>
+         <MENU>
+         <A HREF="chapter1.html#c1_3_1">1.3.1  Channel Operators</A> 
+         </MENU>
+      </MENU>
+   <A HREF="chapter2.html">2. THE IRC SPECIFICATION</A> 
+      <MENU>
+      <A HREF="chapter2.html#c2_1">2.1 Overview</A><BR>
+      <A HREF="chapter2.html#c2_2">2.2 Character codes</A><BR>
+      <A HREF="chapter2.html#c2_3">2.3 Messages</A>
+         <MENU>
+         <A HREF="chapter2.html#c2_3_1">2.3.1  Message format in 'pseudo' BNF</A> 
+         </MENU>
+      <A HREF="chapter2.html#c2_4">2.4 Numeric replies</A> 
+      </MENU>
+   <A HREF="chapter3.html">3. IRC CONCEPTS</A>
+      <MENU>
+      <A HREF="chapter3.html#c3_1">3.1 One-to-one communication</A><BR>  
+      <A HREF="chapter3.html#c3_2">3.2 One-to-many</A>
+         <MENU>
+         <A HREF="chapter3.html#c3_2_1">3.2.1 To a list</A><BR> 
+         <A HREF="chapter3.html#c3_2_2">3.2.2 To a group (channel)</A><BR> 
+         <A HREF="chapter3.html#c3_2_3">3.2.3 To a host/server mask</A> 
+         </MENU>
+      <A HREF="chapter3.html#c3_3">3.3 One to all</A> 
+         <MENU>
+         <A HREF="chapter3.html#c3_3_1">3.3.1 Client to Client</A><BR> 
+         <A HREF="chapter3.html#c3_3_2">3.3.2 Clients to Server</A><BR> 
+         <A HREF="chapter3.html#c3_3_3">3.3.3 Server to Server</A> 
+         </MENU>
+      </MENU>
+   <A HREF="chapter4.html">4. MESSAGE DETAILS</A> 
+      <MENU>
+      <A HREF="chapter4.html#c4_1">4.1 Connection Registration</A> 
+         <MENU>
+         <A HREF="chapter4.html#c4_1_1">4.1.1 Password message</A><BR> 
+         <A HREF="chapter4.html#c4_1_2">4.1.2 Nickname message</A><BR> 
+         <A HREF="chapter4.html#c4_1_3">4.1.3 User message</A><BR> 
+         <A HREF="chapter4.html#c4_1_4">4.1.4 Server message</A><BR> 
+         <A HREF="chapter4.html#c4_1_5">4.1.5 Operator message</A><BR> 
+         <A HREF="chapter4.html#c4_1_6">4.1.6 Quit message</A><BR> 
+         <A HREF="chapter4.html#c4_1_7">4.1.7 Server Quit message</A> 
+         </MENU>
+      <A HREF="chapter4.html#c4_2">4.2 Channel operations</A> 
+         <MENU>
+         <A HREF="chapter4.html#c4_2_1">4.2.1 Join message</A><BR> 
+         <A HREF="chapter4.html#c4_2_2">4.2.2 Part message</A><BR> 
+         <A HREF="chapter4.html#c4_2_3">4.2.3 Mode message</A>
+            <MENU>
+            <A HREF="chapter4.html#c4_2_3_1">4.2.3.1 Channel modes</A><BR> 
+            <A HREF="chapter4.html#c4_2_3_2">4.2.3.2 User modes</A> 
+            </MENU>
+         <A HREF="chapter4.html#c4_2_4">4.2.4 Topic message</A><BR> 
+         <A HREF="chapter4.html#c4_2_5">4.2.5 Names message</A><BR> 
+         <A HREF="chapter4.html#c4_2_6">4.2.6 List message</A><BR> 
+         <A HREF="chapter4.html#c4_2_7">4.2.7 Invite message</A><BR> 
+         <A HREF="chapter4.html#c4_2_8">4.2.8 Kick message</A> 
+         </MENU>
+      <A HREF="chapter4.html#c4_3">4.3 Server queries and commands</A> 
+         <MENU>
+         <A HREF="chapter4.html#c4_3_1">4.3.1 Version message</A><BR> 
+         <A HREF="chapter4.html#c4_3_2">4.3.2 Stats message</A><BR> 
+         <A HREF="chapter4.html#c4_3_3">4.3.3 Links message</A><BR> 
+         <A HREF="chapter4.html#c4_3_4">4.3.4 Time message</A><BR>
+         <A HREF="chapter4.html#c4_3_5">4.3.5 Connect message</A><BR> 
+         <A HREF="chapter4.html#c4_3_6">4.3.6 Trace message</A><BR> 
+         <A HREF="chapter4.html#c4_3_7">4.3.7 Admin message</A><BR> 
+         <A HREF="chapter4.html#c4_3_8">4.3.8 Info message</A> 
+         </MENU>
+      <A HREF="chapter4.html#c4_4">4.4 Sending messages</A> 
+         <MENU>
+         <A HREF="chapter4.html#c4_4_1">4.4.1 Private messages</A><BR> 
+         <A HREF="chapter4.html#c4_4_2">4.4.2 Notice messages</A> 
+         </MENU>
+      <A HREF="chapter4.html#c4_5">4.5 User-based queries</A> 
+         <MENU>
+         <A HREF="chapter4.html#c4_5_1">4.5.1 Who query</A><BR> 
+         <A HREF="chapter4.html#c4_5_2">4.5.2 Whois query</A><BR> 
+         <A HREF="chapter4.html#c4_5_3">4.5.3 Whowas message</A> 
+         </MENU>
+      <A HREF="chapter4.html#c4_6">4.6 Miscellaneous messages</A> 
+         <MENU>
+         <A HREF="chapter4.html#c4_6_1">4.6.1 Kill message</A><BR> 
+         <A HREF="chapter4.html#c4_6_2">4.6.2 Ping message</A><BR> 
+         <A HREF="chapter4.html#c4_6_3">4.6.3 Pong message</A><BR> 
+         <A HREF="chapter4.html#c4_6_4">4.6.4 Error message</A> 
+         </MENU>
+      </MENU>
+   <A HREF="chapter5.html">5. OPTIONAL MESSAGES</A> 
+      <MENU>
+      <A HREF="chapter5.html#c5_1">5.1 Away message</A><BR> 
+      <A HREF="chapter5.html#c5_2">5.2 Rehash command</A><BR> 
+      <A HREF="chapter5.html#c5_3">5.3 Restart command</A><BR> 
+      <A HREF="chapter5.html#c5_4">5.4 Summon message</A><BR> 
+      <A HREF="chapter5.html#c5_5">5.5 Users message</A><BR> 
+      <A HREF="chapter5.html#c5_6">5.6 Operwall command</A><BR> 
+      <A HREF="chapter5.html#c5_7">5.7 Userhost message</A><BR> 
+      <A HREF="chapter5.html#c5_8">5.8 Ison message</A> 
+      </MENU>
+   <A HREF="chapter6.html">6. REPLIES</A>
+      <MENU>
+      <A HREF="chapter6.html#c6_1">6.1 Error Replies</A><BR> 
+      <A HREF="chapter6.html#c6_2">6.2 Command responses</A><BR> 
+      <A HREF="chapter6.html#c6_3">6.3 Reserved numerics</A> 
+      </MENU>
+   <A HREF="chapter7.html">7. CLIENT AND SERVER AUTHENTICATION</A><BR> 
+   <A HREF="chapter8.html">8. CURRENT IMPLEMENTATIONS DETAILS</A> 
+      <MENU>
+      <A HREF="chapter8.html#c8_1">8.1 Network protocol: TCP</A> 
+         <MENU>
+         <A HREF="chapter8.html#c8_1_1">8.1.1 Support of Unix sockets</A> 
+         </MENU>
+      <A HREF="chapter8.html#c8_2">8.2 Command Parsing</A><BR> 
+      <A HREF="chapter8.html#c8_3">8.3 Message delivery</A><BR> 
+      <A HREF="chapter8.html#c8_4">8.4 Connection 'Liveness'</A><BR> 
+      <A HREF="chapter8.html#c8_5">8.5 Establishing a server-client connection</A><BR> 
+      <A HREF="chapter8.html#c8_6">8.6 Establishing a server-server connection</A> 
+         <MENU>
+         <A HREF="chapter8.html#c8_6_1">8.6.1 State information exchange when connecting</A> 
+         </MENU>
+      <A HREF="chapter8.html#c8_7">8.7 Terminating server-client connections</A><BR> 
+      <A HREF="chapter8.html#c8_8">8.8 Terminating server-server connections</A><BR> 
+      <A HREF="chapter8.html#c8_9">8.9 Tracking nickname changes</A><BR> 
+      <A HREF="chapter8.html#c8_10">8.10 Flood control of clients</A><BR> 
+      <A HREF="chapter8.html#c8_11">8.11 Non-blocking lookups</A> 
+         <MENU>
+         <A HREF="chapter8.html#c8_11_1">8.11.1 Hostname (DNS) lookups</A><BR> 
+         <A HREF="chapter8.html#c8_11_2">8.11.2 Username (Ident) lookups</A> 
+         </MENU>
+      <A HREF="chapter8.html#c8_12">8.12 Configuration file</A> 
+         <MENU>
+         <A HREF="chapter8.html#c8_12_1">8.12.1 Allowing clients to connect</A><BR> 
+         <A HREF="chapter8.html#c8_12_2">8.12.2 Operators</A><BR> 
+         <A HREF="chapter8.html#c8_12_3">8.12.3 Allowing servers to connect</A><BR> 
+         <A HREF="chapter8.html#c8_12_4">8.12.4 Administrivia</A> 
+         </MENU>
+      <A HREF="chapter8.html#c8_13">8.13 Channel membership</A> 
+      </MENU>
+   <A HREF="chapter9.html">9. CURRENT PROBLEMS</A> 
+      <MENU>
+      <A HREF="chapter9.html#c9_1">9.1 Scalability</A><BR> 
+      <A HREF="chapter9.html#c9_2">9.2 Labels</A>
+         <MENU>
+         <A HREF="chapter9.html#c9_2_1">9.2.1 Nicknames</A><BR> 
+         <A HREF="chapter9.html#c9_2_2">9.2.2 Channels</A><BR> 
+         <A HREF="chapter9.html#c9_2_3">9.2.3 Servers</A> 
+         </MENU>
+      <A HREF="chapter9.html#c9_3">9.3 Algorithms</A> 
+      </MENU>
+   <A HREF="chapter10.html">10. SUPPORT AND AVAILABILITY</A><BR> 
+   <A HREF="chapter11.html">11. SECURITY CONSIDERATIONS</A><BR>
+   <A HREF="chapter12.html">12. AUTHORS' ADDRESSES</A>
+   <P>
+   <B><A HREF="index.html">Other IRC RFC Documents</A></B>
+   </MENU>
+
+
+
+<HR WIDTH=50% NOSHADE>
+
+<TABLE WIDTH=100% BORDER=0>
+<TR>
+<TD ALIGN=LEFT><FONT SIZE=+3><A HREF="index.html">&lt;</A></FONT></TD>
+<TD ALIGN=CENTER><FONT SIZE=+3>^</FONT></TD>
+<TD ALIGN=RIGHT><A HREF="chapter1.html"><FONT SIZE=+3>&gt;</FONT></A></TD>
+</TR>
+</TABLE>
+
+</TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<HR>
+<CENTER>
+<!-- navigation bar -->
+<IMG SRC="/irchelp/Pix/ihnavbar.gif" WIDTH=285 HEIGHT=40 BORDER=0 USEMAP="#nav_map"
+	ALT="-navigational bar-">
+<BR><SMALL>
+[ <A HREF="/irchelp/">go back</A>
+| <a href="/irchelp/search_engine.cgi">search</A>
+| <A HREF="/irchelp/help.html">help</A>
+| <A HREF="/irchelp/mail.cgi">send email</A> ]
+</SMALL>
+<P>
+</CENTER>
+
+<CENTER><SMALL>
+<A HREF="/irchelp/credit.html">all pages &copy; IRCHELP.ORG or original authors</A><BR>
+</SMALL></CENTER>
+
+</BODY>
+</HTML>

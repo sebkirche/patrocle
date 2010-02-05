@@ -1,0 +1,729 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>RFC 1459</TITLE>
+<META NAME="author" CONTENT="Content: J. Oikarinen, D.Reed, HTML: Tatu J. Lund">
+<META NAME="keywords" CONTENT="rfc1459 irc internet relay chat protocol">
+<META NAME="description" CONTENT="HTML version of internet relay chat protocol (IRC) specification (RFC1459). Material for TUUG club seminary.">
+<LINK REV="made" HREF="mailto:f@tuug.org">
+</HEAD>
+
+<BODY BGCOLOR="#FFFFE8" TEXT="#7A0818">
+
+<MAP NAME="nav_map">
+<AREA SHAPE=RECT HREF="/irchelp/" COORDS="1,1,70,38" ALT="">
+<AREA SHAPE=RECT HREF="/irchelp/search_engine.cgi" COORDS="72,1,141,38" ALT="">
+<AREA SHAPE=RECT HREF="/irchelp/help.html" COORDS="143,1,212,38" ALT="">
+<AREA SHAPE=RECT HREF="/irchelp/mail.cgi" COORDS="214,1,283,38" ALT="">
+</MAP>
+
+<CENTER>
+<TABLE WIDTH=80%>
+<TR>
+<TD>
+
+<CENTER>
+<FONT SIZE=1>HTML layout by Tatu J. Lund Apr 1997</FONT>
+</CENTER>
+
+<TABLE WIDTH=100%>
+<TR>
+<TD ALIGN=LEFT>
+Network Working Group<BR>     
+Request for Comments: 1459
+</TD>
+<TD ALIGN=RIGHT>
+J. Oikarinen<BR>
+D. Reed<BR>
+May 1993
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE>
+
+<A NAME="c6"></A>
+<H1>6. REPLIES</H1>
+
+   <P>The following is a list of numeric replies which are generated in
+   response to the commands given above.  Each numeric is given with its
+   number, name and reply string.</P>
+
+<A NAME="c6_1"></A>
+<H2>6.1 Error Replies.</H2>
+
+        <DL COMPACT>
+        <DT>401     </DT><DD>ERR_NOSUCHNICK<BR>
+                        <I>"&lt;nickname&gt; :No such nick/channel"</I><BR>
+
+                - Used to indicate the nickname parameter supplied to a
+                  command is currently unused.</DD>
+
+        <DT>402     </DT><DD>ERR_NOSUCHSERVER<BR>
+                        <I>"&lt;server name&gt; :No such server"</I><BR>
+
+                - Used to indicate the server name given currently
+                  doesn't exist.</DD>
+
+        <DT>403     </DT><DD>ERR_NOSUCHCHANNEL<BR>
+                        <I>"&lt;channel name&gt; :No such channel"</I><BR>
+
+                - Used to indicate the given channel name is invalid.</DD>
+
+        <DT>404     </DT><DD>ERR_CANNOTSENDTOCHAN<BR>
+                        <I>"&lt;channel name&gt; :Cannot send to channel"</I><BR>
+
+                - Sent to a user who is either (a) not on a channel
+                  which is mode +n or (b) not a chanop (or mode +v) on
+                  a channel which has mode +m set and is trying to send
+                  a PRIVMSG message to that channel.</DD>
+
+        <DT>405     </DT><DD>ERR_TOOMANYCHANNELS<BR>
+                        <I>"&lt;channel name&gt; :You have joined too many channels"</I><BR>
+                
+                - Sent to a user when they have joined the maximum
+                  number of allowed channels and they try to join
+                  another channel.</DD>
+
+        <DT>406     </DT><DD>ERR_WASNOSUCHNICK<BR>
+                        <I>"&lt;nickname&gt; :There was no such nickname"</I><BR>
+
+                - Returned by WHOWAS to indicate there is no history
+                  information for that nickname.</DD>
+
+        <DT>407     </DT><DD>ERR_TOOMANYTARGETS<BR>
+                        <I>"&lt;target&gt; :Duplicate recipients. No message delivered"</I><BR>
+
+                - Returned to a client which is attempting to send
+                  PRIVMSG/NOTICE using the user@host destination format
+                  and for a user@host which has several occurrences.</DD>
+
+        <DT>409     </DT><DD>ERR_NOORIGIN<BR>
+                        <I>":No origin specified"</I><BR>
+
+                - PING or PONG message missing the originator parameter
+                  which is required since these commands must work
+                  without valid prefixes.</DD>
+
+        <DT>411     </DT><DD>ERR_NORECIPIENT<BR>
+                        <I>":No recipient given (&lt;command&gt;)"</I></DD>
+        <DT>412     </DT><DD>ERR_NOTEXTTOSEND<BR>
+                        <I>":No text to send"</I></DD>
+        <DT>413     </DT><DD>ERR_NOTOPLEVEL<BR>
+                        <I>"&lt;mask&gt; :No toplevel domain specified"</I></DD>
+        <DT>414     </DT><DD>ERR_WILDTOPLEVEL<BR>
+                        <I>"&lt;mask&gt; :Wildcard in toplevel domain"</I><BR>
+
+                - 412 - 414 are returned by PRIVMSG to indicate that
+                  the message wasn't delivered for some reason.
+                  ERR_NOTOPLEVEL and ERR_WILDTOPLEVEL are errors that
+                  are returned when an invalid use of
+                  "PRIVMSG $&lt;server&gt;" or "PRIVMSG #&lt;host&gt;" is attempted.</DD>
+
+        <DT>421     </DT><DD>ERR_UNKNOWNCOMMAND<BR>
+                        <I>"&lt;command&gt; :Unknown command"</I><BR>
+
+                - Returned to a registered client to indicate that the
+                  command sent is unknown by the server.</DD>
+
+        <DT>422     </DT><DD>ERR_NOMOTD<BR>
+                        <I>":MOTD File is missing"</I><BR>
+
+                - Server's MOTD file could not be opened by the server.</DD>
+
+        <DT>423     </DT><DD>ERR_NOADMININFO<BR>
+                        <I>"&lt;server&gt; :No administrative info available"</I><BR>
+
+                - Returned by a server in response to an ADMIN message
+                  when there is an error in finding the appropriate
+                  information.</DD>
+
+        <DT>424     </DT><DD>ERR_FILEERROR<BR>
+                <I>":File error doing &lt;file op&gt; on &lt;file&gt;"</I><BR>
+
+                - Generic error message used to report a failed file
+                  operation during the processing of a message.</DD>
+
+        <DT>431     </DT><DD>ERR_NONICKNAMEGIVEN<BR>
+                        <I>":No nickname given"</I><BR>
+
+                - Returned when a nickname parameter expected for a
+                  command and isn't found.</DD>
+
+        <DT>432     </DT><DD>ERR_ERRONEUSNICKNAME<BR>
+                        <I>"&lt;nick&gt; :Erroneus nickname"</I><BR>
+
+                - Returned after receiving a NICK message which contains
+                  characters which do not fall in the defined set.  See
+                  section x.x.x for details on valid nicknames.</DD>
+
+        <DT>433     </DT><DD>ERR_NICKNAMEINUSE<BR>
+                        <I>"&lt;nick&gt; :Nickname is already in use"</I><BR>
+
+                - Returned when a NICK message is processed that results
+                  in an attempt to change to a currently existing
+                  nickname.</DD>
+
+        <DT>436     </DT><DD>ERR_NICKCOLLISION<BR>
+                        <I>"&lt;nick&gt; :Nickname collision KILL"</I><BR>
+
+                - Returned by a server to a client when it detects a
+                  nickname collision (registered of a NICK that
+                  already exists by another server).</DD>
+
+        <DT>441     </DT><DD>ERR_USERNOTINCHANNEL<BR>
+                        <I>"&lt;nick&gt; &lt;channel&gt; :They aren't on that channel"</I><BR>
+
+                - Returned by the server to indicate that the target
+                  user of the command is not on the given channel.</DD>
+
+        <DT>442     </DT><DD>ERR_NOTONCHANNEL<BR>
+                        <I>"&lt;channel&gt; :You're not on that channel"</I><BR>
+
+                - Returned by the server whenever a client tries to
+                  perform a channel effecting command for which the
+                  client isn't a member.</DD>
+
+        <DT>443     </DT><DD>ERR_USERONCHANNEL<BR>
+                        <I>"&lt;user&gt; &lt;channel&gt; :is already on channel"</I><BR>
+
+                - Returned when a client tries to invite a user to a
+                  channel they are already on.</DD>
+
+        <DT>444     </DT><DD>ERR_NOLOGIN<BR>
+                        <I>"&lt;user&gt; :User not logged in"</I><BR>
+
+                - Returned by the summon after a SUMMON command for a
+                  user was unable to be performed since they were not
+                  logged in.</DD>
+
+        <DT>445     </DT><DD>ERR_SUMMONDISABLED<BR>
+                        <I>":SUMMON has been disabled"</I><BR>
+
+                - Returned as a response to the SUMMON command.  Must be
+                  returned by any server which does not implement it.</DD>
+
+        <DT>446     </DT><DD>ERR_USERSDISABLED<BR>
+                        <I>":USERS has been disabled"</I><BR>
+
+                - Returned as a response to the USERS command.  Must be
+                  returned by any server which does not implement it.</DD>
+
+        <DT>451     </DT><DD>ERR_NOTREGISTERED<BR>
+                        <I>":You have not registered"</I><BR>
+
+                - Returned by the server to indicate that the client
+                  must be registered before the server will allow it
+                  to be parsed in detail.</DD>
+
+        <DT>461     </DT><DD>ERR_NEEDMOREPARAMS<BR>
+                        <I>"&lt;command&gt; :Not enough parameters"</I><BR>
+
+                - Returned by the server by numerous commands to
+                  indicate to the client that it didn't supply enough
+                  parameters.</DD>
+
+        <DT>462     </DT><DD>ERR_ALREADYREGISTRED<BR>
+                        <I>":You may not reregister"</I><BR>
+
+                - Returned by the server to any link which tries to
+                  change part of the registered details (such as
+                  password or user details from second USER message).</DD>
+
+
+        <DT>463     </DT><DD>ERR_NOPERMFORHOST<BR>
+                        <I>":Your host isn't among the privileged"</I><BR>
+
+                - Returned to a client which attempts to register with
+                  a server which does not been setup to allow
+                  connections from the host the attempted connection
+                  is tried.</DD>
+
+        <DT>464     </DT><DD>ERR_PASSWDMISMATCH<BR>
+                        <I>":Password incorrect"</I><BR>
+
+                - Returned to indicate a failed attempt at registering
+                  a connection for which a password was required and
+                  was either not given or incorrect.</DD>
+
+        <DT>465     </DT><DD>ERR_YOUREBANNEDCREEP<BR>
+                        <I>":You are banned from this server"</I><BR>
+
+                - Returned after an attempt to connect and register
+                  yourself with a server which has been setup to
+                  explicitly deny connections to you.</DD>
+
+        <DT>467     </DT><DD>ERR_KEYSET<BR>
+                        <I>"&lt;channel&gt; :Channel key already set"</I></DD>
+        <DT>471     </DT><DD>ERR_CHANNELISFULL<BR>
+                        <I>"&lt;channel&gt; :Cannot join channel (+l)"</I></DD>
+        <DT>472     </DT><DD>ERR_UNKNOWNMODE<BR>
+                        <I>"&lt;char&gt; :is unknown mode char to me"</I></DD>
+        <DT>473     </DT><DD>ERR_INVITEONLYCHAN<BR>
+                        <I>"&lt;channel&gt; :Cannot join channel (+i)"</I></DD>
+        <DT>474     </DT><DD>ERR_BANNEDFROMCHAN<BR>
+                        <I>"&lt;channel&gt; :Cannot join channel (+b)"</I></DD>
+        <DT>475     </DT><DD>ERR_BADCHANNELKEY<BR>
+                        <I>"&lt;channel&gt; :Cannot join channel (+k)"</I></DD>
+        <DT>481     </DT><DD>ERR_NOPRIVILEGES<BR>
+                        <I>":Permission Denied- You're not an IRC operator"</I><BR>
+
+                - Any command requiring operator privileges to operate
+                  must return this error to indicate the attempt was
+                  unsuccessful.</DD>
+
+        <DT>482     </DT><DD>ERR_CHANOPRIVSNEEDED<BR>
+                        <I>"&lt;channel&gt; :You're not channel operator"</I><BR>
+
+                - Any command requiring 'chanop' privileges (such as
+                  MODE messages) must return this error if the client
+                  making the attempt is not a chanop on the specified
+                  channel.</DD>
+
+        <DT>483     </DT><DD>ERR_CANTKILLSERVER<BR>
+                        <I>":You cant kill a server!"</I><BR>
+
+                - Any attempts to use the KILL command on a server
+                  are to be refused and this error returned directly
+                  to the client.</DD>
+
+        <DT>491     </DT><DD>ERR_NOOPERHOST<BR>
+                        <I>":No O-lines for your host"</I><BR>
+
+                - If a client sends an OPER message and the server has
+                  not been configured to allow connections from the
+                  client's host as an operator, this error must be
+                  returned.</DD>
+
+        <DT>501     </DT><DD>ERR_UMODEUNKNOWNFLAG<BR>
+                        <I>":Unknown MODE flag"</I><BR>
+
+                - Returned by the server to indicate that a MODE
+                  message was sent with a nickname parameter and that
+                  the a mode flag sent was not recognized.</DD>
+
+        <DT>502     </DT><DD>ERR_USERSDONTMATCH<BR>
+                        <I>":Cant change mode for other users"</I><BR>
+
+                - Error sent to any user trying to view or change the
+                  user mode for a user other than themselves.</DD>
+        </DL>
+
+<A NAME="c6_2"></A>
+<H2>6.2 Command responses.</H2>
+
+        <DL COMPACT>
+        <DT>300     </DT><DD>RPL_NONE<BR>
+                        Dummy reply number. Not used.</DD>
+
+        <DT>302     </DT><DD>RPL_USERHOST<BR>             
+                        <I>":[&lt;reply&gt;{&lt;space&gt;&lt;reply&gt;}]"</I><BR>
+
+                - Reply format used by USERHOST to list replies to
+                  the query list.  The reply string is composed as
+                  follows:<BR>
+
+                  &lt;reply&gt; ::= &lt;nick&gt;['*'] '=' &lt;'+'|'-'&gt;&lt;hostname&gt;<BR>
+
+                  The '*' indicates whether the client has registered
+                  as an Operator.  The '-' or '+' characters represent
+                  whether the client has set an AWAY message or not
+                  respectively.</DD>
+
+        <DT>303     </DT><DD>RPL_ISON<BR>
+                        <I>":[&lt;nick&gt; {&lt;space&gt;&lt;nick&gt;}]"</I><BR>
+
+                - Reply format used by ISON to list replies to the
+                  query list.</DD>
+
+        <DT>301     </DT><DD>RPL_AWAY<BR>
+                        <I>"&lt;nick&gt; :&lt;away message&gt;"</I></DD>
+
+        <DT>305     </DT><DD>RPL_UNAWAY<BR>
+                        <I>":You are no longer marked as being away"</I></DD>
+        <DT>306     </DT><DD>RPL_NOWAWAY<BR>
+                        <I>":You have been marked as being away"</I><BR>
+
+                - These replies are used with the AWAY command (if
+                  allowed).  RPL_AWAY is sent to any client sending a
+                  PRIVMSG to a client which is away.  RPL_AWAY is only
+                  sent by the server to which the client is connected.
+                  Replies RPL_UNAWAY and RPL_NOWAWAY are sent when the
+                  client removes and sets an AWAY message.</DD>
+
+        <DT>311     </DT><DD>RPL_WHOISUSER<BR>
+                        <I>"&lt;nick&gt; &lt;user&gt; &lt;host&gt; * :&lt;real name&gt;"</I></DD>
+        <DT>312     </DT><DD>RPL_WHOISSERVER<BR>
+                        <I>"&lt;nick&gt; &lt;server&gt; :&lt;server info&gt;"</I></DD>
+        <DT>313     </DT><DD>RPL_WHOISOPERATOR<BR>
+                        <I>"&lt;nick&gt; :is an IRC operator"</I></DD>
+        <DT>317     </DT><DD>RPL_WHOISIDLE<BR>
+                        <I>"&lt;nick&gt; &lt;integer&gt; :seconds idle"</I></DD>
+        <DT>318     </DT><DD>RPL_ENDOFWHOIS<BR>
+                        <I>"&lt;nick&gt; :End of /WHOIS list"</I></DD>
+        <DT>319     </DT><DD>RPL_WHOISCHANNELS<BR>
+                        <I>"&lt;nick&gt; :{[@|+]&lt;channel&gt;&lt;space&gt;}"</I><BR>
+
+                - Replies 311 - 313, 317 - 319 are all replies
+                  generated in response to a WHOIS message.  Given that
+                  there are enough parameters present, the answering
+                  server must either formulate a reply out of the above
+                  numerics (if the query nick is found) or return an
+                  error reply.  The '*' in RPL_WHOISUSER is there as
+                  the literal character and not as a wild card.  For
+                  each reply set, only RPL_WHOISCHANNELS may appear
+                  more than once (for long lists of channel names).
+                  The '@' and '+' characters next to the channel name
+                  indicate whether a client is a channel operator or
+                  has been granted permission to speak on a moderated
+                  channel.  The RPL_ENDOFWHOIS reply is used to mark
+                  the end of processing a WHOIS message.</DD>
+
+        <DT>314     </DT><DD>RPL_WHOWASUSER<BR>
+                        <I>"&lt;nick&gt; &lt;user&gt; &lt;host&gt; * :&lt;real name&gt;"</I></DD>
+        <DT>369     </DT><DD>RPL_ENDOFWHOWAS<BR>
+                        <I>"&lt;nick&gt; :End of WHOWAS"</I><BR>
+
+                - When replying to a WHOWAS message, a server must use
+                  the replies RPL_WHOWASUSER, RPL_WHOISSERVER or
+                  ERR_WASNOSUCHNICK for each nickname in the presented
+                  list.  At the end of all reply batches, there must
+                  be RPL_ENDOFWHOWAS (even if there was only one reply
+                  and it was an error).</DD>
+
+        <DT>321     </DT><DD>RPL_LISTSTART<BR>
+                        <I>"Channel :Users  Name"</I></DD>
+        <DT>322     </DT><DD>RPL_LIST<BR>
+                        <I>"&lt;channel&gt; &lt;# visible&gt; :&lt;topic&gt;"</I></DD>
+        <DT>323     </DT><DD>RPL_LISTEND<BR>
+                        <I>":End of /LIST"</I><BR>
+
+                - Replies RPL_LISTSTART, RPL_LIST, RPL_LISTEND mark
+                  the start, actual replies with data and end of the
+                  server's response to a LIST command.  If there are
+                  no channels available to return, only the start
+                  and end reply must be sent.</DD>
+
+        <DT>324     </DT><DD>RPL_CHANNELMODEIS<BR>
+                        <I>"&lt;channel&gt; &lt;mode&gt; &lt;mode params&gt;"</I></DD>
+
+        <DT>331     </DT><DD>RPL_NOTOPIC<BR>
+                        <I>"&lt;channel&gt; :No topic is set"</I></DD>
+        <DT>332     </DT><DD>RPL_TOPIC<BR>
+                        <I>"&lt;channel&gt; :&lt;topic&gt;"</I><BR>
+
+                - When sending a TOPIC message to determine the
+                  channel topic, one of two replies is sent.  If
+                  the topic is set, RPL_TOPIC is sent back else
+                  RPL_NOTOPIC.
+                              </DD>
+        <DT>341     </DT><DD>RPL_INVITING<BR>
+                        <I>"&lt;channel&gt; &lt;nick&gt;"</I><BR>
+
+                - Returned by the server to indicate that the
+                  attempted INVITE message was successful and is
+                  being passed onto the end client.</DD>
+
+        <DT>342     </DT><DD>RPL_SUMMONING<BR>
+                        <I>"&lt;user&gt; :Summoning user to IRC"</I><BR>
+
+                - Returned by a server answering a SUMMON message to
+                  indicate that it is summoning that user.</DD>
+
+        <DT>351     </DT><DD>RPL_VERSION<BR>
+                        <I>"&lt;version&gt;.&lt;debuglevel&gt; &lt;server&gt; :&lt;comments&gt;"</I><BR>
+
+                - Reply by the server showing its version details.
+                  The &lt;version&gt; is the version of the software being
+                  used (including any patchlevel revisions) and the
+                  &lt;debuglevel&gt; is used to indicate if the server is
+                  running in "debug mode".<BR>
+
+                  The "comments" field may contain any comments about
+                  the version or further version details.</DD>
+
+        <DT>352     </DT><DD>RPL_WHOREPLY<BR>
+                        <I>"&lt;channel&gt; &lt;user&gt; &lt;host&gt; &lt;server&gt; &lt;nick&gt; &lt;H|G&gt;[*][@|+] :&lt;hopcount&gt; &lt;real name&gt;"</I></DD>
+        <DT>315     </DT><DD>RPL_ENDOFWHO<BR>
+                        <I>"&lt;name&gt; :End of /WHO list"</I><BR>
+
+                - The RPL_WHOREPLY and RPL_ENDOFWHO pair are used
+                  to answer a WHO message.  The RPL_WHOREPLY is only
+                  sent if there is an appropriate match to the WHO
+                  query.  If there is a list of parameters supplied
+                  with a WHO message, a RPL_ENDOFWHO must be sent
+                  after processing each list item with &lt;name&gt; being
+                  the item.</DD>
+
+        <DT>353     </DT><DD>RPL_NAMREPLY<BR>
+                        <I>"&lt;channel&gt; :[[@|+]&lt;nick&gt; [[@|+]&lt;nick&gt; [...]]]"</I></DD>
+        <DT>366     </DT><DD>RPL_ENDOFNAMES<BR>
+                        <I>"&lt;channel&gt; :End of /NAMES list"</I><BR>
+
+                - To reply to a NAMES message, a reply pair consisting
+                  of RPL_NAMREPLY and RPL_ENDOFNAMES is sent by the
+                  server back to the client.  If there is no channel
+                  found as in the query, then only RPL_ENDOFNAMES is
+                  returned.  The exception to this is when a NAMES
+                  message is sent with no parameters and all visible
+                  channels and contents are sent back in a series of
+                  RPL_NAMEREPLY messages with a RPL_ENDOFNAMES to mark
+                  the end.</DD>
+
+        <DT>364     </DT><DD>RPL_LINKS<BR>
+                        <I>"&lt;mask&gt; &lt;server&gt; :&lt;hopcount&gt; &lt;server info&gt;"</I></DD>
+        <DT>365     </DT><DD>RPL_ENDOFLINKS<BR>
+                        <I>"&lt;mask&gt; :End of /LINKS list"</I><BR>
+
+                - In replying to the LINKS message, a server must send
+                  replies back using the RPL_LINKS numeric and mark the
+                  end of the list using an RPL_ENDOFLINKS reply.v
+
+        <DT>367     </DT><DD>RPL_BANLIST<BR>
+                        <I>"&lt;channel&gt; &lt;banid&gt;"</I></DD>
+        <DT>368     </DT><DD>RPL_ENDOFBANLIST<BR>
+                        <I>"&lt;channel&gt; :End of channel ban list"</I><BR>
+
+                - When listing the active 'bans' for a given channel,
+                  a server is required to send the list back using the
+                  RPL_BANLIST and RPL_ENDOFBANLIST messages.  A separate
+                  RPL_BANLIST is sent for each active banid.  After the
+                  banids have been listed (or if none present) a
+                  RPL_ENDOFBANLIST must be sent.</DD>
+
+        <DT>371     </DT><DD>RPL_INFO<BR>
+                        <I>":&lt;string&gt;"</I></DD>
+        <DT>374     </DT><DD>RPL_ENDOFINFO<BR>
+                        <I>":End of /INFO list"</I><BR>
+
+                - A server responding to an INFO message is required to
+                  send all its 'info' in a series of RPL_INFO messages
+                  with a RPL_ENDOFINFO reply to indicate the end of the
+                  replies.</DD>
+
+        <DT>375     </DT><DD>RPL_MOTDSTART<BR>
+                        <I>":- &lt;server&gt; Message of the day - "</I></DD>
+        <DT>372     </DT><DD>RPL_MOTD<BR>
+                        <I>":- &lt;text&gt;"</I></DD>
+        <DT>376     </DT><DD>RPL_ENDOFMOTD<BR>
+                        <I>":End of /MOTD command"</I><BR>
+
+                - When responding to the MOTD message and the MOTD file
+                  is found, the file is displayed line by line, with
+                  each line no longer than 80 characters, using
+                  RPL_MOTD format replies.  These should be surrounded
+                  by a RPL_MOTDSTART (before the RPL_MOTDs) and an
+                  RPL_ENDOFMOTD (after).</DD>
+
+        <DT>381     </DT><DD>RPL_YOUREOPER<BR>
+                        <I>":You are now an IRC operator"</I><BR>
+
+                - RPL_YOUREOPER is sent back to a client which has
+                  just successfully issued an OPER message and gained
+                  operator status.</DD>
+
+        <DT>382     </DT><DD>RPL_REHASHING<BR>
+                        <I>"&lt;config file&gt; :Rehashing"</I><BR>
+
+                - If the REHASH option is used and an operator sends
+                  a REHASH message, an RPL_REHASHING is sent back to
+                  the operator.</DD>
+
+        <DT>391     </DT><DD>RPL_TIME<BR>
+                        <I>"&lt;server&gt; :&lt;string showing server's local time&gt;"</I><BR>
+
+                - When replying to the TIME message, a server must send
+                  the reply using the RPL_TIME format above.  The string
+                  showing the time need only contain the correct day and
+                  time there.  There is no further requirement for the
+                  time string.</DD>
+
+        <DT>392     </DT><DD>RPL_USERSSTART<BR>
+                        <I>":UserID   Terminal  Host"</I><BR>
+        <DT>393     </DT><DD>RPL_USERS<BR>
+                        <I>":%-8s %-9s %-8s"</I></DD>
+        <DT>394     </DT><DD>RPL_ENDOFUSERS<BR>
+                        <I>":End of users"</I></DD>
+        <DT>395     </DT><DD>RPL_NOUSERS<BR>
+                        <I>":Nobody logged in"</I><BR>
+
+                - If the USERS message is handled by a server, the
+                  replies RPL_USERSTART, RPL_USERS, RPL_ENDOFUSERS and
+                  RPL_NOUSERS are used.  RPL_USERSSTART must be sent
+                  first, following by either a sequence of RPL_USERS
+                  or a single RPL_NOUSER.  Following this is
+                  RPL_ENDOFUSERS.</DD>
+
+        <DT>200     </DT><DD>RPL_TRACELINK<BR>
+                        <I>"Link &lt;version & debug level&gt; &lt;destination&gt; &lt;next server&gt;"</I></DD>
+        <DT>201     </DT><DD>RPL_TRACECONNECTING<BR>
+                        <I>"Try. &lt;class&gt; &lt;server&gt;"</I></DD>
+        <DT>202     </DT><DD>RPL_TRACEHANDSHAKE<BR>
+                        <I>"H.S. &lt;class&gt; &lt;server&gt;"</I></DD>
+        <DT>203     </DT><DD>RPL_TRACEUNKNOWN<BR>
+                        <I>"???? &lt;class&gt; [&lt;client IP address in dot form&gt;]"</I></DD>
+        <DT>204     </DT><DD>RPL_TRACEOPERATOR<BR>
+                        <I>"Oper &lt;class&gt; &lt;nick&gt;"</I></DD>
+        <DT>205     </DT><DD>RPL_TRACEUSER<BR>
+                        <I>"User &lt;class&gt; &lt;nick&gt;"</I></DD>
+        <DT>206     </DT><DD>RPL_TRACESERVER<BR>
+                        <I>"Serv &lt;class&gt; &lt;int&gt;S &lt;int&gt;C &lt;server&gt; &lt;nick!user|*!*&gt;@&lt;host|server&gt;"</I></DD>
+        <DT>208     </DT><DD>RPL_TRACENEWTYPE<BR>
+                        <I>"&lt;newtype&gt; 0 &lt;client name&gt;"</I></DD>
+        <DT>261     </DT><DD>RPL_TRACELOG<BR>
+                        <I>"File &lt;logfile&gt; &lt;debug level&gt;"</I><BR>
+
+                - The RPL_TRACE* are all returned by the server in
+                  response to the TRACE message.  How many are
+                  returned is dependent on the the TRACE message and
+                  whether it was sent by an operator or not.  There
+                  is no predefined order for which occurs first.
+                  Replies RPL_TRACEUNKNOWN, RPL_TRACECONNECTING and
+                  RPL_TRACEHANDSHAKE are all used for connections
+                  which have not been fully established and are either
+                  unknown, still attempting to connect or in the
+                  process of completing the 'server handshake'.
+                  RPL_TRACELINK is sent by any server which handles
+                  a TRACE message and has to pass it on to another
+                  server.  The list of RPL_TRACELINKs sent in
+                  response to a TRACE command traversing the IRC
+                  network should reflect the actual connectivity of
+                  the servers themselves along that path.
+                  RPL_TRACENEWTYPE is to be used for any connection
+                  which does not fit in the other categories but is
+                  being displayed anyway.</DD>
+
+        <DT>211     </DT><DD>RPL_STATSLINKINFO<BR>
+                        <I>"&lt;linkname&gt; &lt;sendq&gt; &lt;sent messages&gt; &lt;sent bytes&gt; &lt;received messages&gt; &lt;received bytes&gt; &lt;time open&gt;"</I></DD>
+        <DT>212     </DT><DD>RPL_STATSCOMMANDS<BR>
+                        <I>"&lt;command&gt; &lt;count&gt;"</I></DD>
+        <DT>213     </DT><DD>RPL_STATSCLINE<BR>
+                        <I>"C &lt;host&gt; * &lt;name&gt; &lt;port&gt; &lt;class&gt;"</I></DD>
+        <DT>214     </DT><DD>RPL_STATSNLINE<BR>
+                        <I>"N &lt;host&gt; * &lt;name&gt; &lt;port&gt; &lt;class&gt;"</I></DD>
+        <DT>215     </DT><DD>RPL_STATSILINE<BR>
+                        <I>"I &lt;host&gt; * &lt;host&gt; &lt;port&gt; &lt;class&gt;"</I></DD>
+        <DT>216     </DT><DD>RPL_STATSKLINE<BR>
+                        <I>"K &lt;host&gt; * &lt;username&gt; &lt;port&gt; &lt;class&gt;"</I></DD>
+        <DT>218     </DT><DD>RPL_STATSYLINE<BR>
+                        <I>"Y &lt;class&gt; &lt;ping frequency&gt; &lt;connect frequency&gt; &lt;max sendq&gt;"</I></DD>
+        <DT>219     </DT><DD>RPL_ENDOFSTATS<BR>
+                        <I>"&lt;stats letter&gt; :End of /STATS report"</I></DD>
+        <DT>241     </DT><DD>RPL_STATSLLINE<BR>
+                       <I>"L &lt;hostmask&gt; * &lt;servername&gt; &lt;maxdepth&gt;"</I></DD>
+        <DT>242     </DT><DD>RPL_STATSUPTIME<BR>
+                        <I>":Server Up %d days %d:%02d:%02d"</I></DD>
+        <DT>243     </DT><DD>RPL_STATSOLINE<BR>
+                        <I>"O &lt;hostmask&gt; * &lt;name&gt;"</I></DD>
+        <DT>244     </DT><DD>RPL_STATSHLINE<BR>
+                        <I>"H &lt;hostmask&gt; * &lt;servername&gt;"</I></DD>
+
+        <DT>221     </DT><DD>RPL_UMODEIS<BR>
+                        <I>"&lt;user mode string&gt;"</I><BR>
+                        - To answer a query about a client's own mode,
+                          RPL_UMODEIS is sent back.</DD>
+
+        <DT>251     </DT><DD>RPL_LUSERCLIENT<BR>
+                        <I>":There are &lt;integer&gt; users and &lt;integer&gt; invisible on &lt;integer&gt; servers"</I></DD>
+        <DT>252     </DT><DD>RPL_LUSEROP<BR>
+                        <I>"&lt;integer&gt; :operator(s) online"</I></DD>
+        <DT>253     </DT><DD>RPL_LUSERUNKNOWN<BR>
+                        <I>"&lt;integer&gt; :unknown connection(s)"</I></DD>
+        <DT>254     </DT><DD>RPL_LUSERCHANNELS<BR>
+                        <I>"&lt;integer&gt; :channels formed"</I></DD>
+        <DT>255     </DT><DD>RPL_LUSERME<BR>
+                        <I>":I have &lt;integer&gt; clients and &lt;integer&gt; servers"</I><BR>
+
+                        - In processing an LUSERS message, the server
+                          sends a set of replies from RPL_LUSERCLIENT,
+                          RPL_LUSEROP, RPL_USERUNKNOWN,
+                          RPL_LUSERCHANNELS and RPL_LUSERME.  When
+                          replying, a server must send back
+                          RPL_LUSERCLIENT and RPL_LUSERME.  The other
+                          replies are only sent back if a non-zero count
+                          is found for them.</DD>
+
+        <DT>256     </DT><DD>RPL_ADMINME<BR>
+                        <I>"&lt;server&gt; :Administrative info"</I></DD>
+        <DT>257     </DT><DD>RPL_ADMINLOC1<BR>
+                        <I>":&lt;admin info&gt;"</I></DD>
+        <DT>258     </DT><DD>RPL_ADMINLOC2<BR>
+                       <I>":&lt;admin info&gt;"</I></DD>
+        <DT>259     </DT><DD>RPL_ADMINEMAIL<BR>
+                        <I>":&lt;admin info&gt;"</I><BR>
+
+                        - When replying to an ADMIN message, a server
+                          is expected to use replies RLP_ADMINME
+                          through to RPL_ADMINEMAIL and provide a text
+                          message with each.  For RPL_ADMINLOC1 a
+                          description of what city, state and country
+                          the server is in is expected, followed by
+                          details of the university and department
+                          (RPL_ADMINLOC2) and finally the administrative
+                          contact for the server (an email address here
+                          is required) in RPL_ADMINEMAIL.</DD>
+        </DL>
+
+
+
+<A NAME="c6_3"></A>
+<H2>6.3 Reserved numerics.</H2>
+
+   <P>These numerics are not described above since they fall into one of
+   the following categories:</P>
+
+        <OL TYPE=1 START=1 COMPACT>
+        <LI>no longer in use;</LI>
+
+        <LI>reserved for future planned use;</LI>
+
+        <LI>in current use but are part of a non-generic 'feature' of
+           the current IRC server.</LI>
+        </OL>
+
+        <TABLE WIDTH=100% BORDER=0>
+        <TR><TD>209     </TD><TD>RPL_TRACECLASS          </TD><TD>217     </TD><TD>RPL_STATSQLINE</TD></TR>
+        <TR><TD>231     </TD><TD>RPL_SERVICEINFO         </TD><TD>232     </TD><TD>RPL_ENDOFSERVICES</TD></TR>
+        <TR><TD>233     </TD><TD>RPL_SERVICE             </TD><TD>234     </TD><TD>RPL_SERVLIST</TD></TR>
+        <TR><TD>235     </TD><TD>RPL_SERVLISTEND         </TD><TD>        </TD><TD></TD></TR>
+        <TR><TD>316     </TD><TD>RPL_WHOISCHANOP         </TD><TD>361     </TD><TD>RPL_KILLDONE</TD></TR>
+        <TR><TD>362     </TD><TD>RPL_CLOSING             </TD><TD>363     </TD><TD>RPL_CLOSEEND</TD></TR>
+        <TR><TD>373     </TD><TD>RPL_INFOSTART           </TD><TD>384     </TD><TD>RPL_MYPORTIS</TD></TR>
+        <TR><TD>466     </TD><TD>ERR_YOUWILLBEBANNED     </TD><TD>476     </TD><TD>ERR_BADCHANMASK</TD></TR>
+        <TR><TD>492     </TD><TD>ERR_NOSERVICEHOST       </TD><TD>        </TD><TD></TD></TR>
+        </TABLE>
+
+<HR WIDTH=50% NOSHADE>
+
+<TABLE WIDTH=100% BORDER=0>
+<TR>
+<TD ALIGN=LEFT><A HREF="chapter5.html"><FONT SIZE=+3>&lt;</FONT></A></TD>
+<TD ALIGN=CENTER><A HREF="rfc.html"><FONT SIZE=+3>^</FONT></A></TD>
+<TD ALIGN=RIGHT><A HREF="chapter7.html"><FONT SIZE=+3>&gt;</FONT></A></TD>
+</TR>
+</TABLE>
+
+</TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<HR>
+<CENTER>
+<!-- navigation bar -->
+<IMG SRC="/irchelp/Pix/ihnavbar.gif" WIDTH=285 HEIGHT=40 BORDER=0 USEMAP="#nav_map"
+	ALT="-navigational bar-">
+<BR><SMALL>
+[ <A HREF="/irchelp/">go back</A>
+| <a href="/irchelp/search_engine.cgi">search</A>
+| <A HREF="/irchelp/help.html">help</A>
+| <A HREF="/irchelp/mail.cgi">send email</A> ]
+</SMALL>
+<P>
+</CENTER>
+
+<CENTER><SMALL>
+<A HREF="/irchelp/credit.html">all pages &copy; IRCHELP.ORG or original authors</A><BR>
+</SMALL></CENTER>
+
+</BODY>
+</HTML>
