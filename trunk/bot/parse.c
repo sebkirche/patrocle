@@ -71,14 +71,12 @@ struct
 	{ NULL,		null(void(*)()) }
 };
 
-void 	parse_privmsg(char *from, char *rest)
+void 	parse_privmsg(char *from, char *rest){
 /*
  * This function parses the "rest" when a PRIVMSG was sent by the
  * server. It filters out some stuff and calls the apropriate routine(s)
  * (on_ctcp / on_msg)
  */
-
-{
 	char  	*text;
 	char  	*to;
 	
