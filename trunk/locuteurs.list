@@ -1,18 +1,30 @@
 #############################################
 ## locuteurs.list
-## Created: Tue Sep 29 02:48:46 2009
+## Created: Fri Feb  5 14:14:21 2010
 ## (c) 2009 seki (sebastien.kirche@free.fr)
 #############################################
-                  test!*n=test@*.seki.fr 0 979801 979801 1254179492
-                  test!*n=seki@*.seki.fr 0 979801 979801 1254179393
-                     vpm!*n=vpm@*.fdn.fr 0 979739 979739 1253958743
-                  seki!*i=seki@*.seki.fr 1 979787 979787 1254136243
-               2502AAAAX!*seki@*.seki.fr 1 979513 979513 1253142974
-            patrocle!*patrocle@*.seki.fr 0 979801 979802 1254184899
-            patrocle!*n=patrocle@81.56.* 0 979746 979746 1253982197
-                  seki!*n=seki@*.seki.fr 114 979797 979802 1254185326
-          Patrocle!*n=Patrocle@*.seki.fr 0 979802 979802 1254184666
+                  Seki__!*seki@*.seki.fr 1 982933 982937 1265302327
+            ecocode!*ec@*.dsl.scarlet.be 0 982917 982917 1265229676
+Chokoloff!*MacOSX@*.39.205-77.rev.gaoland.net 0 0 982868 1265056445
+                mathk_!*Miranda@78.155.* 0 982880 982880 1265095888
+          mathk!*mathk@*.adsl.proxad.net 0 982903 982927 1265265699
+           patrocle_!*patrocle@*.seki.fr 0 982846 982846 1264971962
+        mathk!*n=mathk@*.adsl.proxad.net 1 982797 982797 1264796327
+          patrocle!*n=patrocle@*.seki.fr 0 982705 982723 1264530292
                     kh!*n=karim@88.191.* -13 974483 974486 1235482788
-                 seki_!*n=seki@*.seki.fr 0 0 979487 1253136775
              seki_away!*n=seki@*.seki.fr 11 979513 979514 1253149669
+                Seki__!*i=seki@*.seki.fr 0 982786 982790 1264783738
+          ecocode!*n=ec@*.dsl.scarlet.be 0 982748 982800 1264806073
+cthuluh!*n=ktulu@*.20.93-79.rev.gaoland.net 0 982699 982803 1264819843
+Chokoloff!*n=MacOSX@*.27.204-77.rev.gaoland.net 0 0 982309 1263116239
+         ecocode_!*n=ec@*.dsl.scarlet.be 0 0 982321 1263084709
+theoliane!*n=helen@*.w90-22.abo.wanadoo.fr 0 0 982337 1263141390
+Ekinoks!*n=ekinoks@*.112.88-79.rev.gaoland.net 0 982797 982797 1264795659
+                     karim!*n=karim@*.fr 0 982699 982761 1264782596
+              mathk_!*n=Miranda@78.155.* 0 982713 982737 1264582448
+            patrocle!*patrocle@*.seki.fr 0 982958 982958 1265375654
+                    seki!*seki@*.seki.fr 1 982944 982945 1265375661
+                       karim!*karim@*.fr 0 982886 982886 1265307121
+                  cthuluh!*ktulu@79.95.* -3 982850 982850 1264987623
+hugsy_75!*hugsy@*.net/x-sokiujudvgefwiwn 1 982861 982861 1265028110
 # End of locuteurs.list

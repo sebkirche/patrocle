@@ -1,35 +1,46 @@
 #############################################
 ## rel.list
-## Created: Tue Sep 29 02:48:46 2009
-## (c) 1993 VladDrac (irvdwijk@cs.vu.nl)
+## Created: Fri Feb  5 14:14:21 2010
+## (c) 2010  seki (sebastien.kirche@free.fr)
 #############################################
-                   test!*n=test@*.seki.fr 6
-                   test!*n=seki@*.seki.fr 6
-                      vpm!*n=vpm@*.fdn.fr 6
-              seki_away!*n=seki@*.seki.fr 6
-                2502AAAAX!*seki@*.seki.fr 6
- theoliane!*n=helen@*.w90-22.abo.wanadoo.fr 6
- Chokoloff!*n=Gauthier@*.130.192-77.rev.gaoland.net 6
-              xma!*n=xma@*.fbx.proxad.net 6
-            zeDek!*n=xma@*.fbx.proxad.net 3
-                     kh!*n=karim@88.191.* -4
-             ecocode!*n=ecocode@*.ovh.net 16
-           fsbot!*n=user@*.pepperfish.net 3
-                    seki!*=seki@*.seki.fr 99
-       ecocode!n=ecocode@*.dsl.scarlet.be 25
-              kh!n=karim@*.davromaniak.eu 27
-           kaaah!n=karim@*.davromaniak.eu 10
-                 seki__!*n=seki@*.seki.fr 6
-              seki_zzzz!*n=seki@*.seki.fr 8
-         auzain!*n=user@*.adsl.proxad.net 12
-  pgas!*n=user@pdpc/supporter/active/pgas 26
-    thbkrshw!*n=thbkrshw@*.fbx.proxad.net 6
-       ngirard!*n=ngirard@*.pck.nerim.net 6
-                sekibis!*n=user@*.seki.fr 6
-                  seki-!*n=Seki@*.seki.fr 6
- theoliane!*n=helen@*.w90-51.abo.wanadoo.fr 1
- theoliane!*n=helen@*.w92-132.abo.wanadoo.fr 4
-                   seki!*n=user@*.seki.fr 999
-             adrien!*n=brilhaua@*.imag.fr 3
-                  seki`!*n=seki@*.seki.fr 6
+                         seki*!*seki@*.seki.fr 1003
+                    kh!~karim@*.davromaniak.eu 27
+        pgas!*~user@pdpc/supporter/active/pgas 26
+             ecocode!~ecocode@*.dsl.scarlet.be 25
+                      Seki__!*i=seki@*.seki.fr 22
+               mathk!*~mathk@*.adsl.proxad.net 20
+                   ecocode!*~ecocode@*.ovh.net 16
+    cthuluh!*~ktulu@*.20.93-79.rev.gaoland.net 15
+                     mathk_!*~Miranda@78.155.* 13
+               auzain!*~user@*.adsl.proxad.net 12
+                   cthuluh!~ktulu@79.93.20.232 12
+        Chokoloff!*~Gauthier@*.rev.gaoland.net 10
+             Chokoloff!~Chokolof@212.51.182.34 10
+           Chokoloff!~MacOSX@*.rev.gaoland.net 10
+                 ecocode*!~ec@*.dsl.scarlet.be 10
+            Ekinoks!~ekinoks@*.rev.gaoland.net 10
+          Haricophile!~jdautz@*.fbx.proxad.net 10
+                 kaaah!~karim@*.davromaniak.eu 10
+                        karim!~karim@neyret.fr 10
+                           kh!*~karim@88.191.* 10
+                  zeDek!*~xma@*.fbx.proxad.net 10
+                    seki_zzzz!*~seki@*.seki.fr 8
+                      mathk!*~Miranda@78.155.* 7
+                        seki`!*~seki@*.seki.fr 7
+                        cthuluh!*ktulu@79.95.* 6
+      hugsy_75!*hugsy@*.net/x-sokiujudvgefwiwn 6
+             ngirard!*~ngirard@*.pck.nerim.net 6
+                patrocle_!*~patrocle@*.seki.fr 6
+                        Seki__!*seki@*.seki.fr 6
+                    seki_away!*~seki@*.seki.fr 6
+                     seki_zzz!*~seki@*.seki.fr 6
+                      sekibis!*~user@*.seki.fr 6
+                         test!*~seki@*.seki.fr 6
+                         test!*~test@*.seki.fr 6
+          thbkrshw!*~thbkrshw@*.fbx.proxad.net 6
+                            vpm!*~vpm@*.fdn.fr 6
+                    xma!*~xma@*.fbx.proxad.net 6
+                   adrien!*~brilhaua@*.imag.fr 3
+                 fsbot!*~user@*.pepperfish.net 3
+                   cthuluh!~ktulu@79.95.139.96 -2
 # End of rel.list

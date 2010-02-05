@@ -118,8 +118,8 @@ See also http://www.loria.fr/~parmenti/irc/ (in French).
 %subject Test
 
 # display some combinations of \b \u and \i
-       	        \bbold\b       	\iinverse\i       	\uunderlined\u
-  bold 		Test       	\b\iTest\i\b		\b\uTest\u\b 
+       	        \bbold\b       	\iinverse\i       	\uunderlined\u 
+  \bbold\b 		Test       	\b\iTest\i\b		\b\uTest\u\b 
   \iinverse\i     	\i\bTest\b\i		Test		\i\uTest\u\i 
   \uunderlined\u  	\u\bTest\b\u		\u\iTest\i\u		Test 
 
