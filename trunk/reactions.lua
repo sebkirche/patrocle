@@ -861,9 +861,9 @@ function TraiteMessage(from, to, message, nbphrases)
 			
 			kicker_repondre(from, to,
 							-2, {"Attention, %s, je vais kicker! J'exige des excuses.", "Implore mon pardon, misérable %s!", "Toi-même, %s!", "C'est celui qui le dit qui l'est, %s !", "Tu me provoques, %s ?", "Diantre, %s ! Je sens monter en moi la colèr e!", "Je te préviens, %s: la moutarde me monte au nez!", "Je sens que je m'énerve, %s.", "À genoux, %s!", "/me inspire un grand coup, puis expire lentement..."},
-						-6, {"Mortecouilles, %s, je m'en vais vous estropier! Montjoie! Saint-Denis!", "Demande pardon ou va rôtir en enfer!", "Je ne supporte pas qu'on me manque de respect !", "Dehors, odieux personnage !", "Rahh! Ne recommence plus jamais !", "Ta mère en tongs au Prisunic. :p", "Tiens, prends ça!", "Moule à gaufres!", "Du balai!", "Dégage, connard!", "Va mourir, %s!", "Pitécanthrope!", "Australopithèque", "Je veux te voir me supplier de te pardonner!", "À genoux, vermisseau!", "Nyctalope!", "Recommence pour voir!", "Implore mon pardon à genoux, je serai peut-être magnanime!", "Anacoluthe!", "Espèce de  bachibouzouk à cornes!", "C'était marrant. Recommence qu'on voie ce qui se passe.", "Ventre Saint-Gris!", "Bretzel liquide!", "Palsembleu!", "Rentre chez ta mère, embryon!"})
+							-6, {"Mortecouilles, %s, je m'en vais vous estropier! Montjoie! Saint-Denis!", "Demande pardon ou va rôtir en enfer!", "Je ne supporte pas qu'on me manque de respect !", "Dehors, odieux personnage !", "Rahh! Ne recommence plus jamais !", "Ta mère en tongs au Prisunic. :p", "Tiens, prends ça!", "Moule à gaufres!", "Du balai!", "Dégage, connard!", "Va mourir, %s!", "Pitécanthrope!", "Australopithèque", "Je veux te voir me supplier de te pardonner!", "À genoux, vermisseau!", "Nyctalope!", "Recommence pour voir!", "Implore mon pardon à genoux, je serai peut-être magnanime!", "Anacoluthe!", "Espèce de  bachibouzouk à cornes!", "C'était marrant. Recommence qu'on voie ce qui se passe.", "Ventre Saint-Gris!", "Bretzel liquide!", "Palsembleu!", "Rentre chez ta mère, embryon!"})
 		end
-
+		
 		--compliment
 		if (Flags.COMPLIMENT or Flags.VIVE) and not Flags.JESUIS and not Flags.QUESTION and not Flags.INJURE and not Flags.ETTOI and not Flags.AMIGA and not Flags.WINTEL and (Flags.NOM or not isChannel) then
 			repondre(from, to,
@@ -1776,20 +1776,57 @@ function TraiteMessage(from, to, message, nbphrases)
 		if Flags.LISTE_STIMULI and (Flags.NOM or not isChannel) then
 			stimcount = TableDesStimuli.size()
 			print(stimcount .. " stimuli")
-			--print("timulus 1 = " .. TableDesStimuli.get(1))
 			if stimcount == 0 then
 				send_to_user(from, "Il n'y a pas de stimulus.");
 			else
 				--ForceDCC(from, to, msg); TODO : ForceDCC
 				for i=1,stimcount do
-					send_to_user(from, string.format("Stimulus num. %d (%s):", i, tostring(TableDesStimuli.is_active(i))));
-					send_to_user(from, string.format("%s\t\"%s\"", TableDesStimuli.get_name(i), TableDesStimuli.get(i)));
-					send_to_user(from, TableDesStimuli.get_author(i));
+					--send_to_user(from, string.format("Stimulus num. %d (%s):", i, tostring(TableDesStimuli.is_active(i))));
+					--send_to_user(from, string.format("%s\t\"%s\"", TableDesStimuli.get_name(i), TableDesStimuli.get(i)));
+					--send_to_user(from, TableDesStimuli.get_author(i));
+					print(string.format("Stimulus num. %d (%s):", i, tostring(TableDesStimuli.is_active(i))))
+					print(string.format("%s\t\"%s\"", TableDesStimuli.get_name(i), TableDesStimuli.get(i)))
+					print(string.format("author :%s", TableDesStimuli.get_author(i)))
 				end
 			end
 		end
-
-
+		
+		if Flags.TESTE_STIMULI and (Flags.NOM or not isChannel) then
+			stimcount = TableDesStimuli.size()
+			print(stimcount .. " stimuli")
+			if stimcount == 0 then
+				send_to_user(from, "Il n'y a pas de stimulus.");
+			else
+				--ForceDCC(from, to, msg); TODO : ForceDCC
+				for i=1,stimcount do
+					if TableDesStimuli.is_present(i) then
+						--send_to_user(from, string.format("Stimulus num. %d (%s):", i, tostring(TableDesStimuli.is_active(i))));
+						--send_to_user(from, string.format("%s\t\"%s\"", TableDesStimuli.get_name(i), TableDesStimuli.get(i)));
+						--send_to_user(from, TableDesStimuli.get_author(i));
+						print(string.format("Stimulus (%s):", tostring(TableDesStimuli.get_name(i))))
+						print(string.format("%s\t\"%s\"", TableDesStimuli.get_stimulus(i), TableDesStimuli.get_author(i)))
+					end
+				end
+			end
+		end
+		
+		if Flags.LISTE_REPONSES and (Flags.NOM or not isChannel) then
+			respcount = TableDesReponses.size()
+			print(respcount .. " reponses")
+			if stimcount == 0 then
+				respcount(from, "Il n'y a pas de réponse");
+			else
+				--ForceDCC(from, to, msg); TODO : ForceDCC
+				for i=1,respcount do
+					--send_to_user(from, string.format("Réponse num. %d (%s):", i, tostring(TableDesReponses.is_active(i))));
+					--send_to_user(from, string.format("%s\t\"%s\"", TableDesReponses.get_name(i), TableDesReponses.get(i)));
+					--send_to_user(from, TableDesReponses.get_author(i));
+					print(string.format("Réponse num. %d (%s):", i, tostring(TableDesReponses.is_active(i))))
+					print(string.format("%s\t\"%s\"", TableDesReponses.get_stimulus(i), TableDesReponses.get(i)))
+					print(string.format("author :%s, channel :%s", TableDesReponses.get_author(i), TableDesReponses.get_channel(i)))
+				end
+			end
+		end
 
 
 --[[
