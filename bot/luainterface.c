@@ -425,6 +425,18 @@ int c2l_stimuli_get(lua_State *L)
 	return 1;
 }
 
+//lua getter for the present flag of a stimulus
+int c2l_stimuli_ispresent(lua_State *L)
+{
+	int index = luaL_checkint(L, 1);
+	if(index > TailleStim)
+		lua_pushboolean(L, FALSE);
+	else
+		lua_pushboolean(L, TableDesStimuli[index - 1]->Present ? TRUE : FALSE);
+	
+	return 1;
+}
+
 //lua getter for the active flag of a stimulus
 int c2l_stimuli_isactive(lua_State *L)
 {
@@ -449,6 +461,18 @@ int c2l_stimuli_getname(lua_State *L)
 	return 1;
 }
 
+//lua getter for the stimulus of a stimulus
+int c2l_stimuli_getstimulus(lua_State *L)
+{
+	int index = luaL_checkint(L, 1);
+	if(index > TailleStim)
+		lua_pushstring(L, "");
+	else
+		lua_pushstring(L, TableDesStimuli[index - 1]->Stimulus);
+	
+	return 1;
+}
+
 //lua getter for the author of a stimulus
 int c2l_stimuli_getauthor(lua_State *L)
 {
@@ -465,9 +489,107 @@ int c2l_stimuli_getauthor(lua_State *L)
 static const struct luaL_reg stimuli_m[] = {
 	{"size", c2l_stimuli_count},
 	{"get", c2l_stimuli_get},
-	{"is_active", c2l_stimuli_isactive},
 	{"get_name", c2l_stimuli_getname},
+	{"get_stimulus", c2l_stimuli_getstimulus},
 	{"get_author", c2l_stimuli_getauthor},
+	{"is_present", c2l_stimuli_ispresent},
+	{"is_active", c2l_stimuli_isactive},
+	{NULL, NULL}
+};
+
+//lua getter to size of the Response table
+int c2l_response_count(lua_State *L)
+{
+#ifdef DBUG
+	printf("::c2l_response_count\n");
+#endif
+	lua_pushnumber(L, TailleRep);
+	return 1;
+}
+
+//lua getter to the given response
+int c2l_response_get(lua_State *L)
+{
+	rep_tbl *resp;
+#ifdef DBUG
+	printf("::c2l_response_get\n");
+#endif
+	int index = luaL_checkint(L, 1);
+	luaL_argcheck(L, index >= 1 && index <= TailleRep, 1, "index out of range");
+	resp = TableDesReponses[index -1];
+	lua_pushstring(L, resp->Reponse);
+	return 1;
+}
+
+//lua getter for the stimulus of a response
+int c2l_response_getstimulus(lua_State *L)
+{
+	int index = luaL_checkint(L, 1);
+	if(index > TailleRep)
+		lua_pushstring(L, "");
+	else
+		lua_pushstring(L, TableDesReponses[index - 1]->NomStimulus);
+	
+	return 1;
+}
+
+//lua getter for the response of a response
+int c2l_response_getresponse(lua_State *L)
+{
+	int index = luaL_checkint(L, 1);
+	if(index > TailleRep)
+		lua_pushstring(L, "");
+	else
+		lua_pushstring(L, TableDesReponses[index - 1]->Reponse);
+	
+	return 1;
+}
+
+//lua getter for the author of a response
+int c2l_response_getauthor(lua_State *L)
+{
+	int index = luaL_checkint(L, 1);
+	if(index > TailleRep)
+		lua_pushstring(L, "");
+	else
+		lua_pushstring(L, TableDesReponses[index - 1]->Auteur);
+	
+	return 1;
+}
+
+//lua getter for the channel of a response
+int c2l_response_getchannel(lua_State *L)
+{
+	int index = luaL_checkint(L, 1);
+	if(index > TailleRep)
+		lua_pushstring(L, "");
+	else
+		lua_pushstring(L, TableDesReponses[index - 1]->Canal);
+	
+	return 1;
+}
+
+//lua getter for the active flag of a response
+int c2l_response_isactive(lua_State *L)
+{
+	int index = luaL_checkint(L, 1);
+	if(index > TailleRep)
+		lua_pushboolean(L, FALSE);
+	else
+		lua_pushboolean(L, TableDesReponses[index - 1]->Active ? TRUE : FALSE);
+	
+	return 1;
+}
+
+//methods of the bot.answer meta-table
+static const struct luaL_reg response_m[] = {
+	{"size", c2l_response_count},
+	{"get", c2l_response_get},
+	{"get_stimulus", c2l_response_getstimulus},
+	{"get_response", c2l_response_getresponse},
+	{"get_author", c2l_response_getauthor},
+	{"get_channel", c2l_response_getchannel},
+	{"is_active", c2l_response_isactive},
 	{NULL, NULL}
 };
 
@@ -495,7 +617,32 @@ void expose_stimlist(void)
 	luaL_getmetatable(L, "bot.stimuli");
 	lua_setmetatable(L, -2);
 	lua_setglobal(L, "TableDesStimuli");
+}
+
+//initialize the TableDesReponses global user object as an accessor to the TableDesReponses
+//and configure a metatable with the needed methods
+void expose_resplist(void)
+{
+	//create a metatable
+	luaL_newmetatable(L, "bot.responses");
 	
+	//connect the __index method to the list of our methods
+	lua_pushstring(L, "__index");
+	lua_pushvalue(L, -2);	//push metatable
+	lua_settable(L, -3);	//metatable.__index = bot.responses metatable
+	
+	//associate the list of methods to the metatable
+	//with the NULL name, assume that the package to populate is the metatable on the stack
+	luaL_openlib(L, NULL, response_m, 0);
+	
+	//Create a user object that points to TableDesReponses
+	rep_tbl **p = (rep_tbl**)lua_newuserdata(L, sizeof(rep_tbl*));
+	p = TableDesReponses;
+	
+	//set the meta-table of our TableDesStimuli global object
+	luaL_getmetatable(L, "bot.responses");
+	lua_setmetatable(L, -2);
+	lua_setglobal(L, "TableDesReponses");
 }
 
 //register the C methods and values accessible to the lua engine
@@ -555,6 +702,7 @@ void register_cstuff()
 	lua_register(L, "call_bot_func", c2l_callbotfunc);
 	
 	expose_stimlist();
+	expose_resplist();
 }
 
 //initialize the lua engine
