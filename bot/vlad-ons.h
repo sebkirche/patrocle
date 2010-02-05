@@ -132,7 +132,7 @@ void    do_stimwrite(char *from, char *to, char *rest);
 void    do_stimload(char *from, char *to, char *rest);
 void    do_repwrite(char *from, char *to, char *rest);
 void    do_repload(char *from, char *to, char *rest);
-void    Traite( char *from, char *to, char *msg);
+void    ProcessSimpleStims( char *from, char *to, char *msg);
 void    do_showbots(char *from, char *to, char *rest);
 void    do_botadd(char *from, char *to, char *rest);
 void    do_topic(char *from, char *to, char *rest);

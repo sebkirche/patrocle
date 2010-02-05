@@ -352,84 +352,84 @@ void    Repondre(const char *from, const char *to,
 		  int AjoutHumeurNeg,
 		  int NbRepNeg, char **RepNeg) {
 
-  static int NumRep = 0;
-  int Humeur, i;
-  locuteur *Locuteur = 0;
-  char *NUS = NickUserStr(from);
-  
-  Locuteur = LocuteurExiste(currentbot->lists->ListeLocuteurs, from);
-  if(!Locuteur)
-	  Locuteur = AjouteLocuteur(currentbot->lists->ListeLocuteurs, NUS);
-  
-  Humeur = rellevel(from);
-
-  if(Humeur >= 0) {
+	static int NumRep = 0;
+	int Humeur, i;
+	locuteur *Locuteur = 0;
+	char *NUS = NickUserStr(from);
 	
-    /* Addition des points d'humeur positifs aux points de relation du
-       locuteur */
-    AjoutePoints(Locuteur, AjoutHumeurPos);
-
-    if(time2hours(time(NULL)) - Locuteur->PremierContact > 12 &&
-	Locuteur->bonus_malus != 0) {
-      if(!exist_userhost(currentbot->lists->rellist, from))
-		  add_to_levellist(currentbot->lists->rellist, NUS, DEFAUT_LVL);
-
-      if(Locuteur->bonus_malus > 0)
-	add_to_level(currentbot->lists->rellist, from, +1);
-      else if(Locuteur->bonus_malus < 0)
-	add_to_level(currentbot->lists->rellist, from, -2);
-      AnnulePoints(Locuteur);
-      AnnuleBonjours(Locuteur);
-      MAJPremierContact(Locuteur);
-    }
-
-    if(RepPos && NbRepPos)
-      Ecrire(from, to, RepPos[NumRep%NbRepPos]);
-    MAJDernierContact(Locuteur);
-  } else {
-    /* Addition des points d'humeur negatifs aux points de relation du
-       locuteur */
-    AjoutePoints(Locuteur, AjoutHumeurNeg);
-
-    if(time2hours(time(NULL)) - Locuteur->PremierContact > 12 &&
-	Locuteur->bonus_malus != 0) {
-      if(!exist_userhost(currentbot->lists->rellist, from))
-		  add_to_levellist(currentbot->lists->rellist, NUS, DEFAUT_LVL);
-
-      if(Locuteur->bonus_malus > 0)
-	add_to_level(currentbot->lists->rellist, from, +1);
-      else if(Locuteur->bonus_malus < 0)
-	add_to_level(currentbot->lists->rellist, from, -2);
-      AnnulePoints(Locuteur);
-      AnnuleBonjours(Locuteur);
-      MAJPremierContact(Locuteur);
-    }
-
-    if(NbRepNeg && RepNeg)
-      Ecrire(from, to, RepNeg[NumRep%NbRepNeg]);
-    MAJDernierContact(Locuteur);
-  }
-
-  NumRep++;
-
-  /* Desallocation des reponses positives */
-  for(i = 0; i < NbRepPos; i++)
-    if(RepPos[i])
-      free(RepPos[i]);
-
-  if(NbRepPos > 0 && RepPos)
-    free(RepPos);
-
-  /* Desallocation des reponses negatives */
-  for(i = 0; i < NbRepNeg; i++)
-    if(RepNeg[i])
-      free(RepNeg[i]);
-
-  if(NbRepNeg > 0 && RepNeg)
-    free(RepNeg);
-  
-  if(NUS)
-    free(NUS);
+	Locuteur = LocuteurExiste(currentbot->lists->ListeLocuteurs, from);
+	if(!Locuteur)
+		Locuteur = AjouteLocuteur(currentbot->lists->ListeLocuteurs, NUS);
+	
+	Humeur = rellevel(from);
+	
+	if(Humeur >= 0) {
+		
+		/* Addition des points d'humeur positifs aux points de relation du
+		 locuteur */
+		AjoutePoints(Locuteur, AjoutHumeurPos);
+		
+		if(time2hours(time(NULL)) - Locuteur->PremierContact > 12 &&
+		   Locuteur->bonus_malus != 0) {
+			if(!exist_userhost(currentbot->lists->rellist, from))
+				add_to_levellist(currentbot->lists->rellist, NUS, DEFAUT_LVL);
+			
+			if(Locuteur->bonus_malus > 0)
+				add_to_level(currentbot->lists->rellist, from, +1);
+			else if(Locuteur->bonus_malus < 0)
+				add_to_level(currentbot->lists->rellist, from, -2);
+			AnnulePoints(Locuteur);
+			AnnuleBonjours(Locuteur);
+			MAJPremierContact(Locuteur);
+		}
+		
+		if(RepPos && NbRepPos)
+			Ecrire(from, to, RepPos[NumRep%NbRepPos]);
+		MAJDernierContact(Locuteur);
+	} else {
+		/* Addition des points d'humeur negatifs aux points de relation du
+		 locuteur */
+		AjoutePoints(Locuteur, AjoutHumeurNeg);
+		
+		if(time2hours(time(NULL)) - Locuteur->PremierContact > 12 &&
+		   Locuteur->bonus_malus != 0) {
+			if(!exist_userhost(currentbot->lists->rellist, from))
+				add_to_levellist(currentbot->lists->rellist, NUS, DEFAUT_LVL);
+			
+			if(Locuteur->bonus_malus > 0)
+				add_to_level(currentbot->lists->rellist, from, +1);
+			else if(Locuteur->bonus_malus < 0)
+				add_to_level(currentbot->lists->rellist, from, -2);
+			AnnulePoints(Locuteur);
+			AnnuleBonjours(Locuteur);
+			MAJPremierContact(Locuteur);
+		}
+		
+		if(NbRepNeg && RepNeg)
+			Ecrire(from, to, RepNeg[NumRep%NbRepNeg]);
+		MAJDernierContact(Locuteur);
+	}
+	
+	NumRep++;
+	
+	/* Desallocation des reponses positives */
+	for(i = 0; i < NbRepPos; i++)
+		if(RepPos[i])
+			free(RepPos[i]);
+	
+	if(NbRepPos > 0 && RepPos)
+		free(RepPos);
+	
+	/* Desallocation des reponses negatives */
+	for(i = 0; i < NbRepNeg; i++)
+		if(RepNeg[i])
+			free(RepNeg[i]);
+	
+	if(NbRepNeg > 0 && RepNeg)
+		free(RepNeg);
+	
+	if(NUS)
+		free(NUS);
 
 } /* void Repondre */
 
@@ -1170,8 +1170,7 @@ void	on_msg(char *from, char *to, char *msg_untranslated){
 	
 	Flooding = check_session(from);
 	if(Flooding != IS_FLOODING && !is_bot(currentbot->botlist, to, from)){
-		//Traite(from, to, msg);
-		//LuaTraite(from, to, msg);
+		ProcessSimpleStims(from, to, msg);
 		LuaTraite(currentbot, from, to, msg, GNumPhrase++);
 	}
 	else if(Flooding == IS_FLOODING)
@@ -3407,115 +3406,112 @@ int ChaineEstDans(const char *aFouiller, const char *aChercher) {
   
 } /* int ChaineEstDans() */
 
-void    Traite(char *from, char *to, char *msg){
-  char *Trouve;
-  static int Autorisation = TRUE;
-  static int Jour = 0;
-  int AncienneAutorisation = TRUE;
-  char **Reponse, **Reponse2;
-  locuteur *Locuteur;
-  int i;
-  int j;
-  int NbRep = 0;
-  int Num;
-  int NOM        = FALSE;
-  int QUEL_ENDROIT = FALSE; /* ou ? where? */
-  int ILYA       = FALSE; /* Il y a, est la, there, ici */
-  int LISTE_STIMULI = FALSE;
-  int TESTE_STIMULI = FALSE;
-  int LISTE_REPONSES = FALSE;
-  int MOI        = FALSE;
-  int NEGATION   = FALSE;
-  int ES_TU      = FALSE;
-  int AS_TU      = FALSE;
-  int BIENVENUE   = FALSE; /* Aussi Bon retour */
-  int MOUARF      = FALSE; /* Joli chien-chien */
-  int ETTOI = FALSE; /* Et toi? */
-  int QUESTION = FALSE; /* es-tu as-tu est-ce-que est-il comment pourquoi suis-je ais-tu ? */
-  int SOUHAIT = FALSE; /* Positif: Porte-toi bien */
-  int QUI = FALSE; /* Qui es-tu? */
-  int JESUIS = FALSE;
-  int FONCTION = FALSE;
-  int VEUX = FALSE; /* Ouin. Je VEUX que tu ... , j'ORDONNE*/
-  int VIVE = FALSE; /* Viva! Rules rulezz */
-  int FRONT_NATIONAL = FALSE; /* Argh! */
-  int KICKER = FALSE;
-  int KICKE_MOI = FALSE;
-  int ACHILLE = FALSE;
-  char *NUS = NickUserStr(from);
-
-/*   CHAN_list *Channel_to = (ischannel(to)?search_chan(to):currentbot->Current_chan); */
-  CHAN_list *Channel_to = (ischannel(to)?search_chan(to):0);
-
-  if((ischannel(to) && is_log_on(to)) || (!ischannel(to) && logging))
-    botlog(LOGFILE, "<%s#%s> %s", from, to, msg);
-
-
+void    ProcessSimpleStims(char *from, char *to, char *msg){
+	int AncienneAutorisation = TRUE;
+	char **Reponse, **Reponse2;
+	locuteur *Locuteur;
+	int i;
+	int j;
+	int NbRep = 0;
+	int Num;
+	int QUEL_ENDROIT = FALSE; /* ou ? where? */
+	int ILYA       = FALSE; /* Il y a, est la, there, ici */
+	int LISTE_STIMULI = FALSE;
+	int TESTE_STIMULI = FALSE;
+	int LISTE_REPONSES = FALSE;
+	int MOI        = FALSE;
+	int NEGATION   = FALSE;
+	int ES_TU      = FALSE;
+	int AS_TU      = FALSE;
+	int BIENVENUE   = FALSE; /* Aussi Bon retour */
+	int MOUARF      = FALSE; /* Joli chien-chien */
+	int ETTOI = FALSE; /* Et toi? */
+	int QUESTION = FALSE; /* es-tu as-tu est-ce-que est-il comment pourquoi suis-je ais-tu ? */
+	int SOUHAIT = FALSE; /* Positif: Porte-toi bien */
+	int QUI = FALSE; /* Qui es-tu? */
+	int JESUIS = FALSE;
+	int FONCTION = FALSE;
+	int VEUX = FALSE; /* Ouin. Je VEUX que tu ... , j'ORDONNE*/
+	int VIVE = FALSE; /* Viva! Rules rulezz */
+	int FRONT_NATIONAL = FALSE; /* Argh! */
+	int KICKER = FALSE;
+	int KICKE_MOI = FALSE;
+	int ACHILLE = FALSE;
+	char *NUS = NickUserStr(from);
 	
+	/*   CHAN_list *Channel_to = (ischannel(to)?search_chan(to):currentbot->Current_chan); */
+	CHAN_list *Channel_to = (ischannel(to)?search_chan(to):0);
+	
+	if((ischannel(to) && is_log_on(to)) || (!ischannel(to) && logging))
+		botlog(LOGFILE, "<%s#%s> %s", from, to, msg);
+	
+	
+/*	
 	if(FONCTION) {
-    AncienneAutorisation = (Channel_to?Channel_to->talk:TRUE);
-    if(Channel_to) Channel_to->talk = FALSE;
-  }
-
-  if((Channel_to?Channel_to->talk:TRUE)) {
-
-    Locuteur = LocuteurExiste(currentbot->lists->ListeLocuteurs, from);
-    if(!Locuteur)
-      Locuteur = AjouteLocuteur(currentbot->lists->ListeLocuteurs,
-				 NUS);
-      
-	//---------------------------------------------------------------- Lecture des stimulis simples (!APPRENDS)
-    for(i=0; i<TailleStim; i++)
-      if(ChaineEstDans(msg, TableDesStimuli[i]->Stimulus))
-	TableDesStimuli[i]->Present = TRUE;
-      else
-	TableDesStimuli[i]->Present = FALSE;
-
-    NbRep = 0;
-    
-    for(i=0; i<TailleRep; i++) {
-
-      if(TableDesReponses[i]->Active
-	  && (STRCASEEQUAL(to, TableDesReponses[i]->Canal) ||
-	      !strcmp(TableDesReponses[i]->Canal, "#*")))
-	for(j=0; j<TailleStim; j++)
-	  if(TableDesStimuli[j]->Present &&
-	      TableDesStimuli[j]->Actif &&
-	      strcmp(TableDesStimuli[j]->NomStimulus,
-		      TableDesReponses[i]->NomStimulus)==0) {
-	    NbRep++;
-	  }
-    }
-
-    if(NbRep) {
-      Reponse  = malloc(NbRep*sizeof(char *));
-      Reponse2 = malloc(NbRep*sizeof(char *));
-    } else {
-      Reponse  = 0;
-      Reponse2 = 0;
-    }
-
-    Num = 0;
-    
-    for(i=0; i<TailleRep; i++)
-      for(j=0; j<TailleStim; j++)
-	if(TableDesStimuli[j]->Present &&
-	    TableDesStimuli[j]->Actif &&
-	    TableDesReponses[i]->Active &&
-	    (STRCASEEQUAL(to, TableDesReponses[i]->Canal) ||
-	     !strcmp(TableDesReponses[i]->Canal, "#*")) &&
-	    strcmp(TableDesStimuli[j]->NomStimulus,
-		    TableDesReponses[i]->NomStimulus)==0) {
-	  Reponse[Num]  = strdup(TableDesReponses[i]->Reponse);
-	  Reponse2[Num] = strdup(TableDesReponses[i]->Reponse);
-	  Num ++;
+		AncienneAutorisation = (Channel_to?Channel_to->talk:TRUE);
+		if(Channel_to) Channel_to->talk = FALSE;
 	}
+ */
 
-    if(Num)
-      Repondre(from, to, 0, Num, Reponse, 0, Num, Reponse2);
-//---------------------------------------------------------------- fin stimulis
-
-
+	if((Channel_to?Channel_to->talk:TRUE)) {
+		
+		Locuteur = LocuteurExiste(currentbot->lists->ListeLocuteurs, from);
+		if(!Locuteur)
+			Locuteur = AjouteLocuteur(currentbot->lists->ListeLocuteurs,
+									  NUS);
+		
+		//---------------------------------------------------------------- Lecture des stimulis simples (!APPRENDS)
+		for(i=0; i<TailleStim; i++)
+			if(ChaineEstDans(msg, TableDesStimuli[i]->Stimulus))
+				TableDesStimuli[i]->Present = TRUE;
+			else
+				TableDesStimuli[i]->Present = FALSE;
+		
+		NbRep = 0;
+		
+		for(i=0; i<TailleRep; i++) {
+			
+			if(TableDesReponses[i]->Active
+			   && (STRCASEEQUAL(to, TableDesReponses[i]->Canal) ||
+				   !strcmp(TableDesReponses[i]->Canal, "#*")))
+				for(j=0; j<TailleStim; j++)
+					if(TableDesStimuli[j]->Present &&
+					   TableDesStimuli[j]->Actif &&
+					   strcmp(TableDesStimuli[j]->NomStimulus,
+							  TableDesReponses[i]->NomStimulus)==0) {
+						   NbRep++;
+					   }
+		}
+		
+		if(NbRep) {
+			Reponse  = malloc(NbRep*sizeof(char *));
+			Reponse2 = malloc(NbRep*sizeof(char *));
+		} else {
+			Reponse  = 0;
+			Reponse2 = 0;
+		}
+		
+		Num = 0;
+		
+		for(i=0; i<TailleRep; i++)
+			for(j=0; j<TailleStim; j++)
+				if(TableDesStimuli[j]->Present &&
+				   TableDesStimuli[j]->Actif &&
+				   TableDesReponses[i]->Active &&
+				   (STRCASEEQUAL(to, TableDesReponses[i]->Canal) ||
+					!strcmp(TableDesReponses[i]->Canal, "#*")) &&
+				   strcmp(TableDesStimuli[j]->NomStimulus,
+						  TableDesReponses[i]->NomStimulus)==0) {
+					   Reponse[Num]  = strdup(TableDesReponses[i]->Reponse);
+					   Reponse2[Num] = strdup(TableDesReponses[i]->Reponse);
+					   Num ++;
+				   }
+		
+		if(Num)
+			Repondre(from, to, 0, Num, Reponse, 0, Num, Reponse2);
+		//---------------------------------------------------------------- fin stimulis
+		
+		
   
     
 /*     if(INJURE && !COMPLIMENT && !ETTOI && !JESUIS) { */
@@ -3720,73 +3716,22 @@ void    Traite(char *from, char *to, char *msg){
 /*       KickerRepondre(from, to, -2, 6, Reponse, -6, 6, Reponse2); */
 /*     } */
 
- 
-    if(LISTE_STIMULI && (NOM || !ischannel(to))) {
-      if(TailleStim<=0)
-		send_to_user(from, "Il n'y a pas de stimuli.");
-      else {
-		ForceDCC(from, to, msg);
-		for(i=0; i<TailleStim; i++) {
-		  send_to_user(from, "Stimulus numero %d (%s):", i,
-						(TableDesStimuli[i]->Actif?"Actif":"Inactif"));
-		  send_to_user(from, "%s\t\"%s\"",
-						TableDesStimuli[i]->NomStimulus,
-						TableDesStimuli[i]->Stimulus);
-		  send_to_user(from, TableDesStimuli[i]->Auteur);
-		}
-      }
-    }
-    
-    if(TESTE_STIMULI && (NOM || !ischannel(to))) {
-      if(TailleStim <= 0)
-		send_to_user(from, "Il n'y a pas de stimuli.");
-      else {
-		ForceDCC(from, to, msg);
-		for(i=0; i<TailleStim; i++) {
-		  if(TableDesStimuli[i]->Present) {
-			send_to_user(from, TableDesStimuli[i]->NomStimulus);
-			send_to_user(from, TableDesStimuli[i]->Stimulus);
-			send_to_user(from, TableDesStimuli[i]->Auteur);
-		  }
-		}
-      }
-    }
+		
+		
+	}
+	/* Si l'autorisation de parler n'est pas donnee */
+	else {
+		
+	}
 	
+/*	
+	if(FONCTION)
+		if(Channel_to) Channel_to->talk = AncienneAutorisation;
+*/	
+
+	if(NUS)
+		free(NUS);
 	
-    if(LISTE_REPONSES && (NOM || !ischannel(to))) {
-      if(TailleRep <= 0)
-		send_to_user(from, "Il n'y a aucune réponse.");
-      else {
-		ForceDCC(from, to, msg);
-		for(i=0; i<TailleRep; i++) {
-		  send_to_user(from, "Réponse numero %d:", i);
-		  send_to_user(from, "%s\t\"%s\"",
-						TableDesReponses[i]->NomStimulus,
-						TableDesReponses[i]->Reponse, GetNick(from));
-		  send_to_user(from, "%s\t%s", TableDesReponses[i]->Auteur,
-						TableDesReponses[i]->Canal);
-		}
-      }
-      
-    }
-    
-    
-  }
-  /* Si l'autorisation de parler n'est pas donnee */
-  else {
-
-
-  }
-  
-
-   if(FONCTION)
-    if(Channel_to) Channel_to->talk = AncienneAutorisation;
-
-
-  
-  if(NUS)
-    free(NUS);
-
 }
 
 // Local variables:
