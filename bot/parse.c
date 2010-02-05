@@ -103,13 +103,11 @@ void 	parse_privmsg(char *from, char *rest)
 		on_msg( from, to, text );
 }
 
-void	parse_notice(char *from, char *rest)
-{
+void	parse_notice(char *from, char *rest) {
 	/* ignore notices! */
 }
 
-void	parse_join(char *from, char *rest)
-{
+void	parse_join(char *from, char *rest) {
 	char	from_copy[MAXLEN];
 	char	*f = from_copy;		/* blah */
 	char	*n, *u, *h;
@@ -132,8 +130,7 @@ void	parse_join(char *from, char *rest)
 	on_join(from, rest);
 }
 
-void	parse_part(char *from, char *rest)
-{
+void	parse_part(char *from, char *rest) {
 	strtok(rest, " \0");
 #ifdef DBUG
 	debug(LVL_NOTICE,"%s (%s) left %s", getnick(from), from, rest);
@@ -141,18 +138,15 @@ void	parse_part(char *from, char *rest)
 	remove_user_from_channel(rest, getnick(from));
 }
 
-void	parse_mode(char *from, char *rest)
-{
+void	parse_mode(char *from, char *rest) {
 	on_mode(from, rest);
 }
 
-void	parse_nick(char *from, char *rest)
-{
+void	parse_nick(char *from, char *rest) {
 	change_nick(getnick(from), rest);
 }
 
-void	parse_kick(char *from, char *rest)
-{
+void	parse_kick(char *from, char *rest) {
 	char	*channel;
 	char	*nick;
 
@@ -167,8 +161,7 @@ void	parse_kick(char *from, char *rest)
 		remove_user_from_channel(channel, nick);
 }
 
-void	parse_ping(char *from, char *rest)
-{
+void	parse_ping(char *from, char *rest) {
 /* 	char	localhost[64]; */
 
 /* 	gethostname(localhost, 64); */
@@ -178,8 +171,7 @@ void	parse_ping(char *from, char *rest)
 	currentbot->lastping = time(NULL);
 }
 
-void	parse_pong(char *from, char *rest)
-{
+void	parse_pong(char *from, char *rest) {
 	char	*nick, *server;
 
 	server = get_token(&rest, " ");
@@ -189,25 +181,26 @@ void	parse_pong(char *from, char *rest)
 	pong_received(nick, server);
 }
 
-void	parse_quit(char *from, char *rest)
-{
+void	parse_quit(char *from, char *rest) {
 	remove_user(getnick(from));
 }
 
-void	parse_error(char *from, char *rest)
-{
+void	parse_error(char *from, char *rest) {
 	botlog(ERRFILE, "SIGNING OFF: %s", rest);
 	botlog(ERRFILE, "           - trying to reconnect (%s)", (from?from:"?"));
 	reconnect_to_server();
 }
 
-void	parse_001(char *from, char *rest)
+/* 001 RPL_WELCOME
+   "Welcome to the Internet Relay Network
+    <nick>!<user>@<host>"
+*/
+void	parse_001(char *from, char *rest) {
 /*
  * Use the 001-reply (Welcome to the Internet Relay Network NICK)
  * to determine the server's name (this might not be the name in the
  * serverlist!). All we have to do is look at "from"
  */
-{
 	debug(LVL_NOTICE, "Current server calls himself %s", from);
 	free(currentbot->serverlist[currentbot->current_server].realname);
 	mstrcpy(&currentbot->serverlist[currentbot->current_server].realname,
@@ -216,15 +209,18 @@ void	parse_001(char *from, char *rest)
 	reset_channels(HARDRESET);
 }
 
-void	parse_324(char *from, char *rest)
-{
+/* 324 RPL_CHANNELMODEIS
+ "<channel> <mode> <mode params>"
+*/
+void	parse_324(char *from, char *rest) {
 	rest = strchr( rest, ' ' );
 	on_mode(from, rest);
 }
 
-void	parse_352( char *from, char *rest )
-/* 352: who-reply */
-{
+/* 352 RPL_WHOREPLY
+ "<channel> <user> <host> <server> <nick> <H|G>[*][@|+] :<hopcount> <real name>"
+*/
+void	parse_352( char *from, char *rest ) {
 	char	*channel;
 	char	*nick;
 	char	*user;
@@ -266,8 +262,10 @@ void	parse_352( char *from, char *rest )
 	}
 }
 
-void	parse_367(char *from, char *rest )
-{
+/* 367 RPL_BANLIST
+ "<channel> <banid>"
+*/
+void	parse_367(char *from, char *rest ) {
 	char	*nick;
 	char	*channel;
 	char	*banstring;
@@ -278,7 +276,8 @@ void	parse_367(char *from, char *rest )
 	add_channelmode(channel, MODE_BAN, banstring);
 }
 
-void	parse_433(char *from, char *rest) /* 431..436! */
+/* 433 ERR_NICKNAMEINUSE */ 
+void	parse_433(char *from, char *rest) {  /* 431..436! */
 /*
  * How to determine the new nick: 
  * - If it's possible to add a '_' to the nick, do it (done)
@@ -286,7 +285,6 @@ void	parse_433(char *from, char *rest) /* 431..436! */
  *   the first non-'_' with a '_'. i.e. __derServ -> ___erServ
  * - If the nick is 9 '_''s, try the original nick with something random
  */
-{
 	char	*s;
 	
 	if(strlen(currentbot->nick) == NICKLEN){
@@ -310,13 +308,14 @@ void	parse_433(char *from, char *rest) /* 431..436! */
 	sendnick(currentbot->nick);
 }
 
-void	parse_451(char *from, char *rest)
+/* 451 ERR_NOTREGISTERED */
+void	parse_451(char *from, char *rest) {
 /* 
  * 451 means "You have not registred". I assume that the choosen
  * nickname was wrong (i.e. in use). This should already have been
  * fixed by parse_433 etc, so all we have to do is rejoin the channels
  */
-{
+
 /*
 	Not a good idea.. the bot sends about 5 lines of commands at once,
 	this meanse 5 rejoins etc. And if the nickname is still wrong,
@@ -330,8 +329,21 @@ void	parse_451(char *from, char *rest)
 */
 }
 
-void	parse_471(char *from, char *rest)
-{
+/* 471 ERR_CHANNELISFULL
+   "<channel> :Cannot join channel (+l)"
+ 
+   473 ERR_INVITEONLYCHAN
+   "<channel> :Cannot join channel (+i)"
+ 
+   474 ERR_BANNEDFROMCHAN
+   <channel> :Cannot join channel (+b)"
+ 
+   475 ERR_BADCHANNELKEY
+   "<channel> :Cannot join channel (+k)"
+ 
+   476 ERR_BADCHANMASK (reserved / deprecated / not generic)
+*/
+void	parse_471(char *from, char *rest) {
 	char	*channel;
 
 	rest = strchr(rest, '#');
@@ -339,22 +351,21 @@ void	parse_471(char *from, char *rest)
 	mark_failed(channel);
 }
 
-void 	parseline(char *line)
-{
+void 	parseline(char *line) {
 	char  	*from; 
 	char  	*command;
 	char  	*rest;
 	int	i;
-
-
+	
+	
 	KILLNEWLINE(line);
 	/* The new servers put a \r before the \n */
 	KILLRETURN(line);
-
+	
 #ifdef DBUG
 	debug(LVL_DEBUG, "parseline(\"%s\")", line);
 #endif 
-
+	
 	if( *line == ':' ){
 		if((command = strchr( line, ' ' ) ) == 0 )
 			return;
@@ -366,19 +377,19 @@ void 	parseline(char *line)
 		command = line;
 		from = NULL;
 	}
-
+	
 	/* fprintf(stderr,"** command:'%s'\n",command); */
-  
+	
 	if( ( rest = strchr( command, ' ' ) ) == 0 )
 		return;
-      
+	
 	*( rest++ ) = '\0';
 	
 	if( *rest == ':' )
 		*( rest++ ) = '\0';
-
+	
 	/* fprintf(stderr,"** rest:'%s'\n",rest); */
-
+	
 	for(i=0; parse_funcs[i].name; i++)
 		if(STRCASEEQUAL(parse_funcs[i].name, command)){
 			parse_funcs[i].function(from, rest);
