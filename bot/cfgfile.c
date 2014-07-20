@@ -104,12 +104,12 @@ struct
 };
 
 extern	int	number_of_bots;
-extern	int	find_channel(botinfo *bot, char *channel);
-extern	int	add_channel_to_bot(botinfo *bot, char *channel, char *topic, char *mode, char *encoding);
-extern	int	find_server(botinfo *bot, char *server, int port);
-extern	int	add_server_to_bot(botinfo *bot, char *server, int port);
-extern	botinfo	*bot_created(char *s);
-extern	botinfo	*add_bot(char *s);
+extern	int	find_channel(botinfo *bot, const char *channel);
+extern	int	add_channel_to_bot(botinfo *bot, const char *channel, const char *topic, const char *mode, const char *encoding);
+extern	int	find_server(botinfo *bot, const char *server, int port);
+extern	int	add_server_to_bot(botinfo *bot, const char *server, int port);
+extern	botinfo	*bot_created(const char *s);
+extern	botinfo	*add_bot(const char *s);
 extern	int	idletimeout;
 extern	int	waittimeout;
 extern	int	maxuploadsize;

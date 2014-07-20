@@ -33,7 +33,7 @@ typedef struct locuteur_struct {
 
 locuteur **InitLocuteurListe();
 locuteur *LocuteurExiste(locuteur **, const char *);
-locuteur *LocuteurNickExiste(locuteur **, char *);
+locuteur *LocuteurNickExiste(locuteur **, const char *);
 locuteur *AjouteLocuteur(locuteur **, const char *);
 void      AjoutePoints(locuteur *, int);
 void      AnnulePoints(locuteur *);
@@ -42,13 +42,13 @@ void      MAJPremierContact(locuteur *);
 void      MAJDernierContact(locuteur *);
 void	  MAJDerniereActivite(locuteur *);
 void      EnleveLocuteur(locuteur **, locuteur *);
-void      MontreLocuteurs(locuteur **, char *, char *);
-int       SauveLocuteurs(locuteur **, char *);
+void      MontreLocuteurs(locuteur **, const char *, const char *);
+int       SauveLocuteurs(locuteur **, const char *);
 void      DetruitListe(locuteur **);
-int       ChargeLocuteurs(char *, locuteur **);
+int       ChargeLocuteurs(const char *, locuteur **);
 void      NettoieListeLocuteurs(locuteur **);
-int       loclevel(char *);
-int       loctrue(char *);
+int       loclevel(const char *);
+int       loctrue(const char *);
 #endif
 
 // Local variables:

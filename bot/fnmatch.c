@@ -124,8 +124,8 @@ int fnmatch(const char *pattern, const char *string, int flags){
 
 						if(!(flags & FNM_NOESCAPE) && c == '\\')
 							cstart = cend = *p++;
-
-						cstart = cend = FOLD(cstart);
+                        else
+                            cstart = cend = FOLD(cstart);
 
 						if(c == '\0')
 							/* [ (unterminated) loses.  */

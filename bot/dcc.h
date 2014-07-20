@@ -72,7 +72,7 @@ typedef	struct DCC_struct
 DCC_list	*search_list(const char *name, const char *user, unsigned int type);
 int		do_dcc( DCC_list *Client );
 void	reply_dcc( char *from, char *to, char *rest );
-void	show_dcclist( char *from );
+void	show_dcclist( const char *from );
 char	*dcc_time( long time );
 void	add_client( DCC_list *Client );
 int		delete_client( DCC_list *Client );

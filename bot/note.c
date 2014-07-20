@@ -73,7 +73,7 @@ struct
 	{ NULL,		null(void(*)())	}
 };
 
-void	parse_note(char *from, char *to, char *s){
+void	parse_note(const char *from, const char *to, const char *s){
 	int	i;
 	char	*command;
 
@@ -360,7 +360,7 @@ void	note_send(char *from, char *s){
 
 /* functions that actually do something :) */
 
-void	create_note(char *from, char *to, char *subject){
+void	create_note(const char *from, const char *to, const char *subject){
 	notelist	*newnote;
 
 	newnote = (notelist*)malloc(sizeof(*newnote));
@@ -404,7 +404,7 @@ void	freenote(notelist *note){
 	free(note);
 }
 
-void	del_note(char *from, int note_id){
+void	del_note(const char *from, int note_id){
 	notelist	*tmp;
 
 	for(tmp=noteshead; tmp; tmp=tmp->next)
@@ -452,7 +452,7 @@ void	del_note(char *from, int note_id){
 	return;
 }
 
-void	show_note(char *from, int note_id){
+void	show_note(const char *from, int note_id){
 	notelist	*tmp;
 
 	for(tmp=notestail; tmp; tmp=tmp->prev)
@@ -479,7 +479,7 @@ void	show_note(char *from, int note_id){
 	return;
 }
 
-void	view_note(char *from)
+void	view_note(const char *from)
 /* Kinda like show_note, but is used to look at your message to be send */
 {
 	notelist	*tmp;
@@ -503,7 +503,7 @@ void	view_note(char *from)
 	return;
 }
 
-int	note_exist(char *from)
+int	note_exist(const char *from)
 /* look if there is a note for the given user and return the count */
 {
 	notelist	*tmp;

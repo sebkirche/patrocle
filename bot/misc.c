@@ -166,7 +166,7 @@ char	*time2small(long time)
 
 char	*idle2str(long time)
 {
-	int	days,
+	unsigned short	days,
 		hours,
 		mins,
 		secs;

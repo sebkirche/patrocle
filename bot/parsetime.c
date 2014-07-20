@@ -744,8 +744,8 @@ time_t parsetime(char *wanted)
     runtime.tm_isdst = -1;
     runtimer = mktime(&runtime);
     if(runtime.tm_isdst > 0) {
-	runtimer -= 3600;
-	runtimer = mktime(&runtime);
+        runtimer -= 3600;
+        runtimer = mktime(&runtime);
     }
 
     if(runtimer < 0)

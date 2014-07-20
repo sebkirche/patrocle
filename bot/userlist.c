@@ -85,7 +85,7 @@ void	add_to_levellist(USERLVL_list **l_list, const char *userhost, int level)
 	*l_list = New_user;
 }
 
-int	remove_from_levellist(USERLVL_list **l_list, char *userhost)
+int	remove_from_levellist(USERLVL_list **l_list, const char *userhost)
 {
 	/*
 	 * removes the first occurrence of userhost from l_list 
@@ -162,7 +162,7 @@ void add_to_level(USERLVL_list **l_list, const char *userhost, int humeur)
 			dummy->access += humeur;
 }
 
-void	show_lvllist(USERLVL_list **l_list, char *from, char *userhost)
+void	show_lvllist(USERLVL_list **l_list, const char *from, const char *userhost)
 {
 	USERLVL_list	* dummy;
 
@@ -189,7 +189,7 @@ void cancel_level(USERLVL_list **l_list, int level)
 	}
 }
 
-int	write_lvllist(USERLVL_list **l_list, char *filename, sort_type sort)
+int	write_lvllist(USERLVL_list **l_list, const char *filename, sort_type sort)
 {
 	USERLVL_list	* dummy;
 	time_t	T;

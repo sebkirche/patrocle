@@ -1,9 +1,9 @@
 #############################################
-## rel.list
-## Created: Fri Oct 15 19:37:58 2010
+## rel.ircnet.list
+## Created: Tue Oct 19 07:46:16 2010
 ## (c) 2010  seki (sebastien.kirche@free.fr)
 #############################################
-                         seki*!*seki@*.seki.fr 1045
+                         seki*!*seki@*.seki.fr 1048
            Chokoloff!~MacOSX@*.rev.gaoland.net 27
                     kh!~karim@*.davromaniak.eu 27
         pgas!*~user@pdpc/supporter/active/pgas 26
@@ -31,6 +31,7 @@
                         seki`!*~seki@*.seki.fr 7
                    camu!*camu@*.fbx.proxad.net 6
        demix!*user@*.88.205-77.rev.gaoland.net 6
+                   Erwan!*edavid@*.rail.eu.org 6
               fsx999!*Paul_L2@*.fbx.proxad.net 6
       hugsy_75!*hugsy@*.net/x-sokiujudvgefwiwn 6
              ngirard!*~ngirard@*.pck.nerim.net 6
@@ -46,4 +47,6 @@
                    adrien!*~brilhaua@*.imag.fr 3
              Ekinoks!*ekinoks@*.fbx.proxad.net 3
                  fsbot!*~user@*.pepperfish.net 3
-# End of rel.list
+                    noursy!*mweber@*.it.jyu.fi 3
+                            tn!*thomas@194.2.* 3
+# End of rel.ircnet.list

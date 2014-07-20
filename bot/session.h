@@ -56,20 +56,20 @@ typedef struct	session_struct
 	struct	session_struct	*next;	/* next session in list 		*/
 } SESSION_list;	
 	
-SESSION_list	*find_session(char *user);
-SESSION_list	*create_session(char *user);
-int	delete_session(char *user);
+SESSION_list	*find_session(const char *user);
+SESSION_list	*create_session(const char *user);
+int	delete_session(const char *user);
 void	cleanup_sessions();
-int	check_session(char *user);
-int	check_flood(char *user);
-void	nodcc_session(char *from, char *to, char *rest);
-void	hasdcc_session(char *from);
-char	*get_cwd(char *user);
-void	change_dir(char *user, char *new_dir);
-void    dcc_sendnext(char *user);
-int     dcc_sendlist(char *user, char *path, char *file_list[], int n);
+int	check_session(const char *user);
+int	check_flood(const char *user);
+void	nodcc_session(const char *from, const char *to, const char *rest);
+void	hasdcc_session(const char *from);
+char	*get_cwd(const char *user);
+void	change_dir(const char *user, const char *new_dir);
+void    dcc_sendnext(const char *user);
+int     dcc_sendlist(const char *user, const char *path, char *file_list[], int n);
 void	do_showqueue();
-void	sendreply(char *s, ...);
+void	sendreply(const char *s, ...);
 
 #endif
 // Local variables:

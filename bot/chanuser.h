@@ -36,20 +36,20 @@ typedef struct	USER_struct
 #define CHFL_BAN	0x0004	/* do we need this? */
 
 USER_list	*search_user( USER_list **u_list, const char *nick );
-void		add_user( USER_list **u_list, char *nick, 
-					  char *user, char *host );
+void		add_user( USER_list **u_list, const char *nick, 
+					  const char *user, const char *host );
 void		free_user(USER_list *item);
-int			delete_user( USER_list **u_list, char *nick );
+int			delete_user( USER_list **u_list, const char *nick );
 USER_list	*next_user( USER_list *Old );
-int			change_user_nick( USER_list **u_list, char *oldnick, 
-							  char *newnick );
+int			change_user_nick( USER_list **u_list, const char *oldnick, 
+							  const char *newnick );
 void		clear_all_users( USER_list **u_list );
 USER_list	*get_nextuser( USER_list *old );
 unsigned int 	get_usermode( USER_list *User );
 char		*get_username( USER_list *User );
 char		*get_usernick( USER_list *User );
-void		add_mode( USER_list **u_list, unsigned int mode, char *param );
-void		del_mode( USER_list **u_list, unsigned int mode, char *param );
+void		add_mode( USER_list **u_list, unsigned int mode, const char *param );
+void		del_mode( USER_list **u_list, unsigned int mode, const char *param );
 #endif /* CHANUSER_H */
 
 // Local variables:

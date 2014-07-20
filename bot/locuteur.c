@@ -53,7 +53,7 @@ locuteur *LocuteurExiste(locuteur **Liste, const char *userhost)
 	return NULL;
 } /* locuteur LocuteurExiste() */
 
-locuteur *LocuteurNickExiste(locuteur **Liste, char *nick)
+locuteur *LocuteurNickExiste(locuteur **Liste, const char *nick)
 {
 	locuteur *User;
 #ifdef DBUG
@@ -164,7 +164,7 @@ void EnleveLocuteur(locuteur **Liste, locuteur *AOter)
 		}
 } /* void EnleveLocuteur() */
 
-void MontreLocuteurs(locuteur **Liste, char *from, char *userhost)
+void MontreLocuteurs(locuteur **Liste, const char *from, const char *userhost)
 {
 	locuteur *Locuteur;
 
@@ -176,7 +176,7 @@ void MontreLocuteurs(locuteur **Liste, char *from, char *userhost)
 						  Locuteur->PremierContact, Locuteur->Bonjours);
 } /* void MontreLocuteurs() */
 
-int SauveLocuteurs(locuteur **Liste, char *NomFichier)
+int SauveLocuteurs(locuteur **Liste, const char *NomFichier)
 {
 	locuteur *Locuteur;
 	time_t   T;
@@ -241,7 +241,7 @@ int Lit_Fichier_Locuteur(FILE *stream, char *usrhost, int *points, int *heure, i
 	return(TRUE);
 } /* int Lit_Fichier_Locuteur() */
 
-int       ChargeLocuteurs(char *NomFichier, locuteur **Liste)
+int       ChargeLocuteurs(const char *NomFichier, locuteur **Liste)
 {
 	FILE *fp;
 	char usrhost[MAXLEN];
@@ -295,7 +295,7 @@ void NettoieListeLocuteurs(locuteur **Liste)
 }
 
 /* Renvoie le score provisoire du locuteur */
-int loclevel(char *from)
+int loclevel(const char *from)
 {
 	locuteur *Locuteur = 0;
 	Locuteur = LocuteurExiste(currentbot->lists->ListeLocuteurs, from);
@@ -306,7 +306,7 @@ int loclevel(char *from)
 }
 
 /* Renvoie la valeur du champ Veridique du locuteur correspondant au nom passe en parametre */
-int loctrue(char *from)
+int loctrue(const char *from)
 {
 	locuteur *Locuteur = 0;
 	Locuteur = LocuteurExiste(currentbot->lists->ListeLocuteurs, from);

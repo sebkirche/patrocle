@@ -4,6 +4,7 @@ Readme about compiling Patrocle on different platforms.
 Patrocle has been successfully compiled and runned on :
 - GNU/Linux
 - MacOS X Leopard (10.5)
+- MacOS X Mountain Lion (10.8) (so it should also work in intermediate versions)
 
 Library prerequisites :
 - libiconv

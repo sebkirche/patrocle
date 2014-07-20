@@ -30,7 +30,7 @@
 #include "send.h"
 #include "botlist.h"
 
-BOT_list *exist_bothost(BOT_list ** b_list, char *bothost)
+BOT_list *exist_bothost(BOT_list ** b_list, const char *bothost)
 {
   BOT_list *Bot;
   
@@ -42,7 +42,7 @@ BOT_list *exist_bothost(BOT_list ** b_list, char *bothost)
 }
 
 
-BOT_list *find_bothost(BOT_list ** b_list, char *bothost) 
+BOT_list *find_bothost(BOT_list ** b_list, const char *bothost) 
 {
   BOT_list *Bot;
   
@@ -63,7 +63,7 @@ BOT_list **init_botlist()
 }
 
 /* Adds a bot to the list... */
-void add_to_botlist(BOT_list ** b_list, char *bothost, char *channel) 
+void add_to_botlist(BOT_list ** b_list, const char *bothost, const char *channel) 
 {
   BOT_list *New_bot;
   
@@ -111,7 +111,7 @@ int  remove_bot(BOT_list **b_list, int numero)
 }
 
 /* Removes the first occurrence of bothost from b_list */
-int  remove_from_botlist(BOT_list **b_list, char *bothost) 
+int  remove_from_botlist(BOT_list **b_list, const char *bothost) 
 {
   BOT_list **old;
   BOT_list *dummy;
@@ -150,7 +150,7 @@ void delete_botlist(BOT_list **b_list)
   }
 }
 
-int  write_botlist(BOT_list **b_list, char *filename) {
+int  write_botlist(BOT_list **b_list, const char *filename) {
   BOT_list *dummy;
   time_t T;
   FILE *list_file;
@@ -177,7 +177,7 @@ int  write_botlist(BOT_list **b_list, char *filename) {
   return(TRUE);
 }
   
-int  is_bot(BOT_list ** b_list, char *channel, char *bothost) {
+int  is_bot(BOT_list ** b_list, const char *channel, const char *bothost) {
   BOT_list *Bot;
 
   for(Bot = *b_list; Bot; Bot = Bot->next)
@@ -224,7 +224,7 @@ int readbotdatabase(char *fname, BOT_list **botlist) {
 /* channel: masque de canaux a afficher
    from   : utilisateur demandeur
    to     : canal de l'utilisateur */
-void show_botlist(BOT_list **botlist, char *channel, char *from, char *to) {
+void show_botlist(BOT_list **botlist, const char *channel, const char *from, const char *to) {
   BOT_list *Bot;
   char *channels;
   int i = 0;

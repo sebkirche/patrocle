@@ -112,7 +112,7 @@ void	copy_channellist(CHAN_list *c_list)
 		join_channel(tmp->name, tmp->topic, tmp->mod, tmp->encoding, FALSE);
 }
 
-int	join_channel(char *name, char *topic, char *mode, char *encoding, int dojoin)
+int	join_channel(const char *name, const char *topic, const char *mode, const char *encoding, int dojoin)
 /*
  * Tries to join channel "name" and adds it to the channellist.
  * If the join is not succesfull, it'll be noticed by parseline
@@ -186,7 +186,7 @@ int	join_channel(char *name, char *topic, char *mode, char *encoding, int dojoin
 	return( TRUE );
 }
 
-int	leave_channel(char *name)
+int	leave_channel(const char *name)
 /*
  * removes channel "name" from the list and actually leaves
  * the channel
@@ -210,7 +210,7 @@ int	leave_channel(char *name)
 	return(FALSE);
 }
 
-int	mark_success(char *name)
+int	mark_success(const char *name)
 /*
  * Marks channel "name" active
  */
@@ -229,7 +229,7 @@ int	mark_success(char *name)
 	return(FALSE);
 }
 
-int	mark_failed( char *name )
+int	mark_failed( const char *name )
 /*
  * Marks channel "name" not active
  */
@@ -257,7 +257,7 @@ int     user_nb_on_channel( CHAN_list *Channel )
 }
 
 
-void	show_channellist(char *user)
+void	show_channellist(const char *user)
 {
 	CHAN_list	*Channel;
 	unsigned int	mode;
@@ -326,8 +326,8 @@ char	*currentchannel()
  * channels.
  */
 
-int	add_user_to_channel( char *channel, char *nick, 
-                             char *user, char *host )
+int	add_user_to_channel( const char *channel, const char *nick, 
+                             const char *user, const char *host )
 {
 	CHAN_list	*Dummy;
 
@@ -337,7 +337,7 @@ int	add_user_to_channel( char *channel, char *nick,
 	return(TRUE);
 }
 
-int	remove_user_from_channel( char *channel, char *nick )
+int	remove_user_from_channel( const char *channel, const char *nick )
 {
 	CHAN_list	*Dummy;
 	char *Topic;
@@ -370,7 +370,7 @@ int	remove_user_from_channel( char *channel, char *nick )
 	return(TRUE);
 }
 
-void	change_nick( char *oldnick, char *newnick )
+void	change_nick( const char *oldnick, const char *newnick )
 /*
  * Searches all channels for oldnick and changes it into newnick
  */
@@ -381,7 +381,7 @@ void	change_nick( char *oldnick, char *newnick )
 		change_user_nick( &(Channel->users), oldnick, newnick );
 }
 
-void	remove_user( char *nick )
+void	remove_user( const char *nick )
 /*
  * Remove a user from all channels (signoff)
  */
@@ -420,7 +420,7 @@ void	remove_user( char *nick )
 	}
 }
 
-int	show_users_on_channel( char *from, char *channel )
+int	show_users_on_channel( const char *from, const char *channel )
 {
 	CHAN_list       *Dummy;
 	USER_list	*Blah;
@@ -450,7 +450,7 @@ int	show_users_on_channel( char *from, char *channel )
  * now some functions to keep track of modes
  */
 
-void	add_channelmode( char *channel, unsigned int mode, char *params )
+void	add_channelmode( const char *channel, unsigned int mode, const char *params )
 {
 	CHAN_list	*Channel;
 
@@ -480,7 +480,7 @@ void	add_channelmode( char *channel, unsigned int mode, char *params )
 	}
 }
 
-void	del_channelmode( char *channel, unsigned int mode, char *params )
+void	del_channelmode( const char *channel, unsigned int mode, const char *params )
 {
 	CHAN_list	*Channel;
 
@@ -507,7 +507,7 @@ void	del_channelmode( char *channel, unsigned int mode, char *params )
 	}
 }
 
-void	change_usermode( char *channel, char *user, unsigned int mode )
+void	change_usermode( const char *channel, const char *user, unsigned int mode )
 {
 	CHAN_list	*Channel;
 	
@@ -517,7 +517,7 @@ void	change_usermode( char *channel, char *user, unsigned int mode )
 	add_mode( &(Channel->users), mode, user );
 }
 	
-int	open_channel( char *channel )
+int	open_channel( const char *channel )
 {
 	CHAN_list       *Channel;
 	
@@ -536,7 +536,7 @@ int	open_channel( char *channel )
  * I think this is a quite good place...).
  */
 
-void	channel_massop( char *channel, char *pattern )
+void	channel_massop( const char *channel, const char *pattern )
 {
 	CHAN_list       *Channel;
 	USER_list	*Dummy;
@@ -564,7 +564,7 @@ void	channel_massop( char *channel, char *pattern )
 	}
 }
 
-void    channel_massdeop( char *channel, char *pattern )
+void    channel_massdeop( const char *channel, const char *pattern )
 {
 	CHAN_list       *Channel;
 	USER_list       *Dummy;
@@ -592,7 +592,7 @@ void    channel_massdeop( char *channel, char *pattern )
 	}
 }
  
-void    channel_masskick( char *channel, char *pattern )
+void    channel_masskick( const char *channel, const char *pattern )
 {
 	CHAN_list       *Channel;
 	USER_list       *Dummy;
@@ -614,7 +614,7 @@ void    channel_masskick( char *channel, char *pattern )
  * Some misc. function which deal with channels and users
  */
 
-int	invite_to_channel( char *user, char *channel )
+int	invite_to_channel( const char *user, const char *channel )
 {
 	if(search_chan( channel )){
 		send_to_server("INVITE %s :%s", user, channel);
@@ -623,7 +623,7 @@ int	invite_to_channel( char *user, char *channel )
 	return(FALSE);
 }
 
-char	*username( char *nick )
+char	*username( const char *nick )
 /*
  * Searches all lists for nick and if it finds it, returns 
  * nick!user@host
@@ -653,7 +653,7 @@ char    *channelname(const char *nick)
 	return(NULL);
 }
 
-unsigned int	usermode( char *channel, char *nick )
+unsigned int	usermode( const char *channel, const char *nick )
 /*
  * returns the usermode of nick on channel
  */
@@ -677,7 +677,7 @@ unsigned int	usermode( char *channel, char *nick )
  * Here are the functions to bookkeep the banlist
  */
 
-BAN_list	*search_ban(BAN_list **b_list, char *banstring)
+BAN_list	*search_ban(BAN_list **b_list, const char *banstring)
 {
 	BAN_list	*Banned;
 
@@ -687,20 +687,20 @@ BAN_list	*search_ban(BAN_list **b_list, char *banstring)
 	return(NULL);
 }
 
-void	add_ban(BAN_list **b_list, char *banstring)
+void	add_ban(BAN_list **b_list, const char *banstring)
 {
-	BAN_list	*New_ban;
+	BAN_list	*new_ban;
 	
-	if( (New_ban = (BAN_list*)malloc(sizeof(*New_ban))) == NULL)
-		return;
 	if( search_ban(b_list, banstring) != NULL )
 		return;
-	mstrcpy(&New_ban->banstring, banstring );
-	New_ban->next = *b_list;
-	*b_list = New_ban;
+	if( (new_ban = (BAN_list*)malloc(sizeof(*new_ban))) == NULL)
+		return;
+	mstrcpy(&new_ban->banstring, banstring );
+	new_ban->next = *b_list;
+	*b_list = new_ban;
 }
 
-int	delete_ban(BAN_list **b_list, char *banstring)
+int	delete_ban(BAN_list **b_list, const char *banstring)
 {
 	BAN_list	**old;
 	BAN_list	*Dummy;
@@ -734,7 +734,7 @@ void    clear_all_bans(BAN_list **b_list)
 	}
 }
 
-void    channel_massunban(char *channel)
+void    channel_massunban(const char *channel)
 {
 	CHAN_list   *Channel;
 	BAN_list    *Dummy;
@@ -764,7 +764,7 @@ void    channel_massunban(char *channel)
 	}
 }
 
-void	channel_unban(char *channel, char *user)
+void	channel_unban(const char *channel, const char *user)
 {
 	CHAN_list   *Channel;
 	BAN_list    *Dummy;
@@ -793,7 +793,7 @@ void	channel_unban(char *channel, char *user)
 	}
 }
 
-int	find_highest(char *channel, char *pattern)
+int	find_highest(const char *channel, const char *pattern)
 /*
  * Find user that matches pattern with the highest protlevel,
  * and return this level. Shitlevel must be 0

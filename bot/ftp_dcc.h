@@ -54,20 +54,20 @@
 #  endif /* S_ISSOCK */
 #endif /* NOT _POSIX_SOURCE */
 
-void	 pwd(char *from);
-char	*real_root(char *path, char *buf);
-int		 rr_stat(char *name, struct stat *buf);
-int		 rr_access(char *name, int mode);
-DIR		*rr_opendir(char *dirname);
-char	*make_dir(char *old, char *new, char *dirbuffer);
+void	 pwd(const char *from);
+char	*real_root(const char *path, const char *buf);
+int		 rr_stat(const char *name, struct stat *buf);
+int		 rr_access(const char *name, int mode);
+DIR		*rr_opendir(const char *dirname);
+char	*make_dir(const char *old, const char *new, const char *dirbuffer);
 void	 sort_dir(char *list[], int n);
-void	 output_dir(char *from, char *path, char *list[], int n);
-int		 read_dir(char *list[], char *path, char *pattern);
+void	 output_dir(const char *from, const char *path, char *list[], int n);
+int		 read_dir(char *list[], const char *path, const char *pattern);
 void	 close_dir(char *list[], int n);
-void	 do_ls(char *from, char *path);
-void	 send_file(char *from, char *name);
-void	 do_chdir(char *from, char *new_dir);
-FILE    *openindex(char *from,	char *name);
+void	 do_ls(const char *from, const char *path);
+void	 send_file(const char *from, const char *name);
+void	 do_chdir(const char *from, const char *new_dir);
+FILE    *openindex(const char *from,	const char *name);
 
 #endif
 

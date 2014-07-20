@@ -42,12 +42,12 @@ extern rep_tbl **TableDesReponses;
 extern int TailleStim;
 extern int TailleRep;
 
-int SauveStimuli(char *nom_fichier);
-int ChargeStimuli(char *nom_fichier);
-int AjouteStimulus(char *from, char *channel, char *Stimulus, char *NomStimulus);
-int SauveReponses(char *nom_fichier);
-int ChargeReponses(char *nom_fichier);
-int AjouteReponse(char *from, char *channel, char *Reponse, char *NomStimulus);
+int SauveStimuli(const char *nom_fichier);
+int ChargeStimuli(const char *nom_fichier);
+int AjouteStimulus(const char *from, const char *channel, const char *Stimulus, const char *NomStimulus);
+int SauveReponses(const char *nom_fichier);
+int ChargeReponses(const char *nom_fichier);
+int AjouteReponse(const char *from, const char *channel, const char *Reponse, const char *NomStimulus);
 int SupprimeRep(int numero);
 int SupprimeStim(int numero);
 void LibereStimuli();
