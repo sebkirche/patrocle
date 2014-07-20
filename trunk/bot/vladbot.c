@@ -61,9 +61,9 @@
 //#define iconv_close iconv_close
 //#endif
 
-extern	void	signoff(char *from, char *reason);
-extern	int	userlevel(char *);
-extern	int	shitlevel(char *);
+extern	void	signoff(const char *from, const char *reason);
+extern	int	userlevel(const char *);
+extern	int	shitlevel(const char *);
 extern  short   logging;
 
 long	uptime;
@@ -91,7 +91,7 @@ char *utf8 = "utf-8";
 char *latin1 = "iso-8859-1";
 
 
-int	find_channel(botinfo *bot, char *channel)
+int	find_channel(botinfo *bot, const char *channel)
 /*
  * returns 1 if channel in bot, else 0
  */
@@ -102,7 +102,7 @@ int	find_channel(botinfo *bot, char *channel)
 	return 0;
 }
 
-int	add_channel_to_bot(botinfo *bot, char *channel, char *topic, char *mode, char *encoding)
+int	add_channel_to_bot(botinfo *bot, const char *channel, const char *topic, const char *mode, const char *encoding)
 /*
  * adds channel to bot, returns 0 if list full
  */
@@ -111,7 +111,7 @@ int	add_channel_to_bot(botinfo *bot, char *channel, char *topic, char *mode, cha
 	return(join_channel(channel, topic, mode, encoding, FALSE));
 }
 
-int	find_server(botinfo *bot, char *server, int port)
+int	find_server(botinfo *bot, const char *server, int port)
 /*
  * returns 1 if server/port in bot, else 0
  */
@@ -125,7 +125,7 @@ int	find_server(botinfo *bot, char *server, int port)
 	return 0;
 }
 
-int	add_server_to_bot(botinfo *bot, char *server, int port)
+int	add_server_to_bot(botinfo *bot, const char *server, int port)
 /*
  * adds server to bot, returns 0 if list full
  */
@@ -139,7 +139,7 @@ int	add_server_to_bot(botinfo *bot, char *server, int port)
 	return 1;
 }
 
-int	delete_server_from_bot(botinfo *bot, char *server, int port)
+int	delete_server_from_bot(botinfo *bot, const char *server, int port)
 /*
  * Deletes server from list, returns zero if server not or last in list
  */
@@ -180,7 +180,7 @@ int	bot_init()
 	return(0);
 }
 
-botinfo	*bot_created(char *s)
+botinfo	*bot_created(const char *s)
 
 {
 	int	i;
@@ -191,7 +191,7 @@ botinfo	*bot_created(char *s)
 	return NULL;
 }
 
-botinfo	*add_bot(char *s)
+botinfo	*add_bot(const char *s)
 {
 	int	i;
 
@@ -234,7 +234,7 @@ botinfo	*add_bot(char *s)
 	return NULL;
 }
 
-listinfo *add_listset(char *s)
+listinfo *add_listset(const char *s)
 /*
  * Adds listset to array and reads in the lists
  */
@@ -263,7 +263,7 @@ listinfo *add_listset(char *s)
 	return NULL;
 }
 
-listinfo	*listset_created(char *s)
+listinfo	*listset_created(const char *s)
 {
 	int	i;
 
@@ -294,7 +294,7 @@ void	free_listset(listinfo *elem)
 	}
 }
 
-void	delete_listset(char *s)
+void	delete_listset(const char *s)
 {
 	int	i;
 
@@ -327,7 +327,7 @@ void	readlevelfiles()
 		}
 }
 
-int	forkbot(char *nick, char *login, char *name)
+int	forkbot(const char *nick, const char *login, const char *name)
 /*
  * Adds bot to list and starts it.
  * except for nick, login and name the bot is an identical
@@ -365,7 +365,7 @@ int	forkbot(char *nick, char *login, char *name)
 	return 0;
 }
 
-int	killbot(char *reason)
+int	killbot(const char *reason)
 /*
  * Kills bot current and goes to next bot.
  * If not bots are left, the program has to quit
@@ -429,7 +429,7 @@ void	cleanup_listsets()
 		listset[i]=NULL;
 	}
 }
-void	quit_all_bots(char *from, char *reason)
+void	quit_all_bots(const char *from, const char *reason)
 {
 	int	i;
 
@@ -712,7 +712,7 @@ void	pong_received(char *nick, char *server)
 struct
 {
 	char	*name;
-	void	(*function)(char*, char*);
+	void	(*function)(const char*, const char*);
 	int	userlevel;
 	int	forcedcc;
 } global_cmds[] = {	
@@ -723,7 +723,7 @@ struct
 	{ NULL,		null(void(*)())	}
 };
 
-void	parse_global(char *from, char *to, char *rest)
+void	parse_global(const char *from, const char *to, const char *rest)
 {
 	int	i;
 	char	*command;
@@ -771,12 +771,12 @@ void	parse_global(char *from, char *to, char *rest)
 	return;
 }
 
-void	global_not_imp(char *from, char *rest)
+void	global_not_imp(const char *from, const char *rest)
 {
 	send_to_user(from, "Global command not implemented");
 }
 
-void	global_debug(char *from, char *rest)
+void	global_debug(const char *from, const char *rest)
 {
 #ifdef DBUG
 	if(!rest){
@@ -795,7 +795,7 @@ void	global_debug(char *from, char *rest)
 #endif
 }
 
-void	global_die(char *from, char *rest)
+void	global_die(const char *from, const char *rest)
 {
 	botinfo	*bot;
 
@@ -818,7 +818,7 @@ void	global_die(char *from, char *rest)
 		send_to_user(from, "Sorry, Incorrect levels");
 }	
 
-void	global_list(char *from, char *rest)
+void	global_list(const char *from, const char *rest)
 {
 	int		i;
 	CHAN_list	*chan;

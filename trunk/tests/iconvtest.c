@@ -17,21 +17,15 @@ int main(int argc,char** argv)
 
     iconv_t cd;
     cd = iconv_open ("utf-8","iso-8859-1");
-    if (cd != ((iconv_t) -1))
-        {
-            if ( iconv(cd,&pinbuff,&inbytes,&poutbuff,&outbytes) != (size_t)(-1))
-                {
-                    printf("utf-8: %s\n",outbuff);
-                }
-            else
-                {
-                    printf("unable to convert\n");
-                }
+    if (cd != ((iconv_t) -1)){
+        if ( iconv(cd,&pinbuff,&inbytes,&poutbuff,&outbytes) != (size_t)(-1)){
+            printf("utf-8: %s\n",outbuff);
+        } else {
+            printf("unable to convert\n");
         }
-    else
-        {
-            printf("unable to open iconv\n");
-        }
+    } else {
+        printf("unable to open iconv\n");
+    }
     iconv_close(cd);
     return 0;
 }

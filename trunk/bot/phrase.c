@@ -33,7 +33,7 @@ int TailleStim = 0;
 int TailleRep = 0;
 
 
-int SauveStimuli(char *nom_fichier)
+int SauveStimuli(const char *nom_fichier)
 {
 	int i;
 	FILE *fichier;
@@ -56,7 +56,7 @@ int SauveStimuli(char *nom_fichier)
   
 }
 
-int ChargeStimuli(char *nom_fichier)
+int ChargeStimuli(const char *nom_fichier)
 {
 	int i;
 	FILE *fichier;
@@ -130,7 +130,7 @@ int ChargeStimuli(char *nom_fichier)
 		return(FALSE);
 }
 
-int AjouteStimulus(char *from, char *channel, char *Stimulus, char *NomStimulus) 
+int AjouteStimulus(const char *from, const char *channel, const char *Stimulus, const char *NomStimulus) 
 {
 	int i;
 	phr_tbl **TableIntermediaireP;
@@ -158,7 +158,7 @@ int AjouteStimulus(char *from, char *channel, char *Stimulus, char *NomStimulus)
 }
 
 
-int SauveReponses(char *nom_fichier)
+int SauveReponses(const char *nom_fichier)
 {
 	int i;
 	FILE *fichier;
@@ -186,7 +186,7 @@ int SauveReponses(char *nom_fichier)
 	return(FALSE);
 }
 
-int ChargeReponses(char *nom_fichier)
+int ChargeReponses(const char *nom_fichier)
 {
 	int i;
 	FILE *fichier;
@@ -249,7 +249,7 @@ int ChargeReponses(char *nom_fichier)
 }
 
 
-int AjouteReponse(char *from, char *channel, char *Reponse, char *NomStimulus) 
+int AjouteReponse(const char *from, const char *channel, const char *Reponse, const char *NomStimulus) 
 {
 	rep_tbl** TableIntermediaireR;
 	int i;

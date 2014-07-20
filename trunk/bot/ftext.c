@@ -121,7 +121,7 @@ void	skipcomment(FILE *ffile)
 		;
 }
 
-int	find_topic(FILE *ffile, char *topic )
+int	find_topic(FILE *ffile, const char *topic )
 /*
  * moves the filepointer until the beginning of topic "topic".
  * returns 1 if topic found, else 0

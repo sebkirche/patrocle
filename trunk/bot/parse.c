@@ -80,7 +80,7 @@ void 	parse_privmsg(char *from, char *rest){
 	char  	*text;
 	char  	*to;
 	
-	if( ( text = strchr( rest, ' ' ) ) != 0 ) 
+	if( ( text = strchr( rest, ' ' ) ) != 0 ) //TODO: tester ce cas !!
 		*( text ) = '\0'; text += 2;
 	
 	to = rest;

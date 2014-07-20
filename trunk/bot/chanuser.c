@@ -37,8 +37,8 @@ USER_list	*search_user( USER_list **u_list, const char *nick )
 	return(NULL);
 }
 
-void	add_user( USER_list **u_list, char *nick, 
-                  char *user, char *host )
+void	add_user( USER_list **u_list, const char *nick, 
+                  const char *user, const char *host )
 /*
  * adds a user to the list... 
  */
@@ -59,7 +59,7 @@ void	add_user( USER_list **u_list, char *nick,
 	*u_list = New_user;
 }
 
-int	delete_user( USER_list **u_list, char *nick )
+int	delete_user( USER_list **u_list, const char *nick )
 /*
  * removes a user from u_list 
  */
@@ -80,7 +80,7 @@ int	delete_user( USER_list **u_list, char *nick )
 }
 
 int	change_user_nick( USER_list **u_list, 
-                          char *oldnick, char *newnick )
+                          const char *oldnick, const char *newnick )
 {
 	USER_list	*Dummy;
 
@@ -157,7 +157,7 @@ char	*get_usernick( USER_list *User )
  * Some stuff to keep track of usermodes (not swi)
  */
 void	add_mode( USER_list **u_list, 
-                  unsigned int mode, char *param )
+                  unsigned int mode, const char *param )
 {
 	USER_list	*Dummy;
 
@@ -167,7 +167,7 @@ void	add_mode( USER_list **u_list,
 }
 
 void	del_mode( USER_list **u_list, 
-                  unsigned int mode, char *param )
+                  unsigned int mode, const char *param )
 {
 	USER_list	*Dummy;
 

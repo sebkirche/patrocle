@@ -53,7 +53,7 @@ extern	botinfo	*currentbot;
  */
 SESSION_list	*currentsession;
 
-SESSION_list	*find_session(char *user)
+SESSION_list	*find_session(const char *user)
 {
 	SESSION_list	*session;
 
@@ -63,7 +63,7 @@ SESSION_list	*find_session(char *user)
 	return NULL;
 }
 
-SESSION_list	*create_session(char *user)
+SESSION_list	*create_session(const char *user)
 /*
  * Initializes a session_struct and places it in the list
  */
@@ -88,7 +88,7 @@ SESSION_list	*create_session(char *user)
 	return new_session;
 }
 
-int	delete_session(char *user)
+int	delete_session(const char *user)
 /*
  * Removes session from list
  */
@@ -147,7 +147,7 @@ void	cleanup_sessions()
 	}
 }
 
-int	check_session(char *user)
+int	check_session(const char *user)
 /*
  * Creates a new entry if non is found, checks for flooding
  * and gathers some information (has dcc etc.)
@@ -161,7 +161,7 @@ int	check_session(char *user)
 	return IS_OK;
 }
 
-int	check_flood(char *user)
+int	check_flood(const char *user)
 /*
  * Checks if this user is flooding (PUBLIC or PRIVATE. WALLOPS and NOTICES
  * are always ignored).
@@ -204,7 +204,7 @@ int	check_flood(char *user)
 	}
 }
 
-void	nodcc_session(char *from, char *to, char *rest)
+void	nodcc_session(const char *from, const char *to, const char *rest)
 {
 	if((currentsession = find_session(from)) == NULL)
 		currentsession = create_session(from);
@@ -214,7 +214,7 @@ void	nodcc_session(char *from, char *to, char *rest)
 	mstrcpy(&currentsession->nodcc_rest, rest);
 }
 
-void	hasdcc_session(char *from)
+void	hasdcc_session(const char *from)
 {
 	if((currentsession = find_session(from)) == NULL)
 		currentsession = create_session(from);
@@ -231,7 +231,7 @@ void	hasdcc_session(char *from)
 /* 
  * some "ftp" commands 
  */
-char	*get_cwd(char *user)
+char	*get_cwd(const char *user)
 {
 	if((currentsession = find_session(user)) == NULL)
 		currentsession = create_session(user);
@@ -239,7 +239,7 @@ char	*get_cwd(char *user)
 	return currentsession->cwd;
 }
 
-void	change_dir(char *user, char *new_dir)
+void	change_dir(const char *user, const char *new_dir)
 {
 	if((currentsession = find_session(user)) == NULL)
 		currentsession = create_session(user);
@@ -248,7 +248,7 @@ void	change_dir(char *user, char *new_dir)
 	currentsession->last_received = time(NULL);
 }
 
-void	dcc_sendnext(char *user)
+void	dcc_sendnext(const char *user)
 {
 	if((currentsession = find_session(user)) == NULL)
 		return;
@@ -279,7 +279,7 @@ void	dcc_sendnext(char *user)
 	
 }
 
-int	dcc_sendlist(char *user, char *path, char *file_list[], int n)
+int	dcc_sendlist(const char *user, const char *path, char *file_list[], int n)
 /*
  * Sends all files in file_list[] (located in path) which contains n 
  * entries to user "user" one-by-one!
@@ -327,7 +327,7 @@ void	do_showqueue()
 /*
  * additional functions
  */
-void	sendreply(char *s, ...)
+void	sendreply(const char *s, ...)
 {
 	va_list	msg;
 	char	buf[WAYTOBIG];

@@ -12,7 +12,7 @@
 #CFLAGS = -O2 -s # -Wall  #for compiling with GNU/Linux
 
 #for compiling with my iMac ia64 
-CFLAGS = -arch x86_64 -g -Wall -I/usr/include #-I/opt/local/include
+CFLAGS = -arch x86_64 -g -DDBUG -Wall -I/usr/include #-I/opt/local/include
 LDFLAGS = -arch x86_64 -L/usr/lib #-L/opt/local/lib DYLD_INSERT_LIBRARIES=/usr/lib/libMallocDebug.A.dylib
 
 CC = gcc

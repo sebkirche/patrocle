@@ -26,7 +26,7 @@ Triggers = {
 	{{"y a", "y'a", "y-a", " est la", "there"},
 	 "ILYA"},
 
-	{{"bonjour", "bonne journee", "bjr", "'jour", "hello", "hola" --[[ En espagnol]], {"lo ", "^rigolo"},  "szia" --[[ En hongrois ]], "hei " --[[ En finnois ]],  {"hej", "^hej da" --[[ En suedois ]]}, "salam" --[[ En arabe ]], "zdravi" --[[ En slovaque ]]},
+	{{"bonjour", "bonne journee", "bjr", "'jour", "hello", "ehlo" --[[ecocode]], "hola" --[[ En espagnol]], {"lo ", "^rigolo"},  "szia" --[[ En hongrois ]], "hei " --[[ En finnois ]],  {"hej", "^hej da" --[[ En suedois ]]}, "salam" --[[ En arabe ]], "zdravi" --[[ En slovaque ]]},
 	 "BONJOUR"},
 
 	{{"salu",
@@ -54,7 +54,7 @@ Triggers = {
 	{{"bonne année", "happy new year"},
 	 "BONNE_ANNEE"},
 
-	{{"connard", "couillon", "ducon", "con ", {"con,", "^facon", "^rcon", "^scon", "^conf", "^falcon"}, "gros con", "sale con", "tit con", " des cons", "salaud", {"salop", "^salopette"}, "mechant", "injuste", "degueulasse", "malpropre", --[[{"sale", "^salem", "^ssale"]] "tu pues", " puent", "pourceau", "tu sens movais", "tu sens mauvais", "sentent mauvais", "amibe", "amorphe", "leche-cul", "leche cul", "casse-couille", {"pourri", "^pourriez"}, {"tache", "^moustache", "^pistache"},"raclure", "indecent", "vulgaire", "triple buse", "chacal", "primate", "rascal", "minable", "corniaud", "trisomique", "imbecile", "baka" --[[ imbecile en japonais ]],"corniaud", "blaireau", "cafard", "idiot", "stupid", "nigaud", "neuneu", " bete", "faible d'esprit", "attarde mental", "cretin", "debile", "niais", "nul ", {" nul", "^match"},"abruti", "ahuri", "gogol", "naze", "pignouf", "mauvais", "mongole", "andouille", "cornichon", "banane", "quetsche", "cake", "enfoire", "encule", "enqule" --[[ Y'en a qui sont nuls en orthographe! ]],{"fuck","^!fuck"}, "va te faire", "te faire foutre", "lopete", {"lopette", "^salopette"},"tapette", {"pd", "^pdt", "^repdel"},"tantouse", "impuissant", "putain", "putin" --[[ faute d'ortho ]],"bitch", "tu suces", "tete de noeud", "fumier", "trou du c", "trou duc", "trouduc", "chiant", {"fais chier", "^te fais chier"},	{"fait chier", "^se fait chier"},"vas chier", " de daube", "charogne", "lourd", {"merd", "^demerd"},"espece d", "ta gueule", "ta geule" --[[ Faute d'orthographe courante ]], "face de ", "menteur", "malhonnete", "escroc", "charlatan", "canaille", "chiendent", {"patate", "patater"}, {"outre", "^foutre"},"bouffon", --[["pelo") ?!? ]]"pov gars", "moche", "affreu", "laid", "vilain", "morveux", "alcolo", "alcoolo", "alcoolique", "alcolique", "navrant", "lamentable", "faineant", "faignant", "flemmard", "bouzeu", "bouseu", "sagouin", "sagoin"},
+	{{"connard", "couillon", "ducon", "con ", {"con,", "^facon", "^rcon", "^scon", "^conf", "^falcon"}, "gros con", "sale con", "tit con", " des cons", "salaud", {"salop", "^salopette"}, "mechant", "injuste", "degueulasse", "malpropre", --[[{"sale", "^salem", "^ssale"]] "tu pues", " puent", "pourceau", "tu sens movais", "tu sens mauvais", "sentent mauvais", "amibe", "amorphe", "leche-cul", "leche cul", "casse-couille", {"pourri", "^pourriez"}, {"tache", "^moustache", "^pistache"},"raclure", "indecent", "vulgaire", "triple buse", "chacal", "primate", "rascal", "minable", "corniaud", "trisomique", "imbecile", "baka" --[[ imbecile en japonais ]],"corniaud", "blaireau", "cafard", "idiot", "stupid", "nigaud", "neuneu", " bete", "faible d'esprit", "attarde mental", "cretin", "debile", "niais", "nul ", {" nul", "^match"},"abruti", "ahuri", "gogol", "naze", "pignouf", "mauvais", "mongole", "andouille", "cornichon", "banane", "quetsche", "cake", "enfoire", "encule", "enqule" --[[ Y'en a qui sont nuls en orthographe! ]],{"fuck","^!fuck"}, "va te faire", "te faire foutre", "lopete", {"lopette", "^salopette"},"tapette", {"pd", "^pdf", "^pdt", "^repdel"},"tantouse", "impuissant", "putain", "putin" --[[ faute d'ortho ]],"bitch", "tu suces", "tete de noeud", "fumier", "trou du c", "trou duc", "trouduc", "chiant", {"fais chier", "^te fais chier"},	{"fait chier", "^se fait chier"},"vas chier", " de daube", "charogne", "lourd", {"merd", "^demerd"},"espece d", "ta gueule", "ta geule" --[[ Faute d'orthographe courante ]], "face de ", "menteur", "malhonnete", "escroc", "charlatan", "canaille", "chiendent", {"patate", "patater"}, {"outre", "^foutre"},"bouffon", --[["pelo") ?!? ]]"pov gars", "moche", "affreu", "laid", "vilain", "morveux", "alcolo", "alcoolo", "alcoolique", "alcolique", "navrant", "lamentable", "faineant", "faignant", "flemmard", "bouzeu", "bouseu", "sagouin", "sagoin"},
 	"INJURE"},
 
 	{{"intelligent", {"demerde", " bien"}, "courageux", {"cool", "^alcool"}, "sympa", "marrant", "rigolo", "joyeux", {" poli", "^polisson"}, " fort ", " forts ", {"puissant", "^impuissant"}, "efficace", "rapid", "champion", "super", "extra", "genial", "geniaux", "genie", "une bete", "etalon", "le meilleur", "excellent", --[[{"juste", "^injuste"},]]"interessant", "impressionnant", "epatant", {"beau", "^beauc", "^beaut"}, "elegant", "galant", "magnifi", "splendide", "joli", "classe", "merveille", "chouette", " chou", "gentil", "mignon", "adorable", "adore", "bravo", "un bon", "tres bon", "bon bot", "bien vu", "serviable", "felicit", "un ange", "un dieu"},
@@ -229,7 +229,7 @@ Triggers = {
 	  end},
 	 "MOUARF"},
 
-	{{";)", ";D", ";-)", ";-D", "-_^", "^_-"},
+	{{";)", ";D", ";-)", ";-D", "-_^", "^_-", "\o/"},
 	 "CLINDOEIL"},
 
 	{{"et la mer a la ronde roule son bruit de cranes sur les greves"},
@@ -400,7 +400,7 @@ Triggers = {
 	{{"front national", "f.n.", {" fn", "^fnac"}},
 	 "FRONT_NATIONAL"},
 
-	{{{"merde", "^demerde"}, {"shit", "^!shit", "^shitt"}, "couill", "connard", "ducon", "zob", {"bite", "^abite"}, "salaud", {"salop", "^salopette"}, "degueu", "blair", "pignouf", "enfoire", "encule", {"pd", "^pdt"}, " pd ", {"fuck","^!fuck"}, "fuk", "branler", "putain", "pt1", "putin", "bordel", {"chier", "^ichier"}, "chiant", "gueule", "dick", "suck", "sux", "tu suce", "bitch", "bougnoul", " de daube", "leche-cul", "leche cul", {"culs", "^calcul"}, "mon cul", "trou du c", "trou duc", "trouduc", "asshole", "foutre", {"niqu", "^pique"}, "pisse", "bougnoul", "niakoue", "bico"},
+	{{{"merde", "^demerde"}, {"shit", "^!shit", "^shitt"}, "couill", "connard", "ducon", "zob", {"bite", "^abite"}, "salaud", {"salop", "^salopette"}, "degueu", "blair", "pignouf", "enfoire", "encule", {"pd", "^pdt", "^pdf"}, " pd ", {"fuck","^!fuck"}, "fuk", "branler", "putain", "pt1", "putin", "bordel", {"chier", "^ichier"}, "chiant", "gueule", "dick", "suck", "sux", "tu suce", "bitch", "bougnoul", " de daube", "leche-cul", "leche cul", {"culs", "^calcul"}, "mon cul", "trou du c", "trou duc", "trouduc", "asshole", "foutre", {"niqu", "^pique"}, "pisse", "bougnoul", "niakoue", "bico"},
 	 "GROS_MOT"}, --[[ TODO voir avec INJURE si ça ne se recooupe pas ]]
 
 	{{{"pour", "^pourceau", "^pourri"}},
@@ -623,11 +623,7 @@ function TraiteMessage(from, to, message, nbphrases)
 	print(string.format("Message de %s -> %s : '%s'", from, to, message))
 
 	print("Levels : AUTO_OPLVL=".. AUTO_OPLVL .. " SYMPA_LVL=" .. SYMPA_LVL .. " CONFIANCE_LVL=" .. CONFIANCE_LVL .. " DEFAUT_LVL=" .. DEFAUT_LVL)
-	print("rellevel(" .. from .. ")=" .. rellevel(from))
-	print("userlevel(" .. from .. ")=" .. userlevel(from))
-	print("protlevel(" .. from .. ")=" .. protlevel(from))
-	print("shitlevel(" .. from .. ")=" .. shitlevel(from))
-
+	print("rel + user + prot + shit levels(" .. from .. ")=" .. rellevel(from) .. "|" .. userlevel(from) .. "|" ..  protlevel(from) .. "|" .. shitlevel(from)) 
 
 	ProcessFlags(from, to, message)
 
@@ -796,10 +792,15 @@ function TraiteMessage(from, to, message, nbphrases)
 
 		--8h depuis dernier contact ?
 		now = time2hours(os.time())
-		datedif = (now - locuteur_derniercontact(Locuteur))
-		print ("test dernier contact > " .. tostring(HOURS_BETWEEN_SALUTES) .. "h : now - dernier contact =" .. datedif)
-		if (LocBonjours > 0) and (datedif > HOURS_BETWEEN_SALUTES) then
-			locuteur_setbonjours(Locuteur, 0)
+		dernierContact = locuteur_derniercontact(Locuteur)
+		if dernierContact > -1 then
+			datedif = (now - dernierContact)
+			print ("test dernier contact > " .. tostring(HOURS_BETWEEN_SALUTES) .. "h : now - dernier contact =" .. datedif)
+			if (LocBonjours > 0) and (datedif > HOURS_BETWEEN_SALUTES) then
+				locuteur_setbonjours(Locuteur, 0)
+			end
+		else
+			print ("contact encore jamais vu") 
 		end
 	  
 		LocBonjours = locuteur_getbonjours(Locuteur)

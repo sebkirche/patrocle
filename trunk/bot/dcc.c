@@ -213,7 +213,7 @@ void	reply_dcc(char *from, char *to, char *rest)
 }
 
 
-void	show_dcclist(char *from)
+void	show_dcclist(const char *from)
 {
 	DCC_list        *Client;
 	unsigned	flags;
@@ -292,7 +292,7 @@ void	register_dcc_offer(char *from, char *type, char *description,
 	strcpy(Client->user, from);
 	strcpy(Client->description, description);
 	strcpy(Client->ip_addr, inetaddr);
-	Client->read = Client->read = Client->file = -1;
+	Client->read = Client->write = Client->file = -1;
 	Client->flags = 0;
 	Client->flags |= DCC_OFFER;
 	Client->port = atoi(port);

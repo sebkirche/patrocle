@@ -54,16 +54,16 @@ void		 note_list(char *from, char *s);
 void		 note_send(char *from, char *s);
 void		 note_dump(char *from, char *s);
 
-void	parse_note(char *from, char *to, char *s);
+void	parse_note(const char *from, const char *to, const char *s);
 int		dump_notelist();
 int		read_notelist();
 
-void	create_note(char *from, char *to, char *subject);
+void	create_note(const char *from, const char *to, const char *subject);
 void	freenote(notelist *note);
-void	del_note(char *from, int note_id);
-void	show_note(char *from,	int note_id);
-void	view_note(char *from);
-int		note_exist(char *from);
+void	del_note(const char *from, int note_id);
+void	show_note(const char *from,	int note_id);
+void	view_note(const char *from);
+int		note_exist(const char *from);
 
 #endif /* NOTE_H */
 

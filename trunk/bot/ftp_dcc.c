@@ -42,12 +42,12 @@
 
 extern	botinfo	*currentbot;
 
-void	pwd(char *from)
+void	pwd(const char *from)
 {
 	sendreply("Current working directory: %s", get_cwd(from));
 }
 
-char	*real_root(char *path, char *buf)
+char	*real_root(const char *path, const char *buf)
 /*
  * Converts path with it's relative root to a real path,
  * i.e. /etc -> /home/bot/tmp/etc
@@ -57,7 +57,7 @@ char	*real_root(char *path, char *buf)
 	return buf;
 }
 
-int	rr_stat(char *name, struct stat *buf)
+int	rr_stat(const char *name, struct stat *buf)
 /* Like stat(), but with real_root in stead of the relative root */
 {
 	char	*buffer;
@@ -69,7 +69,7 @@ int	rr_stat(char *name, struct stat *buf)
 	return result;
 }
 
-int	rr_access(char *name, int mode)
+int	rr_access(const char *name, int mode)
 /* Like access(), but with correct root */
 {
 	char	*buffer;
@@ -81,7 +81,7 @@ int	rr_access(char *name, int mode)
 	return result;
 }
 
-DIR	*rr_opendir(char *dirname)
+DIR	*rr_opendir(const char *dirname)
 /* Like opendir(), but with correct root */
 {
 	char	*buffer;
@@ -93,7 +93,7 @@ DIR	*rr_opendir(char *dirname)
 	return result;
 }
 
-char	*make_dir(char *old, char *new, char *dirbuffer)
+char	*make_dir(const char *old, const char *new, const char *dirbuffer)
 /*
  * Constructs a new dir using old and new. Leading ../'s will be translated
  * (for safety). Result will be placed in buffer.
@@ -157,7 +157,7 @@ void	sort_dir(char *list[], int n)
 	}
 }
 
-void	output_dir(char *from, char *path, char *list[], int n)
+void	output_dir(const char *from, const char *path, char *list[], int n)
 /*
  * This routine will show a fancy listing of files in list[] that
  * match mask
@@ -205,7 +205,7 @@ void	output_dir(char *from, char *path, char *list[], int n)
 #endif
 }
 
-int	read_dir(char *list[], char *path, char *pattern)
+int	read_dir(char *list[], const char *path, const char *pattern)
 /* Read a directory and places all files that match pattern in list.
    returns the number of files read 
  */
@@ -242,7 +242,7 @@ void	close_dir(char *list[], int n)
 		free(list[i]);
 }
 
-void	do_ls(char *from, char *path)
+void	do_ls(const char *from, const char *path)
 {
 	struct	stat	buf;
 	char	real_path[MAXLEN];
@@ -303,7 +303,7 @@ void	do_ls(char *from, char *path)
 	close_dir(dir_list, n);
 }
 
-void	send_file(char *from, char *name)
+void	send_file(const char *from, const char *name)
 {
 	struct	stat	buf;
 	char	real_path[MAXLEN];
@@ -391,7 +391,7 @@ int	send_file_from_list(char *user, char *path, char *file)
 	return FALSE;	
 }
 
-void	do_chdir(char *from, char *new_dir)
+void	do_chdir(const char *from, const char *new_dir)
 {
 	char	real_path[MAXLEN];
 	struct	stat	buf;
@@ -414,7 +414,7 @@ void	do_chdir(char *from, char *new_dir)
 		sendreply("%s: No such file or directory.", new_dir);
 }
 
-FILE	*openindex(char *from, char *name)
+FILE	*openindex(const char *from, const char *name)
 {
 	char	fname[MAXLEN];
 	char	rr_buf[MAXLEN];

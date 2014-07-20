@@ -111,22 +111,22 @@ struct	botstruct
 
 typedef struct botstruct	botinfo;
 
-int	find_channel(botinfo *bot, char *channel);
-int	add_channel_to_bot(botinfo *bot, char *channel, char *topic, char *mode, char *encoding);
-int	find_server(botinfo *bot, char *server, int port);
-int	add_server_to_bot(botinfo *bot, char *server, int port);
-int	delete_server_from_bot(botinfo *bot, char *server, int port);
+int	find_channel(botinfo *bot, const char *channel);
+int	add_channel_to_bot(botinfo *bot, const char *channel, const char *topic, const char *mode, const char *encoding);
+int	find_server(botinfo *bot, const char *server, int port);
+int	add_server_to_bot(botinfo *bot, const char *server, int port);
+int	delete_server_from_bot(botinfo *bot, const char *server, int port);
 int	bot_init();
-botinfo	*bot_created(char *s);
-botinfo	*add_bot(char *s);
-listinfo	*listset_created(char *s);
-listinfo	*add_listset(char *s);
-void	delete_listset(char *s);
+botinfo	*bot_created(const char *s);
+botinfo	*add_bot(const char *s);
+listinfo	*listset_created(const char *s);
+listinfo	*add_listset(const char *s);
+void	delete_listset(const char *s);
 void    readlevelfiles();
-int	forkbot(char *nick, char *login, char *name);
-int	killbot(char *reason);
+int	forkbot(const char *nick, const char *login, const char *name);
+int	killbot(const char *reason);
 void	cleanup_listsets();
-void	quit_all_bots(char *from, char *reason);
+void	quit_all_bots(const char *from, const char *reason);
 void	start_all_bots();
 int	connect_to_server();
 void	reconnect_to_server();
@@ -142,11 +142,11 @@ void	parse_dcc_input( fd_set *read_fds );
 void	send_pings();
 void	pong_received(char *nick, char *server);
 
-void	parse_global(char *from, char *to, char *rest);
-void	global_not_imp(char *from, char *rest);
-void	global_die(char *from, char *rest);
-void	global_debug(char *from, char *rest);
-void	global_list(char *from, char *rest);
+void	parse_global(const char *from, const char *to, const char *rest);
+void	global_not_imp(const char *from, const char *rest);
+void	global_die(const char *from, const char *rest);
+void	global_debug(const char *from, const char *rest);
+void	global_list(const char *from, const char *rest);
 
 #endif
 // Local variables:

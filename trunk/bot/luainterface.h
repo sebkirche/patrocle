@@ -32,7 +32,7 @@ int init_lua();
 void shutdown_lua();
 void register_cstuff();
 void load_lualogic(char **ret_msg);
-void    LuaTraite(botinfo	*currentbot, char *from, char *to, char *msg, int numphrase);
+void    LuaTraite(botinfo	*currentbot, const char *from, const char *to, const char *msg, int numphrase);
 
 //extern Lua_State *L;
 #endif
