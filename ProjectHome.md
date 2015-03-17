@@ -1,0 +1,3 @@
+Patrocle is an IRC bot that has usual channel operating features and the capability to reacts to predefined stimuli (simulated AI). The bot is keeping a directory of users he has already seen, noting if the user had a good behavior (salutes, ...) or bad (bad words, offensive, ...). Later for each stimulus the bot can have a positive or negative reaction taken into a list that is related to the stimulus. The bot can also have some channel operating reactions to the stimulis (auto-kicking for bad words, telling the last known presence of a user, telling the time, ...).
+
+Note : the existing configuration is partly hard-coded for the french language. I am currently working on the Lua interpreter integration that will make possible to reconfigure the bot for any language.
